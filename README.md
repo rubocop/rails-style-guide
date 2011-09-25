@@ -5,8 +5,8 @@ prescriptions for Ruby on Rails 3 development. It's a complimentary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-While in the guide the section ** Testing Rails applications ** is
-after ** Developing Rails applications ** I'm a firm believer that BDD
+While in the guide the section **Testing Rails applications** is
+after **Developing Rails applications** I'm a firm believer that BDD
 is the best way to develop software. Keep that in mind.
 
 Rails is an opinionated framework and this is an opinionated guide. In
@@ -16,8 +16,8 @@ to find any Test::Unit, CSS or Erb advice in here.
 
 Some of the advice here is applicable only to Rails 3.1.
 
-** This is guide is in a pre-alpha state! Quite A LOT is missing at
-   this point. **
+**This is guide is in a pre-alpha state! Quite A LOT is missing at
+   this point.**
 
 # Developing Rails applications
 
@@ -114,7 +114,7 @@ themselves.
 # Contributing
 
 Nothing written in this guide is set in stone. It's my desire to work
-together with everyone interested in Ruby coding style, so that we could
+together with everyone interested in Rails coding style, so that we could
 ultimately create a resource that will be beneficial to the entire Ruby
 community.
 
