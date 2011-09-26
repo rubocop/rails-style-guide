@@ -27,7 +27,65 @@ Some of the advice here is applicable only to Rails 3.1.
 
 ## Routing
 
+* When you need to add more actions to a RESTful resource use
+  `member` and `collection` routes.
 
+    ```Ruby
+    # bad
+    get 'subscriptions/unsubscribe'
+    resources 'subscription'
+
+    # good
+    resources :subscriptions do
+      get 'unsubscribe', :on => :member
+    end
+
+    # bad
+    get 'photos/search'
+    resources :photos
+
+    # good
+    resources :photos do
+      get 'search', :on => :collection
+    end
+    ```
+
+* If you need to define multiple `member\collection` routes use the
+  alternative block syntax.
+
+    ```Ruby
+    resources :subscriptions do
+      member do
+        get 'unsubscribe'
+        # more routes
+      end
+    end
+
+    resources :photos do
+      collection do
+        get 'search'
+        # more routes
+      end
+    end
+    ```
+
+* Use nested routes to express better the relationship between
+  ActiveRecord models.
+
+    ```Ruby
+    class Post < ActiveRecord::Base
+      has_many :comments
+    end
+
+    class Comments < ActiveRecord::Base
+      belongs_to :post
+    end
+
+    # routes.rb
+    resources :posts do
+      resources :comments
+    end
+    ```
 
 ## Controllers
 
@@ -78,7 +136,9 @@ Some of the advice here is applicable only to Rails 3.1.
 * Use only established gems in your projects. If you're contemplating
 on including some little-known gem you should do a careful review of
 its source code first.
-* Do not remove the `Gemfile.lock` from version control.
+* Do not remove the `Gemfile.lock` from version control. This is not
+  some randomly generated file - it makes sure that all of your team
+  members get the same gem versions when they go a `bundle install`.
 
 # Testing Rails applications
 
