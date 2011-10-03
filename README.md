@@ -87,6 +87,24 @@ Some of the advice here is applicable only to Rails 3.1.
     end
     ```
 
+* Use namespaced routes to group related actions.
+
+    ```Ruby
+    namespace :admin do
+      # Directs /admin/products/* to Admin::ProductsController
+      # (app/controllers/admin/products_controller.rb)
+      resources :products
+    end
+    ```
+
+* Never use the legacy wild controller route. This route will make all
+  actions in every controller accessible via GET requests.
+
+    ```Ruby
+    # very bad
+    match ':controller(/:action(/:id(.:format)))'
+    ```
+
 ## Controllers
 
 * Keep the controllers skinny - they should only retrieve data for the
