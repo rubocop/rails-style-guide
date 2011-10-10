@@ -172,22 +172,143 @@ themselves.
 
 ## Cucumber
 
+* Tag your pending scenarios with `@wip` (work in progress).  These scenarios will not be taken into account and will not be marked as failing.
+When finishing the work on a pending scenario and implementing the functionality it tests, 
+the tag `@wip` should be removed in order to include this scenario in the test suite.
+* Setup your default profile to exclude the scenarios tagged with `@javascript`. 
+They are testing using the browser and diabling them is recommended to increase the regular test execution.  
+* Setup a separate profile for the scenarios marked with `@javascript` tag.
+  * The profiles can be configured in the `cucumber.yml` file. 
+
+    ```Ruby
+    # definition of a profile:
+    profile_name: --tags @tag_name features
+    ```
+
+  * A profile is run with the command:
+
+    ```
+    cucumber -p profile_name        
+    ```
+
+* If using [fabrication](http://fabricationgem.org/) for fixtures replacement, use the predefined [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
+* Before writing your own steps for elements selection, first check the `websteps.rb` file under the `step_definitions` directory and reuse some of the existing steps if possible.
+* When checking for the presence of an element with visible text (link, button, etc.) check for the text, not the element id. This can detect problems with the i18n.
+* Create separate features for different functionality regarding the same kind of objects:
+
+    ```Ruby
+    # bad
+    Feature: Articles
+    # ... feature  implementation ...
+
+    # good
+    Feature: Article Editing
+    # ... feature  implementation ...
+
+    Feature: Article Publishing
+    # ... feature  implementation ...
+
+    Feature: Article Search
+    # ... feature  implementation ...
+
+    ```
+* Each feature has three main components
+  * Title 
+  * Narrative - a short explanation what the feature is about. 
+  * Acceptance criteria - the set of scenarios each made up of individual steps.
+* The most common format is known as the Connextra format. 
+
+    ```Ruby
+    In order to [benefit] ...
+    A [stakeholder]...
+    Wants to [feature] ...
+    ```
+
+This format is the most common but is not required, the narrative can be free text depending on the complexity of the feature.
+
+* Use Scenario Outlines freely to keep the scenarios DRY.
+* The steps for the scenarios are in `.rb` files under the `step_definitions` directory. The naming convention for the steps file is `[description]_steps.rb`.
+The steps can be separated into different files based on different criterias. It is possible to have one steps file for each feature (`home_page_steps.rb`). 
+There also can be one steps file for all features for a particular object (`articles_steps.rb`).
+
 ## RSpec
 
 * Use just one expectation per example.
-* make heavy use of describe and context
-* use fabricators to create test objects
-* make heavy use of mocks and stubs
-* use `let` blocks instead of `before(:all)` blocks to create data for
+
+    ```Ruby
+    # bad
+    describe ArticlesController do
+      #...
+
+      describe "GET new" do
+        it "assigns new article and renders the new article template" do
+          get :new
+          assigns[:article].should be_a_new Article
+          response.should render_template :new
+        end
+      end
+
+      # ...
+    end
+
+    # good
+    describe ArticlesController do
+      #...
+
+      describe "GET new" do
+        it "assigns a new article" do
+          get :new
+          assigns[:article].should be_a_new Article
+        end
+
+        it "renders the new article template" do
+          get :new
+          response.should render_template :new
+        end
+      end
+
+      # ...
+    end
+    ```
+
+* Make heavy use of describe and context
+* Use [fabricators](http://fabricationgem.org/) to create test objects
+* Make heavy use of mocks and stubs
+
+    ```Ruby
+    # mocking a model
+    article = mock_model(Article)
+
+    # stubbing a method
+    Article.stub(:find).with(article.id).and_return(article)    
+    ```
+  
+* Use `let` blocks instead of `before(:all)` blocks to create data for
   the spec examples. `let` blocks get lazily evaluated.
+
+    ```Ruby
+    # use this:
+    let(:article) { Fabricate(:article) }
+
+    # ... instead of this:
+    before(:each) { @article = Fabricate(:article) }
+    ```
 
 ### Views
 
 ### Controllers
 
+* Mock the models and stub their methods. Testing the controller should not depend on the model creation.
+* Test only the behaviour the controller should be responsible about:
+  * Execution of particular methods
+  * Data returned from the action - assigns, etc.
+  * Result from the action - template render, redirect, etc.
+
 ### Models
 
 ### Mailers
+
+### Uploaders
 
 # Contributing
 
