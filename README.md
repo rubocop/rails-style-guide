@@ -593,6 +593,21 @@ There also can be one steps file for all features for a particular object (`arti
 
 ### Views
 
+* The directory structure of the view specs `spec/views` matches the one in `app/views`. For example the specs for the views in `app/views/users` are placed in `spec/views/users`.
+* The naming convention for the view specs is adding `_spec.rb` to the view name, for example the view `_form.html.haml` has a corresponding spec `_form.html.haml_spec.rb`.
+* `spec_helper.rb` need to be required in each view spec file.
+* The outer `describe` block uses the path to the view without the `app/views` part. This is used by the `render` method when it is called without arguments.
+
+    ```Ruby
+    # spec/views/articles/new.html.haml_spec.rb
+    require 'spec_helper'
+
+    describe "articles/new.html.html" do
+      # ...
+    end
+    ```
+
+
 ### Controllers
 
 * Mock the models and stub their methods. Testing the controller should not depend on the model creation.
