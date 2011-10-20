@@ -33,7 +33,38 @@ Some of the advice here is applicable only to Rails 3.1.
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
     ```
+* In order to use [carrierwave](https://github.com/jnicklas/carrierwave) for the files upload and [fog](https://github.com/geemus/fog) for file storage, 
+some configurations need to be applied in the `config/initializers/carrierwave.rb` file:
+  * Do not use `fog` for the test environment, use `file` storage instead.
+  * Use `fog` for the development environment. This will prevent unexpected problems on production.
 
+    ```Ruby
+    # config/initializers/carrierwave.rb
+
+    # Store the files locally for test environment
+    if Rails.env.test? 
+      CarrierWave.configure do |config|
+        config.storage = :file
+        config.enable_processing = false
+      end
+    end
+
+    # Using Amazon S3 for Development and Production
+    if Rails.env.development? or Rails.env.production? 
+      CarrierWave.configure do |config|
+        config.root = Rails.root.join('tmp')
+        config.cache_dir = 'uploads'
+
+        config.storage = :fog
+        config.fog_credentials = {
+            :provider => 'AWS',
+            :aws_access_key_id => 'your_access_key_id',
+            :aws_secret_access_key => 'your_secret_access_key', 
+        }
+        config.fog_directory = 'your_bucket'
+      end
+    end
+    ```
 
 ## Routing
 
