@@ -227,9 +227,63 @@ They are testing using the browser and diabling them is recommended to increase 
 This format is the most common but is not required, the narrative can be free text depending on the complexity of the feature.
 
 * Use Scenario Outlines freely to keep the scenarios DRY.
+
+    ```Ruby
+    Scenario Outline: Entering invalid e-mail displays an error
+      Given I am on the registration page
+      And I fill in "E-mail" with "<email>"
+      And I should press "Register"
+      Then I should see "<error>"
+    
+    Examples: 
+      |email         |error                 |
+      |              |The e-mail is required|
+      |invalid email |is not a valid e-mail |
+    ```
+
 * The steps for the scenarios are in `.rb` files under the `step_definitions` directory. The naming convention for the steps file is `[description]_steps.rb`.
 The steps can be separated into different files based on different criterias. It is possible to have one steps file for each feature (`home_page_steps.rb`). 
 There also can be one steps file for all features for a particular object (`articles_steps.rb`).
+* Use multiline step arguments to avoid repetition
+
+    ```Ruby
+    Scenario: User profile
+      Given I am logged in as a user with e-mail "user@test.com"
+      When I go to the profile edit page
+      Then I should see the following information:
+        |First name|John         |
+        |Last name |Doe          |
+        |E-mail    |user@test.com|
+
+
+    # the step:
+    Then "I should see the following information:" do |table|
+      table.raw.each do |field, value|
+        field = find_field(field)
+        field.value.should =~ /#{value}/
+      end
+    end    
+    ```
+
+* Use compound steps to keep the scenario DRY
+
+    ```Ruby
+    # ...
+    When I register as a user with email "user@test.com" and password "secret"
+    # ...
+
+    # the step:
+    When /^I register as a user with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
+      steps %Q{
+        When I go to the user registration page
+        And I fill in "E-mail" with #{email}
+        And I fill in "Password" with #{password}
+        And I fill in "Password Confirmation" with #{password}
+        And I click "Register"
+      }
+    end    
+    ```
+
 
 ## RSpec
 
