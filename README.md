@@ -271,7 +271,35 @@ There also can be one steps file for all features for a particular object (`arti
     end
     ```
 
-* Make heavy use of describe and context
+* Make heavy use of `describe` and `context`
+* Name the `describe` blocks as follows:
+  * use “description” for non-methods
+  * use pound “#method” for instance methods
+  * use dot “.method” for class methods
+
+    ```Ruby
+    class Article
+      def summary
+        #...
+      end
+
+      def self.latest
+        #...
+      end
+    end
+
+    # the spec...
+    describe Article 
+      describe "#summary"
+        #...
+      end
+
+      describe ".latest"
+        #...
+      end      
+    end
+    ```
+
 * Use [fabricators](http://fabricationgem.org/) to create test objects
 * Make heavy use of mocks and stubs
 
@@ -293,6 +321,57 @@ There also can be one steps file for all features for a particular object (`arti
     # ... instead of this:
     before(:each) { @article = Fabricate(:article) }
     ```
+
+* Use `subject` when possible
+
+    ```Ruby
+    describe Article do
+      subject { Fabricate(:article) }
+
+      it "is not published on creation" do
+        subject.should_not be_published
+      end
+    end
+    ```
+
+* Use `specify` if possible. It is a sinonym of `it` but is more readable when there is no docstring.
+
+    ```Ruby
+    # bad
+    describe Article do
+      before { @article = Fabricate(:article) }
+
+      it "is not published on creation" do
+        @article.should_not be_published
+      end
+    end
+
+    #good
+    describe Article do
+      let(:article) { Fabricate(:article) }
+      specify { article.should_not be_published }
+    end
+    ```
+
+* Use `its` when possible
+
+    ```Ruby
+    # bad
+    describe Article do
+      subject { Fabricate(:article) }
+
+      it "has the current date as creation date" do
+        subject.creation_date.should == Date.today
+      end
+    end
+
+    #good
+    describe Article do
+      subject { Fabricate(:article) 
+      its(:creation_date) { should == Date.today }
+    end
+    ```
+
 
 ### Views
 
