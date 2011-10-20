@@ -23,7 +23,9 @@ Some of the advice here is applicable only to Rails 3.1.
 
 ## Configuration
 
-* Put custom initialization code in `config/initializers`.
+* Put custom initialization code in `config/initializers`. The code in initializers executes on application startup.
+* The initialization code for each gem should be in a separate file with the same name as the gem, for example `carrierwave.rb`, `rails_admin.rb`, etc.
+
 
 ## Routing
 
@@ -124,6 +126,32 @@ Some of the advice here is applicable only to Rails 3.1.
   beginning of the class definition.
 * Always use the new
   ["sexy" validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
+When a custom validation is used more than once or the validation is some regular expression mapping, 
+create a custom validator file.
+
+    ```Ruby
+    # bad
+    class Person
+      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i } 
+    end
+
+    # good
+    class EmailValidator < ActiveModel::EachValidator
+      def validate_each(record, attribute, value)
+        record.errors[attribute] << (options[:message] || "is not a valid email") unless value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+      end
+    end
+
+
+    class Person
+      validates :email, email: true
+    end
+    ```
+
+* Use named scopes freely.
+* When a named scope with lambda and parameters becomes too complicated it is better to make a class method instead which 
+serves the same purpose of the named scope and returns and `ActiveRecord::Relation` object.
+
 
 ## Migrations
 
@@ -137,15 +165,108 @@ Some of the advice here is applicable only to Rails 3.1.
     end
     ```
 
+* When writing constructive migrations (adding tables or columns), use the new Rails 3.1 way of doing the migrations - use the `change` method instead of `up` and `down` methods.
+
 ## Views
 
 * Never call the model layer directly from a view.
+* Never make complex formatting in the views, export the formatting to a method in the view helper or the model.
 * Mitigate code duplication by using partial templates and layouts.
+* Add client side validation for the custom validators. The steps to do this are:
+  * Declare a custom validator which extends `ClientSideValidations::Middleware::Base`
+
+    ```Ruby
+    module ClientSideValidations::Middleware
+      class Email < Base
+        def response
+          if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+            self.status = 200
+          else
+            self.status = 404
+          end
+          super
+        end
+      end
+    end
+    ```
+
+  * Create a new file `public/javascripts/rails.validations.custom.js.coffee` and add a reference to it in your `application.js.coffee` file:
+
+    ```Ruby
+    # app/assets/javascripts/application.js.coffee
+    #= require rails.validations.custom
+    ```
+
+  * Add your client-side validator:
+
+    ```Ruby
+    #public/javascripts/rails.validations.custom.js.coffee
+    clientSideValidations.validators.remote['email'] = (element, options) ->
+      if $.ajax({
+        url: '/validators/email.json',
+        data: { email: element.val() },
+        async: false
+      }).status == 404
+        return options.message || 'invalid e-mail format'
+    ```
+
 
 ## Mailers
 
 * Name the mailers `SomethingMailer`.
 * Provide both HTML and plain-text view templates.
+* Enable errors raised on failed mail delivery in your development environment. The errors are disabled by default.
+
+    ```Ruby
+    # config/environments/development.rb
+
+    config.action_mailer.raise_delivery_errors = true
+    ```
+
+* Use `smtp.gmail.com` for SMTP server in the development environment.
+
+
+    ```Ruby
+    # config/environments/development.rb
+
+    config.action_mailer.smtp_settings = {
+      :address => "smtp.gmail.com",
+      # more settings
+    }  
+    ```
+
+* Provide default settings for host name.
+
+    ```Ruby
+    # config/environments/development.rb
+    config.action_mailer.default_url_options = {:host => "#{local_ip}:3000"}
+
+
+    # config/environments/production.rb
+    config.action_mailer.default_url_options = {:host => "your_site.com"}
+
+    # in your mailer class
+    default_url_options[:host] = 'your_site.com'
+    ```
+
+* If you need to use a link to your site in an email, always use the `_url`, not `_path` methods. The `_url` methods include the host name and the `_path` don't.
+
+    ```Ruby
+    # wrong
+    You can always find more info about this course 
+    = link_to "here", url_for(course_path(@course))
+
+    # right
+    You can always find more info about this course
+    = link_to "here", url_for(course_url(@course))
+    ```
+
+* Format the from and to addresses properly. Use the following format: 
+
+    ```Ruby
+    # in your mailer class
+    default from: 'Your Name <info@your_site.com>'
+    ```
 
 ## Bundler
 
