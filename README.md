@@ -25,6 +25,14 @@ Some of the advice here is applicable only to Rails 3.1.
 
 * Put custom initialization code in `config/initializers`. The code in initializers executes on application startup.
 * The initialization code for each gem should be in a separate file with the same name as the gem, for example `carrierwave.rb`, `rails_admin.rb`, etc.
+* Adjust accordingly the settings for development, test and production environment (in the corresponding files under `config/environments`)
+  * Precompile additional assets for production if any
+
+    ```Ruby
+    # config/environments/production.rb
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
+    ```
 
 
 ## Routing
