@@ -152,10 +152,13 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
 * Keep the controllers skinny - they should only retrieve data for the
   view layer and shouldn't contain any business logic (all the
   business logic should naturally reside in the model).
+* Each controller action should call only one method other than an initial find or new.
+* Share no more than two instance variables between a controller and a view.
 
 ## Models
 
 * Introduce non-ActiveRecord model classes freely.
+* Name the models with meaningful but short names without abbreviations.
 
 ### ActiveRecord
 
@@ -188,10 +191,10 @@ create a custom validator file.
     end
     ```
 
+* All custom validators should be moved to a shared gem.
 * Use named scopes freely.
 * When a named scope with lambda and parameters becomes too complicated it is better to make a class method instead which 
 serves the same purpose of the named scope and returns and `ActiveRecord::Relation` object.
-
 
 ## Migrations
 
@@ -835,6 +838,31 @@ There also can be one steps file for all features for a particular object (`arti
     ```
 
 ### Mailers
+
+* The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
+* The mailer spec should verify that:
+  * the subject is correct
+  * the receiver e-mail is correct
+  * the e-mail is sent to the right e-mail address
+  * the e-mail contains the required information
+
+    ```Ruby
+    describe SubscriberMailer
+      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+
+      describe 'successful registration email'
+        subject { SubscriptionMailer.successful_registration_email(subscriber) }
+
+        its(:subject) { should == 'Successful Registration!' }
+        its(:from) { should == ['info@your_site.com'] }
+        its(:to) { should == [subscriber.email] }
+        
+        it 'contains the subscriber name' do
+          subject.body.encoded.should match(subscriber.name)
+        end
+      end    
+    end
+    ```
 
 ### Uploaders
 
