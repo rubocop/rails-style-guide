@@ -25,7 +25,47 @@ Some of the advice here is applicable only to Rails 3.1.
 
 * Put custom initialization code in `config/initializers`. The code in initializers executes on application startup.
 * The initialization code for each gem should be in a separate file with the same name as the gem, for example `carrierwave.rb`, `rails_admin.rb`, etc.
+* Adjust accordingly the settings for development, test and production environment (in the corresponding files under `config/environments`)
+  * Precompile additional assets for production if any
 
+    ```Ruby
+    # config/environments/production.rb
+    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+    config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
+    ```
+
+* In order to use [carrierwave](https://github.com/jnicklas/carrierwave) for the files upload and [fog](https://github.com/geemus/fog) for file storage, 
+some configurations need to be applied in the `config/initializers/carrierwave.rb` file:
+  * Do not use `fog` for the test environment, use `file` storage instead.
+  * Use `fog` for the development environment. This will prevent unexpected problems on production.
+
+    ```Ruby
+    # config/initializers/carrierwave.rb
+
+    # Store the files locally for test environment
+    if Rails.env.test? 
+      CarrierWave.configure do |config|
+        config.storage = :file
+        config.enable_processing = false
+      end
+    end
+
+    # Using Amazon S3 for Development and Production
+    if Rails.env.development? or Rails.env.production? 
+      CarrierWave.configure do |config|
+        config.root = Rails.root.join('tmp')
+        config.cache_dir = 'uploads'
+
+        config.storage = :fog
+        config.fog_credentials = {
+            :provider => 'AWS',
+            :aws_access_key_id => 'your_access_key_id',
+            :aws_secret_access_key => 'your_secret_access_key', 
+        }
+        config.fog_directory = 'your_bucket'
+      end
+    end
+   ```
 
 ## Routing
 
@@ -225,7 +265,6 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
 
 * Use `smtp.gmail.com` for SMTP server in the development environment.
 
-
     ```Ruby
     # config/environments/development.rb
 
@@ -266,6 +305,22 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     ```Ruby
     # in your mailer class
     default from: 'Your Name <info@your_site.com>'
+    ```
+
+* Make sure that the e-mail delivery method for your test environment is set to `test`:
+
+    ```Ruby
+    # config/environments/test.rb
+
+    config.action_mailer.delivery_method = :test
+    ```
+
+* The delivery methos for development and production should be `smtp`:
+
+    ```Ruby
+    # config/environments/delelopment.rb, config/environments/production.rb
+
+    config.action_mailer.delivery_method = :smtp
     ```
 
 ## Bundler
@@ -489,6 +544,12 @@ There also can be one steps file for all features for a particular object (`arti
     # stubbing a method
     Article.stub(:find).with(article.id).and_return(article)    
     ```
+
+* When mocking a model, use the `as_null_object` method. It tells the output to listen only for messages we expect and ignore any other messages.
+
+    ```Ruby
+    article = mock_model(Article).as_null_object
+    ```
   
 * Use `let` blocks instead of `before(:all)` blocks to create data for
   the spec examples. `let` blocks get lazily evaluated.
@@ -553,6 +614,83 @@ There also can be one steps file for all features for a particular object (`arti
 
 
 ### Views
+
+* The directory structure of the view specs `spec/views` matches the one in `app/views`. For example the specs for the views in `app/views/users` are placed in `spec/views/users`.
+* The naming convention for the view specs is adding `_spec.rb` to the view name, for example the view `_form.html.haml` has a corresponding spec `_form.html.haml_spec.rb`.
+* `spec_helper.rb` need to be required in each view spec file.
+* The outer `describe` block uses the path to the view without the `app/views` part. This is used by the `render` method when it is called without arguments.
+
+    ```Ruby
+    # spec/views/articles/new.html.haml_spec.rb
+    require 'spec_helper'
+
+    describe "articles/new.html.html" do
+      # ...
+    end
+    ```
+
+* Always mock the models in the view specs. The purpose of the view is only to display information.
+* The method `assign` supplies the instance variables which the view uses and are supplied by the controller.
+
+    ```Ruby
+    # spec/views/articles/edit.html.haml_spec.rb
+    describe "articles/edit.html.haml" do
+    it "renders the form for a new article creation" do
+      assign(
+        :article,
+        mock_model(Article).as_new_record.as_null_object
+      )
+      render
+      rendered.should have_selector('form',
+        :method => 'post',
+        :action => articles_path
+      ) do |form|
+        form.should have_selector('input', :type => 'submit')
+      end
+    end
+    ```
+
+* Prefer the capybara negative selectors over should_not with the positive. 
+
+    ```Ruby
+    # bad
+    page.should_not have_selector('input', :type => 'submit')
+    page.should_not have_xpath('tr')
+
+    # good
+    page.should have_no_selector('input', :type => 'submit')
+    page.should have_no_xpath('tr')
+    ```
+
+* When a view uses helper methods, these nmethods need to be stubbed. Stubbing the helper methods is done on the `template` object:
+
+    ```Ruby
+    # app/helpers/articles_helper.rb
+    class ArticlesHelper
+      def formatted_date(date)
+        # ...
+      end
+    end
+
+    # app/views/articles/show.html.haml
+    = "Published at: #{formatted_date(@article.published_at)}"
+
+    # spec/views/articles/show.html.haml_spec.rb
+    describe "articles/show.html.html" do
+      it "displays the formatted date of article publishing"
+        article = mock_model(Article, :published_at => Date.new(2012, 01, 01))
+        assign(:article, article)
+
+        template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
+
+        render
+        rendered.should_not have_content('Published at: 01.01.2012')
+      end
+    end
+    ```
+
+* The helpers specs are separated from the view specs in the `spec/helpers` directory.
+
 
 ### Controllers
 
@@ -649,9 +787,102 @@ There also can be one steps file for all features for a particular object (`arti
 
 ### Models
 
+* Do not mock the models in their own specs. 
+* Use fabrication to make real objects.
+* It is acceptable to mock other models or child objects.
+* Create the model for all examples in the spec to avoid duplication.
+
+    ```Ruby
+    describe Article 
+      let(:article) { Fabricate(:article) }
+    end
+    ```
+
+* Add en example ensuring that the fabricated model is valid.
+
+    ```Ruby
+    describe Article 
+      it "is valid with valid attributes" do
+        article.should be_valid
+      end
+    end
+    ```
+
+* Add a separate `describe` for each attribute which has validations.
+
+    ```Ruby
+    describe Article 
+      describe "#title" 
+        it "is required" do
+          article.title = nil
+          article.should_not be_valid
+        end 
+      end
+    end
+    ```
+
+* When testing uniqueness of a model attribute, name the other object `another_object`.
+
+    ```Ruby
+    describe Article 
+      describe "#title" 
+        it "is unique" do
+          another_article = Fabricate.build(:article, :title => article.title)
+          another_article.should_not be_valid
+        end 
+      end
+    end
+    ```
+
 ### Mailers
 
 ### Uploaders
+
+* What we can test about an uploader is whether the images are resized correctly. 
+Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave) image uploader:
+
+
+    ```Ruby
+
+    # rspec/uploaders/person_avatar_uploader_spec.rb
+    require "spec_helper"
+    require 'carrierwave/test/matchers'
+    
+    describe PersonAvatarUploader do
+      include CarrierWave::Test::Matchers
+
+      # Enable images processing before executing the examples
+      before(:all) do
+        UserAvatarUploader.enable_processing = true
+      end
+
+      # Create a new uploader. The model is mocked as the uploading and resizing images does not depend on the model creation.
+      before(:each) do
+        @uploader = PersonAvatarUploader.new(mock_model(Person).as_null_object)
+        @uploader.store!(File.open(path_to_file))
+      end
+
+      # Disable images processing after executing the examples
+      after(:all) do
+        UserAvatarUploader.enable_processing = false
+      end
+
+      # Testing whether image is no larger than given dimensions
+      context 'the default version' do
+        it "scales down an image to be no larger than 256 by 256 pixels" do
+          @uploader.should be_no_larger_than(256, 256)
+        end
+      end
+
+      # Testing whether image has the exact dimensions
+      context 'the thumb version' do
+        it "scales down an image to be exactly 64 by 64 pixels" do
+          @uploader.thumb.should have_dimensions(64, 64)
+        end
+      end
+    end
+
+    ```
 
 # Contributing
 
