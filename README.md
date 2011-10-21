@@ -662,7 +662,7 @@ can be one steps file for all features for a particular object
 
     # good
     describe Article do
-      subject { Fabricate(:article)
+      subject { Fabricate(:article) }
       its(:creation_date) { should == Date.today }
     end
     ```
