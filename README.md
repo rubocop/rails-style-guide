@@ -528,6 +528,12 @@ There also can be one steps file for all features for a particular object (`arti
     # stubbing a method
     Article.stub(:find).with(article.id).and_return(article)    
     ```
+
+* When mocking a model, use the `as_null_object` method. It tells the output to listen only for messages we expect and ignore any other messages.
+
+    ```Ruby
+    article = mock_model(Article).as_null_object
+    ```
   
 * Use `let` blocks instead of `before(:all)` blocks to create data for
   the spec examples. `let` blocks get lazily evaluated.
@@ -606,6 +612,68 @@ There also can be one steps file for all features for a particular object (`arti
       # ...
     end
     ```
+
+* Always mock the models in the view specs. The purpose of the view is only to display information.
+* The method `assign` supplies the instance variables which the view uses and are supplied by the controller.
+
+    ```Ruby
+    # spec/views/articles/edit.html.haml_spec.rb
+    describe "articles/edit.html.haml" do
+    it "renders the form for a new article creation" do
+      assign(
+        :article,
+        mock_model(Article).as_new_record.as_null_object
+      )
+      render
+      rendered.should have_selector('form',
+        :method => 'post',
+        :action => articles_path
+      ) do |form|
+        form.should have_selector('input', :type => 'submit')
+      end
+    end
+    ```
+
+* Prefer the capybara negative selectors over should_not with the positive. 
+
+    ```Ruby
+    # bad
+    page.should_not have_selector('input', :type => 'submit')
+    page.should_not have_xpath('tr')
+
+    # good
+    page.should have_no_selector('input', :type => 'submit')
+    page.should have_no_xpath('tr')
+    ```
+
+* When a view uses helper methods, these nmethods need to be stubbed. Stubbing the helper methods is done on the `template` object:
+
+    ```Ruby
+    # app/helpers/articles_helper.rb
+    class ArticlesHelper
+      def formatted_date(date)
+        # ...
+      end
+    end
+
+    # app/views/articles/show.html.haml
+    = "Published at: #{formatted_date(@article.published_at)}"
+
+    # spec/views/articles/show.html.haml_spec.rb
+    describe "articles/show.html.html" do
+      it "displays the formatted date of article publishing"
+        article = mock_model(Article, :published_at => Date.new(2012, 01, 01))
+        assign(:article, article)
+
+        template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
+
+        render
+        rendered.should_not have_content('Published at: 01.01.2012')
+      end
+    end
+    ```
+
+* The helpers specs are separated from the view specs in the `spec/helpers` directory.
 
 
 ### Controllers
