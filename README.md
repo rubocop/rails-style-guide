@@ -355,7 +355,7 @@ the same purpose of the named scope and returns and
 * The delivery methos for development and production should be `smtp`:
 
     ```Ruby
-    # config/environments/delelopment.rb, config/environments/production.rb
+    # config/environments/development.rb, config/environments/production.rb
 
     config.action_mailer.delivery_method = :smtp
     ```
