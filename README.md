@@ -771,6 +771,53 @@ There also can be one steps file for all features for a particular object (`arti
 
 ### Models
 
+* Do not mock the models in their own specs. 
+* Use fabrication to make real objects.
+* It is acceptable to mock other models or child objects.
+* Create the model for all examples in the spec to avoid duplication.
+
+    ```Ruby
+    describe Article 
+      let(:article) { Fabricate(:article) }
+    end
+    ```
+
+* Add en example ensuring that the fabricated model is valid.
+
+    ```Ruby
+    describe Article 
+      it "is valid with valid attributes" do
+        article.should be_valid
+      end
+    end
+    ```
+
+* Add a separate `describe` for each attribute which has validations.
+
+    ```Ruby
+    describe Article 
+      describe "#title" 
+        it "is required" do
+          article.title = nil
+          article.should_not be_valid
+        end 
+      end
+    end
+    ```
+
+* When testing uniqueness of a model attribute, name the other object `another_object`.
+
+    ```Ruby
+    describe Article 
+      describe "#title" 
+        it "is unique" do
+          another_article = Fabricate.build(:article, :title => article.title)
+          another_article.should_not be_valid
+        end 
+      end
+    end
+    ```
+
 ### Mailers
 
 ### Uploaders
