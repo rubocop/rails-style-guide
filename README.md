@@ -839,6 +839,31 @@ There also can be one steps file for all features for a particular object (`arti
 
 ### Mailers
 
+* The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
+* The mailer spec should verify that:
+  * the subject is correct
+  * the receiver e-mail is correct
+  * the e-mail is sent to the right e-mail address
+  * the e-mail contains the required information
+
+    ```Ruby
+    describe SubscriberMailer
+      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+
+      describe 'successful registration email'
+        subject { SubscriptionMailer.successful_registration_email(subscriber) }
+
+        its(:subject) { should == 'Successful Registration!' }
+        its(:from) { should == ['info@your_site.com'] }
+        its(:to) { should == [subscriber.email] }
+        
+        it 'contains the subscriber name' do
+          subject.body.encoded.should match(subscriber.name)
+        end
+      end    
+    end
+    ```
+
 ### Uploaders
 
 * What we can test about an uploader is whether the images are resized correctly. 
