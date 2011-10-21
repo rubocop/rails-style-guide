@@ -1,7 +1,7 @@
 # Abstract
 
 The goal of this guide is to present a set of best practices and style
-prescriptions for Ruby on Rails 3 development. It's a complimentary
+prescriptions for Ruby on Rails 3 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
@@ -369,7 +369,7 @@ on including some little-known gem you should do a careful review of
 its source code first.
 * Do not remove the `Gemfile.lock` from version control. This is not
   some randomly generated file - it makes sure that all of your team
-  members get the same gem versions when they go a `bundle install`.
+  members get the same gem versions when they do a `bundle install`.
 
 ## Managing processes
 
@@ -380,8 +380,8 @@ its source code first.
 # Testing Rails applications
 
 The best approach to implementing new features is probably the BDD
-approach. You start out by writing some high level feature tests (
-generally written using Cucumber ), then you use these tests to drive
+approach. You start out by writing some high level feature tests
+(generally written using Cucumber), then you use these tests to drive
 out the implementation of the feature. First you write view specs for
 the feature and use those specs to create the relevant
 views. Afterwards you create the specs for the controller(s) that will
