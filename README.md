@@ -5,45 +5,59 @@ prescriptions for Ruby on Rails 3 development. It's a complimentary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-While in the guide the section **Testing Rails applications** is
-after **Developing Rails applications** I'm a firm believer that BDD
-is the best way to develop software. Keep that in mind.
+While in the guide the section **Testing Rails applications** is after
+**Developing Rails applications** I truly believe that
+Behaviour-Driven Development (BDD) is the best way to develop
+software. Keep that in mind.
 
 Rails is an opinionated framework and this is an opinionated guide. In
-my mind I'm totally certain that RSpec is superior to Test::Unit, Sass
-is superior to CSS and Haml (Slim) is superior to Erb. So don't expect
-to find any Test::Unit, CSS or Erb advice in here.
+my mind I'm totally certain that
+[RSpec](https://www.relishapp.com/rspec) is superior to Test::Unit,
+[Sass](http://sass-lang.com/) is superior to CSS and
+[Haml](http://haml-lang.com/) ([Slim](http://slim-lang.com/)) is
+superior to Erb. So don't expect to find any Test::Unit, CSS or Erb
+advice in here.
 
 Some of the advice here is applicable only to Rails 3.1.
 
-**This is guide is in a pre-alpha state! Quite A LOT is missing at
-   this point.**
+## Table of Contents
+
+1. [Developing Rails Applications](#developing)
+2. [Testing Rails Applications](#testing)
+3. [Contributing](#contributing)
+4. [Spread the word](#spreadtheword)
 
 # Developing Rails applications
+<a name="developing"/>
 
 ## Configuration
 
-* Put custom initialization code in `config/initializers`. The code in initializers executes on application startup.
-* The initialization code for each gem should be in a separate file with the same name as the gem, for example `carrierwave.rb`, `rails_admin.rb`, etc.
-* Adjust accordingly the settings for development, test and production environment (in the corresponding files under `config/environments`)
-  * Precompile additional assets for production if any
+* Put custom initialization code in `config/initializers`. The code in
+  initializers executes on application startup.
+* The initialization code for each gem should be in a separate file
+  with the same name as the gem, for example `carrierwave.rb`,
+  `rails_admin.rb`, etc.
+* Adjust accordingly the settings for development, test and production
+  environment (in the corresponding files under `config/environments/`)
+  * Mark additional assets for precompilation (if any):
 
-    ```Ruby
-    # config/environments/production.rb
-    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
-    ```
+        ```Ruby
+        # config/environments/production.rb
+        # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
+        config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
+        ```
 
-* In order to use [carrierwave](https://github.com/jnicklas/carrierwave) for the files upload and [fog](https://github.com/geemus/fog) for file storage, 
-some configurations need to be applied in the `config/initializers/carrierwave.rb` file:
-  * Do not use `fog` for the test environment, use `file` storage instead.
-  * Use `fog` for the development environment. This will prevent unexpected problems on production.
+* While not strictly related to style, in order to use
+[carrierwave](https://github.com/jnicklas/carrierwave) for the files
+upload and [fog](https://github.com/geemus/fog) for file storage, some
+configuration needs to be applied in the
+`config/initializers/carrierwave.rb` file:
 
     ```Ruby
     # config/initializers/carrierwave.rb
 
     # Store the files locally for test environment
-    if Rails.env.test? 
+    if Rails.env.test?
       CarrierWave.configure do |config|
         config.storage = :file
         config.enable_processing = false
@@ -51,7 +65,7 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
     end
 
     # Using Amazon S3 for Development and Production
-    if Rails.env.development? or Rails.env.production? 
+    if Rails.env.development? or Rails.env.production?
       CarrierWave.configure do |config|
         config.root = Rails.root.join('tmp')
         config.cache_dir = 'uploads'
@@ -60,17 +74,21 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
         config.fog_credentials = {
             provider: 'AWS',
             aws_access_key_id: 'your_access_key_id',
-            aws_secret_access_key: 'your_secret_access_key', 
+            aws_secret_access_key: 'your_secret_access_key',
         }
         config.fog_directory = 'your_bucket'
       end
     end
    ```
 
+  * Do not use `fog` for the test environment, use `file` storage instead.
+  * Use `fog` for the development environment. This will prevent
+    unexpected problems on production.
+
 ## Routing
 
-* When you need to add more actions to a RESTful resource use
-  `member` and `collection` routes.
+* When you need to add more actions to a RESTful resource (do you
+  really need them at all?) use `member` and `collection` routes.
 
     ```Ruby
     # bad
@@ -92,7 +110,7 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
     end
     ```
 
-* If you need to define multiple `member\collection` routes use the
+* If you need to define multiple `member/collection` routes use the
   alternative block syntax.
 
     ```Ruby
@@ -152,13 +170,14 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
 * Keep the controllers skinny - they should only retrieve data for the
   view layer and shouldn't contain any business logic (all the
   business logic should naturally reside in the model).
-* Each controller action should call only one method other than an initial find or new.
+* Each controller action should (ideally) invoke only one method other
+  than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
 
 ## Models
 
 * Introduce non-ActiveRecord model classes freely.
-* Name the models with meaningful but short names without abbreviations.
+* Name the models with meaningful (but short) names without abbreviations.
 
 ### ActiveRecord
 
@@ -169,13 +188,13 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
   beginning of the class definition.
 * Always use the new
   ["sexy" validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
-When a custom validation is used more than once or the validation is some regular expression mapping, 
+* When a custom validation is used more than once or the validation is some regular expression mapping,
 create a custom validator file.
 
     ```Ruby
     # bad
     class Person
-      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i } 
+      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
     end
 
     # good
@@ -193,13 +212,17 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
-* When a named scope with lambda and parameters becomes too complicated it is better to make a class method instead which 
-serves the same purpose of the named scope and returns and `ActiveRecord::Relation` object.
+* When a named scope, defined with a lambda and parameters, becomes too
+complicated it is preferable to make a class method instead which serves
+the same purpose of the named scope and returns and
+`ActiveRecord::Relation` object.
 
 ## Migrations
 
-* Keep the schema.rb under version control.
-* Avoid setting defaults in tables themselves. Use the model layer
+* Keep the `schema.rb` under version control.
+* Use `rake db:schema:load` instead of `rake db:migrate` to initialize
+  an empty database.
+* Avoid setting defaults in the tables themselves. Use the model layer
   instead.
 
     ```Ruby
@@ -208,55 +231,63 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     end
     ```
 
-* When writing constructive migrations (adding tables or columns), use the new Rails 3.1 way of doing the migrations - use the `change` method instead of `up` and `down` methods.
+* When writing constructive migrations (adding tables or columns), use
+  the new Rails 3.1 way of doing the migrations - use the `change`
+  method instead of `up` and `down` methods.
 
 ## Views
 
 * Never call the model layer directly from a view.
-* Never make complex formatting in the views, export the formatting to a method in the view helper or the model.
+* Never make complex formatting in the views, export the formatting to
+  a method in the view helper or the model.
 * Mitigate code duplication by using partial templates and layouts.
-* Add client side validation for the custom validators. The steps to do this are:
+* Add
+  [client side validation](https://github.com/bcardarella/client_side_validations)
+  for the custom validators. The steps to do this are:
   * Declare a custom validator which extends `ClientSideValidations::Middleware::Base`
 
-    ```Ruby
-    module ClientSideValidations::Middleware
-      class Email < Base
-        def response
-          if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-            self.status = 200
-          else
-            self.status = 404
+        ```Ruby
+        module ClientSideValidations::Middleware
+          class Email < Base
+            def response
+              if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+                self.status = 200
+              else
+                self.status = 404
+              end
+              super
+            end
           end
-          super
         end
-      end
-    end
-    ```
+        ```
 
-  * Create a new file `public/javascripts/rails.validations.custom.js.coffee` and add a reference to it in your `application.js.coffee` file:
+  * Create a new file
+    `public/javascripts/rails.validations.custom.js.coffee` and add a
+    reference to it in your `application.js.coffee` file:
 
-    ```Ruby
-    # app/assets/javascripts/application.js.coffee
-    #= require rails.validations.custom
-    ```
+        ```Ruby
+        # app/assets/javascripts/application.js.coffee
+        #= require rails.validations.custom
+        ```
 
   * Add your client-side validator:
 
-    ```Ruby
-    #public/javascripts/rails.validations.custom.js.coffee
-    clientSideValidations.validators.remote['email'] = (element, options) ->
-      if $.ajax({
-        url: '/validators/email.json',
-        data: { email: element.val() },
-        async: false
-      }).status == 404
-        return options.message || 'invalid e-mail format'
-    ```
-
+        ```Ruby
+        #public/javascripts/rails.validations.custom.js.coffee
+        clientSideValidations.validators.remote['email'] = (element, options) ->
+          if $.ajax({
+            url: '/validators/email.json',
+            data: { email: element.val() },
+            async: false
+          }).status == 404
+            return options.message || 'invalid e-mail format'
+        ```
 
 ## Mailers
 
-* Name the mailers `SomethingMailer`.
+* Name the mailers `SomethingMailer`. Without the Mailer suffix it
+  isn't immediately apparent what's a mailer and which views are
+  related to the mailer.
 * Provide both HTML and plain-text view templates.
 * Enable errors raised on failed mail delivery in your development environment. The errors are disabled by default.
 
@@ -266,7 +297,8 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     config.action_mailer.raise_delivery_errors = true
     ```
 
-* Use `smtp.gmail.com` for SMTP server in the development environment.
+* Use `smtp.gmail.com` for SMTP server in the development environment
+  (unless you have local SMTP server, of course).
 
     ```Ruby
     # config/environments/development.rb
@@ -274,10 +306,10 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',
       # more settings
-    }  
+    }
     ```
 
-* Provide default settings for host name.
+* Provide default settings for the host name.
 
     ```Ruby
     # config/environments/development.rb
@@ -291,11 +323,13 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     default_url_options[:host] = 'your_site.com'
     ```
 
-* If you need to use a link to your site in an email, always use the `_url`, not `_path` methods. The `_url` methods include the host name and the `_path` don't.
+* If you need to use a link to your site in an email, always use the
+  `_url`, not `_path` methods. The `_url` methods include the host
+  name and the `_path` methods don't.
 
     ```Ruby
     # wrong
-    You can always find more info about this course 
+    You can always find more info about this course
     = link_to 'here', url_for(course_path(@course))
 
     # right
@@ -303,7 +337,7 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     = link_to 'here', url_for(course_url(@course))
     ```
 
-* Format the from and to addresses properly. Use the following format: 
+* Format the from and to addresses properly. Use the following format:
 
     ```Ruby
     # in your mailer class
@@ -339,13 +373,15 @@ its source code first.
 
 ## Managing processes
 
-* Use foreman.
+* If your projects depends on various external processes use
+  [foreman](https://github.com/ddollar/foreman) to manage them.
 
 # Testing Rails applications
+<a name="testing"/>
 
 The best approach to implementing new features is probably the BDD
 approach. You start out by writing some high level feature tests (
-generally written using Cucumber ), then you use this tests to drive
+generally written using Cucumber ), then you use these tests to drive
 out the implementation of the feature. First you write view specs for
 the feature and use those specs to create the relevant
 views. Afterwards you create the specs for the controller(s) that will
@@ -355,28 +391,37 @@ themselves.
 
 ## Cucumber
 
-* Tag your pending scenarios with `@wip` (work in progress).  These scenarios will not be taken into account and will not be marked as failing.
-When finishing the work on a pending scenario and implementing the functionality it tests, 
-the tag `@wip` should be removed in order to include this scenario in the test suite.
-* Setup your default profile to exclude the scenarios tagged with `@javascript`. 
-They are testing using the browser and diabling them is recommended to increase the regular test execution.  
+* Tag your pending scenarios with `@wip` (work in progress).  These
+scenarios will not be taken into account and will not be marked as
+failing.  When finishing the work on a pending scenario and
+implementing the functionality it tests, the tag `@wip` should be
+removed in order to include this scenario in the test suite.
+* Setup your default profile to exclude the scenarios tagged with
+`@javascript`.  They are testing using the browser and disabling them
+is recommended to increase the regular scenarios execution speed.
 * Setup a separate profile for the scenarios marked with `@javascript` tag.
-  * The profiles can be configured in the `cucumber.yml` file. 
+  * The profiles can be configured in the `cucumber.yml` file.
 
-    ```Ruby
-    # definition of a profile:
-    profile_name: --tags @tag_name features
-    ```
+        ```Ruby
+        # definition of a profile:
+        profile_name: --tags @tag_name features
+        ```
 
   * A profile is run with the command:
 
-    ```
-    cucumber -p profile_name        
-    ```
+        ```
+        cucumber -p profile_name
+        ```
 
-* If using [fabrication](http://fabricationgem.org/) for fixtures replacement, use the predefined [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
-* Before writing your own steps for elements selection, first check the `websteps.rb` file under the `step_definitions` directory and reuse some of the existing steps if possible.
-* When checking for the presence of an element with visible text (link, button, etc.) check for the text, not the element id. This can detect problems with the i18n.
+* If using [fabrication](http://fabricationgem.org/) for fixtures
+  replacement, use the predefined
+  [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
+* Before writing your own steps for elements selection, first check
+  the `websteps.rb` file under the `step_definitions` directory and
+  reuse some of the existing steps if possible.
+* When checking for the presence of an element with visible text
+  (link, button, etc.) check for the text, not the element id. This
+  can detect problems with the i18n.
 * Create separate features for different functionality regarding the same kind of objects:
 
     ```Ruby
@@ -395,11 +440,12 @@ They are testing using the browser and diabling them is recommended to increase 
     # ... feature  implementation ...
 
     ```
+
 * Each feature has three main components
-  * Title 
-  * Narrative - a short explanation what the feature is about. 
+  * Title
+  * Narrative - a short explanation what the feature is about.
   * Acceptance criteria - the set of scenarios each made up of individual steps.
-* The most common format is known as the Connextra format. 
+* The most common format is known as the Connextra format.
 
     ```Ruby
     In order to [benefit] ...
@@ -407,7 +453,8 @@ They are testing using the browser and diabling them is recommended to increase 
     Wants to [feature] ...
     ```
 
-This format is the most common but is not required, the narrative can be free text depending on the complexity of the feature.
+This format is the most common but is not required, the narrative can
+be free text depending on the complexity of the feature.
 
 * Use Scenario Outlines freely to keep the scenarios DRY.
 
@@ -417,16 +464,20 @@ This format is the most common but is not required, the narrative can be free te
       And I fill in "E-mail" with "<email>"
       And I should press "Register"
       Then I should see "<error>"
-    
-    Examples: 
+
+    Examples:
       |email         |error                 |
       |              |The e-mail is required|
       |invalid email |is not a valid e-mail |
     ```
 
-* The steps for the scenarios are in `.rb` files under the `step_definitions` directory. The naming convention for the steps file is `[description]_steps.rb`.
-The steps can be separated into different files based on different criterias. It is possible to have one steps file for each feature (`home_page_steps.rb`). 
-There also can be one steps file for all features for a particular object (`articles_steps.rb`).
+* The steps for the scenarios are in `.rb` files under the
+`step_definitions` directory. The naming convention for the steps file
+is `[description]_steps.rb`.  The steps can be separated into
+different files based on different criterias. It is possible to have
+one steps file for each feature (`home_page_steps.rb`).  There also
+can be one steps file for all features for a particular object
+(`articles_steps.rb`).
 * Use multiline step arguments to avoid repetition
 
     ```Ruby
@@ -445,7 +496,7 @@ There also can be one steps file for all features for a particular object (`arti
         field = find_field(field)
         field.value.should =~ /#{value}/
       end
-    end    
+    end
     ```
 
 * Use compound steps to keep the scenario DRY
@@ -464,9 +515,8 @@ There also can be one steps file for all features for a particular object (`arti
         And I fill in "Password Confirmation" with #{password}
         And I click "Register"
       }
-    end    
+    end
     ```
-
 
 ## RSpec
 
@@ -504,15 +554,14 @@ There also can be one steps file for all features for a particular object (`arti
         end
       end
 
-      # ...
     end
     ```
 
 * Make heavy use of `describe` and `context`
 * Name the `describe` blocks as follows:
-  * use “description” for non-methods
-  * use pound “#method” for instance methods
-  * use dot “.method” for class methods
+  * use "description" for non-methods
+  * use pound "#method" for instance methods
+  * use dot ".method" for class methods
 
     ```Ruby
     class Article
@@ -526,18 +575,19 @@ There also can be one steps file for all features for a particular object (`arti
     end
 
     # the spec...
-    describe Article 
+    describe Article
       describe '#summary'
         #...
       end
 
       describe '.latest'
         #...
-      end      
+      end
     end
     ```
 
-* Use [fabricators](http://fabricationgem.org/) to create test objects
+* Use [fabricators](http://fabricationgem.org/) to create test
+  objects.
 * Make heavy use of mocks and stubs
 
     ```Ruby
@@ -545,15 +595,17 @@ There also can be one steps file for all features for a particular object (`arti
     article = mock_model(Article)
 
     # stubbing a method
-    Article.stub(:find).with(article.id).and_return(article)    
+    Article.stub(:find).with(article.id).and_return(article)
     ```
 
-* When mocking a model, use the `as_null_object` method. It tells the output to listen only for messages we expect and ignore any other messages.
+* When mocking a model, use the `as_null_object` method. It tells the
+  output to listen only for messages we expect and ignore any other
+  messages.
 
     ```Ruby
     article = mock_model(Article).as_null_object
     ```
-  
+
 * Use `let` blocks instead of `before(:all)` blocks to create data for
   the spec examples. `let` blocks get lazily evaluated.
 
@@ -589,7 +641,7 @@ There also can be one steps file for all features for a particular object (`arti
       end
     end
 
-    #good
+    # good
     describe Article do
       let(:article) { Fabricate(:article) }
       specify { article.should_not be_published }
@@ -608,9 +660,9 @@ There also can be one steps file for all features for a particular object (`arti
       end
     end
 
-    #good
+    # good
     describe Article do
-      subject { Fabricate(:article) 
+      subject { Fabricate(:article)
       its(:creation_date) { should == Date.today }
     end
     ```
@@ -618,10 +670,16 @@ There also can be one steps file for all features for a particular object (`arti
 
 ### Views
 
-* The directory structure of the view specs `spec/views` matches the one in `app/views`. For example the specs for the views in `app/views/users` are placed in `spec/views/users`.
-* The naming convention for the view specs is adding `_spec.rb` to the view name, for example the view `_form.html.haml` has a corresponding spec `_form.html.haml_spec.rb`.
+* The directory structure of the view specs `spec/views` matches the
+  one in `app/views`. For example the specs for the views in
+  `app/views/users` are placed in `spec/views/users`.
+* The naming convention for the view specs is adding `_spec.rb` to the
+  view name, for example the view `_form.html.haml` has a
+  corresponding spec `_form.html.haml_spec.rb`.
 * `spec_helper.rb` need to be required in each view spec file.
-* The outer `describe` block uses the path to the view without the `app/views` part. This is used by the `render` method when it is called without arguments.
+* The outer `describe` block uses the path to the view without the
+  `app/views` part. This is used by the `render` method when it is
+  called without arguments.
 
     ```Ruby
     # spec/views/articles/new.html.haml_spec.rb
@@ -632,8 +690,10 @@ There also can be one steps file for all features for a particular object (`arti
     end
     ```
 
-* Always mock the models in the view specs. The purpose of the view is only to display information.
-* The method `assign` supplies the instance variables which the view uses and are supplied by the controller.
+* Always mock the models in the view specs. The purpose of the view is
+  only to display information.
+* The method `assign` supplies the instance variables which the view
+  uses and are supplied by the controller.
 
     ```Ruby
     # spec/views/articles/edit.html.haml_spec.rb
@@ -653,7 +713,7 @@ There also can be one steps file for all features for a particular object (`arti
     end
     ```
 
-* Prefer the capybara negative selectors over should_not with the positive. 
+* Prefer the capybara negative selectors over should_not with the positive.
 
     ```Ruby
     # bad
@@ -665,7 +725,9 @@ There also can be one steps file for all features for a particular object (`arti
     page.should have_no_xpath('tr')
     ```
 
-* When a view uses helper methods, these nmethods need to be stubbed. Stubbing the helper methods is done on the `template` object:
+* When a view uses helper methods, these nmethods need to be
+  stubbed. Stubbing the helper methods is done on the `template`
+  object:
 
     ```Ruby
     # app/helpers/articles_helper.rb
@@ -703,45 +765,45 @@ There also can be one steps file for all features for a particular object (`arti
   * Data returned from the action - assigns, etc.
   * Result from the action - template render, redirect, etc.
 
-    ```Ruby
-    # Example of a commonly used controller spec
-    # spec/controllers/articles_controller_spec.rb
-    # We are interested only in the actions the controller should perform
-    # So we are mocking the model creation and stubbing its methods
-    # And we concentrate only on the things the controller should do
+        ```Ruby
+        # Example of a commonly used controller spec
+        # spec/controllers/articles_controller_spec.rb
+        # We are interested only in the actions the controller should perform
+        # So we are mocking the model creation and stubbing its methods
+        # And we concentrate only on the things the controller should do
 
-    describe ArticlesController do      
-      # The model will be used in the specs for all methods of the controller
-      let(:article) { mock_model(Article) }
+        describe ArticlesController do
+          # The model will be used in the specs for all methods of the controller
+          let(:article) { mock_model(Article) }
 
-      describe 'POST create' do
-        before { Article.stub(:new).and_return(article) }
+          describe 'POST create' do
+            before { Article.stub(:new).and_return(article) }
 
-        it 'creates a new article with the given attributes' do
-          Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
-          post :create, message: { title: 'The New Article Title' }
+            it 'creates a new article with the given attributes' do
+              Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
+              post :create, message: { title: 'The New Article Title' }
+            end
+
+            it 'saves the article' do
+              article.should_receive(:save)
+              post :create
+            end
+
+            it 'redirects to the Articles index' do
+              article.stub(:save)
+              post :create
+              response.should redirect_to(action: 'index')
+            end
+          end
         end
-
-        it 'saves the article' do
-          article.should_receive(:save)
-          post :create
-        end
- 
-        it 'redirects to the Articles index' do
-          article.stub(:save)
-          post :create
-          response.should redirect_to(action: 'index')
-        end
-      end 
-    end
-    ```
+        ```
 
 * Use context when the controller action has different behaviour depending on the received params.
 
     ```Ruby
     # A classic example for use of contexts in a controller spec is creation or update when the object saves successfully or not.
 
-    describe ArticlesController do      
+    describe ArticlesController do
       let(:article) { mock_model(Article) }
 
       describe 'POST create' do
@@ -773,30 +835,30 @@ There also can be one steps file for all features for a particular object (`arti
 
         context 'when the article fails to save' do
           before { article.stub(:save).and_return(false) }
-    
+
           it 'assigns @article' do
             post :create
             assigns[:article].should be_eql(article)
           end
-    
+
           it 're-renders the "new" template' do
             post :create
             response.should render_template('new')
           end
         end
-      end 
+      end
     end
     ```
 
 ### Models
 
-* Do not mock the models in their own specs. 
+* Do not mock the models in their own specs.
 * Use fabrication to make real objects.
 * It is acceptable to mock other models or child objects.
 * Create the model for all examples in the spec to avoid duplication.
 
     ```Ruby
-    describe Article 
+    describe Article
       let(:article) { Fabricate(:article) }
     end
     ```
@@ -804,7 +866,7 @@ There also can be one steps file for all features for a particular object (`arti
 * Add en example ensuring that the fabricated model is valid.
 
     ```Ruby
-    describe Article 
+    describe Article
       it 'is valid with valid attributes' do
         article.should be_valid
       end
@@ -814,12 +876,12 @@ There also can be one steps file for all features for a particular object (`arti
 * Add a separate `describe` for each attribute which has validations.
 
     ```Ruby
-    describe Article 
-      describe '#title' 
+    describe Article
+      describe '#title'
         it 'is required' do
           article.title = nil
           article.should_not be_valid
-        end 
+        end
       end
     end
     ```
@@ -827,12 +889,12 @@ There also can be one steps file for all features for a particular object (`arti
 * When testing uniqueness of a model attribute, name the other object `another_object`.
 
     ```Ruby
-    describe Article 
-      describe '#title' 
+    describe Article
+      describe '#title'
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
           another_article.should_not be_valid
-        end 
+        end
       end
     end
     ```
@@ -846,36 +908,35 @@ There also can be one steps file for all features for a particular object (`arti
   * the e-mail is sent to the right e-mail address
   * the e-mail contains the required information
 
-    ```Ruby
-    describe SubscriberMailer
-      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+     ```Ruby
+     describe SubscriberMailer
+       let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-      describe 'successful registration email'
-        subject { SubscriptionMailer.successful_registration_email(subscriber) }
+       describe 'successful registration email'
+         subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
-        its(:subject) { should == 'Successful Registration!' }
-        its(:from) { should == ['info@your_site.com'] }
-        its(:to) { should == [subscriber.email] }
-        
-        it 'contains the subscriber name' do
-          subject.body.encoded.should match(subscriber.name)
-        end
-      end    
-    end
-    ```
+         its(:subject) { should == 'Successful Registration!' }
+         its(:from) { should == ['info@your_site.com'] }
+         its(:to) { should == [subscriber.email] }
+
+         it 'contains the subscriber name' do
+           subject.body.encoded.should match(subscriber.name)
+         end
+       end
+     end
+     ```
 
 ### Uploaders
 
-* What we can test about an uploader is whether the images are resized correctly. 
+* What we can test about an uploader is whether the images are resized correctly.
 Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave) image uploader:
-
 
     ```Ruby
 
     # rspec/uploaders/person_avatar_uploader_spec.rb
     require 'spec_helper'
     require 'carrierwave/test/matchers'
-    
+
     describe PersonAvatarUploader do
       include CarrierWave::Test::Matchers
 
@@ -913,6 +974,7 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
     ```
 
 # Contributing
+<a name="contributing"/>
 
 Nothing written in this guide is set in stone. It's my desire to work
 together with everyone interested in Rails coding style, so that we could
@@ -923,6 +985,7 @@ Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
 # Spread the Word
+<a name="spreadtheword"/>
 
 A community-driven style guide is of little use to a community that
 doesn't know about its existence. Tweet about the guide, share it with
