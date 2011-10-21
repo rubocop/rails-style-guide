@@ -92,8 +92,8 @@ configuration needs to be applied in the
 
     ```Ruby
     # bad
-    get 'subscriptions/unsubscribe'
-    resources 'subscription'
+    get 'subscriptions/:id/unsubscribe'
+    resources :subscriptions
 
     # good
     resources :subscriptions do
