@@ -58,9 +58,9 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
 
         config.storage = :fog
         config.fog_credentials = {
-            :provider => 'AWS',
-            :aws_access_key_id => 'your_access_key_id',
-            :aws_secret_access_key => 'your_secret_access_key', 
+            provider: 'AWS',
+            aws_access_key_id: 'your_access_key_id',
+            aws_secret_access_key: 'your_secret_access_key', 
         }
         config.fog_directory = 'your_bucket'
       end
@@ -181,7 +181,7 @@ create a custom validator file.
     # good
     class EmailValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
-        record.errors[attribute] << (options[:message] || "is not a valid email") unless value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
       end
     end
 
@@ -272,7 +272,7 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     # config/environments/development.rb
 
     config.action_mailer.smtp_settings = {
-      :address => "smtp.gmail.com",
+      address: 'smtp.gmail.com',
       # more settings
     }  
     ```
@@ -281,11 +281,11 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
 
     ```Ruby
     # config/environments/development.rb
-    config.action_mailer.default_url_options = {:host => "#{local_ip}:3000"}
+    config.action_mailer.default_url_options = {host: "#{local_ip}:3000"}
 
 
     # config/environments/production.rb
-    config.action_mailer.default_url_options = {:host => "your_site.com"}
+    config.action_mailer.default_url_options = {host: 'your_site.com'}
 
     # in your mailer class
     default_url_options[:host] = 'your_site.com'
@@ -296,11 +296,11 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     ```Ruby
     # wrong
     You can always find more info about this course 
-    = link_to "here", url_for(course_path(@course))
+    = link_to 'here', url_for(course_path(@course))
 
     # right
     You can always find more info about this course
-    = link_to "here", url_for(course_url(@course))
+    = link_to 'here', url_for(course_url(@course))
     ```
 
 * Format the from and to addresses properly. Use the following format: 
@@ -440,7 +440,7 @@ There also can be one steps file for all features for a particular object (`arti
 
 
     # the step:
-    Then "I should see the following information:" do |table|
+    Then /^I should see the following information:$/ do |table|
       table.raw.each do |field, value|
         field = find_field(field)
         field.value.should =~ /#{value}/
@@ -477,8 +477,8 @@ There also can be one steps file for all features for a particular object (`arti
     describe ArticlesController do
       #...
 
-      describe "GET new" do
-        it "assigns new article and renders the new article template" do
+      describe 'GET new' do
+        it 'assigns new article and renders the new article template' do
           get :new
           assigns[:article].should be_a_new Article
           response.should render_template :new
@@ -492,13 +492,13 @@ There also can be one steps file for all features for a particular object (`arti
     describe ArticlesController do
       #...
 
-      describe "GET new" do
-        it "assigns a new article" do
+      describe 'GET new' do
+        it 'assigns a new article' do
           get :new
           assigns[:article].should be_a_new Article
         end
 
-        it "renders the new article template" do
+        it 'renders the new article template' do
           get :new
           response.should render_template :new
         end
@@ -527,11 +527,11 @@ There also can be one steps file for all features for a particular object (`arti
 
     # the spec...
     describe Article 
-      describe "#summary"
+      describe '#summary'
         #...
       end
 
-      describe ".latest"
+      describe '.latest'
         #...
       end      
     end
@@ -571,7 +571,7 @@ There also can be one steps file for all features for a particular object (`arti
     describe Article do
       subject { Fabricate(:article) }
 
-      it "is not published on creation" do
+      it 'is not published on creation' do
         subject.should_not be_published
       end
     end
@@ -584,7 +584,7 @@ There also can be one steps file for all features for a particular object (`arti
     describe Article do
       before { @article = Fabricate(:article) }
 
-      it "is not published on creation" do
+      it 'is not published on creation' do
         @article.should_not be_published
       end
     end
@@ -603,7 +603,7 @@ There also can be one steps file for all features for a particular object (`arti
     describe Article do
       subject { Fabricate(:article) }
 
-      it "has the current date as creation date" do
+      it 'has the current date as creation date' do
         subject.creation_date.should == Date.today
       end
     end
@@ -627,7 +627,7 @@ There also can be one steps file for all features for a particular object (`arti
     # spec/views/articles/new.html.haml_spec.rb
     require 'spec_helper'
 
-    describe "articles/new.html.html" do
+    describe 'articles/new.html.html' do
       # ...
     end
     ```
@@ -637,18 +637,18 @@ There also can be one steps file for all features for a particular object (`arti
 
     ```Ruby
     # spec/views/articles/edit.html.haml_spec.rb
-    describe "articles/edit.html.haml" do
-    it "renders the form for a new article creation" do
+    describe 'articles/edit.html.haml' do
+    it 'renders the form for a new article creation' do
       assign(
         :article,
         mock_model(Article).as_new_record.as_null_object
       )
       render
       rendered.should have_selector('form',
-        :method => 'post',
-        :action => articles_path
+        method: 'post',
+        action: articles_path
       ) do |form|
-        form.should have_selector('input', :type => 'submit')
+        form.should have_selector('input', type: 'submit')
       end
     end
     ```
@@ -657,11 +657,11 @@ There also can be one steps file for all features for a particular object (`arti
 
     ```Ruby
     # bad
-    page.should_not have_selector('input', :type => 'submit')
+    page.should_not have_selector('input', type: 'submit')
     page.should_not have_xpath('tr')
 
     # good
-    page.should have_no_selector('input', :type => 'submit')
+    page.should have_no_selector('input', type: 'submit')
     page.should have_no_xpath('tr')
     ```
 
@@ -679,9 +679,9 @@ There also can be one steps file for all features for a particular object (`arti
     = "Published at: #{formatted_date(@article.published_at)}"
 
     # spec/views/articles/show.html.haml_spec.rb
-    describe "articles/show.html.html" do
-      it "displays the formatted date of article publishing"
-        article = mock_model(Article, :published_at => Date.new(2012, 01, 01))
+    describe 'articles/show.html.html' do
+      it 'displays the formatted date of article publishing'
+        article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
         template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
@@ -714,23 +714,23 @@ There also can be one steps file for all features for a particular object (`arti
       # The model will be used in the specs for all methods of the controller
       let(:article) { mock_model(Article) }
 
-      describe "POST create" do
+      describe 'POST create' do
         before { Article.stub(:new).and_return(article) }
 
-        it "creates a new article with the given attributes" do
-          Article.should_receive(:new).with("title" => "The New Article Title").and_return(article)
-          post :create, :message => { "title" => "The New Article Title" }
+        it 'creates a new article with the given attributes' do
+          Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
+          post :create, message: { title: 'The New Article Title' }
         end
 
-        it "saves the article" do
+        it 'saves the article' do
           article.should_receive(:save)
           post :create
         end
  
-        it "redirects to the Articles index" do
+        it 'redirects to the Articles index' do
           article.stub(:save)
           post :create
-          response.should redirect_to(:action => "index")
+          response.should redirect_to(action: 'index')
         end
       end 
     end
@@ -744,44 +744,44 @@ There also can be one steps file for all features for a particular object (`arti
     describe ArticlesController do      
       let(:article) { mock_model(Article) }
 
-      describe "POST create" do
+      describe 'POST create' do
         before { Article.stub(:new).and_return(article) }
 
-        it "creates a new article with the given attributes" do
-          Article.should_receive(:new).with("title" => "The New Article Title").and_return(article)
-          post :create, :article => { "title" => "The New Article Title" }
+        it 'creates a new article with the given attributes' do
+          Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
+          post :create, article: { title: 'The New Article Title' }
         end
 
-        it "saves the article" do
+        it 'saves the article' do
           article.should_receive(:save)
           post :create
         end
 
-        context "when the article saves successfully" do
+        context 'when the article saves successfully' do
           before { article.stub(:save).and_return(true) }
 
-          it "sets a flash[:notice] message" do
+          it 'sets a flash[:notice] message' do
 	    post :create
-            flash[:notice].should eq("The article was saved successfully.")
+            flash[:notice].should eq('The article was saved successfully.')
           end
 
-          it "redirects to the Articles index" do
+          it 'redirects to the Articles index' do
             post :create
-            response.should redirect_to(:action => "index")
+            response.should redirect_to(action: 'index')
           end
         end
 
-        context "when the article fails to save" do
+        context 'when the article fails to save' do
           before { article.stub(:save).and_return(false) }
     
-          it "assigns @article" do
+          it 'assigns @article' do
             post :create
             assigns[:article].should be_eql(article)
           end
     
-          it "re-renders the 'new' template" do
+          it 're-renders the "new" template' do
             post :create
-            response.should render_template("new")
+            response.should render_template('new')
           end
         end
       end 
@@ -805,7 +805,7 @@ There also can be one steps file for all features for a particular object (`arti
 
     ```Ruby
     describe Article 
-      it "is valid with valid attributes" do
+      it 'is valid with valid attributes' do
         article.should be_valid
       end
     end
@@ -815,8 +815,8 @@ There also can be one steps file for all features for a particular object (`arti
 
     ```Ruby
     describe Article 
-      describe "#title" 
-        it "is required" do
+      describe '#title' 
+        it 'is required' do
           article.title = nil
           article.should_not be_valid
         end 
@@ -828,9 +828,9 @@ There also can be one steps file for all features for a particular object (`arti
 
     ```Ruby
     describe Article 
-      describe "#title" 
-        it "is unique" do
-          another_article = Fabricate.build(:article, :title => article.title)
+      describe '#title' 
+        it 'is unique' do
+          another_article = Fabricate.build(:article, title: article.title)
           another_article.should_not be_valid
         end 
       end
@@ -873,7 +873,7 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
     ```Ruby
 
     # rspec/uploaders/person_avatar_uploader_spec.rb
-    require "spec_helper"
+    require 'spec_helper'
     require 'carrierwave/test/matchers'
     
     describe PersonAvatarUploader do
@@ -897,14 +897,14 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
 
       # Testing whether image is no larger than given dimensions
       context 'the default version' do
-        it "scales down an image to be no larger than 256 by 256 pixels" do
+        it 'scales down an image to be no larger than 256 by 256 pixels' do
           @uploader.should be_no_larger_than(256, 256)
         end
       end
 
       # Testing whether image has the exact dimensions
       context 'the thumb version' do
-        it "scales down an image to be exactly 64 by 64 pixels" do
+        it 'scales down an image to be exactly 64 by 64 pixels' do
           @uploader.thumb.should have_dimensions(64, 64)
         end
       end
