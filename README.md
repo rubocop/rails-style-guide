@@ -22,14 +22,32 @@ Some of the advice here is applicable only to Rails 3.1.
 
 ## Table of Contents
 
-1. [Developing Rails Applications](#developing)
-2. [Testing Rails Applications](#testing)
-3. [Contributing](#contributing)
-4. [Spread the word](#spreadtheword)
+* [Developing Rails Applications](#developing)
+    * [Configuration](#configuration)
+    * [Routing](#routing)
+    * [Controllers](#controllers)
+    * [Models](#models)
+        * [ActiveRecord](#activerecord)
+    * [Migrations](#migrations)
+    * [Views](#views)
+    * [Mailers](#mailers)
+    * [Bundler](#bundler)
+    * [Managing processes](#processes)
+* [Testing Rails Applications](#testing)
+    * [Cucumber](#cucumber)
+    * [RSpec](#rspec)
+    * [Views](#rspec_views)
+    * [Contollers](#rspec_controllers)
+    * [Models](#rspec_models)
+    * [Mailers](#rspec_mailers)
+    * [Uploaders](#rspec_uploaders)
+* [Contributing](#contributing)
+* [Spread the word](#spreadtheword)
 
 <a name="developing"/>
 # Developing Rails applications
 
+<a name="configuration"/>
 ## Configuration
 
 * Put custom initialization code in `config/initializers`. The code in
@@ -85,6 +103,7 @@ configuration needs to be applied in the
   * Use `fog` for the development environment. This will prevent
     unexpected problems on production.
 
+<a name="routing"/>
 ## Routing
 
 * When you need to add more actions to a RESTful resource (do you
@@ -165,6 +184,7 @@ configuration needs to be applied in the
     match ':controller(/:action(/:id(.:format)))'
     ```
 
+<a name="controllers"/>
 ## Controllers
 
 * Keep the controllers skinny - they should only retrieve data for the
@@ -174,11 +194,13 @@ configuration needs to be applied in the
   than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
 
+<a name="models"/>
 ## Models
 
 * Introduce non-ActiveRecord model classes freely.
 * Name the models with meaningful (but short) names without abbreviations.
 
+<a name="activerecord"/>
 ### ActiveRecord
 
 * Avoid altering ActiveRecord defaults (table names, primary key, etc)
@@ -217,6 +239,7 @@ complicated it is preferable to make a class method instead which serves
 the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
 
+<a name="migrations"/>
 ## Migrations
 
 * Keep the `schema.rb` under version control.
@@ -235,6 +258,7 @@ the same purpose of the named scope and returns and
   the new Rails 3.1 way of doing the migrations - use the `change`
   method instead of `up` and `down` methods.
 
+<a name="views"/>
 ## Views
 
 * Never call the model layer directly from a view.
@@ -283,6 +307,7 @@ the same purpose of the named scope and returns and
             return options.message || 'invalid e-mail format'
         ```
 
+<a name="mailers"/>
 ## Mailers
 
 * Name the mailers `SomethingMailer`. Without the Mailer suffix it
@@ -360,6 +385,7 @@ the same purpose of the named scope and returns and
     config.action_mailer.delivery_method = :smtp
     ```
 
+<a name="bundler"/>
 ## Bundler
 
 * Put gems used only for development or testing in the appropriate group in the Gemfile.
@@ -371,6 +397,7 @@ its source code first.
   some randomly generated file - it makes sure that all of your team
   members get the same gem versions when they do a `bundle install`.
 
+<a name="processes"/>
 ## Managing processes
 
 * If your projects depends on various external processes use
@@ -389,6 +416,7 @@ be feeding data to the views and use those specs to implement the
 controller. Finally you implement the models specs and the models
 themselves.
 
+<a name="cucumber"/>
 ## Cucumber
 
 * Tag your pending scenarios with `@wip` (work in progress).  These
@@ -518,6 +546,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
+<a name="rspec"/>
 ## RSpec
 
 * Use just one expectation per example.
@@ -667,7 +696,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
-
+<a name="rspec_views"/>"
 ### Views
 
 * The directory structure of the view specs `spec/views` matches the
@@ -756,7 +785,7 @@ can be one steps file for all features for a particular object
 
 * The helpers specs are separated from the view specs in the `spec/helpers` directory.
 
-
+<a name="rspec_controllers"/>
 ### Controllers
 
 * Mock the models and stub their methods. Testing the controller should not depend on the model creation.
@@ -850,6 +879,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
+<a name="rspec_models"/>
 ### Models
 
 * Do not mock the models in their own specs.
@@ -899,6 +929,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
+<a name="rspec_mailers"/>
 ### Mailers
 
 * The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
@@ -926,6 +957,7 @@ can be one steps file for all features for a particular object
      end
      ```
 
+<a name="rspec_uploaders"/>
 ### Uploaders
 
 * What we can test about an uploader is whether the images are resized correctly.
