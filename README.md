@@ -27,8 +27,8 @@ Some of the advice here is applicable only to Rails 3.1.
 3. [Contributing](#contributing)
 4. [Spread the word](#spreadtheword)
 
-# Developing Rails applications
 <a name="developing"/>
+# Developing Rails applications
 
 ## Configuration
 
@@ -376,8 +376,8 @@ its source code first.
 * If your projects depends on various external processes use
   [foreman](https://github.com/ddollar/foreman) to manage them.
 
-# Testing Rails applications
 <a name="testing"/>
+# Testing Rails applications
 
 The best approach to implementing new features is probably the BDD
 approach. You start out by writing some high level feature tests (
@@ -973,8 +973,8 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
 
     ```
 
-# Contributing
 <a name="contributing"/>
+# Contributing
 
 Nothing written in this guide is set in stone. It's my desire to work
 together with everyone interested in Rails coding style, so that we could
@@ -984,8 +984,8 @@ community.
 Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
-# Spread the Word
 <a name="spreadtheword"/>
+# Spread the Word
 
 A community-driven style guide is of little use to a community that
 doesn't know about its existence. Tweet about the guide, share it with
