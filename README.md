@@ -33,6 +33,7 @@ Some of the advice here is applicable only to Rails 3.1.
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
     ```
+
 * In order to use [carrierwave](https://github.com/jnicklas/carrierwave) for the files upload and [fog](https://github.com/geemus/fog) for file storage, 
 some configurations need to be applied in the `config/initializers/carrierwave.rb` file:
   * Do not use `fog` for the test environment, use `file` storage instead.
@@ -64,7 +65,7 @@ some configurations need to be applied in the `config/initializers/carrierwave.r
         config.fog_directory = 'your_bucket'
       end
     end
-    ```
+   ```
 
 ## Routing
 
@@ -264,7 +265,6 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
 
 * Use `smtp.gmail.com` for SMTP server in the development environment.
 
-
     ```Ruby
     # config/environments/development.rb
 
@@ -305,6 +305,22 @@ serves the same purpose of the named scope and returns and `ActiveRecord::Relati
     ```Ruby
     # in your mailer class
     default from: 'Your Name <info@your_site.com>'
+    ```
+
+* Make sure that the e-mail delivery method for your test environment is set to `test`:
+
+    ```Ruby
+    # config/environments/test.rb
+
+    config.action_mailer.delivery_method = :test
+    ```
+
+* The delivery methos for development and production should be `smtp`:
+
+    ```Ruby
+    # config/environments/delelopment.rb, config/environments/production.rb
+
+    config.action_mailer.delivery_method = :smtp
     ```
 
 ## Bundler
