@@ -238,6 +238,8 @@ create a custom validator file.
 complicated it is preferable to make a class method instead which serves
 the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
+* Beware of the behavior of the `update_attribute` method. It doesn't
+  run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 
 <a name="migrations"/>
 ## Migrations
@@ -391,10 +393,10 @@ the same purpose of the named scope and returns and
 * Put gems used only for development or testing in the appropriate group in the Gemfile.
 * Use only established gems in your projects. If you're contemplating
 on including some little-known gem you should do a careful review of
-its source code first. 
-* OS-specific gems will by default result in a constantly changing `Gemfile.lock` 
+its source code first.
+* OS-specific gems will by default result in a constantly changing `Gemfile.lock`
 for projects with multiple developers using different operating systems.
-Add all OS X specific gems to a `darwin` group in the Gemfile, and all Linux 
+Add all OS X specific gems to a `darwin` group in the Gemfile, and all Linux
 specific gems to a `linux` group:
 
     ```Ruby
@@ -720,7 +722,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
-<a name="rspec_views"/>"
+<a name="rspec_views"/>
 ### Views
 
 * The directory structure of the view specs `spec/views` matches the
