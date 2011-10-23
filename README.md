@@ -482,9 +482,6 @@ is recommended to increase the regular scenarios execution speed.
 * If using [fabrication](http://fabricationgem.org/) for fixtures
   replacement, use the predefined
   [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
-* Before writing your own steps for elements selection, first check
-  the `websteps.rb` file under the `step_definitions` directory and
-  reuse some of the existing steps if possible.
 * When checking for the presence of an element with visible text
   (link, button, etc.) check for the text, not the element id. This
   can detect problems with the i18n.
