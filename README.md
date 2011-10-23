@@ -878,7 +878,7 @@ can be one steps file for all features for a particular object
           before { article.stub(:save).and_return(true) }
 
           it 'sets a flash[:notice] message' do
-	    post :create
+            post :create
             flash[:notice].should eq('The article was saved successfully.')
           end
 
