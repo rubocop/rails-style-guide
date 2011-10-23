@@ -84,7 +84,7 @@ configuration needs to be applied in the
     end
 
     # Using Amazon S3 for Development and Production
-    if Rails.env.development? or Rails.env.production?
+    if Rails.env.development? || Rails.env.production?
       CarrierWave.configure do |config|
         config.root = Rails.root.join('tmp')
         config.cache_dir = 'uploads'
@@ -423,8 +423,8 @@ specific gems to a `linux` group:
     end
     ```
 
-To require the appropriate gems in the right environment, add the
-following to `config/application.rb`:
+    To require the appropriate gems in the right environment, add the
+    following to `config/application.rb`:
 
     ```Ruby
     platform = RUBY_PLATFORM.match(/(linux|darwin)/)[0].to_sym
