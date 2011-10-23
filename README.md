@@ -30,6 +30,7 @@ Some of the advice here is applicable only to Rails 3.1.
         * [ActiveRecord](#activerecord)
     * [Migrations](#migrations)
     * [Views](#views)
+    * [Assets](#assets)
     * [Mailers](#mailers)
     * [Bundler](#bundler)
     * [Managing processes](#processes)
@@ -308,6 +309,17 @@ the same purpose of the named scope and returns and
           }).status == 404
             return options.message || 'invalid e-mail format'
         ```
+
+<a name="assets"/>
+## Assets
+
+Use the [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to leverage organization within
+your application.
+
+* Reserve `app/assets` for custom stylesheets, javascripts, or images.
+* Third party code such as [jQuery](http://jquery.com/) or [bootstrap](http://twitter.github.com/bootstrap/)
+  should be placed in `vendor/assets`.
+* When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
 
 <a name="mailers"/>
 ## Mailers
