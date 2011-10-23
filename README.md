@@ -780,7 +780,7 @@ can be one steps file for all features for a particular object
     page.should have_no_xpath('tr')
     ```
 
-* When a view uses helper methods, these nmethods need to be
+* When a view uses helper methods, these methods need to be
   stubbed. Stubbing the helper methods is done on the `template`
   object:
 
