@@ -804,7 +804,7 @@ can be one steps file for all features for a particular object
         template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
 
         render
-        rendered.should_not have_content('Published at: 01.01.2012')
+        rendered.should have_content('Published at: 01.01.2012')
       end
     end
     ```
