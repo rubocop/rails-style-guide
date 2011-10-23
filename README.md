@@ -684,7 +684,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
-* Use `specify` if possible. It is a sinonym of `it` but is more readable when there is no docstring.
+* Use `specify` if possible. It is a synonym of `it` but is more readable when there is no docstring.
 
     ```Ruby
     # bad
