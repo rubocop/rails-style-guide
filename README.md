@@ -931,7 +931,7 @@ can be one steps file for all features for a particular object
     end
     ```
 
-* Add en example ensuring that the fabricated model is valid.
+* Add an example ensuring that the fabricated model is valid.
 
     ```Ruby
     describe Article
