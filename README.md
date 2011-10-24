@@ -5,8 +5,8 @@ prescriptions for Ruby on Rails 3 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-While in the guide the section **Testing Rails applications** is after
-**Developing Rails applications** I truly believe that
+While in the guide the section [Testing Rails applications](#testing) is after
+[Developing Rails applications](#developing) I truly believe that
 Behaviour-Driven Development (BDD) is the best way to develop
 software. Keep that in mind.
 
@@ -33,6 +33,8 @@ Some of the advice here is applicable only to Rails 3.1.
     * [Assets](#assets)
     * [Mailers](#mailers)
     * [Bundler](#bundler)
+    * [Priceless Gems](#priceless)
+    * [Flawed Gems](#flawed)
     * [Managing processes](#processes)
 * [Testing Rails Applications](#testing)
     * [Cucumber](#cucumber)
@@ -42,6 +44,7 @@ Some of the advice here is applicable only to Rails 3.1.
         * [Models](#rspec_models)
         * [Mailers](#rspec_mailers)
         * [Uploaders](#rspec_uploaders)
+* [Further Reading](#reading)
 * [Contributing](#contributing)
 * [Spread the word](#spreadtheword)
 
@@ -434,6 +437,103 @@ specific gems to a `linux` group:
 * Do not remove the `Gemfile.lock` from version control. This is not
   some randomly generated file - it makes sure that all of your team
   members get the same gem versions when they do a `bundle install`.
+
+<a name="priceless"/>
+## Priceless Gems
+
+One of the most important programming principles is "Don't reinvent
+the wheel!". If you're faced with a certain task you should always
+look around a bit for existing solutions, before unrolling your
+own. Here's a list of some "priceless" gems (all of them Rails 3.1
+compliant) that are useful in many Rails projects:
+
+* [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a
+  replacement for Test::MiniTest. I cannot recommend highly enough
+  RSpec. rspec-rails provides Rails integration for RSpec.
+* [cucumber-rails](https://github.com/cucumber/cucumber-rails) -
+  Cucumber is the premium tool to develop feature tests in
+  Ruby. cucumber-rails provides Rails integration for Cucumber.
+* [haml](http://haml-lang.org) - HAML is a concise templating language, considered by many
+  (including your truly) far superior to Erb.
+* [slim](http://slim-lang.com) - Slim is a concise templating
+  language, considered by many far superior to HAML (not to mention
+  Erb). The only thing stopping me from using Slim massively is the
+  lack of good support in major editors/IDEs. Its performance is
+  phenomenal.
+* [simple_form](https://github.com/plataformatec/simple_form) - once you've used simple_form (or formtastic)
+  you'll never want to hear about Rails's default forms. It has a
+  great DSL for building forms and no opinion on markup.
+* [fabrication](http://fabricationgem.org/) - a great fixture
+  replacement (editor's choice).
+* [factory_girl](https://github.com/thoughtbot/factory_girl) - an
+  alternative to fabrication. Nice and mature fixture
+  replacement. Spiritual ancestor of fabrication.
+* [machinist](https://github.com/notahat/machinist) - Fixtures aren't
+  fun. Machinist is.
+* [faker](http://faker.rubyforge.org/) - handy gem to generate dummy data (names, addresses, etc).
+* [guard](https://github.com/guard/guard) - fantastic gem that monitors file changes and invokes
+tasks based on them. Loaded with lots of useful extension. Far
+superior to autotest and watchr.
+* [spork](https://github.com/timcharper/spork) - A DRb server for
+  testing frameworks (RSpec / Cucumber currently) that forks before
+  each run to ensure a clean testing state. Simply put it preloads a
+  lot of test environment and as consequence the startup time of your
+  tests in greatly decreased. Absolute must have!
+* [simplecov](https://github.com/colszowka/simplecov) - code coverage tool. Unlike RCov it's fully
+compatible with Ruby 1.9. Generates great reports. Must have!
+* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - RCov formatter for SimpleCov. Useful if you're
+  trying to use SimpleCov with the Hudson contininous integration
+  server.
+* [capybara](https://github.com/jnicklas/capybara) - Capybara aims to
+  simplify the process of integration testing Rack applications, such
+  as Rails, Sinatra or Merb. Capybara simulates how a real user would
+  interact with a web application. It is agnostic about the driver
+  running your tests and currently comes with Rack::Test and Selenium
+  support built in. HtmlUnit, WebKit and env.js are supported through
+  external gems. Works great in combination with RSpec & Cucumber.
+* [devise](https://github.com/plataformatec/devise) - Devise is
+  full-featured authentication solution for Rails applications. In
+  most cases it's preferable to use devise to unrolling your custom
+  authentication solution.
+* [carrierwave](https://github.com/jnicklas/carrierwave) - the
+  ultimate file upload solution for Rails. Support both local and
+  cloud storage for the uploaded files (and many other cool
+  things). Integrates great with ImageMagick for image post-processing.
+* [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
+* [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible RSS/Atom feed parser.
+* [sunspot](https://github.com/sunspot/sunspot) - SOLR powered
+    full-text search engine.
+*
+  [client_side_validations](https://github.com/bcardarella/client_side_validations)
+    - Fantastic gem that automatically creates JavaScript client-side
+      validations off from your existing server-side model
+      validations. Highly recommended!
+* [rails_admin](https://github.com/sferik/rails_admin) - With Rails Admin the creating of admin interface
+  for your Rails app is child's play. You get a nice dashboard, CRUD
+  UI and lots more. Very flexible and customizable.
+
+This list is not exhaustive and other gems might be added to it along
+the road. All of the gems on the list are field tested, have active
+development and community and are known to be of good code quality.
+
+<a name="flawed"/>
+## Flawed Gems
+
+This is a list of gems that are either problematic or superseded by
+other gems. You should avoid using them in your projects.
+
+* [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its memory consumption. Use
+[minimagick](https://github.com/probablycorey/mini_magick) instead.
+* [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for running tests automatically. Far
+inferior to guard and [watchr](https://github.com/mynyml/watchr).
+* [rcov](https://github.com/relevance/rcov) - code coverage tool, not
+  compatible with Ruby 1.9. Use SimpleCov instead.
+* [therubyracer](https://github.com/cowboyd/therubyracer) - the use of
+  this gem in production is strongly discouraged as it uses a very large amount of
+  memory.
+
+This list is also a work in progress. Please, let me know if you know
+other popular, but flawed gems.
 
 <a name="processes"/>
 ## Managing processes
@@ -1038,6 +1138,16 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
     end
 
     ```
+
+<a name="reading"/>
+# Further Reading
+
+There are a few excellent resources on Rails style, that you should
+consider if you have time to spare:
+
+* [The Rails 3 Way](http://tr3w.com/)
+* [Ruby on Rails Guides](http://guides.rubyonrails.org/)
+* [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 
 <a name="contributing"/>
 # Contributing
