@@ -624,10 +624,8 @@ be free text depending on the complexity of the feature.
 * Use Scenario Outlines freely to keep the scenarios DRY.
 
     ```Ruby
-    Scenario Outline: Entering invalid e-mail displays an error
-      Given I am on the user registration page
-      And I enter "<email>" for the "E-mail"
-      And I click the button "Register"
+    Scenario Outline: User cannot register with invalid e-mail
+      When I try to register with an email "<email>"      
       Then I should see the error message "<error>"
 
     Examples:
