@@ -394,7 +394,7 @@ your application.
     config.action_mailer.delivery_method = :test
     ```
 
-* The delivery methos for development and production should be `smtp`:
+* The delivery method for development and production should be `smtp`:
 
     ```Ruby
     # config/environments/development.rb, config/environments/production.rb
