@@ -470,7 +470,7 @@ is recommended to increase the regular scenarios execution speed.
 
         ```Ruby
         # definition of a profile:
-        profile_name: --tags @tag_name features
+        profile_name: --tags @tag_name
         ```
 
   * A profile is run with the command:
@@ -482,9 +482,8 @@ is recommended to increase the regular scenarios execution speed.
 * If using [fabrication](http://fabricationgem.org/) for fixtures
   replacement, use the predefined
   [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
-* Before writing your own steps for elements selection, first check
-  the `websteps.rb` file under the `step_definitions` directory and
-  reuse some of the existing steps if possible.
+* Do not use the old `web_steps.rb`. The web steps are removed from the latest version of Cucumber.
+Their usage leads to writing not very descriptive scenarios.
 * When checking for the presence of an element with visible text
   (link, button, etc.) check for the text, not the element id. This
   can detect problems with the i18n.
@@ -526,10 +525,10 @@ be free text depending on the complexity of the feature.
 
     ```Ruby
     Scenario Outline: Entering invalid e-mail displays an error
-      Given I am on the registration page
-      And I fill in "E-mail" with "<email>"
-      And I should press "Register"
-      Then I should see "<error>"
+      Given I am on the user registration page
+      And I enter "<email>" for the "E-mail"
+      And I click the button "Register"
+      Then I should see the error message "<error>"
 
     Examples:
       |email         |error                 |
@@ -548,19 +547,17 @@ can be one steps file for all features for a particular object
 
     ```Ruby
     Scenario: User profile
-      Given I am logged in as a user with e-mail "user@test.com"
-      When I go to the profile edit page
+      Given I am logged in as a user "John Doe" with an e-mail "user@test.com"
+      When I go to my profile
       Then I should see the following information:
         |First name|John         |
         |Last name |Doe          |
         |E-mail    |user@test.com|
 
-
     # the step:
     Then /^I should see the following information:$/ do |table|
       table.raw.each do |field, value|
-        field = find_field(field)
-        field.value.should =~ /#{value}/
+        find_field(field).value.should =~ /#{value}/
       end
     end
     ```
@@ -569,17 +566,16 @@ can be one steps file for all features for a particular object
 
     ```Ruby
     # ...
-    When I register as a user with email "user@test.com" and password "secret"
+    When I subscribe for news from the category "Technical News"
     # ...
 
     # the step:
-    When /^I register as a user with email "([^"]*)" and password "([^"]*)"$/ do |email, password|
+    When /^I subscribe for news from the category "([^"]*)"$/ do |category|
       steps %Q{
-        When I go to the user registration page
-        And I fill in "E-mail" with #{email}
-        And I fill in "Password" with #{password}
-        And I fill in "Password Confirmation" with #{password}
-        And I click "Register"
+        When I go to the news categories page
+        And I select the category #{category}
+        And I click the button "Subscribe for this category"	
+        And I confirm the subscription
       }
     end
     ```
