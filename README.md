@@ -582,8 +582,10 @@ is recommended to increase the regular scenarios execution speed.
 * If using [fabrication](http://fabricationgem.org/) for fixtures
   replacement, use the predefined
   [fabrication steps](http://fabricationgem.org/#!cucumber-steps)
-* Do not use the old `web_steps.rb`. The web steps are removed from the latest version of Cucumber.
-Their usage leads to writing not very descriptive scenarios.
+* Do not use the old `web_steps.rb` step definitions!
+[The web steps were removed from the latest version of Cucumber.](http://aslakhellesoy.com/post/11055981222/the-training-wheels-came-off) Their
+usage leads to the creation of verbose scenarios that do not properly
+reflect the application domain.
 * When checking for the presence of an element with visible text
   (link, button, etc.) check for the text, not the element id. This
   can detect problems with the i18n.
@@ -625,7 +627,7 @@ be free text depending on the complexity of the feature.
 
     ```Ruby
     Scenario Outline: User cannot register with invalid e-mail
-      When I try to register with an email "<email>"      
+      When I try to register with an email "<email>"
       Then I should see the error message "<error>"
 
     Examples:
@@ -672,7 +674,7 @@ can be one steps file for all features for a particular object
       steps %Q{
         When I go to the news categories page
         And I select the category #{category}
-        And I click the button "Subscribe for this category"	
+        And I click the button "Subscribe for this category"
         And I confirm the subscription
       }
     end
