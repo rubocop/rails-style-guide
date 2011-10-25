@@ -503,11 +503,9 @@ compatible with Ruby 1.9. Generates great reports. Must have!
 * [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible RSS/Atom feed parser.
 * [sunspot](https://github.com/sunspot/sunspot) - SOLR powered
     full-text search engine.
-*
-  [client_side_validations](https://github.com/bcardarella/client_side_validations)
-    - Fantastic gem that automatically creates JavaScript client-side
-      validations off from your existing server-side model
-      validations. Highly recommended!
+* [client_side_validations](https://github.com/bcardarella/client_side_validations) - Fantastic gem
+  that automatically creates JavaScript client-side validations from
+  your existing server-side model validations. Highly recommended!
 * [rails_admin](https://github.com/sferik/rails_admin) - With Rails Admin the creating of admin interface
   for your Rails app is child's play. You get a nice dashboard, CRUD
   UI and lots more. Very flexible and customizable.
