@@ -256,7 +256,7 @@ the same purpose of the named scope and returns and
 
     ```Ruby
     def amount
-      read_attributed(:amount) or 0
+      read_attribute(:amount) or 0
     end
     ```
 
