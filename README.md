@@ -846,7 +846,7 @@ can be one steps file for all features for a particular object
     # spec/views/articles/new.html.haml_spec.rb
     require 'spec_helper'
 
-    describe 'articles/new.html.html' do
+    describe 'articles/new.html.haml' do
       # ...
     end
     ```
