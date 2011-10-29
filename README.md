@@ -20,6 +20,9 @@ advice in here.
 
 Some of the advice here is applicable only to Rails 3.1.
 
+You can generate a PDF or an HTML copy of this guide using
+[Transmuter](https://github.com/TechnoGate/transmuter).
+
 ## Table of Contents
 
 * [Developing Rails Applications](#developing)
