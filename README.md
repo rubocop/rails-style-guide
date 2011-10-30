@@ -259,7 +259,7 @@ the same purpose of the named scope and returns and
 
     ```Ruby
     def amount
-      read_attribute(:amount) or 0
+      self[:amount] or 0
     end
     ```
 
