@@ -456,8 +456,10 @@ compliant) that are useful in many Rails projects:
 * [cucumber-rails](https://github.com/cucumber/cucumber-rails) -
   Cucumber is the premium tool to develop feature tests in
   Ruby. cucumber-rails provides Rails integration for Cucumber.
-* [haml](http://haml-lang.org) - HAML is a concise templating language, considered by many
-  (including your truly) far superior to Erb.
+* [haml](http://haml-lang.com) - HAML is a concise templating language, considered by many
+  (including yours truly) to be far superior to Erb.
+* [haml-rails](https://github.com/indirect/haml-rails) - haml-rails
+  provides Rails integration for Haml.
 * [slim](http://slim-lang.com) - Slim is a concise templating
   language, considered by many far superior to HAML (not to mention
   Erb). The only thing stopping me from using Slim massively is the
