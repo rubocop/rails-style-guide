@@ -263,7 +263,7 @@ the same purpose of the named scope and returns and
     end
     ```
 
-    While the use of self[:attr_name] is considered fairly idiomatic,
+    While the use of `self[:attr_name]` is considered fairly idiomatic,
     you might also consider using the slightly more verbose (and arguably more
     readable) `read_attribute` instead:
 
