@@ -263,6 +263,16 @@ the same purpose of the named scope and returns and
     end
     ```
 
+    While the use of self[:attr_name] is considered fairly idiomatic,
+    you might also consider using the slightly more verbose (and arguably more
+    readable) `read_attribute` instead:
+
+    ```Ruby
+    def amount
+      read_attribute(:amount) or 0
+    end
+    ```
+
 * When writing constructive migrations (adding tables or columns), use
   the new Rails 3.1 way of doing the migrations - use the `change`
   method instead of `up` and `down` methods.
