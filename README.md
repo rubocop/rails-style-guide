@@ -74,7 +74,7 @@ You can generate a PDF or an HTML copy of this guide using
 
 * While not strictly related to style, in order to use
 [carrierwave](https://github.com/jnicklas/carrierwave) for the files
-upload and [fog](https://github.com/geemus/fog) for file storage, some
+upload and [fog](https://github.com/fog/fog) for file storage, some
 configuration needs to be applied in the
 `config/initializers/carrierwave.rb` file:
 
