@@ -41,6 +41,7 @@ You can generate a PDF or an HTML copy of this guide using
         # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
+
 * Create an additional `staging` environment that closely resembles
 the `production` one.
 
