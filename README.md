@@ -23,38 +23,8 @@ Some of the advice here is applicable only to Rails 3.1.
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
 
-## Table of Contents
-
-* [Developing Rails Applications](#developing)
-    * [Configuration](#configuration)
-    * [Routing](#routing)
-    * [Controllers](#controllers)
-    * [Models](#models)
-        * [ActiveRecord](#activerecord)
-    * [Migrations](#migrations)
-    * [Views](#views)
-    * [Assets](#assets)
-    * [Mailers](#mailers)
-    * [Bundler](#bundler)
-    * [Priceless Gems](#priceless)
-    * [Flawed Gems](#flawed)
-    * [Managing processes](#processes)
-* [Testing Rails Applications](#testing)
-    * [Cucumber](#cucumber)
-    * [RSpec](#rspec)
-        * [Views](#rspec_views)
-        * [Contollers](#rspec_controllers)
-        * [Models](#rspec_models)
-        * [Mailers](#rspec_mailers)
-        * [Uploaders](#rspec_uploaders)
-* [Further Reading](#reading)
-* [Contributing](#contributing)
-* [Spread the word](#spreadtheword)
-
-<a name="developing"/>
 # Developing Rails applications
 
-<a name="configuration"/>
 ## Configuration
 
 * Put custom initialization code in `config/initializers`. The code in
@@ -71,46 +41,9 @@ You can generate a PDF or an HTML copy of this guide using
         # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
+* Create an additional `staging` environment that closely resembles
+the `production` one.
 
-* While not strictly related to style, in order to use
-[carrierwave](https://github.com/jnicklas/carrierwave) for the files
-upload and [fog](https://github.com/fog/fog) for file storage, some
-configuration needs to be applied in the
-`config/initializers/carrierwave.rb` file:
-
-    ```Ruby
-    # config/initializers/carrierwave.rb
-
-    # Store the files locally for test environment
-    if Rails.env.test?
-      CarrierWave.configure do |config|
-        config.storage = :file
-        config.enable_processing = false
-      end
-    end
-
-    # Using Amazon S3 for Development and Production
-    if Rails.env.development? || Rails.env.production?
-      CarrierWave.configure do |config|
-        config.root = Rails.root.join('tmp')
-        config.cache_dir = 'uploads'
-
-        config.storage = :fog
-        config.fog_credentials = {
-            provider: 'AWS',
-            aws_access_key_id: 'your_access_key_id',
-            aws_secret_access_key: 'your_secret_access_key',
-        }
-        config.fog_directory = 'your_bucket'
-      end
-    end
-   ```
-
-  * Do not use `fog` for the test environment, use `file` storage instead.
-  * Use `fog` for the development environment. This will prevent
-    unexpected problems on production.
-
-<a name="routing"/>
 ## Routing
 
 * When you need to add more actions to a RESTful resource (do you
@@ -191,7 +124,6 @@ configuration needs to be applied in the
     match ':controller(/:action(/:id(.:format)))'
     ```
 
-<a name="controllers"/>
 ## Controllers
 
 * Keep the controllers skinny - they should only retrieve data for the
@@ -201,13 +133,11 @@ configuration needs to be applied in the
   than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
 
-<a name="models"/>
 ## Models
 
 * Introduce non-ActiveRecord model classes freely.
 * Name the models with meaningful (but short) names without abbreviations.
 
-<a name="activerecord"/>
 ### ActiveRecord
 
 * Avoid altering ActiveRecord defaults (table names, primary key, etc)
@@ -233,7 +163,6 @@ create a custom validator file.
       end
     end
 
-
     class Person
       validates :email, email: true
     end
@@ -248,7 +177,6 @@ the same purpose of the named scope and returns and
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 
-<a name="migrations"/>
 ## Migrations
 
 * Keep the `schema.rb` under version control.
@@ -277,7 +205,6 @@ the same purpose of the named scope and returns and
   the new Rails 3.1 way of doing the migrations - use the `change`
   method instead of `up` and `down` methods.
 
-<a name="views"/>
 ## Views
 
 * Never call the model layer directly from a view.
@@ -326,7 +253,6 @@ the same purpose of the named scope and returns and
             return options.message || 'invalid e-mail format'
         ```
 
-<a name="assets"/>
 ## Assets
 
 Use the [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to leverage organization within
@@ -337,7 +263,6 @@ your application.
   should be placed in `vendor/assets`.
 * When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
 
-<a name="mailers"/>
 ## Mailers
 
 * Name the mailers `SomethingMailer`. Without the Mailer suffix it
@@ -415,7 +340,6 @@ your application.
     config.action_mailer.delivery_method = :smtp
     ```
 
-<a name="bundler"/>
 ## Bundler
 
 * Put gems used only for development or testing in the appropriate group in the Gemfile.
@@ -451,7 +375,6 @@ specific gems to a `linux` group:
   some randomly generated file - it makes sure that all of your team
   members get the same gem versions when they do a `bundle install`.
 
-<a name="priceless"/>
 ## Priceless Gems
 
 One of the most important programming principles is "Don't reinvent
@@ -529,7 +452,6 @@ This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
 development and community and are known to be of good code quality.
 
-<a name="flawed"/>
 ## Flawed Gems
 
 This is a list of gems that are either problematic or superseded by
@@ -548,13 +470,11 @@ inferior to guard and [watchr](https://github.com/mynyml/watchr).
 This list is also a work in progress. Please, let me know if you know
 other popular, but flawed gems.
 
-<a name="processes"/>
 ## Managing processes
 
 * If your projects depends on various external processes use
   [foreman](https://github.com/ddollar/foreman) to manage them.
 
-<a name="testing"/>
 # Testing Rails applications
 
 The best approach to implementing new features is probably the BDD
@@ -567,7 +487,6 @@ be feeding data to the views and use those specs to implement the
 controller. Finally you implement the models specs and the models
 themselves.
 
-<a name="cucumber"/>
 ## Cucumber
 
 * Tag your pending scenarios with `@wip` (work in progress).  These
@@ -696,7 +615,6 @@ can be one steps file for all features for a particular object
 they will retry the match for given timeout allowing you to test ajax actions.
 [See Capybara's README for more explanation](https://github.com/jnicklas/capybara)
 
-<a name="rspec"/>
 ## RSpec
 
 * Use just one expectation per example.
@@ -846,7 +764,6 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
-<a name="rspec_views"/>
 ### Views
 
 * The directory structure of the view specs `spec/views` matches the
@@ -935,7 +852,6 @@ they will retry the match for given timeout allowing you to test ajax actions.
 
 * The helpers specs are separated from the view specs in the `spec/helpers` directory.
 
-<a name="rspec_controllers"/>
 ### Controllers
 
 * Mock the models and stub their methods. Testing the controller should not depend on the model creation.
@@ -1029,7 +945,6 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
-<a name="rspec_models"/>
 ### Models
 
 * Do not mock the models in their own specs.
@@ -1079,7 +994,6 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
-<a name="rspec_mailers"/>
 ### Mailers
 
 * The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
@@ -1107,7 +1021,6 @@ they will retry the match for given timeout allowing you to test ajax actions.
      end
      ```
 
-<a name="rspec_uploaders"/>
 ### Uploaders
 
 * What we can test about an uploader is whether the images are resized correctly.
@@ -1155,7 +1068,6 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
 
     ```
 
-<a name="reading"/>
 # Further Reading
 
 There are a few excellent resources on Rails style, that you should
@@ -1165,7 +1077,6 @@ consider if you have time to spare:
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 
-<a name="contributing"/>
 # Contributing
 
 Nothing written in this guide is set in stone. It's my desire to work
@@ -1176,7 +1087,6 @@ community.
 Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
-<a name="spreadtheword"/>
 # Spread the Word
 
 A community-driven style guide is of little use to a community that
