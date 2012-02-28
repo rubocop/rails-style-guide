@@ -205,6 +205,32 @@ the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
+* Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
+There is more than one way to achieve this:
+  * Override the `to_param` method of the model. This method is used by Rails for constructing an URL to the object.
+    The default implementation returns the `id` of the record as a String. It could be overridden to include another
+    human-readable attribute.
+
+        ```Ruby
+        class Person
+          def to_param
+            "#{id} #{name}".parameterize
+          end
+        end
+        ```
+        In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
+        object needs to be at the beginning so that it could be found by the `find` method of ActiveRecord.
+
+  * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
+
+        ```Ruby
+        class Person
+          extend FriendlyId
+          friendly_id :name, use: :slugged
+        end
+        ```
+
+        Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
 
 ## Migrations
 
@@ -477,6 +503,8 @@ compatible with Ruby 1.9. Generates great reports. Must have!
 * [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin the creation of admin interface
   for your Rails app is child's play. You get a nice dashboard, CRUD
   UI and lots more. Very flexible and customizable.
+* [friendly_id](https://github.com/norman/friendly_id) - Allows creation of human-readable URLs by using some
+descriptive attribute of the model instead of its id.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
