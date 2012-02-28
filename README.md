@@ -520,6 +520,18 @@ your application.
     config.action_mailer.delivery_method = :smtp
     ```
 
+* When sending html emails all styles should be inline, as some mail clients
+  have problems with external styles. This however makes them harder to
+  maintain and leads to code duplication. There are two similar gems that
+  transform the styles and put them in the corresponding html tags:
+  [premailer-rails3](https://github.com/fphilipe/premailer-rails3) and
+  [roadie](https://github.com/Mange/roadie).
+
+* Sending emails while generating page response should be avoided. It causes
+  delays in loading of the page and request can timeout if multiple email are
+  send. To overcome this emails can be send in background process with the help
+  of [delayed_job](https://github.com/tobi/delayed_job) gem.
+
 ## Bundler
 
 * Put gems used only for development or testing in the appropriate group in the Gemfile.
