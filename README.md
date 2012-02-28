@@ -1,14 +1,18 @@
-# Abstract
+# Prelude
+
+> Style is what separates the good from the great. <br/>
+> -- Bozhidar Batsov
 
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 3 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-While in the guide the section [Testing Rails applications](#testing) is after
-[Developing Rails applications](#developing) I truly believe that
-Behaviour-Driven Development (BDD) is the best way to develop
-software. Keep that in mind.
+While in the guide the section [Testing Rails applications](#testing)
+is after [Developing Rails applications](#developing) I truly believe
+that
+[Behaviour-Driven Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
+(BDD) is the best way to develop software. Keep that in mind.
 
 Rails is an opinionated framework and this is an opinionated guide. In
 my mind I'm totally certain that
@@ -18,7 +22,7 @@ my mind I'm totally certain that
 superior to Erb. So don't expect to find any Test::Unit, CSS or Erb
 advice in here.
 
-Some of the advice here is applicable only to Rails 3.1.
+Some of the advice here is applicable only to Rails 3.1+.
 
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
@@ -31,7 +35,7 @@ You can generate a PDF or an HTML copy of this guide using
   initializers executes on application startup.
 * The initialization code for each gem should be in a separate file
   with the same name as the gem, for example `carrierwave.rb`,
-  `rails_admin.rb`, etc.
+  `active_admin.rb`, etc.
 * Adjust accordingly the settings for development, test and production
   environment (in the corresponding files under `config/environments/`)
   * Mark additional assets for precompilation (if any):
@@ -137,7 +141,31 @@ the `production` one.
 ## Models
 
 * Introduce non-ActiveRecord model classes freely.
-* Name the models with meaningful (but short) names without abbreviations.
+* Name the models with meaningful (but short) names without
+abbreviations.
+* If you need model objects that support ActiveRecord behavior like
+  validation use the
+  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
+
+    ```Ruby
+    class Message
+      include ActiveAttr::Model
+
+      attribute :name
+      attribute :email
+      attribute :content
+      attribute :priority
+
+      attr_accessible :name, :email, :content
+
+      validates_presence_of :name
+      validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+      validates_length_of :content, :maximum => 500
+    end
+    ```
+
+    For a more complete example refer to the
+    [RailsCast on the subject](http://railscasts.com/episodes/326-activeattr).
 
 ### ActiveRecord
 
