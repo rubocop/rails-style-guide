@@ -474,7 +474,7 @@ compatible with Ruby 1.9. Generates great reports. Must have!
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) - Fantastic gem
   that automatically creates JavaScript client-side validations from
   your existing server-side model validations. Highly recommended!
-* [rails_admin](https://github.com/sferik/rails_admin) - With Rails Admin the creating of admin interface
+* [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin the creation of admin interface
   for your Rails app is child's play. You get a nice dashboard, CRUD
   UI and lots more. Very flexible and customizable.
 
@@ -492,10 +492,12 @@ other gems. You should avoid using them in your projects.
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for running tests automatically. Far
 inferior to guard and [watchr](https://github.com/mynyml/watchr).
 * [rcov](https://github.com/relevance/rcov) - code coverage tool, not
-  compatible with Ruby 1.9. Use SimpleCov instead.
+  compatible with Ruby 1.9. Use
+  [SimpleCov](https://github.com/colszowka/simplecov) instead.
 * [therubyracer](https://github.com/cowboyd/therubyracer) - the use of
   this gem in production is strongly discouraged as it uses a very large amount of
-  memory.
+  memory. I'd suggest using
+  [Mustang](https://github.com/nu7hatch/mustang) instead.
 
 This list is also a work in progress. Please, let me know if you know
 other popular, but flawed gems.
