@@ -261,6 +261,27 @@ an empty database.
   the new Rails 3.1 way of doing the migrations - use the `change`
   method instead of `up` and `down` methods.
 
+
+    ```Ruby
+    # the old way
+    class AddNameToPerson < ActiveRecord::Migration
+      def up
+        add_column :persons, :name, :string
+      end
+
+      def down
+        remove_column :person, :name
+      end
+    end
+
+    # the new preferred way
+    class AddNameToPerson < ActiveRecord::Migration
+      def change
+        add_column :persons, :name, :string
+      end
+    end
+    ```
+
 ## Views
 
 * Never call the model layer directly from a view.
