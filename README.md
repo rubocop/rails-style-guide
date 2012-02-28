@@ -210,7 +210,8 @@ the same purpose of the named scope and returns and
 
 * Keep the `schema.rb` under version control.
 * Use `rake db:schema:load` instead of `rake db:migrate` to initialize
-  an empty database.
+an empty database.
+* Use `rake db:test:prepare` to update the schema of the test database.
 * Avoid setting defaults in the tables themselves. Use the model layer
   instead.
 
