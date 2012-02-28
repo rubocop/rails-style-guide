@@ -520,6 +520,18 @@ your application.
     config.action_mailer.delivery_method = :smtp
     ```
 
+* When sending html emails all styles should be inline, as some mail clients
+  have problems with external styles. This however makes them harder to
+  maintain and leads to code duplication. There are two similar gems that
+  transform the styles and put them in the corresponding html tags:
+  [premailer-rails3](https://github.com/fphilipe/premailer-rails3) and
+  [roadie](https://github.com/Mange/roadie).
+
+* Sending emails while generating page response should be avoided. It causes
+  delays in loading of the page and request can timeout if multiple email are
+  send. To overcome this emails can be send in background process with the help
+  of [delayed_job](https://github.com/tobi/delayed_job) gem.
+
 ## Bundler
 
 * Put gems used only for development or testing in the appropriate group in the Gemfile.
@@ -563,72 +575,78 @@ look around a bit for existing solutions, before unrolling your
 own. Here's a list of some "priceless" gems (all of them Rails 3.1
 compliant) that are useful in many Rails projects:
 
-* [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a
-  replacement for Test::MiniTest. I cannot recommend highly enough
-  RSpec. rspec-rails provides Rails integration for RSpec.
-* [cucumber-rails](https://github.com/cucumber/cucumber-rails) -
-  Cucumber is the premium tool to develop feature tests in
-  Ruby. cucumber-rails provides Rails integration for Cucumber.
-* [haml](http://haml-lang.com) - HAML is a concise templating language, considered by many
-  (including yours truly) to be far superior to Erb.
-* [haml-rails](https://github.com/indirect/haml-rails) - haml-rails
-  provides Rails integration for Haml.
-* [slim](http://slim-lang.com) - Slim is a concise templating
-  language, considered by many far superior to HAML (not to mention
-  Erb). The only thing stopping me from using Slim massively is the
-  lack of good support in major editors/IDEs. Its performance is
-  phenomenal.
-* [simple_form](https://github.com/plataformatec/simple_form) - once you've used simple_form (or formtastic)
-  you'll never want to hear about Rails's default forms. It has a
-  great DSL for building forms and no opinion on markup.
-* [fabrication](http://fabricationgem.org/) - a great fixture
-  replacement (editor's choice).
-* [factory_girl](https://github.com/thoughtbot/factory_girl) - an
-  alternative to fabrication. Nice and mature fixture
-  replacement. Spiritual ancestor of fabrication.
-* [machinist](https://github.com/notahat/machinist) - Fixtures aren't
-  fun. Machinist is.
-* [faker](http://faker.rubyforge.org/) - handy gem to generate dummy data (names, addresses, etc).
-* [guard](https://github.com/guard/guard) - fantastic gem that monitors file changes and invokes
-tasks based on them. Loaded with lots of useful extension. Far
-superior to autotest and watchr.
-* [spork](https://github.com/timcharper/spork) - A DRb server for
-  testing frameworks (RSpec / Cucumber currently) that forks before
-  each run to ensure a clean testing state. Simply put it preloads a
-  lot of test environment and as consequence the startup time of your
-  tests in greatly decreased. Absolute must have!
-* [simplecov](https://github.com/colszowka/simplecov) - code coverage tool. Unlike RCov it's fully
-compatible with Ruby 1.9. Generates great reports. Must have!
-* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - RCov formatter for SimpleCov. Useful if you're
-  trying to use SimpleCov with the Hudson contininous integration
-  server.
-* [capybara](https://github.com/jnicklas/capybara) - Capybara aims to
-  simplify the process of integration testing Rack applications, such
-  as Rails, Sinatra or Merb. Capybara simulates how a real user would
-  interact with a web application. It is agnostic about the driver
-  running your tests and currently comes with Rack::Test and Selenium
-  support built in. HtmlUnit, WebKit and env.js are supported through
-  external gems. Works great in combination with RSpec & Cucumber.
-* [devise](https://github.com/plataformatec/devise) - Devise is
-  full-featured authentication solution for Rails applications. In
-  most cases it's preferable to use devise to unrolling your custom
-  authentication solution.
-* [carrierwave](https://github.com/jnicklas/carrierwave) - the
-  ultimate file upload solution for Rails. Support both local and
-  cloud storage for the uploaded files (and many other cool
-  things). Integrates great with ImageMagick for image post-processing.
+* [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin
+  the creation of admin interface for your Rails app is child's play. You get a
+  nice dashboard, CRUD UI and lots more. Very flexible and customizable.
+* [capybara](https://github.com/jnicklas/capybara) - Capybara aims to simplify
+  the process of integration testing Rack applications, such as Rails, Sinatra
+  or Merb. Capybara simulates how a real user would interact with a web
+  application. It is agnostic about the driver running your tests and currently
+  comes with Rack::Test and Selenium support built in. HtmlUnit, WebKit and
+  env.js are supported through external gems. Works great in combination with
+  RSpec & Cucumber.
+* [carrierwave](https://github.com/jnicklas/carrierwave) - the ultimate file
+  upload solution for Rails. Support both local and cloud storage for the
+  uploaded files (and many other cool things). Integrates great with
+  ImageMagick for image post-processing.
+* [client_side_validations](https://github.com/bcardarella/client_side_validations) -
+  Fantastic gem that automatically creates JavaScript client-side validations
+  from your existing server-side model validations. Highly recommended!
+* [compass-rails](https://github.com/chriseppstein/compass) - Great gem that
+  adds support for some css frameworks. Includes collection of sass mixins that
+  reduces code of css files and help fight with browser incompatibilities.
+* [cucumber-rails](https://github.com/cucumber/cucumber-rails) - Cucumber is
+  the premium tool to develop feature tests in Ruby. cucumber-rails provides
+  Rails integration for Cucumber.
+* [devise](https://github.com/plataformatec/devise) - Devise is full-featured
+  authentication solution for Rails applications. In most cases it's preferable
+  to use devise to unrolling your custom authentication solution.
+* [fabrication](http://fabricationgem.org/) - a great fixture replacement
+  (editor's choice).
+* [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
+  to fabrication. Nice and mature fixture replacement. Spiritual ancestor of
+  fabrication.
+* [faker](http://faker.rubyforge.org/) - handy gem to generate dummy data
+  (names, addresses, etc).
+* [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible
+  RSS/Atom feed parser.
+* [friendly_id](https://github.com/norman/friendly_id) - Allows creation of
+  human-readable URLs by using some descriptive attribute of the model instead
+  of its id.
+* [guard](https://github.com/guard/guard) - fantastic gem that monitors file
+  changes and invokes tasks based on them. Loaded with lots of useful
+  extension. Far superior to autotest and watchr.
+* [haml-rails](https://github.com/indirect/haml-rails) - haml-rails provides
+  Rails integration for Haml.
+* [haml](http://haml-lang.com) - HAML is a concise templating language,
+  considered by many (including yours truly) to be far superior to Erb.
 * [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
-* [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible RSS/Atom feed parser.
-* [sunspot](https://github.com/sunspot/sunspot) - SOLR powered
-    full-text search engine.
-* [client_side_validations](https://github.com/bcardarella/client_side_validations) - Fantastic gem
-  that automatically creates JavaScript client-side validations from
-  your existing server-side model validations. Highly recommended!
-* [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin the creation of admin interface
-  for your Rails app is child's play. You get a nice dashboard, CRUD
-  UI and lots more. Very flexible and customizable.
-* [friendly_id](https://github.com/norman/friendly_id) - Allows creation of human-readable URLs by using some
-descriptive attribute of the model instead of its id.
+* [machinist](https://github.com/notahat/machinist) - Fixtures aren't fun.
+  Machinist is.
+* [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
+  for Test::MiniTest. I cannot recommend highly enough RSpec. rspec-rails
+  provides Rails integration for RSpec.
+* [simple_form](https://github.com/plataformatec/simple_form) - once you've
+  used simple_form (or formtastic) you'll never want to hear about Rails's
+  default forms. It has a great DSL for building forms and no opinion on
+  markup.
+* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - RCov formatter
+  for SimpleCov. Useful if you're trying to use SimpleCov with the Hudson
+  contininous integration server.
+* [simplecov](https://github.com/colszowka/simplecov) - code coverage tool.
+  Unlike RCov it's fully compatible with Ruby 1.9. Generates great reports.
+  Must have!
+* [slim](http://slim-lang.com) - Slim is a concise templating language,
+  considered by many far superior to HAML (not to mention Erb). The only thing
+  stopping me from using Slim massively is the lack of good support in major
+  editors/IDEs. Its performance is phenomenal.
+* [spork](https://github.com/timcharper/spork) - A DRb server for testing
+  frameworks (RSpec / Cucumber currently) that forks before each run to ensure
+  a clean testing state. Simply put it preloads a lot of test environment and
+  as consequence the startup time of your tests in greatly decreased. Absolute
+  must have!
+* [sunspot](https://github.com/sunspot/sunspot) - SOLR powered full-text search
+  engine.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
