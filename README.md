@@ -641,6 +641,9 @@ compatible with Ruby 1.9. Generates great reports. Must have!
   UI and lots more. Very flexible and customizable.
 * [friendly_id](https://github.com/norman/friendly_id) - Allows creation of human-readable URLs by using some
 descriptive attribute of the model instead of its id.
+* [compass-rails](https://github.com/chriseppstein/compass) - Great gem that
+  adds support for some css frameworks. Includes collection of sass mixins that
+  reduces code of css files and help fight with browser incompatibilities.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
