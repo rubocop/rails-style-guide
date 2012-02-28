@@ -174,6 +174,36 @@ abbreviations.
   your control).
 * Group macro-style methods (`has_many`, `validates`, etc) in the
   beginning of the class definition.
+* Prefer `has_many :through` to `has_and_belongs_to_many`. Using `has_many
+:through` allows additional attributes and validations on the join model.
+
+    ```Ruby
+    # using has_and_belongs_to_many
+    class User < ActiveRecord::Base
+      has_and_belongs_to_many :groups
+    end
+
+    class Group < ActiveRecord::Base
+      has_and_belongs_to_many :users
+    end
+
+    # prefered way - using has_many :through
+    class User < ActiveRecord::Base
+      has_many :memberships
+      has_many :groups, through: :memberships
+    end
+
+    class Membership < ActiveRecord::Base
+      belongs_to :user
+      belongs_to :group
+    end
+
+    class Group < ActiveRecord::Base
+      has_many :memberships
+      has_many :users, through: :memberships
+    end
+    ```
+
 * Always use the new
   ["sexy" validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
 * When a custom validation is used more than once or the validation is some regular expression mapping,
@@ -205,6 +235,32 @@ the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
+* Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
+There is more than one way to achieve this:
+  * Override the `to_param` method of the model. This method is used by Rails for constructing an URL to the object.
+    The default implementation returns the `id` of the record as a String. It could be overridden to include another
+    human-readable attribute.
+
+        ```Ruby
+        class Person
+          def to_param
+            "#{id} #{name}".parameterize
+          end
+        end
+        ```
+        In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
+        object needs to be at the beginning so that it could be found by the `find` method of ActiveRecord.
+
+  * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
+
+        ```Ruby
+        class Person
+          extend FriendlyId
+          friendly_id :name, use: :slugged
+        end
+        ```
+
+        Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
 
 ## Migrations
 
@@ -234,6 +290,27 @@ an empty database.
 * When writing constructive migrations (adding tables or columns), use
   the new Rails 3.1 way of doing the migrations - use the `change`
   method instead of `up` and `down` methods.
+
+
+    ```Ruby
+    # the old way
+    class AddNameToPerson < ActiveRecord::Migration
+      def up
+        add_column :persons, :name, :string
+      end
+
+      def down
+        remove_column :person, :name
+      end
+    end
+
+    # the new prefered way
+    class AddNameToPerson < ActiveRecord::Migration
+      def change
+        add_column :persons, :name, :string
+      end
+    end
+    ```
 
 ## Views
 
@@ -282,6 +359,79 @@ an empty database.
           }).status == 404
             return options.message || 'invalid e-mail format'
         ```
+
+## Internationalization
+
+* No strings or other locale specific settings should be used in the views,
+models and controllers. These texts should be moved to the locale files in
+the `config/locales` directory.
+* When the labels of an ActiveRecord model need to be translated,
+use the `activerecord` scope:
+
+    ```
+    en:
+      activerecord:
+        models:
+          user: Member
+        attributes:
+          user:
+            name: "Full name"
+    ```
+
+    Then `User.model_name.human` will return "Member" and
+    `User.human_attribute_name("name")` will return "Full name". These
+    translations of the attributes will be used as labels in the views.
+
+* Separate the texts used in the views from translations of ActiveRecord
+attributes. Place the locale files for the models in a folder `models` and
+the texts used in the views in folder `views`.
+  * When organization of the locale files is done with additional
+  directories, these directories must be described in the `application.rb`
+  file in order to be loaded.
+
+        ```Ruby
+        # config/application.rb
+        config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+        ```
+
+* Place the shared localization options, such as date or currency formats, in
+files
+under
+the root of the `locales` directory.
+* Use the short form of the I18n methods: `I18n.t` instead of `I18n.translate`
+and `I18n.l` instead of `I18n.localize`.
+* Use "lazy" lookup for the texts used in views. Let's say we have the
+following structure:
+
+    ```
+    en:
+      users:
+        show:
+          title: "User details page"
+    ```
+
+    The value for `users.show.title` can be looked up in the template
+    `app/views/users/show.html.haml` like this:
+
+    ```Ruby
+    = t '.title'
+    ```
+
+* Use the dot-separated keys in the controllers and models instead of
+specifying the `:scope` option. The dot-separated call is easier to read and
+trace the hierarchy.
+
+    ```Ruby
+    # use this call
+    I18n.t 'activerecord.errors.messages.record_invalid'
+
+    # instead of this
+    I18n.t :record_invalid, :scope => [:activerecord, :errors, :messages]
+    ```
+
+* More detailed information about the Rails i18n can be found in the [Rails
+Guides]
+(http://guides.rubyonrails.org/i18n.html)
 
 ## Assets
 
@@ -477,6 +627,8 @@ compatible with Ruby 1.9. Generates great reports. Must have!
 * [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin the creation of admin interface
   for your Rails app is child's play. You get a nice dashboard, CRUD
   UI and lots more. Very flexible and customizable.
+* [friendly_id](https://github.com/norman/friendly_id) - Allows creation of human-readable URLs by using some
+descriptive attribute of the model instead of its id.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
@@ -1000,6 +1152,28 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+* When testing validations, use `have(x).errors_on` to specify the attibute
+which should be validated. Using `be_valid` does not guarantee that the problem
+ is in the intended attribute.
+
+    ```Ruby
+    # bad
+    describe '#title'
+      it 'is required' do
+        article.title = nil
+        article.should_not be_valid
+      end
+    end
+
+    # prefered
+    describe '#title'
+      it 'is required' do
+        article.title = nil
+        article.should have(1).error_on(:title)
+      end
+    end
+    ```
+
 * Add a separate `describe` for each attribute which has validations.
 
     ```Ruby
@@ -1007,7 +1181,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
       describe '#title'
         it 'is required' do
           article.title = nil
-          article.should_not be_valid
+          article.should have(1).error_on(:title)
         end
       end
     end
@@ -1020,7 +1194,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
       describe '#title'
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
-          another_article.should_not be_valid
+          article.should have(1).error_on(:title)
         end
       end
     end
