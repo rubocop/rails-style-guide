@@ -274,7 +274,7 @@ an empty database.
       end
     end
 
-    # the new preferred way
+    # the new prefered way
     class AddNameToPerson < ActiveRecord::Migration
       def change
         add_column :persons, :name, :string
@@ -1049,6 +1049,28 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+* When testing validations, use `have(x).errors_on` to specify the attibute
+which should be validated. Using `be_valid` does not guarantee that the problem
+ is in the intended attribute.
+
+    ```Ruby
+    # bad
+    describe '#title'
+      it 'is required' do
+        article.title = nil
+        article.should_not be_valid
+      end
+    end
+
+    # prefered
+    describe '#title'
+      it 'is required' do
+        article.title = nil
+        article.should have(1).error_on(:title)
+      end
+    end
+    ```
+
 * Add a separate `describe` for each attribute which has validations.
 
     ```Ruby
@@ -1056,7 +1078,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
       describe '#title'
         it 'is required' do
           article.title = nil
-          article.should_not be_valid
+          article.should have(1).error_on(:title)
         end
       end
     end
@@ -1069,7 +1091,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
       describe '#title'
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
-          another_article.should_not be_valid
+          article.should have(1).error_on(:title)
         end
       end
     end
