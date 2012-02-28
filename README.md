@@ -174,6 +174,36 @@ abbreviations.
   your control).
 * Group macro-style methods (`has_many`, `validates`, etc) in the
   beginning of the class definition.
+* Prefer `has_many :through` to `has_and_belongs_to_many`. Using `has_many
+:through` allows additional attributes and validations on the join model.
+
+    ```Ruby
+    # using has_and_belongs_to_many
+    class User < ActiveRecord::Base
+      has_and_belongs_to_many :groups
+    end
+
+    class Group < ActiveRecord::Base
+      has_and_belongs_to_many :users
+    end
+
+    # prefered way - using has_many :through
+    class User < ActiveRecord::Base
+      has_many :memberships
+      has_many :groups, through: :memberships
+    end
+
+    class Membership < ActiveRecord::Base
+      belongs_to :user
+      belongs_to :group
+    end
+
+    class Group < ActiveRecord::Base
+      has_many :memberships
+      has_many :users, through: :memberships
+    end
+    ```
+
 * Always use the new
   ["sexy" validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
 * When a custom validation is used more than once or the validation is some regular expression mapping,
