@@ -262,6 +262,71 @@ There is more than one way to achieve this:
 
         Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
 
+### ActiveResource
+
+* When the response is in a format different then the existing ones (XML and
+JSON) or some additional parsing of these formats is necessary,
+create your own custom format and use it in the class. The custom format
+should implement the following four methods: `extension`, `mime_type`,
+`encode` and `decode`.
+
+    ```Ruby
+    module ActiveResource
+      module Formats
+        module Extend
+          module CSVFormat
+            extend self
+
+            def extension
+              'csv'
+            end
+
+            def mime_type
+              'text/csv'
+            end
+
+            def encode(hash, options = nil)
+              # Encode the data in the new format and return it
+            end
+
+            def decode(csv)
+              # Decode the data from the new format and return it
+            end
+          end
+        end
+      end
+    end
+
+    class User < ActiveResource::Base
+      self.format = ActiveResource::Formats::Extend::CSVFormat
+
+      ...
+    end
+    ```
+
+* If the request should be sent without extension, override the `element_path`
+and `collection_path` methods of `ActiveResource::Base` and remove the
+extension part.
+
+    ```Ruby
+    class User < ActiveResource::Base
+      ...
+
+      def self.collection_path(prefix_options = {}, query_options = nil)
+        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
+      end
+
+      def self.element_path(id, prefix_options = {}, query_options = nil)
+        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
+        "#{prefix(prefix_options)}#{collection_name}/#{URI.parser.escape id.to_s}#{query_string(query_options)}"
+      end
+    end
+    ```
+
+    These methods can be overridden also if any other modifications of the
+    URL are needed.
+
 ## Migrations
 
 * Keep the `schema.rb` under version control.
