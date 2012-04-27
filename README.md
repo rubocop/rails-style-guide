@@ -264,7 +264,7 @@ There is more than one way to achieve this:
 
 ### ActiveResource
 
-* When the response is in a format different then the existing ones (XML and
+* When the response is in a format different from the existing ones (XML and
 JSON) or some additional parsing of these formats is necessary,
 create your own custom format and use it in the class. The custom format
 should implement the following four methods: `extension`, `mime_type`,
