@@ -248,8 +248,8 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
-* When a named scope, defined with a lambda and parameters, becomes too
-complicated it is preferable to make a class method instead which serves
+* When a named scope defined with a lambda and parameters, becomes too
+complicated, it is preferable to make a class method instead which serves
 the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
 * Beware of the behavior of the `update_attribute` method. It doesn't
