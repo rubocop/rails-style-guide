@@ -27,6 +27,25 @@ Some of the advice here is applicable only to Rails 3.1+.
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
 
+# Table of Contents
+
+* [Developing Rails applications](#developing-rails-applications)
+    * [Configuration](#configuration)
+    * [Routing](#routing)
+    * [Controllers](#controllers)
+    * [Models](#models)
+    * [Migrations](#migrations)
+    * [Views](#views)
+    * [Assets](#assets)
+    * [Mailers](#mailers)
+    * [Bundler](#bundler)
+    * [Priceless Gems](#priceless-gems)
+    * [Flawed Gems](#flawed-gems)
+    * [Managing processes](#managing-processes)
+* [Testing Rails applications](#testing-rails-applications)
+    * [Cucumber](#cucumber)
+    * [RSpec](#rspec)
+
 # Developing Rails applications
 
 ## Configuration
