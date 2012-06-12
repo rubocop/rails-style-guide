@@ -248,7 +248,7 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
-* When a named scope, defined with a lambda and parameters, becomes too
+* When a named scope defined with a lambda and parameters, becomes too
 complicated it is preferable to make a class method instead which serves
 the same purpose of the named scope and returns and
 `ActiveRecord::Relation` object.
@@ -989,7 +989,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
     article = mock_model(Article).as_null_object
     ```
 
-* Use `let` blocks instead of `before(:all)` blocks to create data for
+* Use `let` blocks instead of `before(:each)` blocks to create data for
   the spec examples. `let` blocks get lazily evaluated.
 
     ```Ruby

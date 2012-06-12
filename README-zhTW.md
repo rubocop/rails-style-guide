@@ -797,7 +797,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     article = mock_model(Article).as_null_object
     ```
 
-* 使用 `let` 區塊而不是 `before(:all)` 區塊替 spec 例子創建資料。 `let` 區塊會被懶惰求值。
+* 使用 `let` 區塊而不是 `before(:each)` 區塊替 spec 例子創建資料。 `let` 區塊會被懶惰求值。
 
     ```Ruby
     # 使用這個：
