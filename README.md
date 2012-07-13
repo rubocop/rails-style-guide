@@ -248,15 +248,15 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
-* When a named scope defined with a lambda and parameters, becomes too
+* When a named scope defined with a lambda and parameters becomes too
 complicated, it is preferable to make a class method instead which serves
-the same purpose of the named scope and returns and
+the same purpose of the named scope and returns an
 `ActiveRecord::Relation` object.
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this:
-  * Override the `to_param` method of the model. This method is used by Rails for constructing an URL to the object.
+  * Override the `to_param` method of the model. This method is used by Rails for constructing a URL to the object.
     The default implementation returns the `id` of the record as a String. It could be overridden to include another
     human-readable attribute.
 
@@ -268,7 +268,7 @@ There is more than one way to achieve this:
         end
         ```
         In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
-        object needs to be at the beginning so that it could be found by the `find` method of ActiveRecord.
+        object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
 
