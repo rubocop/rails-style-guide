@@ -214,7 +214,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 * 所有惯用的验证器应放在一个共享的 gem 。
 * 自由地使用命名的作用域(scope)。
-* 当一个由 lambda 及参数定义的作用域变得过于复杂时，更好的方式是建一个作为同样用途的类别方法，并返回 `ActiveRecord::Relation` 对象。
+* 当一个由 lambda 及参数定义的作用域变得过于复杂时，更好的方式是建一个作为同样用途的类别方法，并返回一个 `ActiveRecord::Relation` 对象。
 * 注意 `update_attribute` 方法的行为。它不运行模型验证（不同于 `update_attributes` ）并且可能把模型状态给搞砸。
 * 使用用户友好的网址。在网址显示具描述性的模型属性，而不只是 `id` 。
 有不止一种方法可以达成：
@@ -1128,7 +1128,6 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * 我们如何测试上传器是否正确地调整大小。这里是一个 [carrierwave](https://github.com/jnicklas/carrierwave) 图片上传器的示例 spec：
 
     ```Ruby
-
     # rspec/uploaders/person_avatar_uploader_spec.rb
     require 'spec_helper'
     require 'carrierwave/test/matchers'
@@ -1166,7 +1165,6 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
         end
       end
     end
-
     ```
 
 # 延伸阅读
