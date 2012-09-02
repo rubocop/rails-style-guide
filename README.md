@@ -1123,12 +1123,12 @@ they will retry the match for given timeout allowing you to test ajax actions.
     = "Published at: #{formatted_date(@article.published_at)}"
 
     # spec/views/articles/show.html.haml_spec.rb
-    describe 'articles/show.html.html' do
+    describe 'articles/show.html.haml' do
       it 'displays the formatted date of article publishing'
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
-        template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
+        template.stub(:formatted_date).with(article.published_at).and_return('01.01.2012')
 
         render
         rendered.should have_content('Published at: 01.01.2012')
