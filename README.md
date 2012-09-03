@@ -724,7 +724,7 @@ compliant) that are useful in many Rails projects:
   considered by many far superior to HAML (not to mention Erb). The only thing
   stopping me from using Slim massively is the lack of good support in major
   editors/IDEs. Its performance is phenomenal.
-* [spork](https://github.com/timcharper/spork) - A DRb server for testing
+* [spork](https://github.com/sporkrb/spork) - A DRb server for testing
   frameworks (RSpec / Cucumber currently) that forks before each run to ensure
   a clean testing state. Simply put it preloads a lot of test environment and
   as consequence the startup time of your tests in greatly decreased. Absolute
