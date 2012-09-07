@@ -248,10 +248,50 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
+* Wrap named scopes in `lambdas` to initialize them lazily.
+
+    ```Ruby
+    # bad
+    class User < ActiveRecord::Base
+      scope :active, where(active: true)
+      scope :inactive, where(active: false)
+
+      scope :with_orders, joins(:orders).select('distinct(users.id)')
+    end
+
+    # good
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
 * When a named scope defined with a lambda and parameters becomes too
 complicated, it is preferable to make a class method instead which serves
 the same purpose of the named scope and returns an
-`ActiveRecord::Relation` object.
+`ActiveRecord::Relation` object. Arguably you can define even simpler
+scopes like this.
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      def self.with_orders 
+        joins(:orders).select('distinct(users.id)')
+      end
+    end
+    ```
+
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
@@ -268,8 +308,8 @@ There is more than one way to achieve this:
         end
         ```
         
-        In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
-        object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
+    In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
+    object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
 
@@ -353,7 +393,8 @@ extension part.
 * Use `rake db:schema:load` instead of `rake db:migrate` to initialize
 an empty database.
 * Use `rake db:test:prepare` to update the schema of the test database.
-* Avoid setting defaults in the tables themselves. Use the model layer
+* Avoid setting defaults in the tables themselves (unless the db is
+  shared between several applications). Use the model layer
   instead.
 
     ```Ruby
