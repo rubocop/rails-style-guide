@@ -267,6 +267,7 @@ There is more than one way to achieve this:
           end
         end
         ```
+        
         In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
         object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
@@ -426,7 +427,7 @@ an empty database.
     `public/javascripts/rails.validations.custom.js.coffee` and add a
     reference to it in your `application.js.coffee` file:
 
-        ```Ruby
+        ```
         # app/assets/javascripts/application.js.coffee
         #= require rails.validations.custom
         ```
