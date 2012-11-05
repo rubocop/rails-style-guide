@@ -87,8 +87,7 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
     end
     ```
 
-* If you need to define multiple `member/collection` routes use the
-  alternative block syntax.
+* 如果你要配置多个`member/collection`路由，请使用代码块。
 
     ```Ruby
     resources :subscriptions do
@@ -106,8 +105,7 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
     end
     ```
 
-* Use nested routes to express better the relationship between
-  ActiveRecord models.
+* 在表现ActiveRecord模型间的关系时，使用叠加的路由会更好。
 
     ```Ruby
     class Post < ActiveRecord::Base
@@ -124,7 +122,7 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
     end
     ```
 
-* Use namespaced routes to group related actions.
+* 使用命名空间来为相关的方法分组
 
     ```Ruby
     namespace :admin do
@@ -134,31 +132,27 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
     end
     ```
 
-* Never use the legacy wild controller route. This route will make all
-  actions in every controller accessible via GET requests.
+* 永远不要使用野蛮遗产式（？legacy wild）的路由，这种路由将会允许通过GET请求
+   访问所有控制器的所有方法。
 
     ```Ruby
-    # very bad
+    # very bad 非常差
     match ':controller(/:action(/:id(.:format)))'
     ```
 
 ## Controllers
 
-* Keep the controllers skinny - they should only retrieve data for the
-  view layer and shouldn't contain any business logic (all the
-  business logic should naturally reside in the model).
-* Each controller action should (ideally) invoke only one method other
-  than an initial find or new.
-* Share no more than two instance variables between a controller and a view.
+* 保持控制器的封装性，他们必须只能为视图取得数据，而不可以包含任何业务逻辑。
+   （所有的业务逻辑必须写在model模型中）。
+* 任何一个控制器功能必须（理论上）只调用一个方法，除了最初的find或new方法。
+* 不要在控制器和视图之间分享超过两个实例变量。
 
 ## Models
 
-* Introduce non-ActiveRecord model classes freely.
-* Name the models with meaningful (but short) names without
-abbreviations.
-* If you need model objects that support ActiveRecord behavior like
-  validation use the
-  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
+* 自由的引用无ActiveRecord（non-ActiveRecord model）模型的类。
+* 为model模型命名要有意义的名字（保持简短），不要使用缩写词语。
+* 如果你需要model模型对象支持ActiveRecord行为，如验证，使用
+   [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 
     ```Ruby
     class Message
@@ -177,7 +171,7 @@ abbreviations.
     end
     ```
 
-    For a more complete example refer to the
+    更多更复杂的例子看这里：
     [RailsCast on the subject](http://railscasts.com/episodes/326-activeattr).
 
 ### ActiveRecord
