@@ -43,8 +43,10 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
     * [RSpec](#rspec)
 
 # Developing Rails applications
+# 开发Rails应用
 
 ## Configuration
+## 配置
 
 * 把自定义的启动代码（initialization code）放在`config/initializers`里。在initializers
    文件夹里的代码将会在应用启动时被执行。
@@ -63,6 +65,7 @@ Rails是一个“固执”的框架，而这也是一个“固执”的向导。
 * 创建一个额外的阶段环境（`staging` environment），非常接近于生产环境（`production` environment）。
 
 ## Routing
+## 路由
 
 * 当你需要为你的应用增加更多指向RESTful资源的方法(你真的需要他们吗？)，
 使用 `member` 和 `collection` 。
