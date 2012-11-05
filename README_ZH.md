@@ -3,7 +3,7 @@
 > 风格就是区别好和卓越。 <br/>
 > -- Bozhidar Batsov
 
-Good article just in Chinese for more people.
+译者的话：翻译的比较烂，一些术语或翻译的错漏欢迎英文更好的同学指教，最好加入一起翻译。
 
 这个向导的目标就是为Ruby on Rails 3 的开发提供最佳的风格样板和实践。
 它和已有的社区驱动的向导[Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide)是一个非常好的互补。
