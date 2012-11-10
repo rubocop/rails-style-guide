@@ -772,6 +772,11 @@ compliant) that are useful in many Rails projects:
 * [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
 * [machinist](https://github.com/notahat/machinist) - Fixtures aren't fun.
   Machinist is.
+* [meta_search](https://github.com/ernie/meta_search) - MetaSearch is extensible
+  searching for your form_for enjoyment. It "wraps" one of your ActiveRecord
+  models, providing methods that allow you to build up search conditions against
+  that model, and has a few extra form helpers to simplify sorting and supplying
+  multiple parameters to your condition methods as well.
 * [nested_form](https://github.com/ryanb/nested_form) - This is a Rails gem for
   conveniently manage multiple nested models in a single form. It does so in an
   unobtrusive way through jQuery or Prototype.
