@@ -36,6 +36,7 @@ You can generate a PDF or an HTML copy of this guide using
     * [Models](#models)
     * [Migrations](#migrations)
     * [Views](#views)
+    * [Internationalization](#internationalization)
     * [Assets](#assets)
     * [Mailers](#mailers)
     * [Bundler](#bundler)
