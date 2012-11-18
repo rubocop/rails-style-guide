@@ -27,6 +27,10 @@ Some of the advice here is applicable only to Rails 3.1+.
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
 
+Translations of the guide are available in the following languages:
+
+* [Chinese](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
+
 # Table of Contents
 
 * [Developing Rails applications](#developing-rails-applications)
