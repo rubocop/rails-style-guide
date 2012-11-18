@@ -705,6 +705,17 @@ compliant) that are useful in many Rails projects:
 * [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin
   the creation of admin interface for your Rails app is child's play. You get a
   nice dashboard, CRUD UI and lots more. Very flexible and customizable.
+* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
+  help you increase your application’s performance by reducing the number of
+  queries it makes. It will watch your queries while you develop your
+  application and notify you when you should add eager loading (N+1 queries),
+  when you’re using eager loading that isn’t necessary and when you should use
+  counter cache.
+* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization
+  library for Ruby on Rails which restricts what resources a given user is
+  allowed to access. All permissions are defined in a single location
+  (the Ability class) and not duplicated across controllers, views, and
+  database queries.
 * [capybara](https://github.com/jnicklas/capybara) - Capybara aims to simplify
   the process of integration testing Rack applications, such as Rails, Sinatra
   or Merb. Capybara simulates how a real user would interact with a web
@@ -728,6 +739,10 @@ compliant) that are useful in many Rails projects:
 * [devise](https://github.com/plataformatec/devise) - Devise is full-featured
   authentication solution for Rails applications. In most cases it's preferable
   to use devise to unrolling your custom authentication solution.
+* [exception_notification](https://github.com/smartinez87/exception_notification) - 
+  The Exception Notification provides a mailer object and a default set of
+  templates for sending email notifications when errors occur in a Rails
+  application.
 * [fabrication](http://fabricationgem.org/) - a great fixture replacement
   (editor's choice).
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
@@ -737,9 +752,17 @@ compliant) that are useful in many Rails projects:
   (names, addresses, etc).
 * [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible
   RSS/Atom feed parser.
+* [formtastic](https://github.com/justinfrench/formtastic.git) - Formtastic
+  is a Rails FormBuilder DSL (with some other goodies) to make it far easier
+  to create beautiful, semantically rich, syntactically awesome, readily
+  stylable and wonderfully accessible HTML forms in your Rails applications.
 * [friendly_id](https://github.com/norman/friendly_id) - Allows creation of
   human-readable URLs by using some descriptive attribute of the model instead
   of its id.
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
+  the successor of Globalize for Rails and is targeted at ActiveRecord
+  version 3.x. It is compatible with and builds on the new I18n API in Ruby
+  on Rails and adds model translations to ActiveRecord.
 * [guard](https://github.com/guard/guard) - fantastic gem that monitors file
   changes and invokes tasks based on them. Loaded with lots of useful
   extension. Far superior to autotest and watchr.
@@ -750,6 +773,17 @@ compliant) that are useful in many Rails projects:
 * [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
 * [machinist](https://github.com/notahat/machinist) - Fixtures aren't fun.
   Machinist is.
+* [meta_search](https://github.com/ernie/meta_search) - MetaSearch is extensible
+  searching for your form_for enjoyment. It "wraps" one of your ActiveRecord
+  models, providing methods that allow you to build up search conditions against
+  that model, and has a few extra form helpers to simplify sorting and supplying
+  multiple parameters to your condition methods as well.
+* [nested_form](https://github.com/ryanb/nested_form) - This is a Rails gem for
+  conveniently manage multiple nested models in a single form. It does so in an
+  unobtrusive way through jQuery or Prototype.
+* [periscope](https://github.com/laserlemon/periscope) - Periscope provides a
+  simple way to chain scopes on your models and to open those scopes up to your
+  users.
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
   for Test::MiniTest. I cannot recommend highly enough RSpec. rspec-rails
   provides Rails integration for RSpec.
@@ -774,6 +808,9 @@ compliant) that are useful in many Rails projects:
   must have!
 * [sunspot](https://github.com/sunspot/sunspot) - SOLR powered full-text search
   engine.
+* [thinking-sphinx](https://github.com/pat/thinking-sphinx) - A concise and
+  easy-to-use Ruby library that connects ActiveRecord to the Sphinx search
+  daemon, managing configuration and searching.
 
 This list is not exhaustive and other gems might be added to it along
 the road. All of the gems on the list are field tested, have active
