@@ -71,6 +71,7 @@ Translations of the guide are available in the following languages:
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
 
+* Keep configuration that's applicable to all environments in the `config/application.rb` file.
 * Create an additional `staging` environment that closely resembles
 the `production` one.
 
@@ -86,7 +87,7 @@ the `production` one.
 
     # good
     resources :subscriptions do
-      get 'unsubscribe', :on => :member
+      get 'unsubscribe', on: :member
     end
 
     # bad
@@ -95,7 +96,7 @@ the `production` one.
 
     # good
     resources :photos do
-      get 'search', :on => :collection
+      get 'search', on: :collection
     end
     ```
 
@@ -168,8 +169,8 @@ the `production` one.
 * Introduce non-ActiveRecord model classes freely.
 * Name the models with meaningful (but short) names without
 abbreviations.
-* If you need model objects that support ActiveRecord behavior like
-  validation use the
+* If you need model objects that support ActiveRecord behavior(like
+  validation) use the
   [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 
     ```Ruby
@@ -798,8 +799,7 @@ inferior to guard and [watchr](https://github.com/mynyml/watchr).
   [SimpleCov](https://github.com/colszowka/simplecov) instead.
 * [therubyracer](https://github.com/cowboyd/therubyracer) - the use of
   this gem in production is strongly discouraged as it uses a very large amount of
-  memory. I'd suggest using
-  [Mustang](https://github.com/nu7hatch/mustang) instead.
+  memory. I'd suggest using `node.js` instead.
 
 This list is also a work in progress. Please, let me know if you know
 other popular, but flawed gems.
