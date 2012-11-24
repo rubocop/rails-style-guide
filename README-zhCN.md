@@ -24,6 +24,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     * [模型](#模型)
     * [迁移](#迁移)
     * [视图](#视图)
+    * [国际化](#国际化)
     * [Assets](#assets)
     * [Mailers](#mailers)
     * [Bundler](#bundler)
@@ -33,6 +34,11 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [测试 Rails 应用](#测试-rails-应用)
     * [Cucumber](#cucumber)
     * [RSpec](#rspec)
+
+本指南被翻译成下列语言：
+
+* [简体中文](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
+* [繁體中文](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
 
 # 开发 Rails 应用程序
 
@@ -49,7 +55,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
 
-* 创立一个与生产环境(production enviroment)相似的额外 `staging` 环境。
+* 将所有环境皆通用的配置档放在 `config/application.rb` 文件。
+* 构建一个与生产环境(production enviroment)相似的，一个额外的 `staging` 环境。
 
 ## 路由
 
@@ -62,7 +69,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
     # 好
     resources :subscriptions do
-      get 'unsubscribe', :on => :member
+      get 'unsubscribe', on: :member
     end
 
     # 差
@@ -71,7 +78,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
     # 好
     resources :photos do
-      get 'search', :on => :collection
+      get 'search', on: :collection
     end
     ```
 
@@ -136,8 +143,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 ## 模型
 
 * 自由地引入不是 ActiveRecord 的类别吧。
-* 替模型命名有意义（但简短）且不带缩写的名字。 
-* 如果你需要支援 ActiveRecord 像是验证行为的模型对象，使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
+* 替模型命名有意义（但简短）且不带缩写的名字。
+* 如果你需要模型有著 ActiveRecord 行为的对象，比方说验证这一块，使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
 
     ```Ruby
     class Message
@@ -214,7 +221,46 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 * 所有惯用的验证器应放在一个共享的 gem 。
 * 自由地使用命名的作用域(scope)。
-* 当一个由 lambda 及参数定义的作用域变得过于复杂时，更好的方式是建一个作为同样用途的类别方法，并返回一个 `ActiveRecord::Relation` 对象。
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
+* 将命名的作用域包在 `lambda` 里来惰性地初始化。
+
+    ```Ruby
+    # 差劲
+    class User < ActiveRecord::Base
+      scope :active, where(active: true)
+      scope :inactive, where(active: false)
+
+      scope :with_orders, joins(:orders).select('distinct(users.id)')
+    end
+
+    # 好
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
+* 当一个由 lambda 及参数定义的作用域变得过于复杂时，更好的方式是建一个作为同样用途的类别方法，并返回一个 `ActiveRecord::Relation` 对象。你也可以这么定义出更精简的作用域。
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      def self.with_orders
+        joins(:orders).select('distinct(users.id)')
+      end
+    end
+    ```
+
 * 注意 `update_attribute` 方法的行为。它不运行模型验证（不同于 `update_attributes` ）并且可能把模型状态给搞砸。
 * 使用用户友好的网址。在网址显示具描述性的模型属性，而不只是 `id` 。
 有不止一种方法可以达成：
@@ -227,7 +273,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
           end
         end
         ```
-        为了要转换成对网址友好 (URL-friendly)的数值，字串应当调用 `parameterize` 。 对象的 `id` 要放在开头，以便给 ActiveRecord 的 `find` 方法查找。
+
+    为了要转换成对网址友好 (URL-friendly)的数值，字串应当调用 `parameterize` 。 对象的 `id` 要放在开头，以便给 ActiveRecord 的 `find` 方法查找。
 
   * 使用此 `friendly_id` gem。它允许藉由某些具描述性的模型属性，而不是用 `id` 来创建人类可读的网址。
 
@@ -579,7 +626,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - 为了 SimpleCov 打造的 RCov formatter。若你想使用 SimpleCov 搭配 Hudson 持续整合服务器，很有用。
 * [simplecov](https://github.com/colszowka/simplecov) - 代码覆盖率工具。不像 RCov，完全兼容 Ruby 1.9。产生精美的报告。必须用！
 * [slim](http://slim-lang.com) - Slim 是一个简洁的模版语言，被视为是远远优于 HAML(Erb 就更不用说了)的语言。唯一会阻止我大规模地使用它的是，主流 IDE 及编辑器对它的支持不好。但它的效能是非凡的。
-* [spork](https://github.com/timcharper/spork) - 一个给测试框架（RSpec 或 现今 Cucumber）用的 DRb 服务器，每次运行前确保分支出一个乾净的测试状态。 简单的说，预载很多测试环境的结果是大幅降低你的测试启动时间，绝对必须用！
+* [spork](https://github.com/sporkrb/spork) - 一个给测试框架（RSpec 或 现今 Cucumber）用的 DRb 服务器，每次运行前确保分支出一个乾净的测试状态。 简单的说，预载很多测试环境的结果是大幅降低你的测试启动时间，绝对必须用！
 * [sunspot](https://github.com/sunspot/sunspot) - 基于 SOLR 的全文检索引擎。
 
 这不是完整的清单，以及其它的 gem 也可以在之后加进来。以上清单上的所有 gems 皆经测试，处于活跃开发阶段，有社群以及代码的质量很高。
@@ -591,7 +638,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [rmagick](http://rmagick.rubyforge.org/) - 这个 gem 因大量消耗内存而声名狼藉。使用 [minimagick](https://github.com/probablycorey/mini_magick) 来取代。
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - 自动测试的老旧解决方案。远不如 guard 及 [watchr](https://github.com/mynyml/watchr)。
 * [rcov](https://github.com/relevance/rcov) - 代码覆盖率工具，不兼容 Ruby 1.9。使用 [SimpleCov](https://github.com/colszowka/simplecov) 来取代。
-* [therubyracer](https://github.com/cowboyd/therubyracer) - 极度不鼓励在生产模式使用这个 gem，它消耗大量的内存。我会推荐使用 [Mustang](https://github.com/nu7hatch/mustang) 来取代。
+* [therubyracer](https://github.com/cowboyd/therubyracer) - 极度不鼓励在生产模式使用这个 gem，它消耗大量的内存。我会推荐使用 `node.js` 来取代。
 
 这仍是一个完善中的清单。请告诉我受人欢迎但有缺陷的 gems 。
 
@@ -919,12 +966,12 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     = "Published at: #{formatted_date(@article.published_at)}"
 
     # spec/views/articles/show.html.haml_spec.rb
-    describe 'articles/show.html.html' do
+    describe 'articles/show.html.haml' do
       it 'displays the formatted date of article publishing'
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
-        template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
+        template.stub(:formatted_date).with(article.published_at).and_return('01.01.2012')
 
         render
         rendered.should have_content('Published at: 01.01.2012')
