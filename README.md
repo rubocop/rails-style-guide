@@ -27,6 +27,11 @@ Some of the advice here is applicable only to Rails 3.1+.
 You can generate a PDF or an HTML copy of this guide using
 [Transmuter](https://github.com/TechnoGate/transmuter).
 
+Translations of the guide are available in the following languages:
+
+* [Chinese Simplified](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
+* [Chinese Traditional](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
+
 # Table of Contents
 
 * [Developing Rails applications](#developing-rails-applications)
@@ -36,6 +41,7 @@ You can generate a PDF or an HTML copy of this guide using
     * [Models](#models)
     * [Migrations](#migrations)
     * [Views](#views)
+    * [Internationalization](#internationalization)
     * [Assets](#assets)
     * [Mailers](#mailers)
     * [Bundler](#bundler)
@@ -65,6 +71,7 @@ You can generate a PDF or an HTML copy of this guide using
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
 
+* Keep configuration that's applicable to all environments in the `config/application.rb` file.
 * Create an additional `staging` environment that closely resembles
 the `production` one.
 
@@ -80,7 +87,7 @@ the `production` one.
 
     # good
     resources :subscriptions do
-      get 'unsubscribe', :on => :member
+      get 'unsubscribe', on: :member
     end
 
     # bad
@@ -89,7 +96,7 @@ the `production` one.
 
     # good
     resources :photos do
-      get 'search', :on => :collection
+      get 'search', on: :collection
     end
     ```
 
@@ -162,8 +169,8 @@ the `production` one.
 * Introduce non-ActiveRecord model classes freely.
 * Name the models with meaningful (but short) names without
 abbreviations.
-* If you need model objects that support ActiveRecord behavior like
-  validation use the
+* If you need model objects that support ActiveRecord behavior(like
+  validation) use the
   [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 
     ```Ruby
@@ -248,9 +255,47 @@ create a custom validator file.
 
 * All custom validators should be moved to a shared gem.
 * Use named scopes freely.
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
+* Wrap named scopes in `lambdas` to initialize them lazily.
+
+    ```Ruby
+    # bad
+    class User < ActiveRecord::Base
+      scope :active, where(active: true)
+      scope :inactive, where(active: false)
+
+      scope :with_orders, joins(:orders).select('distinct(users.id)')
+    end
+
+    # good
+    class User < ActiveRecord::Base
+      scope :active, -> { where(active: true) }
+      scope :inactive, -> { where(active: false) }
+
+      scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
+    end
+    ```
+
 * When a named scope defined with a lambda and parameters becomes too
-complicated, it is preferable to make a class method instead which serves
-the same purpose of the named scope and returns an `ActiveRecord::Relation` object.
+complicated, it is preferable to make a class method instead which serves the same purpose of the named scope and returns an `ActiveRecord::Relation` object. Arguably you can define even simpler scopes like this.
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      def self.with_orders
+        joins(:orders).select('distinct(users.id)')
+      end
+    end
+    ```
+
 * Beware of the behavior of the `update_attribute` method. It doesn't
   run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
@@ -266,8 +311,9 @@ There is more than one way to achieve this:
           end
         end
         ```
-        In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
-        object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
+        
+    In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
+    object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
 
@@ -351,7 +397,8 @@ extension part.
 * Use `rake db:schema:load` instead of `rake db:migrate` to initialize
 an empty database.
 * Use `rake db:test:prepare` to update the schema of the test database.
-* Avoid setting defaults in the tables themselves. Use the model layer
+* Avoid setting defaults in the tables themselves (unless the db is
+  shared between several applications). Use the model layer
   instead.
 
     ```Ruby
@@ -425,7 +472,7 @@ an empty database.
     `public/javascripts/rails.validations.custom.js.coffee` and add a
     reference to it in your `application.js.coffee` file:
 
-        ```Ruby
+        ```
         # app/assets/javascripts/application.js.coffee
         #= require rails.validations.custom
         ```
@@ -723,7 +770,7 @@ compliant) that are useful in many Rails projects:
   considered by many far superior to HAML (not to mention Erb). The only thing
   stopping me from using Slim massively is the lack of good support in major
   editors/IDEs. Its performance is phenomenal.
-* [spork](https://github.com/timcharper/spork) - A DRb server for testing
+* [spork](https://github.com/sporkrb/spork) - A DRb server for testing
   frameworks (RSpec / Cucumber currently) that forks before each run to ensure
   a clean testing state. Simply put it preloads a lot of test environment and
   as consequence the startup time of your tests in greatly decreased. Absolute
@@ -749,8 +796,7 @@ inferior to guard and [watchr](https://github.com/mynyml/watchr).
   [SimpleCov](https://github.com/colszowka/simplecov) instead.
 * [therubyracer](https://github.com/cowboyd/therubyracer) - the use of
   this gem in production is strongly discouraged as it uses a very large amount of
-  memory. I'd suggest using
-  [Mustang](https://github.com/nu7hatch/mustang) instead.
+  memory. I'd suggest using `node.js` instead.
 
 This list is also a work in progress. Please, let me know if you know
 other popular, but flawed gems.
@@ -1122,12 +1168,12 @@ they will retry the match for given timeout allowing you to test ajax actions.
     = "Published at: #{formatted_date(@article.published_at)}"
 
     # spec/views/articles/show.html.haml_spec.rb
-    describe 'articles/show.html.html' do
+    describe 'articles/show.html.haml' do
       it 'displays the formatted date of article publishing'
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
-        template.stub(:formatted_date).with(article.published_at).and_return '01.01.2012'
+        template.stub(:formatted_date).with(article.published_at).and_return('01.01.2012')
 
         render
         rendered.should have_content('Published at: 01.01.2012')
