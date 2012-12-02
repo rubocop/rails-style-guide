@@ -1084,6 +1084,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+
 * Use `its` when possible
 
     ```Ruby
@@ -1102,6 +1103,44 @@ they will retry the match for given timeout allowing you to test ajax actions.
       its(:creation_date) { should == Date.today }
     end
     ```
+
+
+* Use `shared_examples` if you want to create a spec group that can be shared by many other tests.
+
+   ```Ruby
+   # bad
+    describe Array do
+      subject { Array.new [7, 2, 4] }
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+    describe Set do
+      subject { Set.new [7, 2, 4] }
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+   #good
+    shared_examples "a collection" do
+      subject { described_class.new([7, 2, 4]) } 
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+    describe Array do
+      it_behaves_like "a collection"
+    end
+    
+    describe Set do
+      it_behaves_like "a collection"
+    end
 
 ### Views
 
