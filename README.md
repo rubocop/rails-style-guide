@@ -744,7 +744,7 @@ compliant) that are useful in many Rails projects:
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
   to fabrication. Nice and mature fixture replacement. Spiritual ancestor of
   fabrication.
-* [faker](http://faker.rubyforge.org/) - handy gem to generate dummy data
+* [ffaker](https://github.com/EmmanuelOga/ffaker) - handy gem to generate dummy data
   (names, addresses, etc).
 * [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible
   RSS/Atom feed parser.
