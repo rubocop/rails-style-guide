@@ -715,6 +715,12 @@ compliant) that are useful in many Rails projects:
 * [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces 
   the standard Rails error page with a much better and more useful error page. It is also
   usable outside of Rails in any Rack app as Rack middleware.
+* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
+  help you increase your application’s performance by reducing the number of
+  queries it makes. It will watch your queries while you develop your
+  application and notify you when you should add eager loading (N+1 queries),
+  when you’re using eager loading that isn’t necessary and when you should use
+  counter cache.
 * [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
   lets you restrict users access to resources. All permissions are defined in a
   single file (ability.rb) and convenient methods for checking and ensuring
