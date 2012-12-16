@@ -760,6 +760,10 @@ compliant) that are useful in many Rails projects:
 * [friendly_id](https://github.com/norman/friendly_id) - Allows creation of
   human-readable URLs by using some descriptive attribute of the model instead
   of its id.
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
+  the successor of Globalize for Rails and is targeted at ActiveRecord
+  version 3.x. It is compatible with and builds on the new I18n API in Ruby
+  on Rails and adds model translations to ActiveRecord.
 * [guard](https://github.com/guard/guard) - fantastic gem that monitors file
   changes and invokes tasks based on them. Loaded with lots of useful
   extension. Far superior to autotest and watchr.
