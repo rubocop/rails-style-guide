@@ -1024,12 +1024,12 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
 
     # the spec...
-    describe Article
-      describe '#summary'
+    describe Article do
+      describe '#summary' do
         #...
       end
 
-      describe '.latest'
+      describe '.latest' do
         #...
       end
     end
@@ -1229,7 +1229,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 
     # spec/views/articles/show.html.haml_spec.rb
     describe 'articles/show.html.haml' do
-      it 'displays the formatted date of article publishing'
+      it 'displays the formatted date of article publishing' do
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
@@ -1344,7 +1344,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 * Create the model for all examples in the spec to avoid duplication.
 
     ```Ruby
-    describe Article
+    describe Article do
       let(:article) { Fabricate(:article) }
     end
     ```
@@ -1352,7 +1352,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 * Add an example ensuring that the fabricated model is valid.
 
     ```Ruby
-    describe Article
+    describe Article do
       it 'is valid with valid attributes' do
         article.should be_valid
       end
@@ -1365,7 +1365,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 
     ```Ruby
     # bad
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should_not be_valid
@@ -1373,7 +1373,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
     end
 
     # prefered
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should have(1).error_on(:title)
@@ -1384,8 +1384,8 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * Add a separate `describe` for each attribute which has validations.
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is required' do
           article.title = nil
           article.should have(1).error_on(:title)
@@ -1397,8 +1397,8 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * When testing uniqueness of a model attribute, name the other object `another_object`.
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
           article.should have(1).error_on(:title)
@@ -1417,10 +1417,10 @@ which should be validated. Using `be_valid` does not guarantee that the problem
   * the e-mail contains the required information
 
      ```Ruby
-     describe SubscriberMailer
+     describe SubscriberMailer do
        let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email'
+       describe 'successful registration email' do
          subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
          its(:subject) { should == 'Successful Registration!' }
