@@ -606,19 +606,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 一個最重要的編程理念是 "不要重造輪子！" 。若你遇到一個特定問題，你應該要在你開始前，看一下是否有存在的解決方案。下面是一些在很多 Rails 專案中 "無價的" gem 列表（全部相容 Rails 3.1）：
 
 * [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，創建 Rails 應用的管理介面就像兒戲。你會有一個很好的儀錶盤，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
-* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces
-  the standard Rails error page with a much better and more useful error page. It is also
-  usable outside of Rails in any Rack app as Rack middleware.
-* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
-  help you increase your application’s performance by reducing the number of
-  queries it makes. It will watch your queries while you develop your
-  application and notify you when you should add eager loading (N+1 queries),
-  when you’re using eager loading that isn’t necessary and when you should use
-  counter cache.
-* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
-  lets you restrict users access to resources. All permissions are defined in a
-  single file (ability.rb) and convenient methods for checking and ensuring
-  permissions are available throughout the application.
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的錯誤頁面，取代了 Rails 標準的錯誤頁面。不僅可用在 Rails，任何將 Rack 當作中介軟體的 app 都可使用。
+* [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是為了幫助提昇應用的效能（藉由減少查詢）而打造的 gem。會在你開發應用時，替你注意你的查詢，並在需要 eager loading (N+1 查詢)時、或你在不必要的情況使用 eager loading 時，或是在應該要使用 counter cache 時，都會提醒你。
+* [cancan](https://github.com/ryanb/cancan) - CanCan 是一個權限管理的 gem，
+讓你可以管制用戶可存取的支援。所有的授權都定義在一個檔案裡（ability.rb），並提供許多方便的方法，讓你檢查及確保整個應用內權限是否是可得的。
 * [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用的過程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用的互動。它與你測試在運行的驅動無關，並原生搭載 Rack::Test 及 Selenium 支持。透過外部 gem 支持 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
 * [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最後一個文件上傳解決方案。支持上傳檔案（及很多其它的酷玩意的）的本機儲存與雲端儲存。圖片後處理與 ImageMagick 整合得非常好。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
@@ -631,10 +622,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [ffaker](https://github.com/EmmanuelOga/ffaker) - 實用的 gem 來產生仿造的資料（名字、地址，等等）。
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及靈活的 RSS 或 Atom 種子解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，允許你創建人類可讀的網址。
-* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
-  the successor of Globalize for Rails and is targeted at ActiveRecord
-  version 3.x. It is compatible with and builds on the new I18n API in Ruby
-  on Rails and adds model translations to ActiveRecord.
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了事務功能。
 * [guard](https://github.com/guard/guard) - 極佳的 gem 監控文件變化及任務的調用。搭載了很多實用的擴充。遠優於 autotest 與 watchr。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
