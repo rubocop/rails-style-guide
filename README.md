@@ -569,6 +569,7 @@ Use the [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to 
 your application.
 
 * Reserve `app/assets` for custom stylesheets, javascripts, or images.
+* Use `lib/assets` for your own libraries, that doesn’t really fit into the scope of the application.
 * Third party code such as [jQuery](http://jquery.com/) or [bootstrap](http://twitter.github.com/bootstrap/)
   should be placed in `vendor/assets`.
 * When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
@@ -708,6 +709,19 @@ compliant) that are useful in many Rails projects:
 * [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin
   the creation of admin interface for your Rails app is child's play. You get a
   nice dashboard, CRUD UI and lots more. Very flexible and customizable.
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces 
+  the standard Rails error page with a much better and more useful error page. It is also
+  usable outside of Rails in any Rack app as Rack middleware.
+* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
+  help you increase your application’s performance by reducing the number of
+  queries it makes. It will watch your queries while you develop your
+  application and notify you when you should add eager loading (N+1 queries),
+  when you’re using eager loading that isn’t necessary and when you should use
+  counter cache.
+* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
+  lets you restrict users access to resources. All permissions are defined in a
+  single file (ability.rb) and convenient methods for checking and ensuring
+  permissions are available throughout the application.
 * [capybara](https://github.com/jnicklas/capybara) - Capybara aims to simplify
   the process of integration testing Rack applications, such as Rails, Sinatra
   or Merb. Capybara simulates how a real user would interact with a web
@@ -736,13 +750,17 @@ compliant) that are useful in many Rails projects:
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
   to fabrication. Nice and mature fixture replacement. Spiritual ancestor of
   fabrication.
-* [faker](http://faker.rubyforge.org/) - handy gem to generate dummy data
+* [ffaker](https://github.com/EmmanuelOga/ffaker) - handy gem to generate dummy data
   (names, addresses, etc).
 * [feedzirra](https://github.com/pauldix/feedzirra) - Very fast and flexible
   RSS/Atom feed parser.
 * [friendly_id](https://github.com/norman/friendly_id) - Allows creation of
   human-readable URLs by using some descriptive attribute of the model instead
   of its id.
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
+  the successor of Globalize for Rails and is targeted at ActiveRecord
+  version 3.x. It is compatible with and builds on the new I18n API in Ruby
+  on Rails and adds model translations to ActiveRecord.
 * [guard](https://github.com/guard/guard) - fantastic gem that monitors file
   changes and invokes tasks based on them. Loaded with lots of useful
   extension. Far superior to autotest and watchr.
@@ -1003,12 +1021,12 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
 
     # the spec...
-    describe Article
-      describe '#summary'
+    describe Article do
+      describe '#summary' do
         #...
       end
 
-      describe '.latest'
+      describe '.latest' do
         #...
       end
     end
@@ -1076,6 +1094,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
     end
     ```
 
+
 * Use `its` when possible
 
     ```Ruby
@@ -1094,6 +1113,44 @@ they will retry the match for given timeout allowing you to test ajax actions.
       its(:creation_date) { should == Date.today }
     end
     ```
+
+
+* Use `shared_examples` if you want to create a spec group that can be shared by many other tests.
+
+   ```Ruby
+   # bad
+    describe Array do
+      subject { Array.new [7, 2, 4] }
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+    describe Set do
+      subject { Set.new [7, 2, 4] }
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+   #good
+    shared_examples "a collection" do
+      subject { described_class.new([7, 2, 4]) } 
+    
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+    
+    describe Array do
+      it_behaves_like "a collection"
+    end
+    
+    describe Set do
+      it_behaves_like "a collection"
+    end
 
 ### Views
 
@@ -1169,7 +1226,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 
     # spec/views/articles/show.html.haml_spec.rb
     describe 'articles/show.html.haml' do
-      it 'displays the formatted date of article publishing'
+      it 'displays the formatted date of article publishing' do
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
@@ -1284,7 +1341,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 * Create the model for all examples in the spec to avoid duplication.
 
     ```Ruby
-    describe Article
+    describe Article do
       let(:article) { Fabricate(:article) }
     end
     ```
@@ -1292,7 +1349,7 @@ they will retry the match for given timeout allowing you to test ajax actions.
 * Add an example ensuring that the fabricated model is valid.
 
     ```Ruby
-    describe Article
+    describe Article do
       it 'is valid with valid attributes' do
         article.should be_valid
       end
@@ -1305,7 +1362,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 
     ```Ruby
     # bad
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should_not be_valid
@@ -1313,7 +1370,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
     end
 
     # prefered
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should have(1).error_on(:title)
@@ -1324,8 +1381,8 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * Add a separate `describe` for each attribute which has validations.
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is required' do
           article.title = nil
           article.should have(1).error_on(:title)
@@ -1337,8 +1394,8 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * When testing uniqueness of a model attribute, name the other object `another_object`.
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
           article.should have(1).error_on(:title)
@@ -1357,10 +1414,10 @@ which should be validated. Using `be_valid` does not guarantee that the problem
   * the e-mail contains the required information
 
      ```Ruby
-     describe SubscriberMailer
+     describe SubscriberMailer do
        let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email'
+       describe 'successful registration email' do
          subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
          its(:subject) { should == 'Successful Registration!' }
