@@ -1,6 +1,6 @@
 # 序幕
 
-> 風格是從偉大事物中分離出的美好事物。 <br/>
+> 風格是從偉大事物中萃取出的美好事物。 <br/>
 > -- Bozhidar Batsov
 
 這份指南目的於演示一整套 Rails 3 開發的風格慣例及最佳實踐。這是一份與由現存社群所驅動的 [Ruby 編碼風格指南](https://github.com/bbatsov/ruby-style-guide)互補的指南。
@@ -493,7 +493,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 利用這個 [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) 來管理應用的結構。
 
-* 保留 `app/assets` 給自定的樣式表, javascripts, 或圖片。
+* 保留 `app/assets` 給自定的樣式表，Javascripts 或圖片。
+* 把自己開發，但不適合用在本應用的函式庫，放在 `lib/assets`。
 * 第三方程式碼如： [jQuery](http://jquery.com/) 或 [bootstrap](http://twitter.github.com/bootstrap/) 應放置在`vendor/assets`。
 * 當可能的時候，使用 gem 化的 assets 版本。 (如： [jquery-rails](https://github.com/rails/jquery-rails))。
 
@@ -605,6 +606,19 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 一個最重要的編程理念是 "不要重造輪子！" 。若你遇到一個特定問題，你應該要在你開始前，看一下是否有存在的解決方案。下面是一些在很多 Rails 專案中 "無價的" gem 列表（全部相容 Rails 3.1）：
 
 * [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，創建 Rails 應用的管理介面就像兒戲。你會有一個很好的儀錶盤，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces
+  the standard Rails error page with a much better and more useful error page. It is also
+  usable outside of Rails in any Rack app as Rack middleware.
+* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
+  help you increase your application’s performance by reducing the number of
+  queries it makes. It will watch your queries while you develop your
+  application and notify you when you should add eager loading (N+1 queries),
+  when you’re using eager loading that isn’t necessary and when you should use
+  counter cache.
+* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
+  lets you restrict users access to resources. All permissions are defined in a
+  single file (ability.rb) and convenient methods for checking and ensuring
+  permissions are available throughout the application.
 * [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用的過程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用的互動。它與你測試在運行的驅動無關，並原生搭載 Rack::Test 及 Selenium 支持。透過外部 gem 支持 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
 * [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最後一個文件上傳解決方案。支持上傳檔案（及很多其它的酷玩意的）的本機儲存與雲端儲存。圖片後處理與 ImageMagick 整合得非常好。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
@@ -614,9 +628,13 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [devise](https://github.com/plataformatec/devise) - Devise 是 Rails 應用的一個完整解決方案。多數情況偏好使用 devise 來開始你的客制驗證方案。
 * [fabrication](http://fabricationgem.org/) - 一個很好的假資料產生器（編輯者的選擇）。
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - 另一個 Fabrication 的選擇。一個成熟的假資料產生器。 Fabrication 的精神領袖先驅。
-* [faker](http://faker.rubyforge.org/) - 實用的 gem 來產生仿造的資料（名字、地址，等等）。
+* [ffaker](https://github.com/EmmanuelOga/ffaker) - 實用的 gem 來產生仿造的資料（名字、地址，等等）。
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及靈活的 RSS 或 Atom 種子解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，允許你創建人類可讀的網址。
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
+  the successor of Globalize for Rails and is targeted at ActiveRecord
+  version 3.x. It is compatible with and builds on the new I18n API in Ruby
+  on Rails and adds model translations to ActiveRecord.
 * [guard](https://github.com/guard/guard) - 極佳的 gem 監控文件變化及任務的調用。搭載了很多實用的擴充。遠優於 autotest 與 watchr。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
@@ -815,19 +833,19 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
 
     # the spec...
-    describe Article
-      describe '#summary'
+    describe Article do
+      describe '#summary' do
         #...
       end
 
-      describe '.latest'
+      describe '.latest' do
         #...
       end
     end
     ```
 
 * 使用 [fabricators](http://fabricationgem.org/) 來創建測試物件。
-  
+
 * 大量使用 mocks 與 stubs。
 
     ```Ruby
@@ -904,6 +922,44 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
+* Use `shared_examples` if you want to create a spec group that can be shared by many other tests.
+
+   ```Ruby
+   # bad
+    describe Array do
+      subject { Array.new [7, 2, 4] }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+    describe Set do
+      subject { Set.new [7, 2, 4] }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+   #good
+    shared_examples "a collection" do
+      subject { described_class.new([7, 2, 4]) }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+    describe Array do
+      it_behaves_like "a collection"
+    end
+
+    describe Set do
+      it_behaves_like "a collection"
+    end
+
+
 ### 視圖
 
 * 視圖測試的目錄結構要與 `app/views` 之中的相符。舉例來說，在 `app/views/users` 視圖被放在 `spec/views/users`。
@@ -968,7 +1024,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     # spec/views/articles/show.html.haml_spec.rb
     describe 'articles/show.html.haml' do
-      it 'displays the formatted date of article publishing'
+      it 'displays the formatted date of article publishing' do
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
@@ -1083,7 +1139,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 在測試裡建立所有例子的模型來避免重複。
 
     ```Ruby
-    describe Article
+    describe Article do
       let(:article) { Fabricate(:article) }
     end
     ```
@@ -1091,7 +1147,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 加入一個例子確保捏造的模型是可行的。
 
     ```Ruby
-    describe Article
+    describe Article do
       it 'is valid with valid attributes' do
         article.should be_valid
       end
@@ -1102,7 +1158,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     ```Ruby
     # 差
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should_not be_valid
@@ -1110,7 +1166,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
 
     # 偏好
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should have(1).error_on(:title)
@@ -1121,7 +1177,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 替每個有驗證的屬性加另一個 `describe`。
 
     ```Ruby
-    describe Article
+    describe Article do
       describe '#title'
         it 'is required' do
           article.title = nil
@@ -1134,8 +1190,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 當測試模型屬性的獨立性時，把其它物件命名為 `another_object`。
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
           article.should have(1).error_on(:title)
@@ -1154,10 +1210,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
   * 這個 e-mail 包含了需要的訊息
 
      ```Ruby
-     describe SubscriberMailer
+     describe SubscriberMailer do
        let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email'
+       describe 'successful registration email' do
          subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
          its(:subject) { should == 'Successful Registration!' }

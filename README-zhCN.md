@@ -1,6 +1,6 @@
 # 序幕
 
-> 风格是从伟大事物中分离出的美好事物。 <br/>
+> 风格是从伟大事物中萃取出的美好事物。 <br/>
 > -- Bozhidar Batsov
 
 这份指南目的于演示一整套 Rails 3 开发的风格惯例及最佳实践。这是一份与由现存社群所驱动的[Ruby 编码风格指南](https://github.com/bbatsov/ruby-style-guide)互补的指南。
@@ -492,7 +492,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 利用这个 [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) 来管理应用的结构。
 
-* 保留 `app/assets` 给自定的样式表, javascripts, 或图片。
+* 保留 `app/assets` 给自定的样式表，Javascripts 或图片。
+* 把自己开发，但不适合用在这个应用的函式库，放在 `lib/assets/`。
 * 第三方代码如： [jQuery](http://jquery.com/) 或 [bootstrap](http://twitter.github.com/bootstrap/) 应放置在 `vendor/assets`。
 * 当可能的时候，使用 gem 化的 assets 版本。(如： [jquery-rails](https://github.com/rails/jquery-rails))。
 
@@ -604,6 +605,19 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 一个最重要的编程理念是 "不要重造轮子！" 。若你遇到一个特定问题，你应该要在你开始前，看一下是否有存在的解决方案。下面是一些在很多 Rails 项目中 "无价的" gem 列表（全部兼容 Rails 3.1）：
 
 * [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，创建 Rails 应用的管理介面就像儿戏。你会有一个很好的仪表盘，图形化 CRUD 介面以及更多东西。非常灵活且可客制化。
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces
+  the standard Rails error page with a much better and more useful error page. It is also
+  usable outside of Rails in any Rack app as Rack middleware.
+* [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
+  help you increase your application’s performance by reducing the number of
+  queries it makes. It will watch your queries while you develop your
+  application and notify you when you should add eager loading (N+1 queries),
+  when you’re using eager loading that isn’t necessary and when you should use
+  counter cache.
+* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
+  lets you restrict users access to resources. All permissions are defined in a
+  single file (ability.rb) and convenient methods for checking and ensuring
+  permissions are available throughout the application.
 * [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在简化整合测试 Rack 应用的过程，像是 Rails、Sinatra 或 Merb。Capybara 模拟了真实用户使用 web 应用的互动。 它与你测试在运行的驱动无关，并原生搭载 Rack::Test 及 Selenium 支持。透过外部 gem 支持 HtmlUnit、WebKit 及 env.js 。与 RSpec & Cucumber 一起使用时工作良好。
 * [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最后一个文件上传解决方案。支持上传档案（及很多其它的酷玩意儿的）的本地储存与云储存。图片后处理与 ImageMagick 整合得非常好。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
@@ -613,9 +627,10 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [devise](https://github.com/plataformatec/devise) - Devise 是 Rails 应用的一个完整解决方案。多数情况偏好使用 devise 来开始你的客制验证方案。
 * [fabrication](http://fabricationgem.org/) - 一个很好的假数据产生器（编辑者的选择）。
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - 另一个 Fabrication 的选择。一个成熟的假数据产生器。 Fabrication 的精神领袖先驱。
-* [faker](http://faker.rubyforge.org/) - 实用的 gem 来产生仿造的数据（名字、地址，等等）。
+* [ffaker](https://github.com/EmmanuelOga/ffaker) - 实用的 gem 来产生仿造的数据（名字、地址，等等）。
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及灵活的 RSS 或 Atom 种子解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透过使用某些具描述性的模型属性，而不是使用 id，允许你创建人类可读的网址。
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is the successor of Globalize for Rails and is targeted at ActiveRecord version 3.x. It is compatible with and builds on the new I18n API in Ruby on Rails and adds model translations to ActiveRecord.
 * [guard](https://github.com/guard/guard) - 极佳的 gem 监控文件变化及任务的调用。搭载了很多实用的扩充。远优于 autotest 与 watchr。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一个简洁的模型语言，被很多人认为（包括我）远优于 Erb。
@@ -652,7 +667,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 ## Cucumber
 
-* 用 `@wip` （工作进行中）标签标记你未完成的场景。这些场景不纳入考虑，且不标记为测试失败。当完成一个未完成场景且功能测试通过时，为了把此场景加至测试套件里，应该移除 `@wip` 标签。 
+* 用 `@wip` （工作进行中）标签标记你未完成的场景。这些场景不纳入考虑，且不标记为测试失败。当完成一个未完成场景且功能测试通过时，为了把此场景加至测试套件里，应该移除 `@wip` 标签。
 * 配置你的缺省配置文件，排除掉标记为 `@javascript` 的场景。它们使用浏览器来测试，推荐停用它们来增加一般场景的执行速度。
 * 替标记著 `@javascript` 的场景配置另一个配置文件。
   * 配置文件可在 `cucumber.yml` 文件里配置。
@@ -798,8 +813,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 * 大量使用 `descibe` 及 `context` 。
 * 如下地替 `describe` 区块命名：
-  * 非方法使用 "description" 
-  * 实例方法使用井字号 "#method" 
+  * 非方法使用 "description"
+  * 实例方法使用井字号 "#method"
   * 类别方法使用点 ".method"
 
     ```Ruby
@@ -814,19 +829,19 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     end
 
     # the spec...
-    describe Article
-      describe '#summary'
+    describe Article do
+      describe '#summary' do
         #...
       end
 
-      describe '.latest'
+      describe '.latest' do
         #...
       end
     end
     ```
 
 * 使用 [fabricators](http://fabricationgem.org/) 来创建测试对象。
-  
+
 * 大量使用 mocks 与 stubs。
 
     ```Ruby
@@ -903,9 +918,47 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     end
     ```
 
+* Use `shared_examples` if you want to create a spec group that can be shared by many other tests.
+
+   ```Ruby
+   # bad
+    describe Array do
+      subject { Array.new [7, 2, 4] }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+    describe Set do
+      subject { Set.new [7, 2, 4] }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+   #good
+    shared_examples "a collection" do
+      subject { described_class.new([7, 2, 4]) }
+
+      context "initialized with 3 items" do
+        its(:size) { should eq(3) }
+      end
+    end
+
+    describe Array do
+      it_behaves_like "a collection"
+    end
+
+    describe Set do
+      it_behaves_like "a collection"
+    end
+
+
 ### 视图
 
-* 视图测试的目录结构要与 `app/views` 之中的相符。 举例来说，在 `app/views/users` 视图被放在 `spec/views/users`。 
+* 视图测试的目录结构要与 `app/views` 之中的相符。 举例来说，在 `app/views/users` 视图被放在 `spec/views/users`。
 * 视图测试的命名惯例是添加 `_spec.rb` 至视图名字之后，举例来说，视图 `_form.html.haml` 有一个对应的测试叫做 `_form.html.haml_spec.rb`。
 * 每个视图测试文件都需要 `spec_helper.rb`。
 * 外部描述区块使用不含 `app/views` 部分的视图路径。 `render` 方法没有传入参数时，是这么使用的。
@@ -967,7 +1020,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
     # spec/views/articles/show.html.haml_spec.rb
     describe 'articles/show.html.haml' do
-      it 'displays the formatted date of article publishing'
+      it 'displays the formatted date of article publishing' do
         article = mock_model(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
@@ -1082,7 +1135,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * 在测试里建立所有例子的模型来避免重复。
 
     ```Ruby
-    describe Article
+    describe Article do
       let(:article) { Fabricate(:article) }
     end
     ```
@@ -1090,7 +1143,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * 加入一个例子确保捏造的模型是可行的。
 
     ```Ruby
-    describe Article
+    describe Article do
       it 'is valid with valid attributes' do
         article.should be_valid
       end
@@ -1101,7 +1154,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
     ```Ruby
     # 差
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should_not be_valid
@@ -1109,7 +1162,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     end
 
     # 偏好
-    describe '#title'
+    describe '#title' do
       it 'is required' do
         article.title = nil
         article.should have(1).error_on(:title)
@@ -1120,8 +1173,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * 替每个有验证的属性加另一个 `describe`。
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is required' do
           article.title = nil
           article.should have(1).error_on(:title)
@@ -1133,8 +1186,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * 当测试模型属性的独立性时，把其它对象命名为 `another_object`。
 
     ```Ruby
-    describe Article
-      describe '#title'
+    describe Article do
+      describe '#title' do
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
           article.should have(1).error_on(:title)
@@ -1156,7 +1209,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
      describe SubscriberMailer
        let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email'
+       describe 'successful registration email' do
          subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
          its(:subject) { should == 'Successful Registration!' }
