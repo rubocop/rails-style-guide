@@ -58,7 +58,7 @@ Translations of the guide are available in the following languages:
 
 * Put custom initialization code in `config/initializers`. The code in
   initializers executes on application startup.
-* The initialization code for each gem should be in a separate file
+* Keep initialization code for each gem in a separate file
   with the same name as the gem, for example `carrierwave.rb`,
   `active_admin.rb`, etc.
 * Adjust accordingly the settings for development, test and production
@@ -293,7 +293,7 @@ scopes like this.
 
     ```Ruby
     class User < ActiveRecord::Base
-      def self.with_orders 
+      def self.with_orders
         joins(:orders).select('distinct(users.id)')
       end
     end
@@ -314,7 +314,7 @@ There is more than one way to achieve this:
           end
         end
         ```
-        
+
     In order to convert this to a URL-friendly value, `parameterize` should be called on the string. The `id` of the
     object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
@@ -712,7 +712,7 @@ compliant) that are useful in many Rails projects:
 * [active_admin](https://github.com/gregbell/active_admin) - With ActiveAdmin
   the creation of admin interface for your Rails app is child's play. You get a
   nice dashboard, CRUD UI and lots more. Very flexible and customizable.
-* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces 
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors replaces
   the standard Rails error page with a much better and more useful error page. It is also
   usable outside of Rails in any Rack app as Rack middleware.
 * [bullet](https://github.com/flyerhzm/bullet) - The Bullet gem is designed to
@@ -1124,33 +1124,33 @@ they will retry the match for given timeout allowing you to test ajax actions.
    # bad
     describe Array do
       subject { Array.new [7, 2, 4] }
-    
+
       context "initialized with 3 items" do
         its(:size) { should eq(3) }
       end
     end
-    
+
     describe Set do
       subject { Set.new [7, 2, 4] }
-    
+
       context "initialized with 3 items" do
         its(:size) { should eq(3) }
       end
     end
-    
+
    #good
     shared_examples "a collection" do
-      subject { described_class.new([7, 2, 4]) } 
-    
+      subject { described_class.new([7, 2, 4]) }
+
       context "initialized with 3 items" do
         its(:size) { should eq(3) }
       end
     end
-    
+
     describe Array do
       it_behaves_like "a collection"
     end
-    
+
     describe Set do
       it_behaves_like "a collection"
     end
