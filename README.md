@@ -277,8 +277,17 @@ abbreviations.
 
 * Always use the new
   ["sexy" validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
-* When a custom validation is used more than once or the validation is some regular expression mapping,
-create a custom validator file.
+
+    ```Ruby
+    # bad
+    validates_presence_of :email
+
+    # good
+    validates :email, presence: true
+    ```
+
+* When a custom validation is used more than once or the validation is
+some regular expression mapping, create a custom validator file.
 
     ```Ruby
     # bad
