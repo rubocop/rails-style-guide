@@ -307,7 +307,10 @@ some regular expression mapping, create a custom validator file.
     end
     ```
 
-* All custom validators should be moved to a shared gem.
+* Keep custom validators under `lib/validators`.
+* Consider extracting custom validators to a shared gem if you're
+  maintaining several related apps or the validators are generic
+  enough.
 * Use named scopes freely.
 
     ```Ruby
