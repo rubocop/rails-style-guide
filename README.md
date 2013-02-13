@@ -198,8 +198,53 @@ abbreviations.
 * Avoid altering ActiveRecord defaults (table names, primary key, etc)
   unless you have a very good reason (like a database that's not under
   your control).
+
+    ```Ruby
+    # bad - don't do this if you can modify the schema
+    class Transaction < ActiveRecord::Base
+      self.table_name = 'order'
+      ...
+    end
+    ```
+
 * Group macro-style methods (`has_many`, `validates`, etc) in the
   beginning of the class definition.
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      # keep the default scope first (if any)
+      default_scope { where(active: true) }
+
+      # constants come up next
+      GENDERS = ['male', 'female']
+
+      # afterwards we put attr related macros
+      attr_accessor :formatted_date_of_birth
+
+      attr_accessible :login, :first_name, :last_name, :email, :password
+
+      # followed by association macros
+      belongs_to :country
+
+      has_many :authentications, dependent: :destroy
+
+      # and validation macros
+      validates :email, presence: true
+      validates :username, presence: true
+      validates :username, uniqueness: { case_sensitive: false }
+      validates :username, format: { with: /^[A-Za-z][A-Za-z0-9._-]{2,19}$/ }
+      validates :password, format: { with: /^\S{8,128}$/, allow_nil: true}
+
+      # next we have callbacks
+      before_save :cook
+      before_save :update_username_lower
+
+      # other macros (like devise's) should be placed after the callbacks
+
+      ...
+    end
+    ```
+
 * Prefer `has_many :through` to `has_and_belongs_to_many`. Using `has_many
 :through` allows additional attributes and validations on the join model.
 
