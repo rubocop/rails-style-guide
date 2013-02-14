@@ -8,8 +8,8 @@ prescriptions for Ruby on Rails 3 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
-While in the guide the section [Testing Rails applications](#testing)
-is after [Developing Rails applications](#developing) I truly believe
+While in the guide the section [Testing Rails applications](#testing-rails-applications)
+is after [Developing Rails applications](#developing-rails-applications) I truly believe
 that
 [Behaviour-Driven Development](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
 (BDD) is the best way to develop software. Keep that in mind.
