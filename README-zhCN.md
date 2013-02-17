@@ -37,7 +37,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 本指南被翻译成下列语言：
 
-* [简体中文](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
+* [英文原版](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README.md)
 * [繁體中文](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
 
 # 开发 Rails 应用程序
