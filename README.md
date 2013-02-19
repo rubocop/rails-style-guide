@@ -887,7 +887,7 @@ other gems. You should avoid using them in your projects.
 * [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its memory consumption. Use
 [minimagick](https://github.com/probablycorey/mini_magick) instead.
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for running tests automatically. Far
-inferior to guard and [watchr](https://github.com/mynyml/watchr).
+inferior to [guard](https://github.com/guard/guard) and [watchr](https://github.com/mynyml/watchr).
 * [rcov](https://github.com/relevance/rcov) - code coverage tool, not
   compatible with Ruby 1.9. Use
   [SimpleCov](https://github.com/colszowka/simplecov) instead.
