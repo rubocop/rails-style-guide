@@ -1565,6 +1565,7 @@ consider if you have time to spare:
 * [The Rails 3 Way](http://tr3w.com/)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
+* [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
 
 # Contributing
 
