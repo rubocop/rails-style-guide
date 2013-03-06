@@ -1566,6 +1566,7 @@ consider if you have time to spare:
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 * [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
+* [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
 
 # Contributing
 
