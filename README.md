@@ -321,7 +321,9 @@ some regular expression mapping, create a custom validator file.
     end
     ```
 
-* Keep custom validators under `lib/validators`.
+* Keep custom validators under `lib/validators` and add to the load
+  path manually. Since Rails 3 doesn’t autoload files under the lib
+  directory anymore.
 * Consider extracting custom validators to a shared gem if you're
   maintaining several related apps or the validators are generic
   enough.
