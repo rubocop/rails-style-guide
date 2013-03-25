@@ -216,7 +216,7 @@ abbreviations.
       default_scope { where(active: true) }
 
       # constants come up next
-      GENDERS = ['male', 'female']
+      GENDERS = %w(male female)
 
       # afterwards we put attr related macros
       attr_accessor :formatted_date_of_birth
