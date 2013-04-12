@@ -185,7 +185,7 @@ abbreviations.
       attr_accessible :name, :email, :content
 
       validates_presence_of :name
-      validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+      validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
       validates_length_of :content, :maximum => 500
     end
     ```
@@ -232,8 +232,8 @@ abbreviations.
       validates :email, presence: true
       validates :username, presence: true
       validates :username, uniqueness: { case_sensitive: false }
-      validates :username, format: { with: /^[A-Za-z][A-Za-z0-9._-]{2,19}$/ }
-      validates :password, format: { with: /^\S{8,128}$/, allow_nil: true}
+      validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }
+      validates :password, format: { with: /\A\S{8,128}\z/, allow_nil: true}
 
       # next we have callbacks
       before_save :cook
@@ -306,13 +306,13 @@ some regular expression mapping, create a custom validator file.
     ```Ruby
     # bad
     class Person
-      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+      validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     end
 
     # good
     class EmailValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
-        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
       end
     end
 
@@ -536,7 +536,7 @@ used to work might stop, because of changes in the models used.
         module ClientSideValidations::Middleware
           class Email < Base
             def response
-              if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+              if request.params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
                 self.status = 200
               else
                 self.status = 404
