@@ -168,7 +168,43 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 ### ActiveRecord
 
 * 避免改动缺省的 ActiveRecord（表的名字、主键，等等），除非你有一个非常好的理由（像是不受你控制的数据库）。
-* 把宏风格的方法放在类别定义的前面（`has_many`, `validates`, 等等）。
+* 把宏风格的方法（`has_many`, `validates`, 等等）放在类别定义的前面。
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      # 默认的scope放在最前面(如果有)
+      default_scope { where(active: true) }
+
+      # 接下来是常量
+      GENDERS = %w(male female)
+
+      # 然后放一些attr相关的宏
+      attr_accessor :formatted_date_of_birth
+
+      attr_accessible :login, :first_name, :last_name, :email, :password
+
+      # 仅接着是关联的宏
+      belongs_to :country
+
+      has_many :authentications, dependent: :destroy
+
+      # 还有验证
+      validates :email, presence: true
+      validates :username, presence: true
+      validates :username, uniqueness: { case_sensitive: false }
+      validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }
+      validates :password, format: { with: /\A\S{8,128}\z/, allow_nil: true}
+
+      # 接着是回调
+      before_save :cook
+      before_save :update_username_lower
+
+      # 其它的宏 (像devise的) 应该放在回调的后面
+
+      ...
+    end
+    ```
+
 * 偏好 `has_many :through` 胜于 `has_and_belongs_to_many`。 使用 `has_many :through` 允许在 join 模型有附加的属性及验证
 
     ```Ruby
