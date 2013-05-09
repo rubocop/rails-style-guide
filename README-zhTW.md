@@ -1316,7 +1316,6 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 ![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
 This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.zh_TW)
 
-
 # 口耳相傳
 
 一份社群驅動的風格指南，對一個社群來說，只是讓人知道有這個社群。推特轉發這份指南，分享給你的朋友或同事。我們得到的每個註解、建議或意見都可以讓這份指南變得更好一點。而我們想要擁有的是最好的指南，不是嗎？
