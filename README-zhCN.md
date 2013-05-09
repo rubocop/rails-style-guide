@@ -158,7 +158,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
       attr_accessible :name, :email, :content
 
       validates_presence_of :name
-      validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+      validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
       validates_length_of :content, :maximum => 500
     end
     ```
@@ -188,7 +188,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
       has_many :authentications, dependent: :destroy
 
-      # 还有验证
+      # 以及宏的验证
       validates :email, presence: true
       validates :username, presence: true
       validates :username, uniqueness: { case_sensitive: false }
@@ -240,13 +240,13 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
     ```Ruby
     # 差
     class Person
-      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+      validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     end
 
     # 好
     class EmailValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
-        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
       end
     end
 
@@ -438,7 +438,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
         module ClientSideValidations::Middleware
           class Email < Base
             def response
-              if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+              if request.params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
                 self.status = 200
               else
                 self.status = 404
@@ -658,7 +658,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及灵活的 RSS 或 Atom 种子解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透过使用某些具描述性的模型属性，而不是使用 id，允许你创建人类可读的网址。
 * [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize 的后继者，针对 ActiveRecord 3.x 设计。基于新的 I18n API 打造而成，并帮 ActiveRecord 模型添加了事务功能。
-* [guard](https://github.com/guard/guard) - 极佳的 gem 监控文件变化及任务的调用。搭载了很多实用的扩充。远优于 autotest 与 watchr。
+* [guard](https://github.com/guard/guard) - 极佳的 gem 监控文件变化及任务的调用。搭载了很多实用的扩充。远优于 autotest 与 [watchr](https://github.com/mynyml/watchr)。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一个简洁的模型语言，被很多人认为（包括我）远优于 Erb。
 * [kaminari](https://github.com/amatsuda/kaminari) - 很棒的分页解决方案。
@@ -1301,6 +1301,8 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 * [The Rails 3 Way](http://tr3w.com/)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
+* [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
+* [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
 
 # 贡献
 
@@ -1308,6 +1310,15 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 欢迎开票或发送一个带有改进的更新请求。在此提前感谢你的帮助！
 
+# 授权
+
+![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
+This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.zh)
+
+
 # 口耳相传
 
 一份社群驱动的风格指南，对一个社群来说，只是让人知道有这个社群。微博转发这份指南，分享给你的朋友或同事。我们得到的每个注解、建议或意见都可以让这份指南变得更好一点。而我们想要拥有的是最好的指南，不是吗？
+
+共勉之,<br/>
+[Bozhidar](https://twitter.com/bbatsov)

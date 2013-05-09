@@ -159,7 +159,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       attr_accessible :name, :email, :content
 
       validates_presence_of :name
-      validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4} $/i
+      validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
       validates_length_of :content, :maximum => 500
     end
     ```
@@ -170,6 +170,42 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * 避免改動預設的 ActiveRecord（表的名字、主鍵，等等），除非你有一個非常好的理由（像是不受你控制的資料庫）。
 * 把巨集風格的方法放在類別定義的前面（`has_many`, `validates`, 等等）。
+
+    ```Ruby
+    class User < ActiveRecord::Base
+      # 默認的 scope 放在最前面（如果有的話）
+      default_scope { where(active: true) }
+
+      # 接下來是常數
+      GENDERS = %w(male female)
+
+      # 然後放一些 attr 相關的巨集
+      attr_accessor :formatted_date_of_birth
+
+      attr_accessible :login, :first_name, :last_name, :email, :password
+
+      # 僅接著是關聯的巨集
+      belongs_to :country
+
+      has_many :authentications, dependent: :destroy
+
+      # 以及巨集的驗證
+      validates :email, presence: true
+      validates :username, presence: true
+      validates :username, uniqueness: { case_sensitive: false }
+      validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }
+      validates :password, format: { with: /\A\S{8,128}\z/, allow_nil: true}
+
+      # 接著是回呼
+      before_save :cook
+      before_save :update_username_lower
+
+      # 其它的巨集 (像 devise 的) 應該放在回呼的後面
+
+      ...
+    end
+    ```
+
 * 偏好 `has_many :through` 勝於 `has_and_belongs_to_many`。使用 `has_many :through` 允許在 join 模型有附加的屬性及驗證
 
     ```Ruby
@@ -205,13 +241,13 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     ```Ruby
     # 差
     class Person
-      validates :email, format: { with: /^([^@\s]+)@((?:[-a-z0-9]+\.)+[az]{2,})$/i }
+      validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     end
 
     # 好
     class EmailValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
-        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /^([^@\s]+)@((?:[-a-z0- 9]+\.)+[az]{2,})$/i
+        record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
       end
     end
 
@@ -403,7 +439,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         module ClientSideValidations::Middleware
           class Email < Base
             def response
-              if request.params[:email] =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[az]{2,})$/i
+              if request.params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
                 self.status = 200
               else
                 self.status = 404
@@ -623,7 +659,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及靈活的 RSS 或 Atom 種子解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，允許你創建人類可讀的網址。
 * [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了事務功能。
-* [guard](https://github.com/guard/guard) - 極佳的 gem 監控文件變化及任務的調用。搭載了很多實用的擴充。遠優於 autotest 與 watchr。
+* [guard](https://github.com/guard/guard) - 極佳的 gem 監控文件變化及任務的調用。搭載了很多實用的擴充。遠優於 autotest 與 [watchr](https://github.com/mynyml/watchr)。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
 * [kaminari](https://github.com/amatsuda/kaminari) - 很棒的分頁解決方案。
@@ -1266,6 +1302,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [The Rails 3 Way](http://tr3w.com/)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
+* [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
+* [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
 
 # 貢獻
 
@@ -1273,6 +1311,15 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 歡迎開票或發送一個帶有改進的更新請求。在此提前感謝你的幫助！
 
+# 授權
+
+![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
+This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.zh_TW)
+
+
 # 口耳相傳
 
 一份社群驅動的風格指南，對一個社群來說，只是讓人知道有這個社群。推特轉發這份指南，分享給你的朋友或同事。我們得到的每個註解、建議或意見都可以讓這份指南變得更好一點。而我們想要擁有的是最好的指南，不是嗎？
+
+共勉之，<br/>
+[Bozhidar](https://twitter.com/bbatsov)
