@@ -640,7 +640,7 @@ Rails 是一个坚持己见的框架，而这也是一份坚持己见的指南�
 
 一个最重要的编程理念是 "不要重造轮子！" 。若你遇到一个特定问题，你应该要在你开始前，看一下是否有存在的解决方案。下面是一些在很多 Rails 项目中 "无价的" gem 列表（全部兼容 Rails 3.1）：
 
-* [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，创建 Rails 应用的管理介面就像儿戏。你会有一个很好的仪表盘，图形化 CRUD 介面以及更多东西。非常灵活且可客制化。
+* [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，创建 Rails 应用的管理界面就像儿戏。你会有一个很好的仪表盘，图形化 CRUD 界面以及更多东西。非常灵活且可客制化。
 * [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的错误页面，取代了 Rails 标准的错误页面。不仅可用在 Rails，任何将 Rack 当作中间件的 app 都可使用。
 * [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是为了帮助提升应用的效能（通过减少查询）而打造的 gem。会在你开发应用时，替你注意你的查询，并在需要 eager loading (N+1 查询)时、或是你在不必要的情况使用 eager loading 时，或是在应该要使用 counter cache 时，都会提醒你。
 * [cancan](https://github.com/ryanb/cancan) - CanCan 是一个权限管理的 gem，
