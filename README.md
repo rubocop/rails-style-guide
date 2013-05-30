@@ -1,7 +1,7 @@
 # Prelude
 
-> Style is what separates the good from the great. <br/>
-> -- Bozhidar Batsov
+> Role models are important. <br/>
+> -- Officer Alex J. Murphy / RoboCop
 
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 3 development. It's a complementary
