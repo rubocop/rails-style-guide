@@ -184,9 +184,9 @@ abbreviations.
 
       attr_accessible :name, :email, :content
 
-      validates_presence_of :name
-      validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
-      validates_length_of :content, :maximum => 500
+      validates :name, presence: true
+      validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
+      validates :content, length: { maximum: 500 }
     end
     ```
 
