@@ -1299,7 +1299,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 有幾個絕妙講述 Rails 風格的資源，若有閒暇時應當考慮延伸閱讀：
 
-* [The Rails 3 Way](http://tr3w.com/)
+* [The Rails 3 Way](http://www.amazon.com/Rails-Way-Addison-Wesley-Professional-Ruby/dp/0321601661)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 * [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
