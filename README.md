@@ -1,7 +1,7 @@
 # Prelude
 
-> Style is what separates the good from the great. <br/>
-> -- Bozhidar Batsov
+> Role models are important. <br/>
+> -- Officer Alex J. Murphy / RoboCop
 
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 3 development. It's a complementary
@@ -184,9 +184,9 @@ abbreviations.
 
       attr_accessible :name, :email, :content
 
-      validates_presence_of :name
-      validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i
-      validates_length_of :content, :maximum => 500
+      validates :name, presence: true
+      validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
+      validates :content, length: { maximum: 500 }
     end
     ```
 
@@ -1559,7 +1559,7 @@ Here is a sample spec of a [carrierwave](https://github.com/jnicklas/carrierwave
 There are a few excellent resources on Rails style, that you should
 consider if you have time to spare:
 
-* [The Rails 3 Way](http://tr3w.com/)
+* [The Rails 3 Way](http://www.amazon.com/Rails-Way-Addison-Wesley-Professional-Ruby/dp/0321601661)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 * [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
