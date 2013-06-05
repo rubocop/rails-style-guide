@@ -498,9 +498,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,ym​​l}')]
         ```
 
-* 把共用的語系選項，像是日期或貨幣格式，直接放在 `locales` 目錄底下。
+* 把共用的語系選項，像是日期或貨幣格式，直接放在 `locale` 資料夾底下。
 * 使用精簡形式的 I18n 方法： `I18n.t` ，而不是 `I18n.translate` ；使用 `I18n.l` ，而不是 `I18n.localize`。
-* 使用「懶惰」查詢視圖中使用的文字。假設我們有以下結構：
+* 使用「懶惰法」來查詢視圖中使用的文字。假設我們有以下結構：
 
     ```
     en:
@@ -515,7 +515,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     = t '.title'
     ```
 
-* 在控制器與模型使用點分隔的 key，來取代指定 `:scope` 選項。點分隔的呼叫方式，更容易閱讀及追蹤層級。
+* 在控制器與模型使用「點分隔」的 key，來取代指定 `:scope` 選項。點分隔的呼叫方式，更容易閱讀及追蹤層級。
 
     ```Ruby
     # 這樣子呼叫
@@ -531,14 +531,14 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 在應用程式裡，利用 [Assets Pipeline](http://guides.rubyonrails.org/asset_pipeline.html) 來組織資產。
 
-* 保留 `app/assets` 給自定的樣式表，Javascripts 或圖片。
+* 保留 `app/assets` 給自定的樣式表、Javascripts 或圖片。
 * 把自己開發，但不屬於應用程式本身的函式庫，放在 `lib/assets`。
 * 第三方程式如 [jQuery](http://jquery.com/) 或 [bootstrap](http://twitter.github.com/bootstrap/) 應放在`vendor/assets`。
 * 盡可能使用包成 gem 的 assets 。 (如： [jquery-rails](https://github.com/rails/jquery-rails))。
 
 ## Mailers
 
-* 把 mails 命名為 `SomethingMailer`。沒有 Mailer 字尾的話，不能一望即知誰是 Mailer，以及跟哪個視圖有關。
+* 把 mails 命名為 `SomethingMailer`。沒有 Mailer 結尾的話，不能一望即知誰是 Mailer，以及跟哪個視圖有關。
 * 要同時提供 HTML 與純文字的視圖模版。
 * 在你的開發環境打開寄信失敗時要拋出錯誤的選項。這些錯誤預設是不會拋出的。
 
@@ -548,7 +548,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     config.action_mailer.raise_delivery_errors = true
     ```
 
-* 在開發環境使用 `smtp.gmail.com` 設定 SMTP 服務器（當然了，除非你自己有本機 SMTP 服務器）。
+* 在開發環境使用 `smtp.gmail.com` 設定 SMTP 伺服器（當然了，除非你自己有本機 SMTP 伺服器）。
 
     ```Ruby
     # config/environments/development.rb
@@ -693,37 +693,37 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 # 測試 Rails 應用程式
 
-也許 BDD 方法是實作一個新功能最好的方法。你從開始寫一些高階的測試（通常使用 Cucumber），然後使用這些測試來驅使你實作功能。一開始你給功能的視圖寫測試，並使用這些測試來創建相關的視圖。之後，你創建丟給視圖資料的控制器測試來實現控制器。最後你實作模型的測試以及模型自身。
+也許 BDD 方法是實作一個新功能最好的方法。你從開始寫一些高階的測試（通常使用 Cucumber），然後使用這些測試來驅使你實作功能。一開始你給功能的視圖寫測試，並使用這些測試來建立相關的視圖。接著，你寫控制器測試要求把資料丟給視圖用，藉此來實作控制器。最後你實作模型的測試，以及模型自身。
 
 ## Cucumber
 
-* 用 `@wip` （工作進行中）標籤標記你未完成的場景。這些場景不納入考慮，且不標記為測試失敗。當完成一個未完成場景且功能測試通過時，為了把此場景加至測試套件裡，應該移除 `@wip` 標籤。
-* 配置你的預設配置文件，排除掉標記為 `@javascript` 的場景。它們使用瀏覽器來測試，推薦停用它們來增加一般場景的執行速度。
-* 替標記著 `@javascript` 的場景配置另一個配置文件。
-  * 配置文件可在 `cucumber.yml` 文件裡配置。
+* 用 `@wip` （工作進行中）標籤來標記尚未完成的情境 (scenario)。這些情境將不納入考慮，且不會被標記為測試失敗。當完成這個情境且功能測試通過時，為了把此情境加至測試套件裡，請移除 `@wip` 標籤。
+* 修改預設的 profile，排除掉標記為 `@javascript` 的情境。它們將使用瀏覽器來測試，建議停用它們來增進一般情境的執行速度。
+* 替標記著 `@javascript` 的情境配置另一個 profile。
+  * profile 可在 `cucumber.yml` 檔案裡設定。
 
         ```Ruby
-        # 配置文件的定義：
+        # profile 的定義：
         profile_name: --tags @tag_name
         ```
 
-  * 帶指令運行一個配置文件：
+  * 用這個指令來執行特定的 profile：
 
         ```
         cucumber -p profile_name
         ```
 
-* 若使用 [fabrication](http://fabricationgem.org/) 來替換假資料(fixtures)，使用預定義的 [fabrication steps](http://fabricationgem.org/#!cucumber-steps)。
-* 不要使用舊版的 `web_steps.rb` 步驟定義！[最新版 Cucumber 已移除 web steps](http://aslakhellesoy.com/post/11055981222/the-training-wheels-came-off) ，使用它們導致冗贅的場景，而且它並沒有正確地反映出應用的領域。
-* 當檢查一元素的可視文字時，檢查元素的文字而不是檢查 id。這樣可以查出 i18n 的問題。
-* 給同種類物件創建不同的功能特色：
+* 若使用 [fabrication](http://fabricationgem.org/) 來替換 fixtures，請使用預先定義的 [fabrication steps](http://fabricationgem.org/#!cucumber-steps)。
+* 不要使用舊的 `web_steps.rb` 來定義步驟！[最新版 Cucumber 已移除 web steps](http://aslakhellesoy.com/post/11055981222/the-training-wheels-came-off) ，用這個會導致多餘的情境，這些情境無法正確反映出應用程式的領域。
+* 當檢查一元素的可見文字時（如超連結、按鈕），請檢查元素的文字而不是檢查 id。這樣可以查出 i18n 的問題。
+* 為同物件的各種功能，各自建立不同的 feature：
 
     ```Ruby
-    # 差
+    # 劣
     Feature: Articles
     # ... 功能實作 ...
 
-    # 好
+    # 優
     Feature: Article Editing
     # ... 功能實作 ...
 
@@ -735,10 +735,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     ```
 
-* 每一個功能有三個主要成分：
+* 每一個 feature 有三個主要成分：
   * Title
-  * Narrative - 簡短說明這個特色關於什麼。
-  * Acceptance criteria - 每個由獨立步驟組成的一套場景。
+  * Narrative - 簡短說明這個 feature 關於什麼。
+  * Acceptance criteria - 每個由獨立步驟組成的一套情境。
 * 最常見的格式稱為 Connextra 格式。
 
     ```Ruby
@@ -747,9 +747,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     Wants to [feature] ...
     ```
 
-這是最常見但不是要求的格式，敘述可以是依賴功能複雜度的任何文字。
+這種格式最常見，但並不強求要這樣寫，敘述可以是依賴功能複雜度的任何文字。
 
-* 自由地使用場景概述使你的場景備作它用(keep your scenarios DRY)。
+* 可任意使用情境概述使你的情境可備作它用(keep your scenarios DRY)。
 
     ```Ruby
     Scenario Outline: User cannot register with invalid e-mail
@@ -762,12 +762,12 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       |invalid email |is not a valid e-mail |
     ```
 
-* 場景的步驟放在 `step_definitions` 目錄下的 `.rb` 文件。步驟文件命名慣例為 `[description]_steps.rb`。步驟根據不同的標準放在不同的文件裡。每一個功能可能有一個步驟文件(`home_page_steps.rb`)
-。也可能給每個特定物件的功能，建一個步驟文件(`articles_steps.rb`)。
+* 情境的步驟放在 `step_definitions` 目錄下的 `.rb` 檔。步驟檔命名慣例為 `[description]_steps.rb`。步驟根據不同的標準放在不同的檔案裡。每一個 feature 可能有一個步驟檔(`home_page_steps.rb`)
+。也可以給每個特定物件的 feature，開一個步驟檔(`articles_steps.rb`)。
 * 使用多行步驟參數來避免重複
 
     ```Ruby
-    場景: User profile
+    Scenario: User profile
       Given I am logged in as a user "John Doe" with an e-mail "user@test.com"
       When I go to my profile
       Then I should see the following information:
@@ -783,7 +783,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 使用複合​​步驟使場景備作它用(Keep your scenarios DRY)
+* 使用複合步驟來讓情境可備作它用(Keep your scenarios DRY)
 
     ```Ruby
     # ...
@@ -800,7 +800,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       }
     end
     ```
-* 總是使用 Capybara 否定匹配來取代正面情況搭配 should_not，它們會在給定的超時時重試匹配，允許你測試 ajax 動作。見 [Capybara 的讀我文件](https://github.com/jnicklas/capybara)獲得更多說明。
+* 務必使用 Capybara 的否定配對來取代在肯定情況裡使用 should_not，這樣子當 ajax 操作逾時就會重試。見 [Capybara 的讀我文件](https://github.com/jnicklas/capybara)獲得更多說明。
 
 ## RSpec
 
