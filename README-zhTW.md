@@ -290,7 +290,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 *按：在 Rails 4 會強制使用 lambda*
 
-* 當一個由 lambda 及參數定義的作用域變得過於復雜時，更好的方式是建立一個作為同樣用途的類別方法，並返回一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
+* 當一個由 lambda 及參數定義的作用域變得過於複雜時，更好的方式是建立一個作為同樣用途的類別方法，並返回一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
 
     ```Ruby
     class User < ActiveRecord::Base
@@ -434,7 +434,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 不要直接從視圖呼叫模型層 (Model)。
 * 不要在視圖做複雜的格式化，把它們寫成方法放到 helper 或 model 裡面。
 * 使用 partial view 與佈局 (layouts) 來減少重複的程式碼。
-* 給自訂的 validators 加上 [瀏覽器端的驗證程序](https://github.com/bcardarella/client_side_validations)。方法如下：
+* 給自訂的檢驗器 (validators) 加上 [瀏覽器端的驗證器](https://github.com/bcardarella/client_side_validations)。方法如下：
   * 宣告一個由 `ClientSideValidations::Middleware::Base` 繼承來的自訂 validator
 
         ```Ruby
@@ -460,7 +460,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         #= require rails.validations.custom
         ```
 
-  * 加上瀏覽器端的驗證程序：
+  * 加上瀏覽器端的驗證器：
 
         ```Ruby
         #public/javascripts/rails.validations.custom.js.coffee
@@ -641,57 +641,57 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 無價的 Gems
 
-一個最重要的編程理念是 "不要重造輪子！" 。若你遇到一個特定問題，你應該要在你開始前，看一下是否有存在的解決方案。下面是一些在很多 Rails 專案中 "無價的" gem 列表（全部相容 Rails 3.1）：
+一個最重要的編程理念是「不要重造輪子！」。若你遇到一個特定問題，你應該要在你開始手刻前，找一下是否有現有的解決方案。以下是一些在很多 Rails 專案中「無價的」 gem 列表（全部相容 Rails 3.1）：
 
-* [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，創建 Rails 應用的管理介面就像兒戲。你會有一個很好的儀錶盤，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
-* [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的錯誤頁面，取代了 Rails 標準的錯誤頁面。不僅可用在 Rails，任何將 Rack 當作中介軟體的 app 都可使用。
-* [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是為了幫助提昇應用的效能（藉由減少查詢）而打造的 gem。會在你開發應用時，替你注意你的查詢，並在需要 eager loading (N+1 查詢)時、或你在不必要的情況使用 eager loading 時，或是在應該要使用 counter cache 時，都會提醒你。
+* [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，建立 Rails 應用的管理介面就像兒戲。你會有一個很好的後台，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
+* [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的錯誤頁面，取代了 Rails 標準的錯誤頁面。不僅可用在 Rails，任何將 Rack 當作 middleware 的 app 都可使用。
+* [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是為了幫助提升應用的效能（藉由減少查詢）而打造的 gem。會在你開發應用時，替你注意你的查詢，並在需要 eager loading (N+1 查詢) 時、或你在不必要的情況使用 eager loading 時，或是在應該要使用 counter cache 時，都會提醒你。
 * [cancan](https://github.com/ryanb/cancan) - CanCan 是一個權限管理的 gem，
-讓你可以管制用戶可存取的支援。所有的授權都定義在一個檔案裡（ability.rb），並提供許多方便的方法，讓你檢查及確保整個應用內權限是否是可得的。
-* [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用的過程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用的互動。它與你測試在運行的驅動無關，並原生搭載 Rack::Test 及 Selenium 支持。透過外部 gem 支持 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
-* [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最後一個文件上傳解決方案。支持上傳檔案（及很多其它的酷玩意的）的本機儲存與雲端儲存。圖片後處理與 ImageMagick 整合得非常好。
+讓你可以管制用戶可存取的資源。所有的權限都定義在一個檔案裡（ability.rb），並提供許多方便的方法，讓你在整個應用程式裡都可以檢查及確保權限是否允許。
+* [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用程式的流程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用程式的互動過程。它與你用的測試工具無關，並原生搭載 Rack::Test 及 Selenium 支援。透過外部 gem 支援 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
+* [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最新的檔案上傳的解決方案。支援上傳檔案到本地儲存與雲端儲存（及很多其它的酷玩意）。良好結合了 ImageMagick 來進行圖片後處理。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
-  一個美妙的 gem，替你從現有的服務器端模型驗證自動產生 Javascript 用戶端驗證。高度推薦！
-* [compass-rails](https://github.com/chriseppstein/compass) - 一個優秀的 gem，添加了某些 css 框架的支持。包括了 sass mixin 的蒐集，讓你減少 css 文件的程式碼並幫你解決瀏覽器相容問題。
+  一個很棒的 gem，替你從現有的伺服器端模型驗證，自動產生 Javascript 瀏覽器端驗證。強烈推薦！
+* [compass-rails](https://github.com/chriseppstein/compass) - 一個優秀的 gem，加入了某些 css 框架的支持。包括了一些 sass mixin ，讓你減少 css 檔的程式碼，並幫你解決瀏覽器相容問題。
 * [cucumber-rails](https://github.com/cucumber/cucumber-rails) - Cucumber 是一個由 Ruby 所寫，開發功能測試的頂級工具。 cucumber-rails 提供了 Cucumber 的 Rails 整合。
-* [devise](https://github.com/plataformatec/devise) - Devise 是 Rails 應用的一個完整解決方案。多數情況偏好使用 devise 來開始你的客制驗證方案。
-* [fabrication](http://fabricationgem.org/) - 一個很好的假資料產生器（編輯者的選擇）。
-* [factory_girl](https://github.com/thoughtbot/factory_girl) - 另一個 Fabrication 的選擇。一個成熟的假資料產生器。 Fabrication 的精神領袖先驅。
-* [ffaker](https://github.com/EmmanuelOga/ffaker) - 實用的 gem 來產生仿造的資料（名字、地址，等等）。
-* [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速及靈活的 RSS 或 Atom 種子解析器。
-* [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，允許你創建人類可讀的網址。
-* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了事務功能。
-* [guard](https://github.com/guard/guard) - 極佳的 gem 監控文件變化及任務的調用。搭載了很多實用的擴充。遠優於 autotest 與 [watchr](https://github.com/mynyml/watchr)。
+* [devise](https://github.com/plataformatec/devise) - Devise 是 Rails 應用程式的登入系統完整解決方案。多數情況偏好使用 devise 來開始客製登入流程。
+* [fabrication](http://fabricationgem.org/) - 一個很好的 fixture 測資替代品（編輯推薦）。
+* [factory_girl](https://github.com/thoughtbot/factory_girl) - Fabrication 的替代品。一個成熟的 fixture 測資產生器。 Fabrication 的精神領袖先驅。
+* [ffaker](https://github.com/EmmanuelOga/ffaker) - 產生假資料的實用 gem（名字、地址，等等）。
+* [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速、靈活的 RSS / Atom Feed 解析器。
+* [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，來讓你建立人類可讀的網址。
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了交易功能 (transaction)。
+* [guard](https://github.com/guard/guard) - 監控檔案變化並呼叫任務的極佳 gem。搭載了很多實用的擴充。遠優於 autotest 與 [watchr](https://github.com/mynyml/watchr)。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
 * [kaminari](https://github.com/amatsuda/kaminari) - 很棒的分頁解決方案。
-* [machinist](https://github.com/notahat/machinist) - 假資料不好玩，Machinist 才好玩。
-* [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec 是 Test::MiniTest 的取代者。我不高度推薦 RSpec。 rspec-rails 提供了 RSpec 的 Rails 整合。
-* [simple_form](https://github.com/plataformatec/simple_form) - 一旦用過 simple_form（或 formatastic），你就不想聽到關於 Rails 預設的表單。它是一個創造表單很棒的 DSL。
-* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - 為了 SimpleCov 打造的 RCov formatter。若你想使用 SimpleCov 搭配 Hudson 持續整合服務器，很有用。
-* [simplecov](https://github.com/colszowka/simplecov) - 程式碼覆蓋率工具。不像 RCov，完全相容 Ruby 1.9。產生精美的報告。必須用！
-* [slim](http://slim-lang.com) - Slim 是一個簡潔的模版語言，被視為是遠遠優於 HAML(Erb 就更不用說了)的語言。唯一會阻止我大規模地使用它的是，主流 IDE 及編輯器對它的支持不好。但它的效能是非凡的。
-* [spork](https://github.com/sporkrb/spork) - 一個給測試框架（RSpec 或現今 Cucumber）用的 DRb 服務器，每次運行前確保分支出一個乾淨的測試狀態。簡單的說，預載很多測試環境的結果是大幅降低你的測試啟動時間，絕對必須用！
-* [sunspot](https://github.com/sunspot/sunspot) - 基於 SOLR 的全文檢索引擎。
+* [machinist](https://github.com/notahat/machinist) - fixture 測資不好玩，Machinist 才好玩。
+* [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec 是 Test::MiniTest 的替代品。我不高度推薦 RSpec。 rspec-rails 提供了 RSpec 的 Rails 整合。
+* [simple_form](https://github.com/plataformatec/simple_form) - 一旦用過 simple_form（或 formatastic），你就回不去 Rails 預設的表單產生器了。它提供很棒的 DSL 可以建立表單，讓你不必在意表單的 HTML 怎麼寫。
+* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - 為了 SimpleCov 打造的 RCov formatter。若你想使用 SimpleCov 搭配 Hudson 持續整合伺服器 (CI Server)，很有用。
+* [simplecov](https://github.com/colszowka/simplecov) - 檢查程式碼覆蓋率 (code coverage) 的工具。但不像 RCov，它完全相容 Ruby 1.9。它有精美的報表。必須用！
+* [slim](http://slim-lang.com) - Slim 是一個簡潔的模版語言，被視為是遠遠優於 HAML (Erb 莫再提) 的程式語言。唯一會阻止我大規模地使用它的是，主流 IDE 及編輯器對它的支援不好。但它的效能是非凡的。
+* [spork](https://github.com/sporkrb/spork) - 一個給測試框架（RSpec / Cucumber）用的 DRb 伺服器，每次運行前確保 fork 出一個乾淨的測試狀態。簡單的說，預載很多測試環境的結果是大幅降低你的測試啟動時間，絕對必須用！
+* [sunspot](https://github.com/sunspot/sunspot) - 基於 SOLR 的全文搜尋引擎。
 
-這不是完整的清單，以及其它的 gem 也可以在之後加進來。以上清單上的所有 gems 皆經測試，處於活躍開發階段，有社群以及程式碼的品質很高。
+這不是完整的清單，其它的 gem 也可以在之後加進來。以上清單上的所有 gems 皆經測試，處於活躍開發階段，有社群，程式碼的品質很高。
 
-## 缺陷的 Gems
+## 有缺陷的 Gems
 
 這是一個有問題的或被別的 gem 取代的 gem 清單。你應該在你的專案裡避免使用它們。
 
-* [rmagick](http://rmagick.rubyforge.org/) - 這個 gem 因大量消耗記憶體而聲名狼藉。使用 [minimagick](https://github.com/probablycorey/mini_magick) 來取代。
-* [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - 自動測試的老舊解決方案。遠不如 guard 及 [watchr](https://github.com/mynyml/watchr)。
-* [rcov](https://github.com/relevance/rcov) - 程式碼覆蓋率工具，不相容 Ruby 1.9。使用 [SimpleCov](https://github.com/colszowka/simplecov) 來取代。
-* [therubyracer](https://github.com/cowboyd/therubyracer) - 極度不鼓勵在生產模式使用這個 gem，它消耗大量的記憶體。我會推薦使用 `node.js` 來取代。
+* [rmagick](http://rmagick.rubyforge.org/) - 這個 gem 因大量消耗記憶體而聲名狼藉。請改用 [minimagick](https://github.com/probablycorey/mini_magick)。
+* [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - 自動化測試的舊方法。遠不如 guard 及 [watchr](https://github.com/mynyml/watchr)。
+* [rcov](https://github.com/relevance/rcov) - 程式碼覆蓋率工具，不相容於 Ruby 1.9。請改用 [SimpleCov](https://github.com/colszowka/simplecov)。
+* [therubyracer](https://github.com/cowboyd/therubyracer) - 極度不鼓勵在生產模式使用這個 gem，它會消耗大量的記憶體。我會推薦改用 `node.js`。
 
 這仍是一個完善中的清單。請告訴我受人歡迎但有缺陷的 gems 。
 
-## 管理進程
+## 管理處理程序 (process)
 
-* 若你的專案依賴各種外部的進程使用 [foreman](https://github.com/ddollar/foreman) 來管理它們。
+* 若你的專案依賴各種外部的處理程序，使用 [foreman](https://github.com/ddollar/foreman) 來管理它們。
 
-# 測試 Rails 應用
+# 測試 Rails 應用程式
 
 也許 BDD 方法是實作一個新功能最好的方法。你從開始寫一些高階的測試（通常使用 Cucumber），然後使用這些測試來驅使你實作功能。一開始你給功能的視圖寫測試，並使用這些測試來創建相關的視圖。之後，你創建丟給視圖資料的控制器測試來實現控制器。最後你實作模型的測試以及模型自身。
 
