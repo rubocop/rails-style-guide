@@ -45,45 +45,45 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 配置
 
-* 把慣用的初始化程式碼放在 `config/initializers`。在 initializers 內的程式碼於應用啟動時執行。
+* 把自訂的初始化程式碼放在 `config/initializers`。在 initializers 內的程式碼於應用程式啟動時執行。
 * 每一個 gem 相關的初始化程式碼應當使用同樣的名稱，放在不同的文件裡，如： `carrierwave.rb`, `active_admin.rb`, 等等。
 * 相應調整配置開發、測試及生產環境（在 `config/environments/` 下對應的文件）
-  * 標記額外的資產給（如有任何）預編譯：
+  * 標記額外的資產 (assets) 給預編譯（如果有的話）：
 
         ```Ruby
         # config/environments/production.rb
-        # 預編譯額外的資產(application.js, application.css, 以及所有非 JS 或 CSS 的檔案)
+        # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
 
 * 將所有環境都通用的配置檔放在 `config/application.rb` 檔案。
 * 建一個與生產環境(production enviroment)類似的，一個額外的 `staging` 環境，
 
-## 路由
+## 路由 (Routes)
 
 * 當你需要加入一個或多個動作至一個 RESTful 資源時（你真的需要嗎？），使用 `member` and `collection` 路由。
 
     ```Ruby
-    # 差
+    # 劣
     get 'subscriptions/:id/unsubscribe'
     resources :subscriptions
 
-    # 好
+    # 優
     resources :subscriptions do
       get 'unsubscribe', on: :member
     end
 
-    # 差
+    # 劣
     get 'photos/search'
     resources :photos
 
-    # 好
+    # 優
     resources :photos do
       get 'search', on: :collection
     end
     ```
 
-* 若你需要定義多個 `member/collection` 路由時，使用替代的區塊語法(block syntax)。
+* 若你需要定義多個 `member/collection` 路由時，改用區塊語法(block syntax)。
 
     ```Ruby
     resources :subscriptions do
@@ -128,20 +128,20 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 不要在控制器裡使用留給後人般的瘋狂路由(legacy wild controller route)。這種路由會讓每個控制器的動作透過 GET 請求存取。
+* 不要使用地圖砲路由。這種路由會讓每個控制器的動作透過 GET 請求存取。
 
     ```Ruby
-    # 非常差
+    # 極劣
     match ':controller(/:action(/:id(.:format)))'
     ```
 
-## 控制器
+## 控制器 (Controller)
 
 * 讓你的控制器保持苗條 ― 它們應該只替視圖層取出資料且不包含任何業務邏輯（所有業務邏輯應當放在模型裡）。
 * 每個控制器的行動應當（理想上）只調用一個除了初始的 find 或 new 方法。
 * 控制器與視圖之間共享不超過兩個實體變數(instance variable)。
 
-## 模型
+## 模型 (Model)
 
 * 自由地引入不是 ActiveRecord 的類別吧。
 * 替模型命名有意義（但簡短）且不帶縮寫的名字。
@@ -173,7 +173,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     ```Ruby
     class User < ActiveRecord::Base
-      # 默認的 scope 放在最前面（如果有的話）
+      # 預設的 scope 放在最前面（如果有的話）
       default_scope { where(active: true) }
 
       # 接下來是常數
@@ -184,7 +184,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
       attr_accessible :login, :first_name, :last_name, :email, :password
 
-      # 僅接著是關聯的巨集
+      # 緊接著是關聯的巨集
       belongs_to :country
 
       has_many :authentications, dependent: :destroy
@@ -209,7 +209,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 偏好 `has_many :through` 勝於 `has_and_belongs_to_many`。使用 `has_many :through` 允許在 join 模型有附加的屬性及驗證
 
     ```Ruby
-    # 使用 has_​​and_belongs_to_many
+    # 使用 has_and_belongs_to_many
     class User < ActiveRecord::Base
       has_and_belongs_to_many :groups
     end
@@ -218,7 +218,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       has_and_belongs_to_many :users
     end
 
-    # 偏好方式 - using has_​​many :through
+    # 建議的寫法 - 使用 has_many :through
     class User < ActiveRecord::Base
       has_many :memberships
       has_many :groups, through: :memberships
@@ -236,15 +236,15 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     ```
 
 * 使用新的 ["sexy" validation](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/)。
-* 當一個慣用的驗證使用超過一次或驗證是某個正則表達映射時，創建一個慣用的 validator 文件。
+* 如果一個自訂的驗證程序使用超過一次，或驗證程序是透過某個正則表達式的時候，請建立一個自訂的 validator 檔。
 
     ```Ruby
-    # 差
+    # 劣
     class Person
       validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
     end
 
-    # 好
+    # 優
     class EmailValidator < ActiveModel::EachValidator
       def validate_each(record, attribute, value)
         record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -256,8 +256,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 所有慣用的驗證器應放在一個共享的 gem 。
-* 自由地使用命名的作用域 (scope)。
+* 所有自訂的驗證器應放在一個共享的 gem 。
+* 可任意使用具名的作用域 (scope)。
 
     ```Ruby
     class User < ActiveRecord::Base
@@ -268,10 +268,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 將命名的作用域包在 `lambda` 裡來惰性地初始化。
+* 將具名的作用域包在 `lambda` 裡使其延遲初始化。
 
     ```Ruby
-    # 差
+    # 劣
     class User < ActiveRecord::Base
       scope :active, where(active: true)
       scope :inactive, where(active: false)
@@ -279,7 +279,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       scope :with_orders, joins(:orders).select('distinct(users.id)')
     end
 
-    # 好
+    # 優
     class User < ActiveRecord::Base
       scope :active, -> { where(active: true) }
       scope :inactive, -> { where(active: false) }
@@ -288,7 +288,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當一個由 lambda 及參數定義的作用域變得過於復雜時，更好的方式是建一個作為同樣用途的類別方法，並返回一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
+*按：在 Rails 4 會強制使用 lambda*
+
+* 當一個由 lambda 及參數定義的作用域變得過於復雜時，更好的方式是建立一個作為同樣用途的類別方法，並返回一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
 
     ```Ruby
     class User < ActiveRecord::Base
@@ -298,10 +300,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 注意 `update_attribute` 方法的行為。它不運行模型驗證（不同於 `update_attributes` ）並且可能把模型狀態給搞砸。
+* 注意 `update_attribute` 方法的行為。它不會執行模型驗證（不同於 `update_attributes` ）並且可能把模型狀態給搞砸。
 * 使用用戶友好的網址。在網址顯示具描述性的模型屬性，而不只是 `id` 。
 有不止一種方法可以達成：
-  * 覆寫模型的 `to_param` 方法。這是 Rails 用來給物件建構網址的方法。預設的實作會以字串形式返回該 `id` 的記錄。它可被另一個具人類可讀的屬性覆寫。
+  * 覆寫模型的 `to_param` 方法。這是 Rails 用來給物件建立網址的方法。預設的實作會以字串形式返回該 `id` 的記錄。它可以用另一個人類可讀的屬性來覆寫。
 
         ```Ruby
         class Person
@@ -311,9 +313,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         end
         ```
 
-    為了要轉換成對網址友好 (URL-friendly)的數值，字串應當調用 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
+    為了要轉換成對網址友好 (URL-friendly)的值，字串應當調用 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
 
-  * 使用此 `friendly_id` gem。它允許藉由某些具描述性的模型屬性，而不是用 `id` 來創建人類可讀的網址。
+  * 使用此 `friendly_id` gem。它允許藉由某些具描述性的模型屬性來建立人類可讀的網址，而不是用 `id` 。
 
         ```Ruby
         class Person
@@ -322,7 +324,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         end
         ```
 
-        查看 [gem 說明文件](https://github.com/norman/friendly_id)獲得更多關於使用的訊息。
+        查看 [gem 說明文件](https://github.com/norman/friendly_id)獲得更多關於使用的資訊。
 
 ### ActiveResource
 
