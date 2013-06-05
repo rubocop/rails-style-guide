@@ -645,9 +645,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，建立 Rails 應用的管理介面就像兒戲。你會有一個很好的後台，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
 * [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的錯誤頁面，取代了 Rails 標準的錯誤頁面。不僅可用在 Rails，任何將 Rack 當作 middleware 的 app 都可使用。
-* [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是為了幫助提升應用的效能（藉由減少查詢）而打造的 gem。會在你開發應用程式時，替你注意你的資料庫查詢，並在需要 eager loading (N+1 查詢) 時、或你在不必要的情況使用 eager loading 時，或是在應該要使用 counter cache 時，都會提醒你。
+* [bullet](https://github.com/flyerhzm/bullet) - Bullet 就是為了幫助你提升應用程式的效能而打造的 gem （藉由減少資料庫查詢）。會在你開發應用程式時，替你注意你的資料庫查詢，並在需要 eager loading (N+1 查詢) 時、或你在不必要的情況使用 eager loading 時，或是在應該要使用 counter cache 時，都會提醒你。
 * [cancan](https://github.com/ryanb/cancan) - CanCan 是一個權限管理的 gem，
-讓你可以管制用戶可存取的資源。所有的權限都定義在一個檔案裡（ability.rb），並提供許多方便的方法，讓你在整個應用程式裡都可以檢查及確保權限是否允許。
+讓你可以管制用戶可存取的資源。所有的權限都定義在一個檔案裡（ability.rb），並提供許多方便的方法，讓你在整個應用程式裡都可以檢查及確保權限是否獲准。
 * [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用程式的流程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用程式的互動過程。它與你用的測試工具無關，並原生搭載 Rack::Test 及 Selenium 支援。透過外部 gem 支援 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
 * [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最新的檔案上傳的解決方案。支援上傳檔案到本地儲存與雲端儲存（及很多其它的酷玩意）。良好結合了 ImageMagick 來進行圖片後處理。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
@@ -661,16 +661,16 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速、靈活的 RSS / Atom Feed 解析器。
 * [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，來讓你建立人類可讀的網址。
 * [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了交易功能 (transaction)。
-* [guard](https://github.com/guard/guard) - 監控檔案變化並呼叫任務的極佳 gem。搭載了很多實用的擴充。遠優於 autotest 與 [watchr](https://github.com/mynyml/watchr)。
+* [guard](https://github.com/guard/guard) - 監控檔案變化並呼叫任務的極佳 gem。搭載了很多實用的擴充。樂勝 autotest 與 [watchr](https://github.com/mynyml/watchr)。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
 * [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
 * [kaminari](https://github.com/amatsuda/kaminari) - 很棒的分頁解決方案。
 * [machinist](https://github.com/notahat/machinist) - fixture 測資不好玩，Machinist 才好玩。
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec 是 Test::MiniTest 的替代品。我不高度推薦 RSpec。 rspec-rails 提供了 RSpec 的 Rails 整合。
 * [simple_form](https://github.com/plataformatec/simple_form) - 一旦用過 simple_form（或 formatastic），你就回不去 Rails 預設的表單產生器了。它提供很棒的 DSL 可以建立表單，讓你不必在意表單的 HTML 怎麼寫。
-* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - 為了 SimpleCov 打造的 RCov formatter。若你想使用 SimpleCov 搭配 Hudson 持續整合伺服器 (CI Server)，很有用。
+* [simplecov-rcov](https://github.com/fguillen/simplecov-rcov) - 為了 SimpleCov 打造的 RCov formatter。若你想使用 SimpleCov 搭配 Hudson 持續整合伺服器 (CI Server)，它很有用。
 * [simplecov](https://github.com/colszowka/simplecov) - 檢查程式碼覆蓋率 (code coverage) 的工具。但不像 RCov，它完全相容 Ruby 1.9。它有精美的報表。必須用！
-* [slim](http://slim-lang.com) - Slim 是一個簡潔的模版語言，被視為是遠遠優於 HAML (Erb 莫再提) 的程式語言。唯一會阻止我大規模地使用它的是，主流 IDE 及編輯器對它的支援不好。但它的效能是非凡的。
+* [slim](http://slim-lang.com) - Slim 是一個簡潔的模版語言，被視為是遠遠優於 HAML 的程式語言 (至於 Erb 就不用說了) 。唯一會阻止我大規模地使用它的是，主流 IDE 及編輯器對它的支援不好。但它的效能是非凡的。
 * [spork](https://github.com/sporkrb/spork) - 一個給測試框架（RSpec / Cucumber）用的 DRb 伺服器，每次運行前確保 fork 出一個乾淨的測試狀態。簡單的說，預載很多測試環境的結果是大幅降低你的測試啟動時間，絕對必須用！
 * [sunspot](https://github.com/sunspot/sunspot) - 基於 SOLR 的全文搜尋引擎。
 
