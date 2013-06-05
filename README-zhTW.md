@@ -61,7 +61,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 路由 (Routes)
 
-* 當你需要加入一個或多個動作至一個 RESTful 資源時（你真的需要嗎？），使用 `member` and `collection` 路由。
+* 當你需要加入一個或多個動作 (action) 至一個 RESTful 資源時（你真的需要嗎？），使用 `member` and `collection` 路由。
 
     ```Ruby
     # 劣
