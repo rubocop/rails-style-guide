@@ -328,7 +328,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### ActiveResource
 
-* 當 HTTP 響應是一個與存在的格式不同的格式時（XML 和 JSON），需要某些額外的格式解析，創一個你慣用的格式，並在類別中使用它。慣用的格式應當實作下列方法：`extension`, `mime_type`,
+* 如果 HTTP 回應是一個與現有的格式（XML 和 JSON）不同的格式，或是需要某些額外的格式解析，這時候請建立一個自訂格式，並在類別中使用它。自訂格式應當實作下列方法：`extension`, `mime_type`,
 `encode` 以及 `decode`。
 
     ```Ruby
@@ -365,7 +365,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 若 HTTP 請求應當不擴展發送時，覆寫 `ActiveResource::Base` 的 `element_path` 及 `collection_path` 方法，並移除擴展的部份。
+* 若要讓 HTTP 請求不包含副檔名，請覆寫 `ActiveResource::Base` 的 `element_path` 及 `collection_path` 方法，並移除副檔名。
 
     ```Ruby
     class User < ActiveResource::Base
@@ -385,11 +385,11 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     如有任何改動網址的需求時，這些方法也可以被覆寫。
 
-## 遷移
+## 遷移 (Migrations)
 
-* 把 `schema.rb` 保存在版本管控之下。
-* 使用 `rake db:scheme:load` 取代 `rake db:migrate` 來初始化空的資料庫。
-* 使用 `rake db:test:prepare` 來更新測試資料庫的 schema。
+* 把 `schema.rb` 放進版本控制系統裡面。
+* 用 `rake db:scheme:load` 來初始化空的資料庫，而不是用 `rake db:migrate`。
+* 用 `rake db:test:prepare` 來更新測試資料庫的 schema。
 * 避免在表裡設置預設資料。使用模型層來取代。
 
     ```Ruby
@@ -398,7 +398,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-    然而 `self[:attr_name]` 的使用被視為相當常見的，你也可以考慮使用更繁瑣的（爭議地可讀性更高的） `read_attribute` 來取代：
+    然而 `self[:attr_name]` 卻相當常見，你也可以考慮使用更繁瑣的 `read_attribute` 來取代（有爭議，但更好讀）：
 
     ```Ruby
     def amount
@@ -406,11 +406,11 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當編寫建設性的遷移時（加入表或欄位），使用 Rails 3.1 的新方式來遷移 - 使用 `change` 方法取代 `up` 與 `down` 方法。
+* 當編寫建設性的遷移時（加入表或欄位），請使用 Rails 3.1 的新方式 - 使用 `change` 方法取代 `up` 與 `down` 方法。
 
 
     ```Ruby
-    # 過去的方式
+    # 以前的寫法
     class AddNameToPerson < ActiveRecord::Migration
       def up
         add_column :persons, :name, :string
@@ -421,7 +421,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       end
     end
 
-    # 新的偏好方式
+    # 推薦的新寫法
     class AddNameToPerson < ActiveRecord::Migration
       def change
         add_column :persons, :name, :string
