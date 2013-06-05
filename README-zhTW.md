@@ -3,7 +3,7 @@
 > 風格是從偉大事物中萃取出的美好事物。 <br/>
 > -- Bozhidar Batsov
 
-這份指南目的於演示一整套 Rails 3 開發的風格慣例及最佳實踐。這是一份與由現存社群所驅動的 [Ruby 程式碼風格指南](https://github.com/bbatsov/ruby-style-guide)互補的指南。
+這份指南目的於示範一整套 Rails 3 開發的風格慣例及最佳實踐。這是一份與由現存社群所驅動的 [Ruby 程式碼風格指南](https://github.com/bbatsov/ruby-style-guide)互補的指南。
 
 而本指南中[測試 Rails 應用](#testing)小節擺在[開發 Rails 應用](#developing)之後，因為我相信[行為驅動開發](http://en.wikipedia.org/wiki/Behavior_Driven_Development)
 (BDD) 是最佳的軟體開發之道。銘記在心吧。
@@ -614,7 +614,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## Bundler
 
-* 把只給開發環境或測試環境的 gem 適當地在 Gemfile 檔裡面分組。
+* 把只給開發環境或測試環境的 gem 在 Gemfile 檔裡面妥善分組。
 * 在你的專案中只使用公認的 gem。如果你考慮引入某些鮮為人所知的 gem ，你應該先仔細審查它的原始碼。
 * 要是開發人員各自使用不同的作業系統，那麼與作業系統相關的那些 gem 會導致 `Gemfile.lock` 經常變動。解決方法是，在 Gemfile 裡，把與 OS X 相關的 gem 放在 `darwin` 群組，與 Linux 相關的 gem 放在 `linux` 群組：
 
@@ -639,9 +639,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * 不要把 `Gemfile.lock` 檔從版本控制系統裡移出。這不是隨機產生的文件──它確保你所有的成員執行 `bundle install` 時，都拿到相同版本的 gem 。
 
-## 無價的 Gems
+## 無價至寶 (Priceless Gems)
 
-一個最重要的編程理念是「不要重造輪子！」。若你遇到一個特定問題，你應該要在你開始手刻前，找一下是否有現有的解決方案。以下是一些在很多 Rails 專案中「無價的」 gem 列表（全部相容 Rails 3.1）：
+一個最重要的程式設計理念是「不要重造輪子！」。若你遇到一個特定問題，你應該要在你開始手刻之前，找一下是否有現有的解決方案。以下是一些在很多 Rails 專案中的「無價至寶」 gem 列表（全部相容 Rails 3.1）：
 
 * [active_admin](https://github.com/gregbell/active_admin) - 有了 ActiveAdmin，建立 Rails 應用的管理介面就像兒戲。你會有一個很好的後台，圖形化 CRUD 介面以及更多東西。非常靈活且可客製化。
 * [better_errors](https://github.com/charliesome/better_errors) - Better Errors 用更好更有效的錯誤頁面，取代了 Rails 標準的錯誤頁面。不僅可用在 Rails，任何將 Rack 當作 middleware 的 app 都可使用。
