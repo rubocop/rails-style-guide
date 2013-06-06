@@ -313,7 +313,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         end
         ```
 
-    為了要轉換成對網址友好 (URL-friendly)的值，字串應當調用 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
+    為了要轉換成對網址友好 (URL-friendly)的值，字串應當呼叫 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
 
   * 使用此 `friendly_id` gem。它允許藉由某些具描述性的資料模型屬性來建立人類可讀的網址，而不是用 `id` 。
 
