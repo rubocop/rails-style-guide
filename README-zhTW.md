@@ -290,7 +290,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 *按：在 Rails 4 會強制使用 lambda*
 
-* 當一個由 lambda 及參數定義的作用域變得過於複雜時，更好的方式是建立一個作為同樣用途的類別方法，並返回一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
+* 當一個由 lambda 及參數定義的作用域變得過於複雜時，更好的方式是建立一個作為同樣用途的類別方法，並回傳一個 `ActiveRecord::Relation` 物件。你也可以這麼定義更精簡的作用域。
 
     ```Ruby
     class User < ActiveRecord::Base
@@ -303,7 +303,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 注意 `update_attribute` 方法的行為。它不會執行資料模型驗證（不同於 `update_attributes` ）並且可能把資料模型狀態給搞砸。
 * 使用用戶友好的網址。在網址顯示具描述性的資料模型屬性，而不只是 `id` 。
 有不止一種方法可以達成：
-  * 覆寫資料模型的 `to_param` 方法。這是 Rails 用來給物件建立網址的方法。預設的實作會以字串形式返回該 `id` 的記錄。它可以用另一個人類可讀的屬性來覆寫。
+  * 覆寫資料模型的 `to_param` 方法。這是 Rails 用來給物件建立網址的方法。預設的實作會以字串形式回傳該 `id` 的記錄。它可以用另一個人類可讀的屬性來覆寫。
 
         ```Ruby
         class Person
@@ -315,7 +315,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     為了要轉換成對網址友好 (URL-friendly)的值，字串應當呼叫 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
 
-  * 使用此 `friendly_id` gem。它允許藉由某些具描述性的資料模型屬性來建立人類可讀的網址，而不是用 `id` 。
+  * 使用 `friendly_id` gem。它允許藉由某些具描述性的資料模型屬性來建立人類可讀的網址，而不是用 `id` 。
 
         ```Ruby
         class Person
@@ -347,11 +347,11 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
             end
 
             def encode(hash, options = nil)
-              # 資料以新格式編碼並返回
+              # 資料以新格式編碼並回傳
             end
 
             def decode(csv)
-              # 資料以新格式解碼並返回
+              # 資料以新格式解碼並回傳
             end
           end
         end
@@ -365,7 +365,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 若要讓 HTTP 請求不包含副檔名，請覆寫 `ActiveResource::Base` 的 `element_path` 及 `collection_path` 方法，並移除副檔名。
+* 若要讓產生的網址不包含副檔名，請覆寫 `ActiveResource::Base` 的 `element_path` 及 `collection_path` 方法，並移除副檔名。
 
     ```Ruby
     class User < ActiveResource::Base
@@ -390,7 +390,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 把 `schema.rb` 放進版本控制系統裡面。
 * 用 `rake db:scheme:load` 來初始化空的資料庫，而不是用 `rake db:migrate`。
 * 用 `rake db:test:prepare` 來更新測試資料庫的 schema。
-* 避免在表裡設置預設資料。使用資料模型層來取代。
+* 避免在資料表裡放預設資料。請使用資料模型層來取代。
 
     ```Ruby
     def amount
@@ -406,7 +406,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當編寫建設性的遷移時（加入表或欄位），請使用 Rails 3.1 的新方式 - 使用 `change` 方法取代 `up` 與 `down` 方法。
+* 在寫建設性的遷移時（加表格或加欄位），請使用 Rails 3.1 的新方式 - 使用 `change` 方法取代 `up` 與 `down` 方法。
 
 
     ```Ruby
@@ -432,7 +432,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 ## 視圖 (Views)
 
 * 不要直接從視圖呼叫資料模型層 (Model)。
-* 不要在視圖做複雜的格式化，把它們寫成方法放到 helper 或 model 裡面。
+* 不要在視圖裡做複雜的格式化，把它們寫成方法丟到 helper 或 model 裡面。
 * 使用 partial view 與佈局 (layouts) 來減少重複的程式碼。
 * 給自訂的檢驗器 (validators) 加上 [瀏覽器端的驗證器](https://github.com/bcardarella/client_side_validations)。方法如下：
   * 宣告一個由 `ClientSideValidations::Middleware::Base` 繼承來的自訂 validator
@@ -479,16 +479,16 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 要翻譯 ActiveRecord 資料模型的文字標籤時，請使用 `activerecord` 作用域:
 
     ```
-    en:
+    zh-TW:
       activerecord:
         models:
-          user: Member
+          user: "會員"
         attributes:
           user:
-            name: "Full name"
+            name: "全名"
     ```
 
-    這樣子 `User.model_name.human` 會返回 "Member" ，而 `User.human_attribute_name("name")` 會返回 "Full name"。這些屬性的翻譯會被視圖作為標籤使用。
+    這樣子 `User.model_name.human` 會回傳 "會員" ，而 `User.human_attribute_name("name")` 會回傳 "全名"。這些屬性的翻譯會被視圖作為標籤使用。
 
 * 把在視圖使用的文字與 ActiveRecord 的屬性翻譯分別放在不同的資料夾。把給資料模型使用的語系檔放在名為 `models` 的資料夾，給視圖使用的文字放在名為 `views` 的資料夾。
   * 把額外的語系檔放進各別資料夾之後，要在 `application.rb` 檔裡面指定這些資料夾，才能載入。
@@ -499,14 +499,14 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         ```
 
 * 把共用的語系選項，像是日期或貨幣格式，直接放在 `locale` 資料夾底下。
-* 使用精簡形式的 I18n 方法： `I18n.t` ，而不是 `I18n.translate` ；使用 `I18n.l` ，而不是 `I18n.localize`。
+* 請使用精簡形式的 I18n 方法： `I18n.t` ，而不是 `I18n.translate` ；使用 `I18n.l` ，而不是 `I18n.localize`。
 * 使用「懶惰法」來查詢視圖中使用的文字。假設我們有以下結構：
 
     ```
-    en:
+    zh-TW:
       users:
         show:
-          title: "User details page"
+          title: "使用者詳細資料"
     ```
 
     `users.show.title` 的值在 `app/views/users/show.html.haml` 裡面可以這樣子查到：
@@ -747,7 +747,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     Wants to [feature] ...
     ```
 
-這種格式最常見，但並不強求要這樣寫， narrative 敘述句可以因功能的複雜度而異。
+這種格式最常見，但並不強求要這樣寫， narrative 敘述句可以因功能的複雜度而任意書寫。
 
 * 可任意使用情境概述使你的情境可備作它用(keep your scenarios DRY)。
 
@@ -800,7 +800,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       }
     end
     ```
-* 務必使用 Capybara 的否定配對來取代在肯定情況裡使用 should_not，這樣子當 ajax 操作逾時就會重試。見 [Capybara 的讀我文件](https://github.com/jnicklas/capybara)獲得更多說明。
+* 務必使用 Capybara 的否定配對來取代在肯定情況裡使用 should_not，這樣子當 ajax 操作逾時就會重試。見 [Capybara 的 README 檔](https://github.com/jnicklas/capybara)獲得更多說明。
 
 ## RSpec
 
@@ -843,7 +843,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * 應大量使用 `descibe` 及 `context` 。
 * `describe` 區塊的命名方式應如下：
-  * 非方法使用「description」
+  * 非方法使用 "description"
   * 實體方法使用井字號 "#method"
   * 類別方法使用點 ".method"
 
@@ -888,7 +888,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     article = mock_model(Article).as_null_object
     ```
 
-* 使用 `let` 區塊，不要用 `before(:each)` 區塊來為 spec 測試案例建立資料。 `let` 區塊會被懶惰求值。
+* 使用 `let` 區塊，不要用 `before(:each)` 區塊來為 spec 測試案例建立資料。 `let` 區塊會被延遲求值 (lazily evaluated)。
 
     ```Ruby
     # 使用這個：
@@ -1002,8 +1002,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 務必在視圖測試裡面 mock 資料模型。視圖的目的只有顯示資訊而已。
-* 用 `assign` 方法來提供本應由控制器提供給視圖使用的實體變數(instance variable)。
+* 務必要在視圖測試裡面 mock 資料模型。視圖的目的只有顯示資訊而已。
+* 原本由控制器提供給視圖使用的實體變數(instance variable)，可以用 `assign` 方法來提供。
 
     ```Ruby
     # spec/views/articles/edit.html.haml_spec.rb
@@ -1023,7 +1023,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 最好使用 capybara 否定情況選擇器，而非 should_not 配上正面情況。
+* 最好使用 capybara 的否定情況選擇器，而非 should_not 配上正面情況。
 
     ```Ruby
     # 劣
@@ -1160,7 +1160,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 ### 資料模型
 
 * 不要在資料模型自己的測試裡 mock 該資料模型。
-* 使用 fabrication 來建立真的物件
+* 使用 fabrication 來建立實際的物件
 * 可以 mock 別的資料模型或子物件。
 * 為避免重覆，請在測試裡建立可以給所有測試案例使用的資料模型。
 
@@ -1255,7 +1255,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### Uploaders
 
-* 我們可以測試上傳的圖片是否有正確產生縮圖。這裡是一個 [carrierwave](https://github.com/jnicklas/carrierwave) 圖片上傳器的範例 spec：
+* 我們可以測試上傳的圖片是否有正確產生縮圖。以下是 [carrierwave](https://github.com/jnicklas/carrierwave) 圖片上傳器的範例 spec：
 
     ```Ruby
     # rspec/uploaders/person_avatar_uploader_spec.rb
@@ -1265,7 +1265,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     describe PersonAvatarUploader do
       include CarrierWave::Test::Matchers
 
-      # 在執行測試案例之前打開圖片處理
+      # 在執行測試案例之前，先打開圖片處理
       before(:all) do
         UserAvatarUploader.enable_processing = true
       end
@@ -1281,14 +1281,14 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         UserAvatarUploader.enable_processing = false
       end
 
-      # 測試圖片是否不比給定的尺寸大
+      # 測試縮圖是否不比給定的尺寸大
       context 'the default version' do
         it 'scales down an image to be no larger than 256 by 256 pixels' do
           @uploader.should be_no_larger_than(256, 256)
         end
       end
 
-      # 測試圖片是否有完全一致的尺寸
+      # 測試縮圖是否有完全一致的尺寸
       context 'the thumb version' do
         it 'scales down an image to be exactly 64 by 64 pixels' do
           @uploader.thumb.should have_dimensions(64, 64)
