@@ -57,7 +57,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         ```
 
 * 將所有環境都通用的配置檔放在 `config/application.rb` 檔案。
-* 建一個與生產環境(production enviroment)類似的，一個額外的 `staging` 環境，
+* 另外開一個與生產環境(production enviroment)幾乎相同的 `staging` 環境。
 
 ## 路由 (Routes)
 
