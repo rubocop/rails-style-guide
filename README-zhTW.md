@@ -47,7 +47,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * 把自訂的初始化程式碼放在 `config/initializers`。在 initializers 內的程式碼於應用程式啟動時執行。
 * 每一個 gem 相關的初始化程式碼應當使用同樣的名稱，放在不同的文件裡，如： `carrierwave.rb`, `active_admin.rb`, 等等。
-* 相應調整配置開發、測試及生產環境（在 `config/environments/` 下對應的文件）
+* 為開發、測試及生產環境分別調整設定（在 `config/environments/` 下對應的文件）
   * 標記額外的資產 (assets) 給預編譯（如果有的話）：
 
         ```Ruby
@@ -56,7 +56,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
         ```
 
-* 將所有環境都通用的配置檔放在 `config/application.rb` 檔案。
+* 將所有環境都通用的設定檔放在 `config/application.rb` 檔案。
 * 另外開一個與生產環境(production enviroment)幾乎相同的 `staging` 環境。
 
 ## 路由 (Routes)
@@ -699,7 +699,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 * 用 `@wip` （工作進行中）標籤來標記尚未完成的情境 (scenario)。這些情境將不納入考慮，且不會被標記為測試失敗。當完成這個情境且功能測試通過時，為了把此情境加至測試套件裡，請移除 `@wip` 標籤。
 * 修改預設的 profile，排除掉標記為 `@javascript` 的情境。它們將使用瀏覽器來測試，建議停用它們來增進一般情境的執行速度。
-* 替標記著 `@javascript` 的情境配置另一個 profile。
+* 替標記著 `@javascript` 的情境，設定另一個 profile。
   * profile 可在 `cucumber.yml` 檔案裡設定。
 
         ```Ruby
