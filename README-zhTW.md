@@ -26,7 +26,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     * [配置](#-2)
     * [路由](#-3)
     * [控制器](#-4)
-    * [模型](#-5)
+    * [資料模型](#-5)
     * [遷移](#-6)
     * [視圖](#-7)
     * [國際化](#-8)
@@ -101,7 +101,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 使用巢狀路由(nested routes)來更佳地表達與 ActiveRecord 模型的關係。
+* 使用巢狀路由(nested routes)來更佳地表達與 ActiveRecord 資料模型的關係。
 
     ```Ruby
     class Post < ActiveRecord::Base
@@ -137,15 +137,15 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 控制器 (Controller)
 
-* 讓你的控制器保持苗條──它們應該只替視圖層取出資料且不包含任何業務邏輯（所有業務邏輯應當放在模型裡）。
+* 讓你的控制器保持苗條──它們應該只替視圖層取出資料且不包含任何業務邏輯（所有業務邏輯應當放在資料模型裡）。
 * 每個控制器裡的動作 (action) 應當只呼叫一個除了初始的 find 或 new 以外的方法（理想狀態）。
 * 控制器與視圖之間共享不超過兩個實體變數 (instance variable)。
 
-## 模型 (Model)
+## 資料模型 (Model)
 
 * 自由地引入不是 ActiveRecord 的類別吧。
-* 替模型命名有意義（但簡短）且不帶縮寫的名字。
-* 如果你需要模型有著 ActiveRecord 行為的物件，比方說驗證這一塊，使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
+* 替資料模型命名有意義（但簡短）且不帶縮寫的名字。
+* 如果你需要資料模型有著 ActiveRecord 行為的物件，比方說驗證這一塊，使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
 
     ```Ruby
     class Message
@@ -206,7 +206,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 偏好 `has_many :through` 勝於 `has_and_belongs_to_many`。使用 `has_many :through` 允許在 join 模型有附加的屬性及驗證
+* 偏好 `has_many :through` 勝於 `has_and_belongs_to_many`。使用 `has_many :through` 允許在 join 資料模型有附加的屬性及驗證
 
     ```Ruby
     # 使用 has_and_belongs_to_many
@@ -300,10 +300,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 注意 `update_attribute` 方法的行為。它不會執行模型驗證（不同於 `update_attributes` ）並且可能把模型狀態給搞砸。
-* 使用用戶友好的網址。在網址顯示具描述性的模型屬性，而不只是 `id` 。
+* 注意 `update_attribute` 方法的行為。它不會執行資料模型驗證（不同於 `update_attributes` ）並且可能把資料模型狀態給搞砸。
+* 使用用戶友好的網址。在網址顯示具描述性的資料模型屬性，而不只是 `id` 。
 有不止一種方法可以達成：
-  * 覆寫模型的 `to_param` 方法。這是 Rails 用來給物件建立網址的方法。預設的實作會以字串形式返回該 `id` 的記錄。它可以用另一個人類可讀的屬性來覆寫。
+  * 覆寫資料模型的 `to_param` 方法。這是 Rails 用來給物件建立網址的方法。預設的實作會以字串形式返回該 `id` 的記錄。它可以用另一個人類可讀的屬性來覆寫。
 
         ```Ruby
         class Person
@@ -315,7 +315,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     為了要轉換成對網址友好 (URL-friendly)的值，字串應當調用 `parameterize` 。物件的 `id` 要放在開頭，以便給 ActiveRecord 的 `find` 方法查找。
 
-  * 使用此 `friendly_id` gem。它允許藉由某些具描述性的模型屬性來建立人類可讀的網址，而不是用 `id` 。
+  * 使用此 `friendly_id` gem。它允許藉由某些具描述性的資料模型屬性來建立人類可讀的網址，而不是用 `id` 。
 
         ```Ruby
         class Person
@@ -390,7 +390,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 把 `schema.rb` 放進版本控制系統裡面。
 * 用 `rake db:scheme:load` 來初始化空的資料庫，而不是用 `rake db:migrate`。
 * 用 `rake db:test:prepare` 來更新測試資料庫的 schema。
-* 避免在表裡設置預設資料。使用模型層來取代。
+* 避免在表裡設置預設資料。使用資料模型層來取代。
 
     ```Ruby
     def amount
@@ -431,7 +431,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 視圖 (Views)
 
-* 不要直接從視圖呼叫模型層 (Model)。
+* 不要直接從視圖呼叫資料模型層 (Model)。
 * 不要在視圖做複雜的格式化，把它們寫成方法放到 helper 或 model 裡面。
 * 使用 partial view 與佈局 (layouts) 來減少重複的程式碼。
 * 給自訂的檢驗器 (validators) 加上 [瀏覽器端的驗證器](https://github.com/bcardarella/client_side_validations)。方法如下：
@@ -475,8 +475,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 國際化
 
-* 視圖、模型與控制器裡都不應該使用特定語言的設定值或字串。這些文字應搬到在 `config/locales` 下的語系檔裡。
-* 要翻譯 ActiveRecord 模型的文字標籤時，請使用 `activerecord` 作用域:
+* 視圖、資料模型與控制器裡都不應該使用特定語言的設定值或字串。這些文字應搬到在 `config/locales` 下的語系檔裡。
+* 要翻譯 ActiveRecord 資料模型的文字標籤時，請使用 `activerecord` 作用域:
 
     ```
     en:
@@ -490,7 +490,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
     這樣子 `User.model_name.human` 會返回 "Member" ，而 `User.human_attribute_name("name")` 會返回 "Full name"。這些屬性的翻譯會被視圖作為標籤使用。
 
-* 把在視圖使用的文字與 ActiveRecord 的屬性翻譯分別放在不同的資料夾。把給模型使用的語系檔放在名為 `models` 的資料夾，給視圖使用的文字放在名為 `views` 的資料夾。
+* 把在視圖使用的文字與 ActiveRecord 的屬性翻譯分別放在不同的資料夾。把給資料模型使用的語系檔放在名為 `models` 的資料夾，給視圖使用的文字放在名為 `views` 的資料夾。
   * 把額外的語系檔放進各別資料夾之後，要在 `application.rb` 檔裡面指定這些資料夾，才能載入。
 
         ```Ruby
@@ -515,7 +515,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     = t '.title'
     ```
 
-* 在控制器與模型使用「點分隔」的 key，來取代指定 `:scope` 選項。點分隔的呼叫方式，更容易閱讀及追蹤層級。
+* 在控制器與資料模型使用「點分隔」的 key，來取代指定 `:scope` 選項。點分隔的呼叫方式，更容易閱讀及追蹤層級。
 
     ```Ruby
     # 這樣子呼叫
@@ -651,7 +651,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [capybara](https://github.com/jnicklas/capybara) - Capybara 旨在簡化整合測試 Rack 應用程式的流程，像是 Rails、Sinatra 或 Merb。 Capybara 模擬了真實用戶使用 web 應用程式的互動過程。它與你用的測試工具無關，並原生搭載 Rack::Test 及 Selenium 支援。透過外部 gem 支援 HtmlUnit、WebKit 及 env.js 。與 RSpec & Cucumber 一起使用時工作良好。
 * [carrierwave](https://github.com/jnicklas/carrierwave) - Rails 最新的檔案上傳的解決方案。支援上傳檔案到本地儲存與雲端儲存（及很多其它的酷玩意）。良好結合了 ImageMagick 來進行圖片後處理。
 * [client_side_validations](https://github.com/bcardarella/client_side_validations) -
-  一個很棒的 gem，替你從現有的伺服器端模型驗證，自動產生 Javascript 瀏覽器端驗證。強烈推薦！
+  一個很棒的 gem，替你從現有的伺服器端資料模型驗證，自動產生 Javascript 瀏覽器端驗證。強烈推薦！
 * [compass-rails](https://github.com/chriseppstein/compass) - 一個優秀的 gem，加入了某些 css 框架的支持。包括了一些 sass mixin ，讓你減少 css 檔的程式碼，並幫你解決瀏覽器相容問題。
 * [cucumber-rails](https://github.com/cucumber/cucumber-rails) - Cucumber 是一個由 Ruby 所寫，開發功能測試的頂級工具。 cucumber-rails 提供了 Cucumber 的 Rails 整合。
 * [devise](https://github.com/plataformatec/devise) - Devise 是 Rails 應用程式的登入系統完整解決方案。多數情況偏好使用 devise 來開始客製登入流程。
@@ -659,11 +659,11 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - Fabrication 的替代品。一個成熟的 fixture 測資產生器。 Fabrication 的精神領袖先驅。
 * [ffaker](https://github.com/EmmanuelOga/ffaker) - 產生假資料的實用 gem（名字、地址，等等）。
 * [feedzirra](https://github.com/pauldix/feedzirra) - 非常快速、靈活的 RSS / Atom Feed 解析器。
-* [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的模型屬性，而不是使用 id，來讓你建立人類可讀的網址。
-* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 模型新增了交易功能 (transaction)。
+* [friendly_id](https://github.com/norman/friendly_id) - 透過使用某些具描述性的資料模型屬性，而不是使用 id，來讓你建立人類可讀的網址。
+* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 是 Globalize Gem 的後繼者，針對 ActiveRecord 3.x 設計。基於新的 I18n API 打造而成，並幫 ActiveRecord 資料模型新增了交易功能 (transaction)。
 * [guard](https://github.com/guard/guard) - 監控檔案變化並呼叫任務的極佳 gem。搭載了很多實用的擴充。樂勝 autotest 與 [watchr](https://github.com/mynyml/watchr)。
 * [haml-rails](https://github.com/indirect/haml-rails) - haml-rails 提供了 Haml 的 Rails 整合。
-* [haml](http://haml-lang.com) - Haml 是一個簡潔的模型語言，被很多人認為（包括我）遠優於Erb。
+* [haml](http://haml-lang.com) - Haml 是一個簡潔的資料模型語言，被很多人認為（包括我）遠優於Erb。
 * [kaminari](https://github.com/amatsuda/kaminari) - 很棒的分頁解決方案。
 * [machinist](https://github.com/notahat/machinist) - fixture 測資不好玩，Machinist 才好玩。
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec 是 Test::MiniTest 的替代品。我不高度推薦 RSpec。 rspec-rails 提供了 RSpec 的 Rails 整合。
@@ -693,7 +693,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 # 測試 Rails 應用程式
 
-也許 BDD 方法是實作一個新功能最好的方法。你從開始寫一些高階的測試（通常使用 Cucumber），然後使用這些測試來驅使你實作功能。一開始你給功能的視圖寫測試，並使用這些測試來建立相關的視圖。接著，你寫控制器測試要求把資料丟給視圖用，藉此來實作控制器。最後你實作模型的測試，以及模型自身。
+也許 BDD 方法是實作一個新功能最好的方法。你從開始寫一些高階的測試（通常使用 Cucumber），然後使用這些測試來驅使你實作功能。一開始你給功能的視圖寫測試，並使用這些測試來建立相關的視圖。接著，你寫控制器測試要求把資料丟給視圖用，藉此來實作控制器。最後你實作資料模型的測試，以及資料模型自身。
 
 ## Cucumber
 
@@ -875,14 +875,14 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 * 應大量使用 mocks 與 stubs。
 
     ```Ruby
-    # mocking 一個模型
+    # mocking 一個資料模型
     article = mock_model(Article)
 
     # stubbing 一個方法
     Article.stub(:find).with(article.id).and_return(article)
     ```
 
-* 當 mocking 一個模型時，可以使用 `as_null_object` 方法，讓輸出的物件只回應我們有 stub 的方法，不理會其他方法。
+* 當 mocking 一個資料模型時，可以使用 `as_null_object` 方法，讓輸出的物件只回應我們有 stub 的方法，不理會其他方法。
 
     ```Ruby
     article = mock_model(Article).as_null_object
@@ -1002,7 +1002,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 務必在視圖測試裡面 mock 模型。視圖的目的只有顯示資訊而已。
+* 務必在視圖測試裡面 mock 資料模型。視圖的目的只有顯示資訊而已。
 * 用 `assign` 方法來提供本應由控制器提供給視圖使用的實體變數(instance variable)。
 
     ```Ruby
@@ -1066,7 +1066,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### 控制器
 
-* 請 mock 模型並 stub 他們的方法。測試控制器時不應依賴於模型的建立。
+* 請 mock 資料模型並 stub 他們的方法。測試控制器時不應依賴於資料模型的建立。
 * 請只測試控制器需負責的行為：
   * 某幾個特定方法的執行
   * 從動作 (action) 回傳的資料 - assigns, 等等。
@@ -1076,11 +1076,11 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         # 常用的控制器 spec 範例
         # spec/controllers/articles_controller_spec.rb
         # 我們只對控制器應執行的動作感興趣
-        # 所以我們 mock 模型及 stub 它的方法
+        # 所以我們 mock 資料模型及 stub 它的方法
         # 並且專注在控制器該做的事情上
 
         describe ArticlesController do
-          # 模型將會在測試中被所有控制器的方法所使用
+          # 資料模型將會在測試中被所有控制器的方法所使用
           let(:article) { mock_model(Article) }
 
           describe 'POST create' do
@@ -1157,12 +1157,12 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-### 模型
+### 資料模型
 
-* 不要在模型自己的測試裡 mock 該模型。
+* 不要在資料模型自己的測試裡 mock 該資料模型。
 * 使用 fabrication 來建立真的物件
-* 可以 mock 別的模型或子物件。
-* 為避免重覆，請在測試裡建立可以給所有測試案例使用的模型。
+* 可以 mock 別的資料模型或子物件。
+* 為避免重覆，請在測試裡建立可以給所有測試案例使用的資料模型。
 
     ```Ruby
     describe Article do
@@ -1170,7 +1170,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 新增一個測試案例來確保 fabrication 做出來的模型是可以用的。
+* 新增一個測試案例來確保 fabrication 做出來的資料模型是可以用的。
 
     ```Ruby
     describe Article do
@@ -1213,7 +1213,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當測試模型屬性的唯一性時，將另一個重覆的物件命名為 `another_object`。
+* 當測試資料模型屬性的唯一性時，將另一個重覆的物件命名為 `another_object`。
 
     ```Ruby
     describe Article do
@@ -1228,7 +1228,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### Mailers
 
-* 在 Mailer 測試的模型應該要被 mock 掉。 Mailer 不應依賴模型的建立。
+* 在 Mailer 測試的資料模型應該要被 mock 掉。 Mailer 不應依賴資料模型的建立。
 * Mailer 的測試應該要檢驗這些：
   * 主旨正確
   * 收件人 e-mail 正確
@@ -1270,7 +1270,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         UserAvatarUploader.enable_processing = true
       end
 
-      # 建立一個新的 uploader。要把模型給 mocked 掉，使上傳及縮圖的時候不會依賴於模型的建立。
+      # 建立一個新的 uploader。要把資料模型給 mock 掉，使上傳及縮圖的時候不會依賴於資料模型的建立。
       before(:each) do
         @uploader = PersonAvatarUploader.new(mock_model(Person).as_null_object)
         @uploader.store!(File.open(path_to_file))
