@@ -45,7 +45,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 設定檔
 
-* 把自訂的初始化程式碼放在 `config/initializers`。在 initializers 內的程式碼於應用程式啟動時執行。
+* 把自訂的初始化程式碼放在 `config/initializers`。在 initializers 內的程式碼會在應用程式啟動時執行。
 * 每一個 gem 相關的初始化程式碼應當使用同樣的名稱，放在不同的文件裡，如： `carrierwave.rb`, `active_admin.rb`, 等等。
 * 為開發、測試及生產環境分別調整設定（在 `config/environments/` 下對應的文件）
   * 標記額外的資產 (assets) 給預編譯（如果有的話）：
