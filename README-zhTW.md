@@ -235,7 +235,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 使用新的 ["sexy" validation](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/)。
+* 務必使用新的 ["sexy" validation](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/)。
 * 如果一個自訂的驗證程序使用超過一次，或驗證程序是透過某個正則表達式的時候，請建立一個自訂的 validator 檔。
 
     ```Ruby
