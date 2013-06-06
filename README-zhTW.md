@@ -143,9 +143,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## 資料模型 (Model)
 
-* 自由地引入不是 ActiveRecord 的類別吧。
+* 請任意引入不是 ActiveRecord 的資料模型。
 * 替資料模型命名有意義（但簡短）且不帶縮寫的名字。
-* 如果你需要資料模型有著 ActiveRecord 行為的物件，比方說驗證這一塊，使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
+* 如果你需要普通的資料模型有著 ActiveRecord 的行為，比方說驗證，可使用 [ActiveAttr](https://github.com/cgriego/active_attr) gem。
 
     ```Ruby
     class Message
