@@ -804,10 +804,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ## RSpec
 
-* 一個例子僅用一個期望值。
+* 每個測試案例應只有一個期望值 (expection)。
 
     ```Ruby
-    # 差
+    # 劣
     describe ArticlesController do
       #...
 
@@ -822,7 +822,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       # ...
     end
 
-    # 好
+    # 優
     describe ArticlesController do
       #...
 
@@ -841,9 +841,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 大量使用 `descibe` 及 `context` 。
-* 如下地替 `describe` 區塊命名：
-  * 非方法使用 "description"
+* 應大量使用 `descibe` 及 `context` 。
+* `describe` 區塊的命名方式應如下：
+  * 非方法使用「description」
   * 實體方法使用井字號 "#method"
   * 類別方法使用點 ".method"
 
@@ -870,9 +870,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 使用 [fabricators](http://fabricationgem.org/) 來創建測試物件。
+* 使用 [fabricators](http://fabricationgem.org/) 來建立測資物件。
 
-* 大量使用 mocks 與 stubs。
+* 應大量使用 mocks 與 stubs。
 
     ```Ruby
     # mocking 一個模型
@@ -882,13 +882,13 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     Article.stub(:find).with(article.id).and_return(article)
     ```
 
-* 當 mocking 一個模型時，使用 `as_null_object` 方法。它告訴輸出僅監聽我們預期的訊息，並忽略其它的訊息。
+* 當 mocking 一個模型時，可以使用 `as_null_object` 方法，讓輸出的物件只回應我們有 stub 的方法，不理會其他方法。
 
     ```Ruby
     article = mock_model(Article).as_null_object
     ```
 
-* 使用 `let` 區塊而不是 `before(:each)` 區塊替 spec 例子創建資料。 `let` 區塊會被懶惰求值。
+* 使用 `let` 區塊，不要用 `before(:each)` 區塊來為 spec 測試案例建立資料。 `let` 區塊會被懶惰求值。
 
     ```Ruby
     # 使用這個：
@@ -898,7 +898,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     before(:each) { @article = Fabricate(:article) }
     ```
 
-* 當可能時，使用 `subject`。
+* 盡可能使用 `subject`。
 
     ```Ruby
     describe Article do
@@ -910,10 +910,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 如果可能的話，使用 `specify`。它是 `it` 的同義詞，但在沒 docstring 的情況下可讀性​​更高。
+* 盡可能使用 `specify`。它是 `it` 的同義詞，但在沒 docstring 的情況下更好讀。
 
     ```Ruby
-    # 差
+    # 劣
     describe Article do
       before { @article = Fabricate(:article) }
 
@@ -922,17 +922,17 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       end
     end
 
-    # 好
+    # 優
     describe Article do
       let(:article) { Fabricate(:article) }
       specify { article.should_not be_published }
     end
     ```
 
-* 當可能時，使用 `its` 。
+* 盡可能使用 `its` 。
 
     ```Ruby
-    # 差
+    # 劣
     describe Article do
       subject { Fabricate(:article) }
 
@@ -941,17 +941,17 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       end
     end
 
-    # 好
+    # 優
     describe Article do
       subject { Fabricate(:article) }
       its(:creation_date) { should == Date.today }
     end
     ```
 
-* Use `shared_examples` if you want to create a spec group that can be shared by many other tests.
+* 如果要建立共用的 spec 群組，請使用 `shared_examples`。
 
    ```Ruby
-   # bad
+   # 劣
     describe Array do
       subject { Array.new [7, 2, 4] }
 
@@ -968,7 +968,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       end
     end
 
-   #good
+   # 優
     shared_examples "a collection" do
       subject { described_class.new([7, 2, 4]) }
 
@@ -986,12 +986,12 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
 
 
-### 視圖
+### 視圖 (Views)
 
-* 視圖測試的目錄結構要與 `app/views` 之中的相符。舉例來說，在 `app/views/users` 視圖被放在 `spec/views/users`。
-* 視圖測試的命名慣例是添加`_spec.rb` 至視圖名字之後，舉例來說，視圖 `_form.html.haml` 有一個對應的測試叫做 `_form.html.haml_spec.rb`。
-* 每個視圖測試文件都需要`spec_helper.rb`。
-* 外部描述區塊使用不含 `app/views` 部分的視圖路徑。 `render` 方法沒有傳入參數時，是這麼使用的。
+* 視圖測試的目錄結構要與 `app/views` 裡面的結構一致。舉例來說， `app/views/users` 的視圖測試應放在 `spec/views/users`。
+* 視圖測試的命名慣例是把 `_spec.rb` 加到視圖名稱的後面，舉例來說，視圖 `_form.html.haml` 有一個對應的測試叫做 `_form.html.haml_spec.rb`。
+* 每個視圖測試檔都需要 `spec_helper.rb`。
+* 外圍的 `describe` 區塊要使用不包含 `app/views` 前綴的視圖路徑，這在 `render` 方法沒有傳入參數的時候會用到。
 
     ```Ruby
     # spec/views/articles/new.html.haml_spec.rb
@@ -1002,8 +1002,8 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 永遠在視圖測試來 mock 模型。視圖的目的只是顯示訊息。
-* `assign` 方法提供由控制器提供視圖使用的實體變數(instance variable)。
+* 務必在視圖測試裡面 mock 模型。視圖的目的只有顯示資訊而已。
+* 用 `assign` 方法來提供本應由控制器提供給視圖使用的實體變數(instance variable)。
 
     ```Ruby
     # spec/views/articles/edit.html.haml_spec.rb
@@ -1023,19 +1023,19 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 偏好 capybara 否定情況選擇器，勝於搭配正面情況的 should_not 。
+* 最好使用 capybara 否定情況選擇器，而非 should_not 配上正面情況。
 
     ```Ruby
-    # 差
+    # 劣
     page.should_not have_selector('input', type: 'submit')
     page.should_not have_xpath('tr')
 
-    # 好
+    # 優
     page.should have_no_selector('input', type: 'submit')
     page.should have_no_xpath('tr')
     ```
 
-* 當一個視圖使用 helper 方法時，這些方法需要被 stubbed。 Stubbing 這些 helper 方法是在 `template` 完成的：
+* 當視圖要使用 helper 方法時，要先把這些方法給 stub 掉，這件事要在 `template` 物件裡面做：
 
     ```Ruby
     # app/helpers/articles_helper.rb
@@ -1062,15 +1062,15 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 在 `spec/helpers` 目錄的 helper specs 是與視圖 specs 分開的。
+* helper specs 測試檔要要從視圖 specs 測試裡面拆出來，放在 `spec/helpers` 目錄下。
 
 ### 控制器
 
-* Mock 模型及 stub 他們的方法。測試控制器時不應依賴建模。
-* 僅測試控制器需負責的行為：
-  * 執行特定的方法
-  * 從動作返回的資料 - assigns, 等等。
-  * 從動作返回的結果 - template render, redirect, 等等。
+* 請 mock 模型並 stub 他們的方法。測試控制器時不應依賴於模型的建立。
+* 請只測試控制器需負責的行為：
+  * 某幾個特定方法的執行
+  * 從動作 (action) 回傳的資料 - assigns, 等等。
+  * 動作所產生的結果 - template render, redirect, 等等。
 
         ```Ruby
         # 常用的控制器 spec 範例
@@ -1105,10 +1105,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
         end
         ```
 
-* 當控制器根據不同參數有不同行為時，使用 context。
+* 當控制器根據不同參數有不同行為時，請使用 context。
 
     ```Ruby
-    # 一個在控制器中使用 context 的典型例子是，物件正確保存時，使用創建，保存失敗時更新。
+    # 一個在控制器中使用 context 的典型例子是，建立或更新物件時，可能因為儲存成功與否而有不同行為。
 
     describe ArticlesController do
       let(:article) { mock_model(Article) }
@@ -1159,10 +1159,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### 模型
 
-* 不要在自己的測試裡 mock 模型。
-* 使用捏造的東西來創建真的物件
-* Mock 別的模型或子物件是可接受的。
-* 在測試裡建立所有例子的模型來避免重複。
+* 不要在模型自己的測試裡 mock 該模型。
+* 使用 fabrication 來建立真的物件
+* 可以 mock 別的模型或子物件。
+* 為避免重覆，請在測試裡建立可以給所有測試案例使用的模型。
 
     ```Ruby
     describe Article do
@@ -1170,7 +1170,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 加入一個例子確保捏造的模型是可行的。
+* 新增一個測試案例來確保 fabrication 做出來的模型是可以用的。
 
     ```Ruby
     describe Article do
@@ -1180,10 +1180,10 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當測試驗證時，使用 `have(x).errors_on` 來指定要被驗證的屬性。使用 `be_valid` 不保證問題在目的的屬性。
+* 寫跟驗證程序有關的測試案例時，請使用 `have(x).errors_on` 來指定要被驗證的屬性。使用 `be_valid` 並不能保證問題一定會發生在要被驗證的屬性。
 
     ```Ruby
-    # 差
+    # 劣
     describe '#title' do
       it 'is required' do
         article.title = nil
@@ -1191,7 +1191,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
       end
     end
 
-    # 偏好
+    # 推薦使用
     describe '#title' do
       it 'is required' do
         article.title = nil
@@ -1200,7 +1200,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 替每個有驗證的屬性加另一個 `describe`。
+* 替每個有驗證程序的屬性，另外加另一個 `describe`。
 
     ```Ruby
     describe Article do
@@ -1213,7 +1213,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     end
     ```
 
-* 當測試模型屬性的獨立性時，把其它物件命名為 `another_object`。
+* 當測試模型屬性的唯一性時，將另一個重覆的物件命名為 `another_object`。
 
     ```Ruby
     describe Article do
@@ -1228,12 +1228,12 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### Mailers
 
-* 在 Mailer 測試的模型應該要被 mock。 Mailer 不應依賴建模。
-* Mailer 的測試應該確認如下：
-  * 這個 subject 是正確的
-  * 這個 receiver e-mail 是正確的
-  * 這個 e-mail 寄送至對的郵件地址
-  * 這個 e-mail 包含了需要的訊息
+* 在 Mailer 測試的模型應該要被 mock 掉。 Mailer 不應依賴模型的建立。
+* Mailer 的測試應該要檢驗這些：
+  * 主旨正確
+  * 收件人 e-mail 正確
+  * e-mail 有寄送至正確的 e-mail 地址
+  * e-mail 有包含所要寄送的訊息
 
      ```Ruby
      describe SubscriberMailer do
@@ -1255,7 +1255,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 ### Uploaders
 
-* 我們如何測試上傳器是否正確地調整大小。這裡是一個 [carrierwave](https://github.com/jnicklas/carrierwave) 圖片上傳器的範例 spec：
+* 我們可以測試上傳的圖片是否有正確產生縮圖。這裡是一個 [carrierwave](https://github.com/jnicklas/carrierwave) 圖片上傳器的範例 spec：
 
     ```Ruby
     # rspec/uploaders/person_avatar_uploader_spec.rb
@@ -1265,30 +1265,30 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
     describe PersonAvatarUploader do
       include CarrierWave::Test::Matchers
 
-      # 在執行例子前啟用圖片處理
+      # 在執行測試案例之前打開圖片處理
       before(:all) do
         UserAvatarUploader.enable_processing = true
       end
 
-      # 創建一個新的 uploader。模型被模仿為不依賴建模時的上傳及調整圖片。
+      # 建立一個新的 uploader。要把模型給 mocked 掉，使上傳及縮圖的時候不會依賴於模型的建立。
       before(:each) do
         @uploader = PersonAvatarUploader.new(mock_model(Person).as_null_object)
         @uploader.store!(File.open(path_to_file))
       end
 
-      # 執行完例子時停用圖片處理
+      # 執行完測試案例時，關閉圖片處理
       after(:all) do
         UserAvatarUploader.enable_processing = false
       end
 
-      # 測試圖片是否不比給定的維度長
+      # 測試圖片是否不比給定的尺寸大
       context 'the default version' do
         it 'scales down an image to be no larger than 256 by 256 pixels' do
           @uploader.should be_no_larger_than(256, 256)
         end
       end
 
-      # 測試圖片是否有確切的維度
+      # 測試圖片是否有完全一致的尺寸
       context 'the thumb version' do
         it 'scales down an image to be exactly 64 by 64 pixels' do
           @uploader.thumb.should have_dimensions(64, 64)
@@ -1299,7 +1299,7 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 # 延伸閱讀
 
-有幾個絕妙講述 Rails 風格的資源，若有閒暇時應當考慮延伸閱讀：
+有幾個絕妙講述 Rails 風格的資源，若有閒暇時應當考慮閱讀之：
 
 * [The Rails 3 Way](http://www.amazon.com/Rails-Way-Addison-Wesley-Professional-Ruby/dp/0321601661)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
@@ -1309,9 +1309,9 @@ Rails 是一個堅持己見的框架，而這也是一份堅持己見的指南�
 
 # 貢獻
 
-在本指南所寫的每個東西都不是定案。這只是我渴望想與同樣對 Rails 編碼風格有興趣的大家一起工作，以致於最終我們可以替整個 Ruby 社群創造一個有益的資源。
+在本指南所寫的每個東西都不是定案。這只是我渴望想與同樣對 Rails 程式設計風格有興趣的大家一起工作，這樣子最終我們可以創造出對整個 Ruby 社群都有益的資源。
 
-歡迎開票或發送一個帶有改進的更新請求。在此提前感謝你的幫助！
+歡迎開票或發送一個帶有改進的 Pull Request。在此提前感謝你的幫助！
 
 # 授權
 
@@ -1320,7 +1320,7 @@ This work is licensed under a [Creative Commons Attribution 3.0 Unported License
 
 # 口耳相傳
 
-一份社群驅動的風格指南，對一個社群來說，只是讓人知道有這個社群。推特轉發這份指南，分享給你的朋友或同事。我們得到的每個註解、建議或意見都可以讓這份指南變得更好一點。而我們想要擁有的是最好的指南，不是嗎？
+一份社群驅動的風格指南，對於沒聽過這份指南的其他社群人士來說，幾乎沒什麼用。請上 Twitter 轉貼這份指南，分享給你的朋友或同事。我們得到的每個註解、建議或意見都可以讓這份指南變得更好一點。而我們都想要有最好的指南，對吧？
 
 共勉之，<br/>
 [Bozhidar](https://twitter.com/bbatsov)
