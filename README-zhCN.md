@@ -1,7 +1,7 @@
 # 序幕
 
-> 风格是从伟大事物中萃取出的美好事物。 <br/>
-> -- Bozhidar Batsov
+> Role models are important. <br/>
+> -- 机械战警 Alex J. Murphy
 
 这份指南目的于演示一整套 Rails 3 开发的风格惯例及最佳实践。这是一份与由现存社群所驱动的[Ruby 编码风格指南](https://github.com/bbatsov/ruby-style-guide)互补的指南。
 
