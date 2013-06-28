@@ -490,7 +490,7 @@ an empty database.
 
 * Enforce foreign-key constraints. While ActiveRecord does not support
 them natively, there some great third-party gems like
-[schema_plus](https://github.com/lomba/schema_plus).
+[schema_plus](https://github.com/lomba/schema_plus) and [foreigner](https://github.com/matthuhiggins/foreigner).
 
 * When writing constructive migrations (adding tables or columns), use
   the new Rails 3.1 way of doing the migrations - use the `change`
