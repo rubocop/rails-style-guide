@@ -1022,23 +1022,6 @@ can be one steps file for all features for a particular object
     end
     ```
 
-* Use compound steps to keep the scenario DRY
-
-    ```Ruby
-    # ...
-    When I subscribe for news from the category "Technical News"
-    # ...
-
-    # the step:
-    When /^I subscribe for news from the category "([^"]*)"$/ do |category|
-      steps %Q{
-        When I go to the news categories page
-        And I select the category #{category}
-        And I click the button "Subscribe for this category"
-        And I confirm the subscription
-      }
-    end
-    ```
 * Always use the Capybara negative matchers instead of should_not with positive,
 they will retry the match for given timeout allowing you to test ajax actions.
 [See Capybara's README for more explanation](https://github.com/jnicklas/capybara)
