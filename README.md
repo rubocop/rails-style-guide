@@ -398,7 +398,7 @@ There is more than one way to achieve this:
         end
         ```
 
-        Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
+        Check the [gem documentation](https://github.com/FriendlyId/friendly_id) for more information about its usage.
 
 ### ActiveResource
 
