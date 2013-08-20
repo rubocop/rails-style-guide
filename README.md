@@ -677,7 +677,7 @@ your application.
 * Sending emails while generating page response should be avoided. It causes
   delays in loading of the page and request can timeout if multiple email are
   send. To overcome this emails can be send in background process with the help
-  of [delayed_job](https://github.com/tobi/delayed_job) gem.
+  of [sidekiq](https://github.com/mperham/sidekiq) gem.
 
 ## Bundler
 
@@ -790,6 +790,9 @@ compliant) that are useful in many Rails projects:
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
   for Test::MiniTest. I cannot recommend highly enough RSpec. rspec-rails
   provides Rails integration for RSpec.
+* [sidekiq](https://github.com/mperham/sidekiq) - Sidekiq is probably
+  the easiest and most scalable way to run background jobs in your
+  Rails app.
 * [simple_form](https://github.com/plataformatec/simple_form) - once you've
   used simple_form (or formtastic) you'll never want to hear about Rails's
   default forms. It has a great DSL for building forms and no opinion on
