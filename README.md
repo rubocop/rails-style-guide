@@ -4,7 +4,7 @@
 > -- Officer Alex J. Murphy / RoboCop
 
 The goal of this guide is to present a set of best practices and style
-prescriptions for Ruby on Rails 3 development. It's a complementary
+prescriptions for Ruby on Rails 3 & 4 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
@@ -154,6 +154,8 @@ the `production` one.
     # very bad
     match ':controller(/:action(/:id(.:format)))'
     ```
+
+* Don't use `match` to define any routes. It's removed from Rails 4.
 
 ## Controllers
 
@@ -336,7 +338,7 @@ some regular expression mapping, create a custom validator file.
     end
     ```
 
-* Wrap named scopes in `lambdas` to initialize them lazily.
+* Wrap named scopes in `lambdas` to initialize them lazily (this is only a prescription in Rails 3, but is mandatory in Rails 4).
 
     ```Ruby
     # bad
@@ -371,7 +373,7 @@ scopes like this.
     ```
 
 * Beware of the behavior of the `update_attribute` method. It doesn't
-  run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
+  run the model validations (unlike `update_attributes`) and could easily corrupt the model state. The method was finally deprecated in Rails 3.2.7 and does not exist in Rails 4.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this:
   * Override the `to_param` method of the model. This method is used by Rails for constructing a URL to the object.
