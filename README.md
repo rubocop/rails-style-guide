@@ -4,7 +4,7 @@
 > -- Officer Alex J. Murphy / RoboCop
 
 The goal of this guide is to present a set of best practices and style
-prescriptions for Ruby on Rails 3 development. It's a complementary
+prescriptions for Ruby on Rails 3 & 4 development. It's a complementary
 guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
@@ -154,6 +154,8 @@ the `production` one.
     # very bad
     match ':controller(/:action(/:id(.:format)))'
     ```
+
+* Don't use `match` to define any routes. It's removed from Rails 4.
 
 ## Controllers
 
@@ -336,7 +338,7 @@ some regular expression mapping, create a custom validator file.
     end
     ```
 
-* Wrap named scopes in `lambdas` to initialize them lazily.
+* Wrap named scopes in `lambdas` to initialize them lazily (this is only a prescription in Rails 3, but is mandatory in Rails 4).
 
     ```Ruby
     # bad
@@ -368,7 +370,7 @@ complicated, it is preferable to make a class method instead which serves the sa
     ```
 
 * Beware of the behavior of the `update_attribute` method. It doesn't
-  run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
+  run the model validations (unlike `update_attributes`) and could easily corrupt the model state. The method was finally deprecated in Rails 3.2.7 and does not exist in Rails 4.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this:
   * Override the `to_param` method of the model. This method is used by Rails for constructing a URL to the object.
@@ -396,71 +398,6 @@ There is more than one way to achieve this:
         ```
 
         Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
-
-### ActiveResource
-
-* When the response is in a format different from the existing ones (XML and
-JSON) or some additional parsing of these formats is necessary,
-create your own custom format and use it in the class. The custom format
-should implement the following four methods: `extension`, `mime_type`,
-`encode` and `decode`.
-
-    ```Ruby
-    module ActiveResource
-      module Formats
-        module Extend
-          module CSVFormat
-            extend self
-
-            def extension
-              'csv'
-            end
-
-            def mime_type
-              'text/csv'
-            end
-
-            def encode(hash, options = nil)
-              # Encode the data in the new format and return it
-            end
-
-            def decode(csv)
-              # Decode the data from the new format and return it
-            end
-          end
-        end
-      end
-    end
-
-    class User < ActiveResource::Base
-      self.format = ActiveResource::Formats::Extend::CSVFormat
-
-      ...
-    end
-    ```
-
-* If the request should be sent without extension, override the `element_path`
-and `collection_path` methods of `ActiveResource::Base` and remove the
-extension part.
-
-    ```Ruby
-    class User < ActiveResource::Base
-      ...
-
-      def self.collection_path(prefix_options = {}, query_options = nil)
-        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-        "#{prefix(prefix_options)}#{collection_name}#{query_string(query_options)}"
-      end
-
-      def self.element_path(id, prefix_options = {}, query_options = nil)
-        prefix_options, query_options = split_options(prefix_options) if query_options.nil?
-        "#{prefix(prefix_options)}#{collection_name}/#{URI.parser.escape id.to_s}#{query_string(query_options)}"
-      end
-    end
-    ```
-
-    These methods can be overridden also if any other modifications of the
-    URL are needed.
 
 ## Migrations
 
@@ -737,7 +674,7 @@ your application.
 * Sending emails while generating page response should be avoided. It causes
   delays in loading of the page and request can timeout if multiple email are
   send. To overcome this emails can be send in background process with the help
-  of [delayed_job](https://github.com/tobi/delayed_job) gem.
+  of [sidekiq](https://github.com/mperham/sidekiq) gem.
 
 ## Bundler
 
@@ -850,6 +787,9 @@ compliant) that are useful in many Rails projects:
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
   for Test::MiniTest. I cannot recommend highly enough RSpec. rspec-rails
   provides Rails integration for RSpec.
+* [sidekiq](https://github.com/mperham/sidekiq) - Sidekiq is probably
+  the easiest and most scalable way to run background jobs in your
+  Rails app.
 * [simple_form](https://github.com/plataformatec/simple_form) - once you've
   used simple_form (or formtastic) you'll never want to hear about Rails's
   default forms. It has a great DSL for building forms and no opinion on
@@ -1018,27 +958,6 @@ can be one steps file for all features for a particular object
       end
     end
     ```
-
-* Use compound steps to keep the scenario DRY
-
-    ```Ruby
-    # ...
-    When I subscribe for news from the category "Technical News"
-    # ...
-
-    # the step:
-    When /^I subscribe for news from the category "([^"]*)"$/ do |category|
-      steps %Q{
-        When I go to the news categories page
-        And I select the category #{category}
-        And I click the button "Subscribe for this category"
-        And I confirm the subscription
-      }
-    end
-    ```
-* Always use the Capybara negative matchers instead of should_not with positive,
-they will retry the match for given timeout allowing you to test ajax actions.
-[See Capybara's README for more explanation](https://github.com/jnicklas/capybara)
 
 ## RSpec
 
