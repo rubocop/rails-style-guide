@@ -464,47 +464,6 @@ used to work might stop, because of changes in the models used.
 * Never make complex formatting in the views, export the formatting to
   a method in the view helper or the model.
 * Mitigate code duplication by using partial templates and layouts.
-* Add
-  [client side validation](https://github.com/bcardarella/client_side_validations)
-  for the custom validators. The steps to do this are:
-  * Declare a custom validator which extends `ClientSideValidations::Middleware::Base`
-
-        ```Ruby
-        module ClientSideValidations::Middleware
-          class Email < Base
-            def response
-              if request.params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-                self.status = 200
-              else
-                self.status = 404
-              end
-              super
-            end
-          end
-        end
-        ```
-
-  * Create a new file
-    `public/javascripts/rails.validations.custom.js.coffee` and add a
-    reference to it in your `application.js.coffee` file:
-
-        ```
-        # app/assets/javascripts/application.js.coffee
-        #= require rails.validations.custom
-        ```
-
-  * Add your client-side validator:
-
-        ```Ruby
-        #public/javascripts/rails.validations.custom.js.coffee
-        clientSideValidations.validators.remote['email'] = (element, options) ->
-          if $.ajax({
-            url: '/validators/email.json',
-            data: { email: element.val() },
-            async: false
-          }).status == 404
-            return options.message || 'invalid e-mail format'
-        ```
 
 ## Internationalization
 
@@ -749,9 +708,6 @@ compliant) that are useful in many Rails projects:
   upload solution for Rails. Support both local and cloud storage for the
   uploaded files (and many other cool things). Integrates great with
   ImageMagick for image post-processing.
-* [client_side_validations](https://github.com/bcardarella/client_side_validations) -
-  Fantastic gem that automatically creates JavaScript client-side validations
-  from your existing server-side model validations. Highly recommended!
 * [compass-rails](https://github.com/chriseppstein/compass) - Great gem that
   adds support for some css frameworks. Includes collection of sass mixins that
   reduces code of css files and help fight with browser incompatibilities.
