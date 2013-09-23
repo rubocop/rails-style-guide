@@ -1367,23 +1367,23 @@ which should be validated. Using `be_valid` does not guarantee that the problem
   * the e-mail is sent to the right e-mail address
   * the e-mail contains the required information
 
-     ```Ruby
-     describe SubscriberMailer do
-       let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+    ```Ruby
+    describe SubscriberMailer do
+      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email' do
-         subject { SubscriptionMailer.successful_registration_email(subscriber) }
+      describe 'successful registration email' do
+        subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
-         its(:subject) { should == 'Successful Registration!' }
-         its(:from) { should == ['info@your_site.com'] }
-         its(:to) { should == [subscriber.email] }
+        its(:subject) { should == 'Successful Registration!' }
+        its(:from) { should == ['info@your_site.com'] }
+        its(:to) { should == [subscriber.email] }
 
-         it 'contains the subscriber name' do
-           subject.body.encoded.should match(subscriber.name)
-         end
-       end
-     end
-     ```
+        it 'contains the subscriber name' do
+          subject.body.encoded.should match(subscriber.name)
+        end
+      end
+    end
+    ```
 
 ### Uploaders
 
