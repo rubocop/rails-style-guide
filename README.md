@@ -377,8 +377,8 @@ scopes like this.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this:
   * Override the `to_param` method of the model. This method is used by Rails for constructing a URL to the object.
-    The default implementation returns the `id` of the record as a String. It could be overridden to include another
-    human-readable attribute.
+  The default implementation returns the `id` of the record as a String.
+  It could be overridden to include another human-readable attribute.
 
         ```Ruby
         class Person
