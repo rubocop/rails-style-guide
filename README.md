@@ -563,14 +563,14 @@ your application.
     config.action_mailer.raise_delivery_errors = true
     ```
 
-* Use `smtp.gmail.com` for SMTP server in the development environment
-  (unless you have local SMTP server, of course).
+* Use a local SMTP server like [Mailcatcher](https://github.com/sj26/mailcatcher) in the development environment.
 
     ```Ruby
     # config/environments/development.rb
 
     config.action_mailer.smtp_settings = {
-      address: 'smtp.gmail.com',
+      address: 'localhost',
+      port: 1025,
       # more settings
     }
     ```
