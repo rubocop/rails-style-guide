@@ -1363,8 +1363,8 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
 * The mailer spec should verify that:
   * the subject is correct
-  * the receiver e-mail is correct
-  * the e-mail is sent to the right e-mail address
+  * the sender e-mail is correct
+  * the receiver(s) e-mail is stated correctly
   * the e-mail contains the required information
 
     ```Ruby
