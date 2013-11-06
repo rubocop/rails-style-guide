@@ -323,7 +323,7 @@ some regular expression mapping, create a custom validator file.
     end
     ```
 
-* Keep custom validators under `lib/validators`.
+* Keep custom validators under `app/validators`.
 * Consider extracting custom validators to a shared gem if you're
   maintaining several related apps or the validators are generic
   enough.
@@ -424,7 +424,7 @@ an empty database.
 
 * Enforce foreign-key constraints. While ActiveRecord does not support
 them natively, there some great third-party gems like
-[schema_plus](https://github.com/lomba/schema_plus).
+[schema_plus](https://github.com/lomba/schema_plus) and [foreigner](https://github.com/matthuhiggins/foreigner).
 
 * When writing constructive migrations (adding tables or columns), use
   the new Rails 3.1 way of doing the migrations - use the `change`
@@ -461,47 +461,6 @@ used to work might stop, because of changes in the models used.
 * Never make complex formatting in the views, export the formatting to
   a method in the view helper or the model.
 * Mitigate code duplication by using partial templates and layouts.
-* Add
-  [client side validation](https://github.com/bcardarella/client_side_validations)
-  for the custom validators. The steps to do this are:
-  * Declare a custom validator which extends `ClientSideValidations::Middleware::Base`
-
-        ```Ruby
-        module ClientSideValidations::Middleware
-          class Email < Base
-            def response
-              if request.params[:email] =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-                self.status = 200
-              else
-                self.status = 404
-              end
-              super
-            end
-          end
-        end
-        ```
-
-  * Create a new file
-    `public/javascripts/rails.validations.custom.js.coffee` and add a
-    reference to it in your `application.js.coffee` file:
-
-        ```
-        # app/assets/javascripts/application.js.coffee
-        #= require rails.validations.custom
-        ```
-
-  * Add your client-side validator:
-
-        ```Ruby
-        #public/javascripts/rails.validations.custom.js.coffee
-        clientSideValidations.validators.remote['email'] = (element, options) ->
-          if $.ajax({
-            url: '/validators/email.json',
-            data: { email: element.val() },
-            async: false
-          }).status == 404
-            return options.message || 'invalid e-mail format'
-        ```
 
 ## Internationalization
 
@@ -585,7 +544,7 @@ your application.
 * Use `lib/assets` for your own libraries, that doesn’t really fit into the scope of the application.
 * Third party code such as [jQuery](http://jquery.com/) or [bootstrap](http://twitter.github.com/bootstrap/)
   should be placed in `vendor/assets`.
-* When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails)).
+* When possible, use gemified versions of assets (e.g. [jquery-rails](https://github.com/rails/jquery-rails), [jquery-ui-rails](https://github.com/joliss/jquery-ui-rails), [bootstrap-sass](https://github.com/thomas-mcdonald/bootstrap-sass), [zurb-foundation](https://github.com/zurb/foundation)).
 
 ## Mailers
 
@@ -601,14 +560,14 @@ your application.
     config.action_mailer.raise_delivery_errors = true
     ```
 
-* Use `smtp.gmail.com` for SMTP server in the development environment
-  (unless you have local SMTP server, of course).
+* Use a local SMTP server like [Mailcatcher](https://github.com/sj26/mailcatcher) in the development environment.
 
     ```Ruby
     # config/environments/development.rb
 
     config.action_mailer.smtp_settings = {
-      address: 'smtp.gmail.com',
+      address: 'localhost',
+      port: 1025,
       # more settings
     }
     ```
@@ -746,9 +705,6 @@ compliant) that are useful in many Rails projects:
   upload solution for Rails. Support both local and cloud storage for the
   uploaded files (and many other cool things). Integrates great with
   ImageMagick for image post-processing.
-* [client_side_validations](https://github.com/bcardarella/client_side_validations) -
-  Fantastic gem that automatically creates JavaScript client-side validations
-  from your existing server-side model validations. Highly recommended!
 * [compass-rails](https://github.com/chriseppstein/compass) - Great gem that
   adds support for some css frameworks. Includes collection of sass mixins that
   reduces code of css files and help fight with browser incompatibilities.
@@ -1404,27 +1360,27 @@ which should be validated. Using `be_valid` does not guarantee that the problem
 * The model in the mailer spec should be mocked. The mailer should not depend on the model creation.
 * The mailer spec should verify that:
   * the subject is correct
-  * the receiver e-mail is correct
-  * the e-mail is sent to the right e-mail address
+  * the sender e-mail is correct
+  * the receiver(s) e-mail is stated correctly
   * the e-mail contains the required information
 
-     ```Ruby
-     describe SubscriberMailer do
-       let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+    ```Ruby
+    describe SubscriberMailer do
+      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email' do
-         subject { SubscriptionMailer.successful_registration_email(subscriber) }
+      describe 'successful registration email' do
+        subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
-         its(:subject) { should == 'Successful Registration!' }
-         its(:from) { should == ['info@your_site.com'] }
-         its(:to) { should == [subscriber.email] }
+        its(:subject) { should == 'Successful Registration!' }
+        its(:from) { should == ['info@your_site.com'] }
+        its(:to) { should == [subscriber.email] }
 
-         it 'contains the subscriber name' do
-           subject.body.encoded.should match(subscriber.name)
-         end
-       end
-     end
-     ```
+        it 'contains the subscriber name' do
+          subject.body.encoded.should match(subscriber.name)
+        end
+      end
+    end
+    ```
 
 ### Uploaders
 
