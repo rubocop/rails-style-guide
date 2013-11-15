@@ -400,7 +400,7 @@ There is more than one way to achieve this:
         end
         ```
 
-        Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
+        Check the [gem documentation](https://github.com/FriendlyId/friendly_id) for more information about its usage.
 
 ## Migrations
 
@@ -630,7 +630,7 @@ your application.
   have problems with external styles. This however makes them harder to
   maintain and leads to code duplication. There are two similar gems that
   transform the styles and put them in the corresponding html tags:
-  [premailer-rails3](https://github.com/fphilipe/premailer-rails3) and
+  [premailer-rails3](https://github.com/fphilipe/premailer-rails) and
   [roadie](https://github.com/Mange/roadie).
 
 * Sending emails while generating page response should be avoided. It causes
