@@ -719,7 +719,7 @@ compliant) that are useful in many Rails projects:
   to use devise to unrolling your custom authentication solution.
 * [fabrication](http://fabricationgem.org/) - a great fixture replacement
   (editor's choice).
-* [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
+* [factory_girl_rails](https://github.com/thoughtbot/factory_girl_rails) - an alternative
   to fabrication. Nice and mature fixture replacement. Spiritual ancestor of
   fabrication.
 * [ffaker](https://github.com/EmmanuelOga/ffaker) - handy gem to generate dummy data
