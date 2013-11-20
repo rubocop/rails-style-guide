@@ -579,11 +579,11 @@ your application.
 
     ```Ruby
     # config/environments/development.rb
-    config.action_mailer.default_url_options = {host: "#{local_ip}:3000"}
+    config.action_mailer.default_url_options = { host: "#{local_ip}:3000" }
 
 
     # config/environments/production.rb
-    config.action_mailer.default_url_options = {host: 'your_site.com'}
+    config.action_mailer.default_url_options = { host: 'your_site.com' }
 
     # in your mailer class
     default_url_options[:host] = 'your_site.com'
