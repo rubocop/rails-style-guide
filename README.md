@@ -436,20 +436,20 @@ them natively, there some great third-party gems like
 
     ```Ruby
     # the old way
-    class AddNameToPerson < ActiveRecord::Migration
+    class AddNameToPeople < ActiveRecord::Migration
       def up
-        add_column :persons, :name, :string
+        add_column :people, :name, :string
       end
 
       def down
-        remove_column :person, :name
+        remove_column :people, :name
       end
     end
 
     # the new prefered way
-    class AddNameToPerson < ActiveRecord::Migration
+    class AddNameToPeople < ActiveRecord::Migration
       def change
-        add_column :persons, :name, :string
+        add_column :people, :name, :string
       end
     end
     ```
