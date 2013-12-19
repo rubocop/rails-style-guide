@@ -635,7 +635,7 @@ your application.
 
 * Sending emails while generating page response should be avoided. It causes
   delays in loading of the page and request can timeout if multiple email are
-  send. To overcome this emails can be send in background process with the help
+  sent. To overcome this emails can be send in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 
 ## Bundler
