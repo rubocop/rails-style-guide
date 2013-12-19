@@ -716,7 +716,7 @@ compliant) that are useful in many Rails projects:
   Rails integration for Cucumber.
 * [devise](https://github.com/plataformatec/devise) - Devise is full-featured
   authentication solution for Rails applications. In most cases it's preferable
-  to use devise to unrolling your custom authentication solution.
+  to use devise to rolling your own custom authentication solution.
 * [fabrication](http://fabricationgem.org/) - a great fixture replacement
   (editor's choice).
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
