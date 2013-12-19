@@ -419,7 +419,7 @@ an empty database.
     ```
 
     While enforcing table defaults only in Rails is suggested by many
-    Rails developers it's an extremely brittle approach that
+    Rails developers, it's an extremely brittle approach that
     leaves your data vulnerable to many application bugs.  And you'll
     have to consider the fact that most non-trivial apps share a
     database with other applications, so imposing data integrity from
