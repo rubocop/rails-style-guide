@@ -419,7 +419,7 @@ an empty database.
     ```
 
     While enforcing table defaults only in Rails is suggested by many
-    Rails developers it's an extremely brittle approach that
+    Rails developers, it's an extremely brittle approach that
     leaves your data vulnerable to many application bugs.  And you'll
     have to consider the fact that most non-trivial apps share a
     database with other applications, so imposing data integrity from
@@ -635,7 +635,7 @@ your application.
 
 * Sending emails while generating page response should be avoided. It causes
   delays in loading of the page and request can timeout if multiple email are
-  send. To overcome this emails can be send in background process with the help
+  sent. To overcome this emails can be sent in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 
 ## Bundler
@@ -716,7 +716,7 @@ compliant) that are useful in many Rails projects:
   Rails integration for Cucumber.
 * [devise](https://github.com/plataformatec/devise) - Devise is full-featured
   authentication solution for Rails applications. In most cases it's preferable
-  to use devise to unrolling your custom authentication solution.
+  to use devise to rolling your own custom authentication solution.
 * [fabrication](http://fabricationgem.org/) - a great fixture replacement
   (editor's choice).
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
@@ -1114,7 +1114,7 @@ can be one steps file for all features for a particular object
 * The naming convention for the view specs is adding `_spec.rb` to the
   view name, for example the view `_form.html.haml` has a
   corresponding spec `_form.html.haml_spec.rb`.
-* `spec_helper.rb` need to be required in each view spec file.
+* `spec_helper.rb` needs to be required in each view spec file.
 * The outer `describe` block uses the path to the view without the
   `app/views` part. This is used by the `render` method when it is
   called without arguments.
