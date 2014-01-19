@@ -416,7 +416,7 @@ an empty database.
     ```
 
     While enforcing table defaults only in Rails is suggested by many
-    Rails developers it's an extremely brittle approach that
+    Rails developers, it's an extremely brittle approach that
     leaves your data vulnerable to many application bugs.  And you'll
     have to consider the fact that most non-trivial apps share a
     database with other applications, so imposing data integrity from
@@ -433,20 +433,20 @@ them natively, there some great third-party gems like
 
     ```Ruby
     # the old way
-    class AddNameToPerson < ActiveRecord::Migration
+    class AddNameToPeople < ActiveRecord::Migration
       def up
-        add_column :persons, :name, :string
+        add_column :people, :name, :string
       end
 
       def down
-        remove_column :person, :name
+        remove_column :people, :name
       end
     end
 
     # the new prefered way
-    class AddNameToPerson < ActiveRecord::Migration
+    class AddNameToPeople < ActiveRecord::Migration
       def change
-        add_column :persons, :name, :string
+        add_column :people, :name, :string
       end
     end
     ```
@@ -632,7 +632,7 @@ your application.
 
 * Sending emails while generating page response should be avoided. It causes
   delays in loading of the page and request can timeout if multiple email are
-  send. To overcome this emails can be send in background process with the help
+  sent. To overcome this emails can be sent in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 
 ## Bundler
@@ -713,7 +713,7 @@ compliant) that are useful in many Rails projects:
   Rails integration for Cucumber.
 * [devise](https://github.com/plataformatec/devise) - Devise is full-featured
   authentication solution for Rails applications. In most cases it's preferable
-  to use devise to unrolling your custom authentication solution.
+  to use devise to rolling your own custom authentication solution.
 * [fabrication](http://fabricationgem.org/) - a great fixture replacement
   (editor's choice).
 * [factory_girl](https://github.com/thoughtbot/factory_girl) - an alternative
@@ -726,10 +726,11 @@ compliant) that are useful in many Rails projects:
 * [friendly_id](https://github.com/norman/friendly_id) - Allows creation of
   human-readable URLs by using some descriptive attribute of the model instead
   of its id.
-* [globalize3](https://github.com/svenfuchs/globalize3.git) - Globalize3 is
-  the successor of Globalize for Rails and is targeted at ActiveRecord
-  version 3.x. It is compatible with and builds on the new I18n API in Ruby
-  on Rails and adds model translations to ActiveRecord.
+* [globalize](https://github.com/globalize/globalize) - Rails I18n de-facto standard
+  library for ActiveRecord model/data translation. Globalize for Rails and is targeted
+  at ActiveRecord version 4.x. It is compatible with and builds on the new I18n API in
+  Ruby on Rails and adds model translations to ActiveRecord. For ActiveRecord 3.x users,
+  check on the [3-0-stable branch](https://github.com/globalize/globalize/tree/3-0-stable).
 * [guard](https://github.com/guard/guard) - fantastic gem that monitors file
   changes and invokes tasks based on them. Loaded with lots of useful
   extension. Far superior to autotest and watchr.
@@ -1111,7 +1112,7 @@ can be one steps file for all features for a particular object
 * The naming convention for the view specs is adding `_spec.rb` to the
   view name, for example the view `_form.html.haml` has a
   corresponding spec `_form.html.haml_spec.rb`.
-* `spec_helper.rb` need to be required in each view spec file.
+* `spec_helper.rb` needs to be required in each view spec file.
 * The outer `describe` block uses the path to the view without the
   `app/views` part. This is used by the `render` method when it is
   called without arguments.
@@ -1449,6 +1450,10 @@ community.
 
 Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
+
+## How to Contribute?
+
+It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md).
 
 # License
 
