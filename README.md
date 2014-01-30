@@ -147,6 +147,49 @@ the `production` one.
     end
     ```
 
+* Keep hash keys on single line and group them into vertical columns for
+  related route definitions. Given the frequency of changes to this file
+  and the amount of content, laying out route definitions this way makes
+  it much easier to read and spot issues.
+
+    ```Ruby
+    # bad
+    get "knowledge-base-articles/search",
+        to: "knowledge_base_articles#search",
+        as: :knowledge_base_articles_search
+    get 'knowledge-base-articles/:device_model',
+        to: 'knowledge_base_articles#index',
+        as: :knowledge_base_articles
+    get 'knowledge-base-articles/:device_model/:article_title',
+        to: 'knowledge_base_articles#show',
+        as: :knowledge_base_article
+
+    # good
+    get 'knowledge-base-articles/search',                       to: 'knowledge_base_articles#search', as: :knowledge_base_articles_search
+    get 'knowledge-base-articles/:device_model',                to: 'knowledge_base_articles#index',  as: :knowledge_base_articles
+    get 'knowledge-base-articles/:device_model/:article_title', to: 'knowledge_base_articles#show',   as: :knowledge_base_article
+    ```
+
+* Group similar or related route definitions when possible
+
+  ```Ruby
+    match '/devices/:id/deactivate' => 'devices#deactivate', :as => :deactivate_device
+
+  resources :passwords, only: [:new, :create]
+  # bad
+  get '/reset/:password_reset_code', to: 'passwords#new',             as: :reset
+  get '/devices/:id/deactivate',     to: 'devices#deactivate',        as: :deactivate_device
+  put '/passwords/update_password',  to: 'passwords#update_password', as: :update_password
+  put '/change_password',            to: 'passwords#change_password', as: :change_password
+
+  # good
+  get '/devices/:id/deactivate',     to: 'devices#deactivate',        as: :deactivate_device
+
+  get '/reset/:password_reset_code', to: 'passwords#new',             as: :reset
+  put '/passwords/update_password',  to: 'passwords#update_password', as: :update_password
+  put '/change_password',            to: 'passwords#change_password', as: :change_password
+  ```
+
 * Never use the legacy wild controller route. This route will make all
   actions in every controller accessible via GET requests.
 
