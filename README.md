@@ -400,7 +400,35 @@ There is more than one way to achieve this:
         end
         ```
 
-        Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
+  Check the [gem documentation](https://github.com/norman/friendly_id) for more information about its usage.
+
+* Use `find_each` to iterate over a collection of AR objects. Looping
+   through a collection of records from the database (using the `all`
+   method, for example) is very inefficient since it will try to
+   instantiate all the objects at once. In that case, batch processing
+   methods allow you to work with the records in batches, thereby
+   greatly reducing memory consumption.
+
+
+    ```Ruby
+    # bad
+    Person.all.each do |person|
+      person.do_awesome_stuff
+    end
+
+    Person.where("age > 21").each do |person|
+      person.party_all_night!
+    end
+
+    # good
+    Person.all.find_each do |person|
+      person.do_awesome_stuff
+    end
+
+    Person.where("age > 21").find_each do |person|
+      person.party_all_night!
+    end
+    ```
 
 ## Migrations
 
