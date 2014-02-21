@@ -165,6 +165,8 @@ the `production` one.
 * Each controller action should (ideally) invoke only one method other
   than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
+* Helper methods (e.g. :authenticate_user) should be marked as protected or private, 
+  while only the actions themselves should be public.
 
 ## Models
 
@@ -770,6 +772,8 @@ compliant) that are useful in many Rails projects:
 * [haml](http://haml-lang.com) - HAML is a concise templating language,
   considered by many (including yours truly) to be far superior to Erb.
 * [kaminari](https://github.com/amatsuda/kaminari) - Great paginating solution.
+* [letter_opener](https://github.com/ryanb/letter_opener) - Preview email in the 
+  browser instead of sending it.
 * [machinist](https://github.com/notahat/machinist) - Fixtures aren't fun.
   Machinist is.
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
