@@ -721,9 +721,10 @@ compliant) that are useful in many Rails projects:
   application and notify you when you should add eager loading (N+1 queries),
   when you’re using eager loading that isn’t necessary and when you should use
   counter cache.
-* [cancan](https://github.com/ryanb/cancan) - CanCan is an authorization gem that
-  lets you restrict users access to resources. All permissions are defined in a
-  single file (ability.rb) and convenient methods for checking and ensuring
+* [cancan](https://github.com/ryanb/cancan)([can](https://github.com/CanCanCommunity/cancancan)) -
+  CanCan(Can) is an authorization gem that lets you restrict users
+  access to resources. All permissions are defined in a single file
+  (ability.rb) and convenient methods for checking and ensuring
   permissions are available throughout the application.
 * [capybara](https://github.com/jnicklas/capybara) - Capybara aims to simplify
   the process of integration testing Rack applications, such as Rails, Sinatra
