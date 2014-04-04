@@ -372,8 +372,8 @@ scopes like this.
     end
     ```
 
-* Beware of the behavior of the `update_attribute` method. It doesn't
-  run the model validations (unlike `update_attributes`) and could easily corrupt the model state. The method was finally deprecated in Rails 3.2.7 and does not exist in Rails 4.
+* Beware of the behavior of the [`update_attribute`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_attribute) method. It doesn't
+  run the model validations (unlike `update_attributes`) and could easily corrupt the model state.
 * Use user-friendly URLs. Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this:
   * Override the `to_param` method of the model. This method is used by Rails for constructing a URL to the object.
