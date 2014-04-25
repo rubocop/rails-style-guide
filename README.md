@@ -1482,6 +1482,11 @@ community.
 Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
+You can also support the project (and RuboCop) with financial
+contributions via [gittip](https://www.gittip.com/bbatsov).
+
+[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
+
 ## How to Contribute?
 
 It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md).
