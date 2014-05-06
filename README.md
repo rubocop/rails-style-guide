@@ -1381,7 +1381,7 @@ which should be validated. Using `be_valid` does not guarantee that the problem
       describe '#title' do
         it 'is unique' do
           another_article = Fabricate.build(:article, title: article.title)
-          article.should have(1).error_on(:title)
+          another_article.should have(1).error_on(:title)
         end
       end
     end
