@@ -775,6 +775,7 @@ compliant) that are useful in many Rails projects:
 * [rspec-rails](https://github.com/rspec/rspec-rails) - RSpec is a replacement
   for Test::MiniTest. I cannot recommend highly enough RSpec. rspec-rails
   provides Rails integration for RSpec.
+* [searchkick](http://ankane.github.io/searchkick/) - Elasticsearch powered full-text search engine.
 * [sidekiq](https://github.com/mperham/sidekiq) - Sidekiq is probably
   the easiest and most scalable way to run background jobs in your
   Rails app.
