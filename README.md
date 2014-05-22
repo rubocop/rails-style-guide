@@ -47,7 +47,6 @@ various highly regarded Rails programming resources.
 * [Assets](#assets)
 * [Mailers](#mailers)
 * [Bundler](#bundler)
-* [Priceless Gems](#priceless-gems)
 * [Flawed Gems](#flawed-gems)
 * [Managing processes](#managing-processes)
 
