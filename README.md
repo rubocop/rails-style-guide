@@ -161,6 +161,8 @@ the `production` one.
 * Each controller action should (ideally) invoke only one method other
   than an initial find or new.
 * Share no more than two instance variables between a controller and a view.
+* Helper methods (e.g. :authenticate_user) should be marked as private,
+  while only the actions themselves should be public.
 
 ## Models
 
