@@ -18,6 +18,7 @@ Translations of the guide are available in the following languages:
 * [Chinese Simplified](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
 * [Chinese Traditional](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
 * [Russian](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
+* [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
 
 # The Rails Style Guide
 
