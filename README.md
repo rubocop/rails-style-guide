@@ -249,7 +249,7 @@ abbreviations.
 :through` allows additional attributes and validations on the join model.
 
     ```Ruby
-    # using has_and_belongs_to_many
+    # not so good - using has_and_belongs_to_many
     class User < ActiveRecord::Base
       has_and_belongs_to_many :groups
     end
