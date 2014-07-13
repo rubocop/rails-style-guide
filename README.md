@@ -434,6 +434,7 @@ There is more than one way to achieve this:
 * Use `rake db:schema:load` instead of `rake db:migrate` to initialize
 an empty database.
 * Use `rake db:test:prepare` to update the schema of the test database.
+
     (Starting from Rails 4.1.x, `rake db:test:prepare` is [deprecated](https://github.com/rails/rails/pull/13528) and test database schema will be automatically loaded.)
 * Enforce default values in the migrations themselves instead of in
   the application layer.
