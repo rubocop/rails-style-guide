@@ -414,7 +414,7 @@ There is more than one way to achieve this:
       person.do_awesome_stuff
     end
 
-    Person.where("age > 21").each do |person|
+    Person.where('age > 21').each do |person|
       person.party_all_night!
     end
 
@@ -423,7 +423,7 @@ There is more than one way to achieve this:
       person.do_awesome_stuff
     end
 
-    Person.where("age > 21").find_each do |person|
+    Person.where('age > 21').find_each do |person|
       person.party_all_night!
     end
     ```
@@ -506,7 +506,7 @@ use the `activerecord` scope:
           user: Member
         attributes:
           user:
-            name: "Full name"
+            name: 'Full name'
     ```
 
     Then `User.model_name.human` will return "Member" and
@@ -538,7 +538,7 @@ following structure:
     en:
       users:
         show:
-          title: "User details page"
+          title: 'User details page'
     ```
 
     The value for `users.show.title` can be looked up in the template
