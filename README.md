@@ -506,6 +506,32 @@ programming resources.
   end
   ```
 
+* <a name="before_destroy"></a>
+  Since [Rails creates callbacks for dependent
+  associations](https://github.com/rails/rails/issues/3458), always call
+  `before_destroy` callbacks that perform validation with `prepend: true`.
+
+  ```Ruby
+  # bad (roles will be deleted automatically even if super_admin? is true)
+  has_many :roles, dependent: :destroy
+
+  before_destroy :ensure_deletable
+
+  def ensure_deletable
+    fail "Cannot delete super admin." if super_admin?
+  end
+
+  # good
+  has_many :roles, dependent: :destroy
+
+  before_destroy :ensure_deletable, prepend: true
+
+  def ensure_deletable
+    fail "Cannot delete super admin." if super_admin?
+  end
+  ```
+
+
 ## Migrations
 
 * <a name="schema-version"></a>
