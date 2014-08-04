@@ -943,6 +943,7 @@ you have time to spare:
 * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
 * [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
 * [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
+* [Better Specs for RSpec](http://betterspecs.org)
 
 # Contributing
 
