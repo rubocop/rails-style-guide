@@ -544,8 +544,14 @@ programming resources.
 <sup>[[link](#db-schema-load)]</sup>
 
 * <a name="db-test-prepare"></a>
-  Use `rake db:test:prepare` to update the schema of the test database.
-<sup>[[link](#db-test-prepare)]</sup>
+  Use `rake db:test:prepare` to update the schema of the test database
+<sup>[[link](#db-test-prepare)]</sup>. In Rails 4.1.0.rc1 `rake db:test:*`
+are deprecated <sup>[[pull request](https://github.com/rails/rails/pull/13528)]</sup>. To maintain test database add this line to
+test framework helper (e.g. spec_helper.rb):
+
+  ```Ruby
+  ActiveRecord::Migration.maintain_test_schema!
+  ```
 
 * <a name="default-migration-values"></a>
   Enforce default values in the migrations themselves instead of in the
