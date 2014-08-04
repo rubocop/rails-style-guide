@@ -397,29 +397,6 @@ programming resources.
   end
   ```
 
-* <a name="named-scope-lambdas"></a>
-  Wrap named scopes in `lambdas` to initialize them lazily (this is
-  mandatory in Rails 4).
-<sup>[[link](#named-scope-lambdas)]</sup>
-
-  ```Ruby
-  # bad
-  class User < ActiveRecord::Base
-    scope :active, where(active: true)
-    scope :inactive, where(active: false)
-
-    scope :with_orders, joins(:orders).select('distinct(users.id)')
-  end
-
-  # good
-  class User < ActiveRecord::Base
-    scope :active, -> { where(active: true) }
-    scope :inactive, -> { where(active: false) }
-
-    scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
-  end
-  ```
-
 * <a name="named-scope-class"></a>
   When a named scope defined with a lambda and parameters becomes too
   complicated, it is preferable to make a class method instead which serves the
