@@ -180,7 +180,7 @@ programming resources.
   ```
 
 * <a name="no-match-routes"></a>
-  Don't use `match` to define any routes. It's removed from Rails 4.
+  Don't use `match` to define any routes unless there is need to map multiple request types among `[:get, :post, :patch, :put, :delete]` to a single action using `:via` option.
 <sup>[[link](#no-match-routes)]</sup>
 
 ## Controllers
