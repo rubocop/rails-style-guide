@@ -323,9 +323,9 @@ programming resources.
   end
   ```
 
-* <a name="self-attribute"></a>
+* <a name="read-attribute"></a>
   Prefer `self[:attribute]` over `read_attribute(:attribute)`.
-<sup>[[link](#self-attribute)]</sup>
+<sup>[[link](#read-attribute)]</sup>
 
   ```Ruby
   # bad
@@ -336,6 +336,22 @@ programming resources.
   # good
   def amount
     self[:amount] * 100
+  end
+  ```
+
+* <a name="write-attribute"></a>
+  Prefer `self[:attribute] = value` over `write_attribute(:attribute, value)`.
+<sup>[[link](#write-attribute)]</sup>
+
+  ```Ruby
+  # bad
+  def amount
+    write_attributee(:amount, 100)
+  end
+
+  # good
+  def amount
+    self[:amount] = 100
   end
   ```
 
