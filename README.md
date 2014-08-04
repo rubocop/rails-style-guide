@@ -4,7 +4,7 @@
 > -- Officer Alex J. Murphy / RoboCop
 
 The goal of this guide is to present a set of best practices and style
-prescriptions for Ruby on Rails 3 & 4 development. It's a
+prescriptions for Ruby on Rails 4 development. It's a
 complementary guide to the already existing community-driven
 [Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
 
@@ -397,29 +397,6 @@ programming resources.
   end
   ```
 
-* <a name="named-scope-lambdas"></a>
-  Wrap named scopes in `lambdas` to initialize them lazily (this is only a
-  prescription in Rails 3, but is mandatory in Rails 4).
-<sup>[[link](#named-scope-lambdas)]</sup>
-
-  ```Ruby
-  # bad
-  class User < ActiveRecord::Base
-    scope :active, where(active: true)
-    scope :inactive, where(active: false)
-
-    scope :with_orders, joins(:orders).select('distinct(users.id)')
-  end
-
-  # good
-  class User < ActiveRecord::Base
-    scope :active, -> { where(active: true) }
-    scope :inactive, -> { where(active: false) }
-
-    scope :with_orders, -> { joins(:orders).select('distinct(users.id)') }
-  end
-  ```
-
 * <a name="named-scope-class"></a>
   When a named scope defined with a lambda and parameters becomes too
   complicated, it is preferable to make a class method instead which serves the
@@ -543,10 +520,6 @@ programming resources.
   database.
 <sup>[[link](#db-schema-load)]</sup>
 
-* <a name="db-test-prepare"></a>
-  Use `rake db:test:prepare` to update the schema of the test database.
-<sup>[[link](#db-test-prepare)]</sup>
-
 * <a name="default-migration-values"></a>
   Enforce default values in the migrations themselves instead of in the
   application layer.
@@ -574,9 +547,8 @@ programming resources.
 <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
-  When writing constructive migrations (adding tables or columns), use the new
-  Rails 3.1 way of doing the migrations - use the `change` method instead of
-  `up` and `down` methods.
+  When writing constructive migrations (adding tables or columns),
+  use the `change` method instead of `up` and `down` methods.
 <sup>[[link](#change-vs-up-down)]</sup>
 
   ```Ruby
