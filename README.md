@@ -587,6 +587,28 @@ programming resources.
   end
   ```
 
+* <a name="reversible-in-change"></a>
+Use [`reversible`](http://apidock.com/rails/ActiveRecord/Migration/reversible) in the `change` method, if you want the migration to do something that ActiveRecord will not be able to revert.
+<sup>[[link](#reversible-in-change)]</sup>
+  ```Ruby
+  # bad - this will throw ActiveRecord::IrreversibleMigration exception on down operation
+  class ChangeCodeInUsers < ActiveRecord::Migration
+    def change
+      change_column :users, :code, :integer
+    end
+  end
+
+  # the preferred way
+  class ChangeCodeInUseres < ActiveRecord::Migration
+    def change
+      reversible do |dir|
+        dir.up   { change_column :users, :code, :integer }
+        dir.down { change_column :users, :code, :string }
+      end
+    end
+  end
+  ```
+
 * <a name="no-model-class-migrations"></a>
   Don't use model classes in migrations. The model classes are constantly
   evolving and at some point in the future migrations that used to work might
