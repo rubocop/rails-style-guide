@@ -790,11 +790,11 @@ your application.
   ```Ruby
   # bad
   You can always find more info about this course
-  = link_to 'here', url_for(course_path(@course))
+  = link_to 'here', course_path(@course)
 
   # good
   You can always find more info about this course
-  = link_to 'here', url_for(course_url(@course))
+  = link_to 'here', course_url(@course)
   ```
 
 * <a name="email-addresses"></a>
