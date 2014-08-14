@@ -490,7 +490,7 @@ programming resources.
   end
 
   # good
-  Person.all.find_each do |person|
+  Person.find_each do |person|
     person.do_awesome_stuff
   end
 
