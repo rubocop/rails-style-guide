@@ -19,6 +19,7 @@ Translations of the guide are available in the following languages:
 * [Chinese Traditional](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
 * [Russian](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
 * [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
+* [Japanese](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 
 # The Rails Style Guide
 
@@ -346,7 +347,7 @@ programming resources.
   ```Ruby
   # bad
   def amount
-    write_attributee(:amount, 100)
+    write_attribute(:amount, 100)
   end
 
   # good
