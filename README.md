@@ -347,7 +347,7 @@ programming resources.
   ```Ruby
   # bad
   def amount
-    write_attributee(:amount, 100)
+    write_attribute(:amount, 100)
   end
 
   # good
@@ -455,7 +455,7 @@ programming resources.
       ```
 
   In order to convert this to a URL-friendly value, `parameterize` should be
-  canlled on the string. The `id` of the object needs to be at the beginning so
+  called on the string. The `id` of the object needs to be at the beginning so
   that it can be found by the `find` method of ActiveRecord.
 
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by
