@@ -1,12 +1,12 @@
-# Вступление
+# Прелюдия
 
 > Role models are important. <br/>
-> -- Officer Alex J. Murphy / RoboCop
+> -- Офицер Алекс Мёрфи / Робот-полицейский
 
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 3 & 4 development. It's a complementary
 guide to the already existing community-driven
-[Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
+[Руби: руководство по стилю оформления](https://github.com/bbatsov/ruby-style-guide).
 
 Some of the advice here is applicable only to Rails 4.0+.
 
@@ -18,9 +18,11 @@ You can generate a PDF or an HTML copy of this guide using
 * [английский (исходная версия)](https://github.com/bbatsov/rails-style-guide/blob/master/README.md)
 * [китайский традиционный](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
 * [китайский упрощенный](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
-* [русский (данный документ)](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
+* [русский (данный документ)](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
+* [турецкий](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
+* [японский](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 
-# The Rails Style Guide
+# Руководство по стилю оформления Rails
 
 This Rails style guide recommends best practices so that real-world Rails
 programmers can write code that can be maintained by other real-world Rails
