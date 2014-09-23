@@ -710,7 +710,7 @@ your application.
 <sup>[[link](#reserve-app-assets)]</sup>
 
 * <a name="lib-assets"></a>
-  Use `lib/assets` for your own libraries, that doesn’t really fit into the
+  Use `lib/assets` for your own libraries that don’t really fit into the
   scope of the application.
 <sup>[[link](#lib-assets)]</sup>
 
