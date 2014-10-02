@@ -263,7 +263,7 @@ programming resources.
     default_scope { where(active: true) }
 
     # constants come up next
-    GENDERS = %w(male female)
+    COLORS = %w(red green blue)
 
     # afterwards we put attr related macros
     attr_accessor :formatted_date_of_birth
