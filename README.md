@@ -525,6 +525,26 @@ programming resources.
   end
   ```
 
+* Prefer symbol arguments to callbacks instead of blocks
+
+  ```Ruby
+  # bad
+  after_create do |model|
+    unless skip_reference_number_generation
+      model.update_attributes reference_number: "#{id}-#{name}"
+    end
+  end
+
+  # good
+  after_create :generate_reference_number,
+    unless: :skip_reference_number_generation
+
+  private
+  def generate_reference_number
+    update_attributes reference_number: "#{id}-#{name}"
+  end
+  ```
+
 
 ## Migrations
 
