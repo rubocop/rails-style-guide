@@ -525,7 +525,8 @@ programming resources.
   end
   ```
 
-* Prefer symbol arguments to callbacks instead of blocks
+* <a name="callback-methods-over-blocks"></a>
+  Prefer symbol arguments to callbacks instead of blocks.
 
   ```Ruby
   # bad
