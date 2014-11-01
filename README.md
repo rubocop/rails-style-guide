@@ -897,7 +897,7 @@ other gems. You should avoid using them in your projects.
 
 * [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its
   memory consumption. Use
-  [minimagick](https://github.com/probablycorey/mini_magick) instead.
+  [minimagick](https://github.com/minimagick/minimagick) instead.
 
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for
   running tests automatically. Far inferior to
