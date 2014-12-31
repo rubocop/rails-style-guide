@@ -17,9 +17,9 @@ Translations of the guide are available in the following languages:
 
 * [Chinese Simplified](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
 * [Chinese Traditional](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
+* [Japanese](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 * [Russian](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
 * [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
-* [Japanese](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 
 # The Rails Style Guide
 
@@ -263,7 +263,7 @@ programming resources.
     default_scope { where(active: true) }
 
     # constants come up next
-    GENDERS = %w(male female)
+    COLORS = %w(red green blue)
 
     # afterwards we put attr related macros
     attr_accessor :formatted_date_of_birth
@@ -897,7 +897,7 @@ other gems. You should avoid using them in your projects.
 
 * [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its
   memory consumption. Use
-  [minimagick](https://github.com/probablycorey/mini_magick) instead.
+  [minimagick](https://github.com/minimagick/minimagick) instead.
 
 * [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for
   running tests automatically. Far inferior to
