@@ -558,7 +558,7 @@ programming resources.
 
 * <a name="foreign-key-constraints"></a>
   Enforce foreign-key constraints. While ActiveRecord does not support them
-  natively, there some great third-party gems like
+  natively, there are some great third-party gems like
   [schema_plus](https://github.com/lomba/schema_plus) and
   [foreigner](https://github.com/matthuhiggins/foreigner).
 <sup>[[link](#foreign-key-constraints)]</sup>
