@@ -559,11 +559,12 @@ programming resources.
 * <a name="foreign-key-constraints"></a>
   Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord
   supports foreign key constraints natively.
+  <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
   When writing constructive migrations (adding tables or columns),
   use the `change` method instead of `up` and `down` methods.
-<sup>[[link](#change-vs-up-down)]</sup>
+  <sup>[[link](#change-vs-up-down)]</sup>
 
   ```Ruby
   # the old way
