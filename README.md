@@ -504,6 +504,7 @@ programming resources.
   Since [Rails creates callbacks for dependent
   associations](https://github.com/rails/rails/issues/3458), always call
   `before_destroy` callbacks that perform validation with `prepend: true`.
+<sup>[[link](#before_destroy)]</sup>
 
   ```Ruby
   # bad (roles will be deleted automatically even if super_admin? is true)
