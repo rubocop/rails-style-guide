@@ -530,6 +530,19 @@ programming resources.
 
 ### ActiveRecord Queries
 
+* <a name="find"></a>
+  Favor the use of `find` over `where`
+when you need to retrieve a single record by id.
+<sup>[[link](#find)]</sup>
+
+  ```Ruby
+  # bad
+  User.where(id: id).take
+
+  # good
+  User.find(id)
+  ```
+
 * <a name="where-not"></a>
   Favor the use of `where.not` over SQL.
 <sup>[[link](#where-not)]</sup>
