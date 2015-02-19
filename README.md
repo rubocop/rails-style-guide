@@ -52,6 +52,7 @@ programming resources.
 * [Internationalization](#internationalization)
 * [Assets](#assets)
 * [Mailers](#mailers)
+* [Time](#time)
 * [Bundler](#bundler)
 * [Flawed Gems](#flawed-gems)
 * [Managing processes](#managing-processes)
@@ -900,6 +901,43 @@ your application.
   sent. To overcome this emails can be sent in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 <sup>[[link](#background-email)]</sup>
+
+## Time
+
+* <a name="tz-config"></a>
+  Config your timezone accordingly in `application.rb`.
+<sup>[[link](#time-now)]</sup>
+
+  ```Ruby
+  config.time_zone = 'Eastern European Time'
+  # optional - note it can be only :utc or :local (default is :utc)
+  config.active_record.default_timezone = :local
+  ```
+
+* <a name="time-parse"></a>ppppp
+  Don't use `Time.parse`.
+<sup>[[link](#time-parse)]</sup>
+
+  ```Ruby
+  # bad
+  Time.parse("2015-03-02 19:05:37") # => Will assume time string given is in the system's time zone.
+
+  # good
+  Time.zone.parse(""2015-03-02 19:05:37") # => Mon, 02 Mar 2015 19:05:37 EET +02:00
+  ```
+
+* <a name="time-now"></a>ppppp
+  Don't use `Time.now`.
+<sup>[[link](#time-now)]</sup>
+
+  ```Ruby
+  # bad
+  Time.now # => Returns system time and ignores your configured time zone.
+
+  # good
+  Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
+  Time.current # Same thing but shorter.
+  ```
 
 ## Bundler
 
