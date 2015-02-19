@@ -920,10 +920,10 @@ your application.
 
   ```Ruby
   # bad
-  Time.parse("2015-03-02 19:05:37") # => Will assume time string given is in the system's time zone.
+  Time.parse('2015-03-02 19:05:37') # => Will assume time string given is in the system's time zone.
 
   # good
-  Time.zone.parse(""2015-03-02 19:05:37") # => Mon, 02 Mar 2015 19:05:37 EET +02:00
+  Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
   ```
 
 * <a name="time-now"></a>ppppp
