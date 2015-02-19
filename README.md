@@ -525,6 +525,19 @@ programming resources.
   end
   ```
 
+### ActiveRecord Queries
+
+* <a name="where-not"></a>
+  Favor the use of `where.not` over SQL.
+<sup>[[link](#where-not)]</sup>
+
+  ```Ruby
+  # bad
+  User.where("id != ?", id)
+
+  # good
+  User.where.not(id: id)
+  ```
 
 ## Migrations
 
