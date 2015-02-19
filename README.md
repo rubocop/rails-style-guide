@@ -45,6 +45,8 @@ programming resources.
 * [Routing](#routing)
 * [Controllers](#controllers)
 * [Models](#models)
+  * [ActiveRecord](#activerecord)
+  * [ActiveRecord Queries](#activerecord-queries)
 * [Migrations](#migrations)
 * [Views](#views)
 * [Internationalization](#internationalization)
