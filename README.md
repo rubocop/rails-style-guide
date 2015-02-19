@@ -556,6 +556,23 @@ when you need to retrieve a single record by some attributes.
   User.find_by(first_name: 'Bruce', last_name: 'Wayne'))
   ```
 
+* <a name="find_each"></a>
+  Use `find_each` when you need to process a lot of records.
+<sup>[[link](#find_each)]</sup>
+
+  ```Ruby
+  # bad - loads all the records at once
+  # This is very inefficient when the users table has thousands of rows.
+  User.all.each do |user|
+    NewsMailer.weekly(user).deliver_now
+  end
+
+  # good - records are retrieved in batches
+  User.find_each do |user|
+    NewsMailer.weekly(user).deliver_now
+  end
+  ```
+
 * <a name="where-not"></a>
   Favor the use of `where.not` over SQL.
 <sup>[[link](#where-not)]</sup>
