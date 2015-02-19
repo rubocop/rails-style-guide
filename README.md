@@ -543,6 +543,19 @@ when you need to retrieve a single record by id.
   User.find(id)
   ```
 
+* <a name="find_by"></a>
+  Favor the use of `find_by` over `where`
+when you need to retrieve a single record by some attributes.
+<sup>[[link](#find_by)]</sup>
+
+  ```Ruby
+  # bad
+  User.where(first_name: 'Bruce', last_name: 'Wayne').first
+
+  # good
+  User.find_by(first_name: 'Bruce', last_name: 'Wayne'))
+  ```
+
 * <a name="where-not"></a>
   Favor the use of `where.not` over SQL.
 <sup>[[link](#where-not)]</sup>
