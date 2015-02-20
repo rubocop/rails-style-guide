@@ -545,6 +545,25 @@ programming resources.
   Client.where('orders_count = ?', params[:orders])
   ```
 
+* <a name="named-placeholder"></a>
+  Consider using named placeholders instead of positional placeholders
+  when you have more than 1 placeholder in your query.
+<sup>[[link](#named-placeholder)]</sup>
+
+  ```Ruby
+  # okish
+  Client.where(
+    'created_at >= ? AND created_at <= ?',
+    params[:start_date], params[:end_date]
+  )
+
+  # good
+  Client.where(
+    'created_at >= :start_date AND created_at <= :end_date',
+    start_date: params[:start_date], end_date: params[:end_date]
+  )
+  ```
+
 * <a name="find"></a>
   Favor the use of `find` over `where`
 when you need to retrieve a single record by id.
