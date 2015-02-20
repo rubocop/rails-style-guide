@@ -531,6 +531,20 @@ programming resources.
 
 ### ActiveRecord Queries
 
+* <a name="avoid-interpolation"></a>
+  Avoid string interpolation in
+  queries, as it will make your code susceptible to SQL injection
+  attacks.
+<sup>[[link](#avoid-interpolation)]</sup>
+
+  ```Ruby
+  # bad - param will be interpolated unescaped
+  Client.where("orders_count = #{params[:orders]}")
+
+  # good - param will be properly escaped
+  Client.where('orders_count = ?', params[:orders])
+  ```
+
 * <a name="find"></a>
   Favor the use of `find` over `where`
 when you need to retrieve a single record by id.
