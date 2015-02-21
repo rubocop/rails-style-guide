@@ -947,7 +947,7 @@ your application.
   config.active_record.default_timezone = :local
   ```
 
-* <a name="time-parse"></a>ppppp
+* <a name="time-parse"></a>
   Don't use `Time.parse`.
 <sup>[[link](#time-parse)]</sup>
 
@@ -959,7 +959,7 @@ your application.
   Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
   ```
 
-* <a name="time-now"></a>ppppp
+* <a name="time-now"></a>
   Don't use `Time.now`.
 <sup>[[link](#time-now)]</sup>
 
