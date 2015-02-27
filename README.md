@@ -423,6 +423,7 @@ programming resources.
   complicated, it is preferable to make a class method instead which serves the
   same purpose of the named scope and returns an `ActiveRecord::Relation`
   object. Arguably you can define even simpler scopes like this.
+  Note: this style of scoping can not be chained in the same way as named scopes.
 <sup>[[link](#named-scope-class)]</sup>
 
   ```Ruby
