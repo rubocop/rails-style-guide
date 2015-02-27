@@ -781,11 +781,11 @@ when you need to retrieve a single record by some attributes.
 <sup>[[link](#dot-separated-keys)]</sup>
 
   ```Ruby
-  # use this call
-  I18n.t 'activerecord.errors.messages.record_invalid'
-
-  # instead of this
+  # bad
   I18n.t :record_invalid, :scope => [:activerecord, :errors, :messages]
+
+  # good
+  I18n.t 'activerecord.errors.messages.record_invalid'
   ```
 
 * <a name="i18n-guides"></a>
