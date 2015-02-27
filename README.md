@@ -434,12 +434,11 @@ programming resources.
   end
   ```
   
-  Note: this style of scoping can not be chained in the same way as named scopes. For instance:
+  Note that this style of scoping can not be chained in the same way as named scopes. For instance:
   
   ```Ruby
   # unchainable
   class User < ActiveRecord::Base
-
     def User.old
       where('age > ?', 80)
     end
@@ -447,17 +446,16 @@ programming resources.
     def User.heavy
       where('weight > ?', 200)
     end
-
   end 
   ```
-  In this style both old and heavy work individually, but you can not call `User.old.heavy`, to chain these scopes use:
+
+  In this style both `old` and `heavy` work individually, but you can not call `User.old.heavy`, to chain these scopes use:
+
   ```Ruby
   # chainable
   class User < ActiveRecord::Base
-
     scope :old, -> { where('age > 60') }
     scope :heavy, -> { where('weight > 200') }
-
   end 
   ```
   
