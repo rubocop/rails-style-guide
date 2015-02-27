@@ -215,9 +215,9 @@ programming resources.
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  If you need model objects that support ActiveRecord behavior(like
-  validation) use the [ActiveAttr](https://github.com/cgriego/active_attr)
-  gem.
+  If you need model objects that support ActiveRecord behavior (like validation) 
+  without the ActiveRecord database functionality use the 
+  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
