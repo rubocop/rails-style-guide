@@ -423,7 +423,7 @@ programming resources.
   complicated, it is preferable to make a class method instead which serves the
   same purpose of the named scope and returns an `ActiveRecord::Relation`
   object. Arguably you can define even simpler scopes like this.
-  Note: this style of scoping can not be chained in the same way as named scopes.
+  
 <sup>[[link](#named-scope-class)]</sup>
 
   ```Ruby
@@ -433,6 +433,34 @@ programming resources.
     end
   end
   ```
+  
+  Note: this style of scoping can not be chained in the same way as named scopes. For instance:
+  
+  ```Ruby
+  # unchainable
+  class User < ActiveRecord::Base
+
+    def User.old
+      where('age > ?', 80)
+    end
+
+    def User.heavy
+      where('weight > ?', 200)
+    end
+
+  end 
+  ```
+  In this style both old and heavy work individually, but you can not call `User.old.heavy`, to chain these scopes use:
+  ```Ruby
+  # chainable
+  class User < ActiveRecord::Base
+
+    scope :old, -> { where('age > 60') }
+    scope :heavy, -> { where('weight > 200') }
+
+  end 
+  ```
+  
 
 * <a name="beware-update-attribute"></a>
   Beware of the behavior of the
