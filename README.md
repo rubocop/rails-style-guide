@@ -789,7 +789,7 @@ when you need to retrieve a single record by some attributes.
   ```
 
 * <a name="i18n-guides"></a>
-  More detailed information about the Rails i18n can be found in the [Rails
+  More detailed information about the Rails I18n can be found in the [Rails
   Guides](http://guides.rubyonrails.org/i18n.html)
 <sup>[[link](#i18n-guides)]</sup>
 
