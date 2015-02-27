@@ -587,7 +587,7 @@ when you need to retrieve a single record by some attributes.
   User.where(first_name: 'Bruce', last_name: 'Wayne').first
 
   # good
-  User.find_by(first_name: 'Bruce', last_name: 'Wayne'))
+  User.find_by(first_name: 'Bruce', last_name: 'Wayne')
   ```
 
 * <a name="find_each"></a>
