@@ -215,9 +215,9 @@ programming resources.
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  If you need model objects that support ActiveRecord behavior(like
-  validation) use the [ActiveAttr](https://github.com/cgriego/active_attr)
-  gem.
+  If you need model objects that support ActiveRecord behavior (like validation) 
+  without the ActiveRecord database functionality use the 
+  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
@@ -367,9 +367,10 @@ programming resources.
   ```Ruby
   # bad
   validates_presence_of :email
-
+  validates_length_of :email, maximum: 100 
+ 
   # good
-  validates :email, presence: true
+  validates :email, presence: true, length: { maximum: 100 }
   ```
 
 * <a name="custom-validator-file"></a>
@@ -422,6 +423,7 @@ programming resources.
   complicated, it is preferable to make a class method instead which serves the
   same purpose of the named scope and returns an `ActiveRecord::Relation`
   object. Arguably you can define even simpler scopes like this.
+
 <sup>[[link](#named-scope-class)]</sup>
 
   ```Ruby
@@ -431,6 +433,32 @@ programming resources.
     end
   end
   ```
+  
+  Note that this style of scoping can not be chained in the same way as named scopes. For instance:
+  
+  ```Ruby
+  # unchainable
+  class User < ActiveRecord::Base
+    def User.old
+      where('age > ?', 80)
+    end
+
+    def User.heavy
+      where('weight > ?', 200)
+    end
+  end 
+  ```
+
+  In this style both `old` and `heavy` work individually, but you can not call `User.old.heavy`, to chain these scopes use:
+
+  ```Ruby
+  # chainable
+  class User < ActiveRecord::Base
+    scope :old, -> { where('age > 60') }
+    scope :heavy, -> { where('weight > 200') }
+  end 
+  ```
+  
 
 * <a name="beware-update-attribute"></a>
   Beware of the behavior of the
@@ -587,7 +615,7 @@ when you need to retrieve a single record by some attributes.
   User.where(first_name: 'Bruce', last_name: 'Wayne').first
 
   # good
-  User.find_by(first_name: 'Bruce', last_name: 'Wayne'))
+  User.find_by(first_name: 'Bruce', last_name: 'Wayne')
   ```
 
 * <a name="find_each"></a>
@@ -779,15 +807,15 @@ when you need to retrieve a single record by some attributes.
 <sup>[[link](#dot-separated-keys)]</sup>
 
   ```Ruby
-  # use this call
-  I18n.t 'activerecord.errors.messages.record_invalid'
-
-  # instead of this
+  # bad
   I18n.t :record_invalid, :scope => [:activerecord, :errors, :messages]
+
+  # good
+  I18n.t 'activerecord.errors.messages.record_invalid'
   ```
 
 * <a name="i18n-guides"></a>
-  More detailed information about the Rails i18n can be found in the [Rails
+  More detailed information about the Rails I18n can be found in the [Rails
   Guides](http://guides.rubyonrails.org/i18n.html)
 <sup>[[link](#i18n-guides)]</sup>
 
@@ -882,11 +910,11 @@ your application.
   ```Ruby
   # bad
   You can always find more info about this course
-  = link_to 'here', course_path(@course)
+  <%= link_to 'here', course_path(@course) %>
 
   # good
   You can always find more info about this course
-  = link_to 'here', course_url(@course)
+  <%= link_to 'here', course_url(@course) %>
   ```
 
 * <a name="email-addresses"></a>
