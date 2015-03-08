@@ -93,6 +93,16 @@ programming resources.
   `production` one.
 <sup>[[link](#staging-like-prod)]</sup>
 
+* <a name="yaml-config"></a>
+  Keep any additional configuration in YAML files under the `config/` directory.
+<sup>[[link](#yaml-config)]</sup>
+
+  Since Rails 4.2 YAML configuration files can be easily loaded with the new `config_for` method:
+
+  ```Ruby
+  Rails::Application.config_for(:yaml_file)
+  ```
+
 ## Routing
 
 * <a name="member-collection-routes"></a>
