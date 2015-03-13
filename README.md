@@ -444,7 +444,7 @@ programming resources.
   end
   ```
 
-  Note that this style of scoping can not be chained in the same way as named scopes. For instance:
+  Note that this style of scoping cannot be chained in the same way as named scopes. For instance:
 
   ```Ruby
   # unchainable
@@ -459,7 +459,7 @@ programming resources.
   end
   ```
 
-  In this style both `old` and `heavy` work individually, but you can not call `User.old.heavy`, to chain these scopes use:
+  In this style both `old` and `heavy` work individually, but you cannot call `User.old.heavy`, to chain these scopes use:
 
   ```Ruby
   # chainable
