@@ -45,11 +45,14 @@ programming resources.
 * [Routing](#routing)
 * [Controllers](#controllers)
 * [Models](#models)
+  * [ActiveRecord](#activerecord)
+  * [ActiveRecord Queries](#activerecord-queries)
 * [Migrations](#migrations)
 * [Views](#views)
 * [Internationalization](#internationalization)
 * [Assets](#assets)
 * [Mailers](#mailers)
+* [Time](#time)
 * [Bundler](#bundler)
 * [Flawed Gems](#flawed-gems)
 * [Managing processes](#managing-processes)
@@ -89,6 +92,16 @@ programming resources.
   Create an additional `staging` environment that closely resembles the
   `production` one.
 <sup>[[link](#staging-like-prod)]</sup>
+
+* <a name="yaml-config"></a>
+  Keep any additional configuration in YAML files under the `config/` directory.
+<sup>[[link](#yaml-config)]</sup>
+
+  Since Rails 4.2 YAML configuration files can be easily loaded with the new `config_for` method:
+
+  ```Ruby
+  Rails::Application.config_for(:yaml_file)
+  ```
 
 ## Routing
 
@@ -212,9 +225,9 @@ programming resources.
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  If you need model objects that support ActiveRecord behavior(like
-  validation) use the [ActiveAttr](https://github.com/cgriego/active_attr)
-  gem.
+  If you need model objects that support ActiveRecord behavior (like validation)
+  without the ActiveRecord database functionality use the
+  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
@@ -364,9 +377,10 @@ programming resources.
   ```Ruby
   # bad
   validates_presence_of :email
+  validates_length_of :email, maximum: 100
 
   # good
-  validates :email, presence: true
+  validates :email, presence: true, length: { maximum: 100 }
   ```
 
 * <a name="custom-validator-file"></a>
@@ -419,6 +433,7 @@ programming resources.
   complicated, it is preferable to make a class method instead which serves the
   same purpose of the named scope and returns an `ActiveRecord::Relation`
   object. Arguably you can define even simpler scopes like this.
+
 <sup>[[link](#named-scope-class)]</sup>
 
   ```Ruby
@@ -428,6 +443,32 @@ programming resources.
     end
   end
   ```
+
+  Note that this style of scoping cannot be chained in the same way as named scopes. For instance:
+
+  ```Ruby
+  # unchainable
+  class User < ActiveRecord::Base
+    def User.old
+      where('age > ?', 80)
+    end
+
+    def User.heavy
+      where('weight > ?', 200)
+    end
+  end
+  ```
+
+  In this style both `old` and `heavy` work individually, but you cannot call `User.old.heavy`, to chain these scopes use:
+
+  ```Ruby
+  # chainable
+  class User < ActiveRecord::Base
+    scope :old, -> { where('age > 60') }
+    scope :heavy, -> { where('weight > 200') }
+  end
+  ```
+
 
 * <a name="beware-update-attribute"></a>
   Beware of the behavior of the
@@ -504,6 +545,7 @@ programming resources.
   Since [Rails creates callbacks for dependent
   associations](https://github.com/rails/rails/issues/3458), always call
   `before_destroy` callbacks that perform validation with `prepend: true`.
+<sup>[[link](#before_destroy)]</sup>
 
   ```Ruby
   # bad (roles will be deleted automatically even if super_admin? is true)
@@ -525,6 +567,95 @@ programming resources.
   end
   ```
 
+### ActiveRecord Queries
+
+* <a name="avoid-interpolation"></a>
+  Avoid string interpolation in
+  queries, as it will make your code susceptible to SQL injection
+  attacks.
+<sup>[[link](#avoid-interpolation)]</sup>
+
+  ```Ruby
+  # bad - param will be interpolated unescaped
+  Client.where("orders_count = #{params[:orders]}")
+
+  # good - param will be properly escaped
+  Client.where('orders_count = ?', params[:orders])
+  ```
+
+* <a name="named-placeholder"></a>
+  Consider using named placeholders instead of positional placeholders
+  when you have more than 1 placeholder in your query.
+<sup>[[link](#named-placeholder)]</sup>
+
+  ```Ruby
+  # okish
+  Client.where(
+    'created_at >= ? AND created_at <= ?',
+    params[:start_date], params[:end_date]
+  )
+
+  # good
+  Client.where(
+    'created_at >= :start_date AND created_at <= :end_date',
+    start_date: params[:start_date], end_date: params[:end_date]
+  )
+  ```
+
+* <a name="find"></a>
+  Favor the use of `find` over `where`
+when you need to retrieve a single record by id.
+<sup>[[link](#find)]</sup>
+
+  ```Ruby
+  # bad
+  User.where(id: id).take
+
+  # good
+  User.find(id)
+  ```
+
+* <a name="find_by"></a>
+  Favor the use of `find_by` over `where`
+when you need to retrieve a single record by some attributes.
+<sup>[[link](#find_by)]</sup>
+
+  ```Ruby
+  # bad
+  User.where(first_name: 'Bruce', last_name: 'Wayne').first
+
+  # good
+  User.find_by(first_name: 'Bruce', last_name: 'Wayne')
+  ```
+
+* <a name="find_each"></a>
+  Use `find_each` when you need to process a lot of records.
+<sup>[[link](#find_each)]</sup>
+
+  ```Ruby
+  # bad - loads all the records at once
+  # This is very inefficient when the users table has thousands of rows.
+  User.all.each do |user|
+    NewsMailer.weekly(user).deliver_now
+  end
+
+  # good - records are retrieved in batches
+  User.find_each do |user|
+    NewsMailer.weekly(user).deliver_now
+  end
+  ```
+
+* <a name="where-not"></a>
+  Favor the use of `where.not` over SQL.
+<sup>[[link](#where-not)]</sup>
+
+  ```Ruby
+  # bad
+  User.where("id != ?", id)
+
+  # good
+  User.where.not(id: id)
+  ```
 
 ## Migrations
 
@@ -557,16 +688,14 @@ programming resources.
   the Rails app is impossible.
 
 * <a name="foreign-key-constraints"></a>
-  Enforce foreign-key constraints. While ActiveRecord does not support them
-  natively, there some great third-party gems like
-  [schema_plus](https://github.com/lomba/schema_plus) and
-  [foreigner](https://github.com/matthuhiggins/foreigner).
-<sup>[[link](#foreign-key-constraints)]</sup>
+  Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord
+  supports foreign key constraints natively.
+  <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
   When writing constructive migrations (adding tables or columns),
   use the `change` method instead of `up` and `down` methods.
-<sup>[[link](#change-vs-up-down)]</sup>
+  <sup>[[link](#change-vs-up-down)]</sup>
 
   ```Ruby
   # the old way
@@ -688,15 +817,15 @@ programming resources.
 <sup>[[link](#dot-separated-keys)]</sup>
 
   ```Ruby
-  # use this call
-  I18n.t 'activerecord.errors.messages.record_invalid'
-
-  # instead of this
+  # bad
   I18n.t :record_invalid, :scope => [:activerecord, :errors, :messages]
+
+  # good
+  I18n.t 'activerecord.errors.messages.record_invalid'
   ```
 
 * <a name="i18n-guides"></a>
-  More detailed information about the Rails i18n can be found in the [Rails
+  More detailed information about the Rails I18n can be found in the [Rails
   Guides](http://guides.rubyonrails.org/i18n.html)
 <sup>[[link](#i18n-guides)]</sup>
 
@@ -791,11 +920,11 @@ your application.
   ```Ruby
   # bad
   You can always find more info about this course
-  = link_to 'here', course_path(@course)
+  <%= link_to 'here', course_path(@course) %>
 
   # good
   You can always find more info about this course
-  = link_to 'here', course_url(@course)
+  <%= link_to 'here', course_url(@course) %>
   ```
 
 * <a name="email-addresses"></a>
@@ -843,6 +972,43 @@ your application.
   sent. To overcome this emails can be sent in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 <sup>[[link](#background-email)]</sup>
+
+## Time
+
+* <a name="tz-config"></a>
+  Config your timezone accordingly in `application.rb`.
+<sup>[[link](#time-now)]</sup>
+
+  ```Ruby
+  config.time_zone = 'Eastern European Time'
+  # optional - note it can be only :utc or :local (default is :utc)
+  config.active_record.default_timezone = :local
+  ```
+
+* <a name="time-parse"></a>
+  Don't use `Time.parse`.
+<sup>[[link](#time-parse)]</sup>
+
+  ```Ruby
+  # bad
+  Time.parse('2015-03-02 19:05:37') # => Will assume time string given is in the system's time zone.
+
+  # good
+  Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
+  ```
+
+* <a name="time-now"></a>
+  Don't use `Time.now`.
+<sup>[[link](#time-now)]</sup>
+
+  ```Ruby
+  # bad
+  Time.now # => Returns system time and ignores your configured time zone.
+
+  # good
+  Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
+  Time.current # Same thing but shorter.
+  ```
 
 ## Bundler
 
