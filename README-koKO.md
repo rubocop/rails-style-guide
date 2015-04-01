@@ -3,7 +3,7 @@
 > 롤 모델이 중요하다. <br/>
 > -- Officer Alex J. Murphy / RoboCop
 
-이 가이드는 루비 온 레일즈 4 개발을 위한 모범 예제와 스타일 규칙을 전달하고자 작성되었습니다. 또한 커뮤니티 중심으로 만들어진 [루비 코딩 스타일 가이드](https://github.com/bbatsov/ruby-style-guide)을 보완하는 가이드입니다.
+이 가이드는 루비 온 레일즈 4 개발을 위한 모범 예제와 스타일 규칙을 전달하고자 작성되었습니다. 또한 커뮤니티 기반 [루비 코딩 스타일 가이드](https://github.com/bbatsov/ruby-style-guide)을 보완하는 가이드입니다.
 
 여기서 작성된 몇몇 예시들은 레일즈 4.0 이상의 버전에서만 적용될 수 있습니다.
 
@@ -1088,34 +1088,28 @@ you have time to spare:
 
 # Contributing
 
-Nothing written in this guide is set in stone. It's my desire to work together
-with everyone interested in Rails coding style, so that we could ultimately
-create a resource that will be beneficial to the entire Ruby community.
+이 문서는 아직 완성된 것이 아닙니다. 저는 이 가이드가 레일즈 코딩 스타일에 흥미 있는 사람들과 함께 만들어 가면서, 모든 루비 커뮤니티에게 유용한 자료가 되었으면 합니다.
 
-Feel free to open tickets or send pull requests with improvements. Thanks in
-advance for your help!
+개선을 위한 풀 리퀘스(pull requests)를 마음껏 보내주세요. 미리 감사의 말씀을 드립니다.
 
-You can also support the project (and RuboCop) with financial contributions via
-[gittip](https://www.gittip.com/bbatsov).
+또한 이 프로젝트(와 RuboCop)에 금전적인 기원는 [gittip](https://www.gittip.com/bbatsov)을 통해 참여할 수 있습니다.
 
 [![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
 
 ## How to Contribute?
 
-It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md).
+[contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md)을 따라 쉽게 기여할 수 있습니다.
 
 # License
 
 ![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
-This work is licensed under a [Creative Commons Attribution 3.0 Unported
-License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
+[Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)에 따라 이용가능 합니다.
 
 # Spread the Word
 
-A community-driven style guide is of little use to a community that doesn't know
-about its existence. Tweet about the guide, share it with your friends and
-colleagues. Every comment, suggestion or opinion we get makes the guide just a
-little bit better. And we want to have the best possible guide, don't we?
+이 문서의 존재에 대하여 모른다면, 커뮤니티 기반의 스타일 가이드는 아무런 의미가 없습니다.
+이 가이드에 대하여 트윗하거나, 친구와 동료들에게 공유하세요. 댓글과 의견, 제안들을 주시면 조금 더 나은 가이드를 만드는데 도움이 될 것입니다. 
+더 좋은 가이드를 만들고 싶지 않으신가요?
 
-Cheers,<br/>
+화이팅<br/>
 [Bozhidar](https://twitter.com/bbatsov)
