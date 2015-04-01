@@ -30,40 +30,39 @@
 
 ## 목차
 
-* [설정](#configuration)
-* [라우팅](#routing)
-* [컨트롤러](#controllers)
-* [모델](#models)
-  * [엑티브 레코드](#activerecord)
-  * [엑티브 레코드 쿼리](#activerecord-queries)
-* [마이그레이션](#migrations)
-* [뷰](#views)
-* [국제화](#internationalization)
+* [Configuration](#configuration)
+* [Routing](#routing)
+* [Controllers](#controllers)
+* [Models](#models)
+  * [ActiveRecord](#activerecord)
+  * [ActiveRecord Queries](#activerecord-queries)
+* [Migrations](#migrations)
+* [Views](#views)
+* [Internationalization](#internationalization)
 * [Assets](#assets)
-* [메일](#mailers)
-* [시간](#time)
-* [번들러](#bundler)
-* [결점이 있는 젬(Gems)](#flawed-gems)
-* [프로세스 관리](#managing-processes)
+* [Mailers](#mailers)
+* [Time](#time)
+* [Bundler](#bundler)
+* [Flawed Gems](#flawed-gems)
+* [Managing processes](#managing-processes)
 
-## 설정(Configuration)
+## Configuration
 
 * <a name="config-initializers"></a>
-  Put custom initialization code in `config/initializers`. The code in
-  initializers executes on application startup.
+  `config/initializers`에 초기 설정 코드 둘 것. 그 코드들은 어플리케이션이 처음 구동 될 때 실행됩니다.
 <sup>[[link](#config-initializers)]</sup>
 
 * <a name="gem-initializers"></a>
-  Keep initialization code for each gem in a separate file with the same name
-  as the gem, for example `carrierwave.rb`, `active_admin.rb`, etc.
+  젬(gem)별로 각각의 초기 설정파일은 젬과 같은 이름으로 파일을 구분하여 둘 것.
+  예를들면 `carrierwave.rb`, `active_admin.rb`, 등.
 <sup>[[link](#gem-initializers)]</sup>
 
 * <a name="dev-test-prod-configs"></a>
-  Adjust accordingly the settings for development, test and production
-  environment (in the corresponding files under `config/environments/`)
+  개발, 테스트 그리고 배포 환경을 위해 설정들을 적절히 조절 할 것.
+  (`config/environments/`아래에 각각에 상응하도록)
 <sup>[[link](#dev-test-prod-configs)]</sup>
 
-  * Mark additional assets for precompilation (if any):
+  * 사전 컴파일(있다면)에 대한 추가적인 Assets을 표시할 것:
 
     ```Ruby
     # config/environments/production.rb
@@ -73,20 +72,18 @@
     ```
 
 * <a name="app-config"></a>
-  Keep configuration that's applicable to all environments in the
-  `config/application.rb` file.
+  모든 환경에 적용되어야 하는 설정들은 `config/application.rb` 파일에 둘 것.
 <sup>[[link](#app-config)]</sup>
 
 * <a name="staging-like-prod"></a>
-  Create an additional `staging` environment that closely resembles the
-  `production` one.
+  배포 환경과 아주 유사한 추가적인 'staging' 환경을 생성할 것.
 <sup>[[link](#staging-like-prod)]</sup>
 
 * <a name="yaml-config"></a>
-  Keep any additional configuration in YAML files under the `config/` directory.
+  다른 추가적인 설정들은 'config/'디렉토리 아래의 YAML파일에 둘 것.
 <sup>[[link](#yaml-config)]</sup>
 
-  Since Rails 4.2 YAML configuration files can be easily loaded with the new `config_for` method:
+  레일즈 4.2에서 YAML 설정 파일들은 새로운 'config_for'매서드를 통해 쉽게 로드 될 수 있습니다:
 
   ```Ruby
   Rails::Application.config_for(:yaml_file)
