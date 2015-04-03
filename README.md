@@ -566,6 +566,43 @@ programming resources.
     fail "Cannot delete super admin." if super_admin?
   end
   ```
+* <a name="model_setters"></a>
+ Use the override setter instead of callbacks.
+<sup>[[link](#model_setters)]</sup>
+
+  ```Ruby
+  # bad
+  class User < ActiveRecord::Base
+    before_validation :normalize_email
+
+    private
+    def normalize_email
+      self.email = self.email.downcase
+    end
+  end
+
+  u = User.new email: "COOL@EMAIL.COM"
+
+  u.email
+  #=> "COOL@EMAIL.COM"
+
+  u.valid?
+
+  u.email
+  #=> "cool@email.com"
+
+  # good
+  class User < ActiveRecord::Base
+    def email=(value)
+      super value.downcase
+    end
+  end
+
+  u = User.new email: "COOL@EMAIL.COM"
+
+  u.email
+  #=> "cool@email.com"
+  ```
 
 ### ActiveRecord Queries
 
