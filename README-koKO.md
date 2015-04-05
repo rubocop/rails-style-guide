@@ -3,13 +3,13 @@
 > 롤 모델이 중요하다. <br/>
 > -- Officer Alex J. Murphy / RoboCop
 
-이 가이드는 루비 온 레일즈 4 개발을 위한 모범 예제와 스타일 규칙을 전달하고자 작성되었습니다. 또한 커뮤니티 기반 [루비 코딩 스타일 가이드](https://github.com/bbatsov/ruby-style-guide)을 보완하는 가이드입니다.
+이 가이드는 루비 온 레일즈 4 개발을 위한 좋은 예제들과 코딩 스타일 규칙을 전달하고자 작성되었습니다. 또한 커뮤니티 기반 [루비 코딩 스타일 가이드](https://github.com/bbatsov/ruby-style-guide)을 보완해주는 가이드입니다.
 
-여기서 작성된 몇몇 예시들은 레일즈 4.0 이상의 버전에서만 적용될 수 있습니다.
+여기서 작성된 몇몇 예제들은 레일즈 4.0 이상의 버전에서만 적용될 수 있으니 참고하세요.
 
 [Transmuter](https://github.com/TechnoGate/transmuter)를 이용하시면 이 가이드를 PDF 또는 HTML형식으로 만들 수 있습니다.
 
-이 가이드는 다음의 언어들로 번역이 되어있습니다.
+다음의 언어들로도 이 가이드를 읽어 볼 수 있습니다.
 
 * [Chinese Simplified](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md)
 * [Chinese Traditional](https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md)
@@ -20,13 +20,11 @@
 
 # 레일즈 스타일 가이드
 
-이 레일즈 스타일 가이드는 다른 레일즈 개발자들과 유지가능한 코드를 작성하는 모범 예제를 적용하는 것을 추천합니다.
-아래의 내용들은 실제 사용밥법을 반영하기 때문에, 너무 이상적으로 만들어져서 적용이 위험하다고 느끼는 사람은 사용하지 않는 것이 좋습니다.
- &ndash; 아무리 좋다고 해도 말이다.
+이 가이드는 다른 레일즈 개발자들과 유지가능한 코드를 작성하는 모범 예제들을 적용할 것을 추천한다. 아래의 내용들은 실제 사용방법을 반영하기 때문에, 너무 이상적으로 만들어져서 적용이 위험하다고 느끼는 사람은 사용하지 않는 것이 좋다. - 아무리 좋다고 해도 말이다.
 
-이 가이드는 관련된 규칙에 따라 여러 부분으로 나뉘어 있다.(자명하다고 판단된 것을 제외하고는)규칙을 적으며 근거를 덧붙이려 노력했습니.
+서로 관련있는 규칙에 따라 다양한 섹션으로 구분 지었다.(자명하다고 판단된 것을 제외하고는)규칙에 대한 근거를 덧붙이려 노력하였다.
 
-이 모든 규칙들이 갑자기 제시되어진 것은 아닙니다. 이것들 대부분이 내 전문분야인 소프트웨어 엔지니어로서의 수많은 경험, 레일즈 커뮤니티에서의 피드백과 제안, 또한 높은 평가를 받고 있는 레일즈 프로그래밍 리소스를 기반으로 하였습니다.
+이 모든 규칙들이 하루 아침에 만들어 진것은 아니다. 대부분이 내 전문분야인 소프트웨어 엔지니어로서의 수많은 경험, 레일즈 커뮤니티에서의 피드백과 제안, 또한 높은 평가를 받고 있는 레일즈 프로그래밍 리소스를 기반으로 하였다.
 
 ## 목차
 
@@ -49,7 +47,7 @@
 ## Configuration
 
 * <a name="config-initializers"></a>
-  `config/initializers`에 초기 설정 코드 둘 것. 그 코드들은 어플리케이션이 처음 구동 될 때 실행됩니다.
+  `config/initializers`에 초기 설정 코드 둘 것. 그 코드들은 어플리케이션이 처음 구동 될 때 실행된다.
 <sup>[[link](#config-initializers)]</sup>
 
 * <a name="gem-initializers"></a>
@@ -83,7 +81,7 @@
   다른 추가적인 설정들은 'config/'디렉토리 아래의 YAML파일에 둘 것.
 <sup>[[link](#yaml-config)]</sup>
 
-  레일즈 4.2에서 YAML 설정 파일들은 새로운 'config_for'매서드를 통해 쉽게 로드 될 수 있습니다:
+  레일즈 4.2에서 YAML 설정 파일들은 새로운 'config_for'매서드를 통해 쉽게 로드 될 수 있다:
 
   ```Ruby
   Rails::Application.config_for(:yaml_file)
@@ -116,8 +114,8 @@
   ```
 
 * <a name="many-member-collection-routes"></a>
-  If you need to define multiple `member/collection` routes use the
-  alternative block syntax.
+  여러개의 'member/collection' 라우트를 정의해야 한다면, 
+  block 문법을 대안으로 사용할 것.
 <sup>[[link](#many-member-collection-routes)]</sup>
 
   ```Ruby
@@ -137,7 +135,7 @@
   ```
 
 * <a name="nested-routes"></a>
-  엑티브 레코드(ActiveRecord) 모델간의 관계를 더 잘 표현하기 위해서는 중첩 라우트(routes)를 사용하라.
+  엑티브 레코드(ActiveRecord) 모델간의 관계를 더 분명하게 표현하기 위해서는 중첩 라우트(routes)를 사용할 것.
 <sup>[[link](#nested-routes)]</sup>
 
   ```Ruby
@@ -156,7 +154,7 @@
   ```
 
 * <a name="namespaced-routes"></a>
-  Use namespaced routes to group related actions.
+  그룹과 관련된 액션(actions)은 namespace를 사용한 라우터를 이용할 것. 
 <sup>[[link](#namespaced-routes)]</sup>
 
   ```Ruby
@@ -168,8 +166,8 @@
   ```
 
 * <a name="no-wild-routes"></a>
-  Never use the legacy wild controller route. This route will make all actions
-  in every controller accessible via GET requests.
+  레거시(legacy)가 발생 할 수 있는 라우터를 절대 사용하지 말 것.
+  GET방식의 요청으로 모든 컨트롤러에 모든 액션(actions)에 접근 할 수 있게 된다.
 <sup>[[link](#no-wild-routes)]</sup>
 
   ```Ruby
@@ -178,13 +176,13 @@
   ```
 
 * <a name="no-match-routes"></a>
-  Don't use `match` to define any routes unless there is need to map multiple request types among `[:get, :post, :patch, :put, :delete]` to a single action using `:via` option.
+  '[:get, :post, :patch, :put, :delete]'중 여러 종류의 요청을 ':via'옵션을 사용하여 하나의 액션에 매핑할 필요가 있는 것이 아니라면 'match'를 라우터를 명시하는데 사용하지 말 것.
 <sup>[[link](#no-match-routes)]</sup>
 
 ## Controllers
 
 * <a name="skinny-controllers"></a>
-  컨트롤러는 최대한 간결하게 - 컨트롤러는 단지 뷰 레이어를 위해 데이터를 가져오는 역할을 하고 어떠한 비즈니스 로직을 포함해서는 안됩니다. (모든 비즈니스 로직은 당연히 모델 안에서 구현되어야 한다.)
+  컨트롤러는 최대한 간결하게 - 컨트롤러는 단지 뷰 레이어를 위해 데이터를 가져오는 역할을 하고 어떠한 비즈니스 로직을 포함해서는 안된다. (모든 비즈니스 로직은 당연히 모델 안에서 구현되어야 한다.)
 <sup>[[link](#skinny-controllers)]</sup>
 
 * <a name="one-method"></a>
@@ -206,7 +204,7 @@
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  엑티브 레코드의 데이터베이스 기능을 제외한 validation과 같은 기능만 필요한 모델 오브젝트가 필요하다면 [ActiveAttr](https://github.com/cgriego/active_attr) gem을 사용하라.
+  엑티브 레코드의 데이터베이스 기능을 제외한 validation과 같은 기능만 필요한 모델 오브젝트가 필요하다면 [ActiveAttr](https://github.com/cgriego/active_attr) gem을 사용할 것.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
@@ -226,7 +224,7 @@
   end
   ```
 
-  더 많은 예제는 링크를 참조하세요.
+  더 많은 예제는 링크를 참조.
   [RailsCast on the subject](http://railscasts.com/episodes/326-activeattr).
 
 ### ActiveRecord
@@ -244,7 +242,7 @@
   ```
 
 * <a name="macro-style-methods"></a>
-  클래스 상단에 매크로 성격의 매서드('has_many', 'validates', 등)를 그룹화 시켜 두어라.
+  클래스 상단에 매크로 성격의 매서드('has_many', 'validates', 등)를 그룹화 해둘 것.
 <sup>[[link](#macro-style-methods)]</sup>
 
   ```Ruby
@@ -288,7 +286,7 @@
 <sup>[[link](#has-many-through)]</sup>
 
   ```Ruby
-  # not so good - using has_and_belongs_to_many
+  # 그렇게 좋진 않은 예 - has_and_belongs_to_many 사용..
   class User < ActiveRecord::Base
     has_and_belongs_to_many :groups
   end
@@ -297,7 +295,7 @@
     has_and_belongs_to_many :users
   end
 
-  # prefered way - using has_many :through
+  # 선호되는 방식 - has_many :through를 사용..
   class User < ActiveRecord::Base
     has_many :memberships
     has_many :groups, through: :memberships
@@ -315,7 +313,7 @@
   ```
 
 * <a name="read-attribute"></a>
-  `read_attribute(:attribute)`보다 `self[:attribute]` 을 사용할 것.
+  `read_attribute(:attribute)`보 `self[:attribute]` 을 사용할 것.
 <sup>[[link](#read-attribute)]</sup>
 
   ```Ruby
@@ -361,7 +359,7 @@
   ```
 
 * <a name="custom-validator-file"></a>
-  커스텀 validation을 한 번 이상 사용 한다거나, 정규표현식을 사용한다면, 커스텀 validator 파일을 생성하라.
+  커스텀 validation을 한 번 이상 사용 한다거나 정규표현식을 이용한다면, 커스텀 validator 파일을 생성할 것.
 <sup>[[link](#custom-validator-file)]</sup>
 
   ```Ruby
@@ -386,7 +384,7 @@
 <sup>[[link](#app-validators)]</sup>
 
 * <a name="custom-validators-gem"></a>
-  여러 어플리케이션에서 같이 사용되는 커스텀 validator와 충분히 일반화 되어진 validators는 분리해서 gem으로 공유하라.
+  여러 어플리케이션에서 같이 사용되는 커스텀 validator와 충분히 일반화 되어진 validators는 분리해서 gem으로 공유하여 사용할 것.
 <sup>[[link](#custom-validators-gem)]</sup>
 
 * <a name="named-scopes"></a>
@@ -1033,7 +1031,7 @@ your application.
 
 # Further Reading
 
-시간이 있다면 참고할만한 몇몇 훌륭한 레일즈 스타일과 관련 자료들이 있다.
+시간이 있다면 더 참고할만한 몇몇 훌륭한 레일즈 스타일과 관련된 자료들이 있다.
 
 * [The Rails 4 Way](http://www.amazon.com/The-Rails-Addison-Wesley-Professional-Ruby/dp/0321944275)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
@@ -1046,7 +1044,7 @@ your application.
 
 이 문서는 아직 완성된 것이 아닙니다. 저는 이 가이드가 레일즈 코딩 스타일에 흥미 있는 사람들과 함께 만들어 가면서, 모든 루비 커뮤니티에게 유용한 자료가 되었으면 합니다.
 
-개선을 위한 풀 리퀘스(pull requests)를 마음껏 보내주세요. 미리 감사의 말씀을 드립니다.
+개선을 위한 풀 리퀘스(pull requests)를 마음껏 보내주시고, 감사의 말씀을 미리 드립니다.
 
 또한 이 프로젝트(와 RuboCop)에 기부를 원하시는 분은 [gittip](https://www.gittip.com/bbatsov)을 통해 참여할 수 있습니다.
 
@@ -1054,17 +1052,17 @@ your application.
 
 ## How to Contribute?
 
-[contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md)을 따라 쉽게 기여할 수 있습니다.
+[contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md)을 참고하여 프로젝트에 쉽게 기여할 수 있습니다.
 
 # License
 
 ![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
-[Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)에 따라 이용가능 합니다.
+[Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)의 라이센스가 적용되어 있습니다.
 
 # Spread the Word
 
 이 문서의 존재에 대하여 모른다면, 커뮤니티 기반의 스타일 가이드는 아무런 의미가 없습니다.
-이 가이드에 대하여 트윗하거나, 친구와 동료들에게 공유하세요. 댓글과 의견, 제안들을 주시면 조금 더 나은 가이드를 만드는데 도움이 될 것입니다. 
+이 가이드에 대하여 트윗하거나, 친구와 동료들에게 공유하세요. 댓글, 의견 그리고 제안들을 주시면 조금 더 나은 가이드를 만드는데 도움이 될 것입니다. 
 더 좋은 가이드를 만들고 싶지 않으신가요?
 
 화이팅<br/>
