@@ -92,25 +92,24 @@
 ## Routing
 
 * <a name="member-collection-routes"></a>
-  When you need to add more actions to a RESTful resource (do you really need
-  them at all?) use `member` and `collection` routes.
+  RESTful 리소스에 더 많은 액션(actions)을 추가할 필요가 있다면, (정말로 그게 다 필요한가??;;;) `member` 와 `collection` 라우트를 사용하라.
 <sup>[[link](#member-collection-routes)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   get 'subscriptions/:id/unsubscribe'
   resources :subscriptions
 
-  # good
+  # 좋은 예
   resources :subscriptions do
     get 'unsubscribe', on: :member
   end
 
-  # bad
+  # 나쁜 예
   get 'photos/search'
   resources :photos
 
-  # good
+  # 좋은 예
   resources :photos do
     get 'search', on: :collection
   end
@@ -138,8 +137,7 @@
   ```
 
 * <a name="nested-routes"></a>
-  Use nested routes to express better the relationship between ActiveRecord
-  models.
+  엑티브 레코드(ActiveRecord) 모델간의 관계를 더 잘 표현하기 위해서는 중첩 라우트(routes)를 사용하라.
 <sup>[[link](#nested-routes)]</sup>
 
   ```Ruby
@@ -175,7 +173,7 @@
 <sup>[[link](#no-wild-routes)]</sup>
 
   ```Ruby
-  # very bad
+  # 아주 나쁜 예
   match ':controller(/:action(/:id(.:format)))'
   ```
 
@@ -186,18 +184,15 @@
 ## Controllers
 
 * <a name="skinny-controllers"></a>
-  Keep the controllers skinny - they should only retrieve data for the view
-  layer and shouldn't contain any business logic (all the business logic
-  should naturally reside in the model).
+  컨트롤러는 최대한 간결하게 - 컨트롤러는 단지 뷰 레이어를 위해 데이터를 가져오는 역할을 하고 어떠한 비즈니스 로직을 포함해서는 안됩니다. (모든 비즈니스 로직은 당연히 모델 안에서 구현되어야 한다.)
 <sup>[[link](#skinny-controllers)]</sup>
 
 * <a name="one-method"></a>
-  Each controller action should (ideally) invoke only one method other than an
-  initial find or new.
+  컨트롤러의 각각의 액션은 (원칙적으로는) 단 하나의 매서드만을 호출 해야한다.
 <sup>[[link](#one-method)]</sup>
 
 * <a name="shared-instance-variables"></a>
-  Share no more than two instance variables between a controller and a view.
+  하나의 컨트롤러와 뷰 사이에서 두개 이상의 인스턴스 변수들을 공유하지 않는다.
 <sup>[[link](#shared-instance-variables)]</sup>
 
 ## Models
@@ -207,13 +202,11 @@
 <sup>[[link](#model-classes)]</sup>
 
 * <a name="meaningful-model-names"></a>
-  Name the models with meaningful (but short) names without abbreviations.
+  약어를 쓰지않고 의미 있는 이름으로 (짧게) 모델을 명명한다.
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  If you need model objects that support ActiveRecord behavior (like validation)
-  without the ActiveRecord database functionality use the
-  [ActiveAttr](https://github.com/cgriego/active_attr) gem.
+  엑티브 레코드의 데이터베이스 기능을 제외한 validation과 같은 기능만 필요한 모델 오브젝트가 필요하다면 [ActiveAttr](https://github.com/cgriego/active_attr) gem을 사용하라.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
@@ -233,18 +226,17 @@
   end
   ```
 
-  For a more complete example refer to the
+  더 많은 예제는 링크를 참조하세요.
   [RailsCast on the subject](http://railscasts.com/episodes/326-activeattr).
 
 ### ActiveRecord
 
 * <a name="keep-ar-defaults"></a>
-  Avoid altering ActiveRecord defaults (table names, primary key, etc) unless
-  you have a very good reason (like a database that's not under your control).
+  특별한 이유가 아니라면(legacy가 있다든지..) ActiveRecord의 기본설정(테이블 이름, 기본키, 등)을 가능한 변경하지 말것.
 <sup>[[link](#keep-ar-defaults)]</sup>
 
   ```Ruby
-  # bad - don't do this if you can modify the schema
+  # 나쁜 예 - 스키마 변경을 한다면 하지 말것!!
   class Transaction < ActiveRecord::Base
     self.table_name = 'order'
     ...
@@ -252,8 +244,7 @@
   ```
 
 * <a name="macro-style-methods"></a>
-  Group macro-style methods (`has_many`, `validates`, etc) in the beginning of
-  the class definition.
+  클래스 상단에 매크로 성격의 매서드('has_many', 'validates', 등)를 그룹화 시켜 두어라.
 <sup>[[link](#macro-style-methods)]</sup>
 
   ```Ruby
@@ -292,8 +283,8 @@
   ```
 
 * <a name="has-many-through"></a>
-  Prefer `has_many :through` to `has_and_belongs_to_many`. Using `has_many
-  :through` allows additional attributes and validations on the join model.
+  'has_and_belongs_to_many'보다 'has_many :through'를 사용하라.
+  'has_many:through' 사용하면 추가적인 속성과 validation을 조인하는 모델을 통해 사용할 수 있다.
 <sup>[[link](#has-many-through)]</sup>
 
   ```Ruby
@@ -324,63 +315,62 @@
   ```
 
 * <a name="read-attribute"></a>
-  Prefer `self[:attribute]` over `read_attribute(:attribute)`.
+  `read_attribute(:attribute)`보다 `self[:attribute]` 을 사용할 것.
 <sup>[[link](#read-attribute)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   def amount
     read_attribute(:amount) * 100
   end
 
-  # good
+  # 좋은 예
   def amount
     self[:amount] * 100
   end
   ```
 
 * <a name="write-attribute"></a>
-  Prefer `self[:attribute] = value` over `write_attribute(:attribute, value)`.
+  `write_attribute(:attribute, value)`보다 `self[:attribute] = value`를 사용할 것.
 <sup>[[link](#write-attribute)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   def amount
     write_attribute(:amount, 100)
   end
 
-  # good
+  # 좋은 예
   def amount
     self[:amount] = 100
   end
   ```
 
 * <a name="sexy-validations"></a>
-  Always use the new ["sexy"
-  validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
+  항상 새로운["섹시한"
+  validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/)을 사용할 것.
 <sup>[[link](#sexy-validations)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   validates_presence_of :email
   validates_length_of :email, maximum: 100
 
-  # good
+  # 좋은 예
   validates :email, presence: true, length: { maximum: 100 }
   ```
 
 * <a name="custom-validator-file"></a>
-  When a custom validation is used more than once or the validation is some
-  regular expression mapping, create a custom validator file.
+  커스텀 validation을 한 번 이상 사용 한다거나, 정규표현식을 사용한다면, 커스텀 validator 파일을 생성하라.
 <sup>[[link](#custom-validator-file)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   class Person
     validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   end
 
-  # good
+  # 좋은 예
   class EmailValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
       record.errors[attribute] << (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -391,14 +381,12 @@
     validates :email, email: true
   end
   ```
-
 * <a name="app-validators"></a>
-  Keep custom validators under `app/validators`.
+  `app/validators`아래에 커스텀 validator파일을 둔다..
 <sup>[[link](#app-validators)]</sup>
 
 * <a name="custom-validators-gem"></a>
-  Consider extracting custom validators to a shared gem if you're maintaining
-  several related apps or the validators are generic enough.
+  여러 어플리케이션에서 같이 사용되는 커스텀 validator와 충분히 일반화 되어진 validators는 분리해서 gem으로 공유하라.
 <sup>[[link](#custom-validators-gem)]</sup>
 
 * <a name="named-scopes"></a>
@@ -632,35 +620,33 @@ when you need to retrieve a single record by some attributes.
   ```
 
 * <a name="where-not"></a>
-  Favor the use of `where.not` over SQL.
+  SQL에 있어 'where.not'의 사용을 선호하라.
 <sup>[[link](#where-not)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   User.where("id != ?", id)
 
-  # good
+  # 좋은 예
   User.where.not(id: id)
   ```
 
 ## Migrations
 
 * <a name="schema-version"></a>
-  Keep the `schema.rb` (or `structure.sql`) under version control.
+  'schema.rb' (또는 'structure.sql') 파일의 버전관리를 하라.
 <sup>[[link](#schema-version)]</sup>
 
 * <a name="db-schema-load"></a>
-  Use `rake db:schema:load` instead of `rake db:migrate` to initialize an empty
-  database.
+  빈 database를 초기화 위해서는 'rake db:migrate'대신에 'rake db:schema:load'를 사용하라.
 <sup>[[link](#db-schema-load)]</sup>
 
 * <a name="default-migration-values"></a>
-  Enforce default values in the migrations themselves instead of in the
-  application layer.
+  default 값들은 어플리케이션 층보다 마이그레이션 자체에서 지정되도록 하라.
 <sup>[[link](#default-migration-values)]</sup>
 
   ```Ruby
-  # bad - application enforced default value
+  # 나쁜 예 - 어플리케이션 층에서 default값을 정한 경우 
   def amount
     self[:amount] or 0
   end
@@ -679,12 +665,11 @@ when you need to retrieve a single record by some attributes.
   <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
-  When writing constructive migrations (adding tables or columns),
-  use the `change` method instead of `up` and `down` methods.
+  (테이블 또는 컬럼을 추가하는) 구조적인 마이그레이션을 작성할 때는 'up'과 'down' 매서드 대신에 'change'매서드를 사용하라.
   <sup>[[link](#change-vs-up-down)]</sup>
 
   ```Ruby
-  # the old way
+  # 옛날 방식
   class AddNameToPeople < ActiveRecord::Migration
     def up
       add_column :people, :name, :string
@@ -695,7 +680,7 @@ when you need to retrieve a single record by some attributes.
     end
   end
 
-  # the new prefered way
+  # 새롭게 선호되는 방식
   class AddNameToPeople < ActiveRecord::Migration
     def change
       add_column :people, :name, :string
@@ -704,7 +689,7 @@ when you need to retrieve a single record by some attributes.
   ```
 
 * <a name="no-model-class-migrations"></a>
-  Don't use model classes in migrations. The model classes are constantly
+  마이그레이션에서 모델 클래스를 사용하지 말것. The model classes are constantly
   evolving and at some point in the future migrations that used to work might
   stop, because of changes in the models used.
 <sup>[[link](#no-model-class-migrations)]</sup>
@@ -712,29 +697,25 @@ when you need to retrieve a single record by some attributes.
 ## Views
 
 * <a name="no-direct-model-view"></a>
-  Never call the model layer directly from a view.
+  view에서 직접적으로 모델 계층을 call 하지 말것.
 <sup>[[link](#no-direct-model-view)]</sup>
 
 * <a name="no-complex-view-formatting"></a>
-  Never make complex formatting in the views, export the formatting to a method
-  in the view helper or the model.
+  view에서는 절대 복잡한 구조를 만들지 말고, 그러한 구조를 view helper의 매서드나 모델쪽으로 분리할 것.
 <sup>[[link](#no-complex-view-formatting)]</sup>
 
 * <a name="partials"></a>
-  Mitigate code duplication by using partial templates and layouts.
+  템플릿과 레이아웃을 이용하여 코드의 중복을 최소화 할 것.
 <sup>[[link](#partials)]</sup>
 
 ## Internationalization
 
 * <a name="locale-texts"></a>
-  No strings or other locale specific settings should be used in the views,
-  models and controllers. These texts should be moved to the locale files in the
-  `config/locales` directory.
+  뷰, 모델 그리고 컨트롤러에서는 로케일(locale)관련 설정이나 직접적인 strings 문자를 사용하지 않는다. 이러한 문자들은 'config/locales' 디렉터리 아래의 로케일 파일로 옮긴다.
 <sup>[[link](#locale-texts)]</sup>
 
 * <a name="translated-labels"></a>
-  When the labels of an ActiveRecord model need to be translated, use the
-  `activerecord` scope:
+  ActiveRecord 모델의 라벨에 대한 번역이 필요할 때는 'activerecord' scope을 사용한다.
 <sup>[[link](#translated-labels)]</sup>
 
   ```
@@ -746,11 +727,9 @@ when you need to retrieve a single record by some attributes.
         user:
           name: 'Full name'
   ```
-
-  Then `User.model_name.human` will return "Member" and
-  `User.human_attribute_name("name")` will return "Full name". These
-  translations of the attributes will be used as labels in the views.
-
+  그러면 'User.model_name.human'은 'Member'를 return하고
+  'User.human_attribute_name("name")'은 "Full name"을 리턴 할 것이다.
+  이러한 속성들에 대한 번역은 뷰에서 라벨로 사용되어 진다.
 
 * <a name="organize-locale-files"></a>
   Separate the texts used in the views from translations of ActiveRecord
@@ -758,9 +737,7 @@ when you need to retrieve a single record by some attributes.
   texts used in the views in folder `views`.
 <sup>[[link](#organize-locale-files)]</sup>
 
-  * When organization of the locale files is done with additional directories,
-    these directories must be described in the `application.rb` file in order
-    to be loaded.
+  * 새로 만든 디렉터리에서 로케일(locale) 파일이 만들었다면, 로드 될 수 있도록 'application.rb' 파일에 설정해 주어야 한다.
 
       ```Ruby
       # config/application.rb
@@ -773,13 +750,14 @@ when you need to retrieve a single record by some attributes.
 <sup>[[link](#shared-localization)]</sup>
 
 * <a name="short-i18n"></a>
-  Use the short form of the I18n methods: `I18n.t` instead of `I18n.translate`
-  and `I18n.l` instead of `I18n.localize`.
+  I18n의 짧은 형식의 매서드를 사용하라. 
+  'I18n.translate' =>'I18n.t'
+  'I18n.localize' => 'I18n.l'
 <sup>[[link](#short-i18n)]</sup>
 
 * <a name="lazy-lookup"></a>
-  Use "lazy" lookup for the texts used in views. Let's say we have the following
-  structure:
+  뷰에서 사용되는 텍트트에 대해 'lazy' lookup을 사용하라.
+  예를들어 아래와 같은 구조가 있다고 하자.
 <sup>[[link](#lazy-lookup)]</sup>
 
   ```
@@ -789,30 +767,28 @@ when you need to retrieve a single record by some attributes.
         title: 'User details page'
   ```
 
-  The value for `users.show.title` can be looked up in the template
-  `app/views/users/show.html.haml` like this:
+  `users.show.title`의 값은 `app/views/users/show.html.haml`템플릿에서 아래와 같이 사용될 수 있다.
 
   ```Ruby
   = t '.title'
   ```
 
 * <a name="dot-separated-keys"></a>
-  Use the dot-separated keys in the controllers and models instead of specifying
-  the `:scope` option. The dot-separated call is easier to read and trace the
-  hierarchy.
+  컨트롤러와모델에서 scope 옵션보다 점으로 분리된 key를 사용하라.
+  읽기도 쉽고, 계층에서 찾아내기가 더 쉽다.
 <sup>[[link](#dot-separated-keys)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   I18n.t :record_invalid, :scope => [:activerecord, :errors, :messages]
 
-  # good
+  # 좋은 예
   I18n.t 'activerecord.errors.messages.record_invalid'
   ```
 
 * <a name="i18n-guides"></a>
-  More detailed information about the Rails I18n can be found in the [Rails
-  Guides](http://guides.rubyonrails.org/i18n.html)
+  Rails I18n과 관련된 더 상세한 정보는 [Rails
+  Guides](http://guides.rubyonrails.org/i18n.html)를 참고하라.
 <sup>[[link](#i18n-guides)]</sup>
 
 ## Assets
@@ -825,18 +801,17 @@ your application.
 <sup>[[link](#reserve-app-assets)]</sup>
 
 * <a name="lib-assets"></a>
-  Use `lib/assets` for your own libraries that don’t really fit into the
-  scope of the application.
+  어플리케이션 범위에 맞지 않는 직접 만들어진 라이브러리는 'lib/assets'에 두어라.
 <sup>[[link](#lib-assets)]</sup>
 
 * <a name="vendor-assets"></a>
-  Third party code such as [jQuery](http://jquery.com/) or
-  [bootstrap](http://twitter.github.com/bootstrap/) should be placed in
-  `vendor/assets`.
+  [jQuery](http://jquery.com/) 또는
+  [bootstrap](http://twitter.github.com/bootstrap/)와 같은 
+  제 3자에 의한 라이브러리는 'vendor/assets'에 둘 것.
 <sup>[[link](#vendor-assets)]</sup>
 
 * <a name="gem-assets"></a>
-  When possible, use gemified versions of assets (e.g.
+  가능하다면, 젬으로 만들어진 assets을 사용할 것(e.g.
   [jquery-rails](https://github.com/rails/jquery-rails),
   [jquery-ui-rails](https://github.com/joliss/jquery-ui-rails),
   [bootstrap-sass](https://github.com/thomas-mcdonald/bootstrap-sass),
@@ -846,17 +821,17 @@ your application.
 ## Mailers
 
 * <a name="mailer-name"></a>
-  Name the mailers `SomethingMailer`. Without the Mailer suffix it isn't
-  immediately apparent what's a mailer and which views are related to the
-  mailer.
+  'SomethingMailer'와 같이 mailer의 이름을 정할 것.
+  이러한 접미사가 없으면 어떠한 뷰가 어떠한 mailer에 관련되어 있는지 직관적이지 못하다.
 <sup>[[link](#mailer-name)]</sup>
 
 * <a name="html-plain-email"></a>
-  Provide both HTML and plain-text view templates.
+  HTML과 순수 텍스트 기반의 템플릿을 준비할 것.
 <sup>[[link](#html-plain-email)]</sup>
 
 * <a name="enable-delivery-errors"></a>
-  Enable errors raised on failed mail delivery in your development environment.
+  개발환경에서 메일 전송에 대한 실패에 대해 에러가 발생할 수 있도록(true) 할 것.
+  기본설정(default)은 발생하지 않게(false) 되어 있다.
   The errors are disabled by default.
 <sup>[[link](#enable-delivery-errors)]</sup>
 
@@ -867,9 +842,7 @@ your application.
   ```
 
 * <a name="local-smtp"></a>
-  Use a local SMTP server like
-  [Mailcatcher](https://github.com/sj26/mailcatcher) in the development
-  environment.
+  개발환경에서는 [Mailcatcher](https://github.com/sj26/mailcatcher)와 같은 로컬 SMTP를 사용할 것.
 <sup>[[link](#local-smtp)]</sup>
 
   ```Ruby
@@ -883,7 +856,7 @@ your application.
   ```
 
 * <a name="default-hostname"></a>
-  Provide default settings for the host name.
+  호스트 이름을 설정할 것.
 <sup>[[link](#default-hostname)]</sup>
 
   ```Ruby
@@ -898,23 +871,23 @@ your application.
   ```
 
 * <a name="url-not-path-in-email"></a>
-  If you need to use a link to your site in an email, always use the `_url`, not
-  `_path` methods. The `_url` methods include the host name and the `_path`
-  methods don't.
+  email에 사이트의 링크를 달고 싶다면, '_path'대신 '_url'매서드를 사용할 것.
+  '_url'매서드는 '_path'매서드가 갖고 있지 않는 호스트 이름을 가지고 있다.
 <sup>[[link](#url-not-path-in-email)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   You can always find more info about this course
   <%= link_to 'here', course_path(@course) %>
 
-  # good
+  # 좋은 예
   You can always find more info about this course
   <%= link_to 'here', course_url(@course) %>
   ```
 
 * <a name="email-addresses"></a>
-  Format the from and to addresses properly. Use the following format:
+  주소 형식의 폼을 적절하게 사용할 것.
+  아래의 형식을 따라라.
 <sup>[[link](#email-addresses)]</sup>
 
   ```Ruby
@@ -923,8 +896,7 @@ your application.
   ```
 
 * <a name="delivery-method-test"></a>
-  Make sure that the e-mail delivery method for your test environment is set to
-  `test`:
+  테스트 환경에서 e-mail 전송 매서드가 테스트로 설정(:test)이 되어 있는지 확인 할 것.
 <sup>[[link](#delivery-method-test)]</sup>
 
   ```Ruby
@@ -934,7 +906,7 @@ your application.
   ```
 
 * <a name="delivery-method-smtp"></a>
-  The delivery method for development and production should be `smtp`:
+  개발 및 배포 환경에서는 e-mail 전송 매서드가 :smtp로 설정되어 있어야 함.
 <sup>[[link](#delivery-method-smtp)]</sup>
 
   ```Ruby
@@ -944,76 +916,72 @@ your application.
   ```
 
 * <a name="inline-email-styles"></a>
-  When sending html emails all styles should be inline, as some mail clients
-  have problems with external styles. This however makes them harder to maintain
-  and leads to code duplication. There are two similar gems that transform the
-  styles and put them in the corresponding html tags:
-  [premailer-rails](https://github.com/fphilipe/premailer-rails) and
+  html형식의 email을 전송할 때, 몇몇 클라이언트에서는 외부 스타일시트를 참조하는데 문제가 발생할 수 있기때문에, css는 인라인(inline)으로 작성되어야 한다.
+  하지만 유지 보수가 힘들고 코드 중복이 발생할 수 있으므로,
+  스타일을 변형하여 html와 반응하게 만들어주는 두 가지 gem을 참고하도록 하자.
+  [premailer-rails](https://github.com/fphilipe/premailer-rails)와
   [roadie](https://github.com/Mange/roadie).
 <sup>[[link](#inline-email-styles)]</sup>
 
 * <a name="background-email"></a>
-  Sending emails while generating page response should be avoided. It causes
-  delays in loading of the page and request can timeout if multiple email are
-  sent. To overcome this emails can be sent in background process with the help
-  of [sidekiq](https://github.com/mperham/sidekiq) gem.
+  페이지를 생성하면서 이메일을 전송하는 것을 피하도록 하자.
+  페이지 로딩에 지연을 발생시키고, 여러 메일이 동시에 전송된다면 요청시간이 만료될 수 있다.
+  따라서 [sidekiq](https://github.com/mperham/sidekiq) gem을 통해 background 작업처리로 이메일을 전송하도록 한다.
 <sup>[[link](#background-email)]</sup>
 
 ## Time
 
 * <a name="tz-config"></a>
-  Config your timezone accordingly in `application.rb`.
+  'application.rb'에 알맞게 timezone을 설정할 것.
 <sup>[[link](#time-now)]</sup>
 
   ```Ruby
   config.time_zone = 'Eastern European Time'
-  # optional - note it can be only :utc or :local (default is :utc)
+  # 옵션 - note it can be only :utc or :local (default is :utc)
   config.active_record.default_timezone = :local
   ```
 
 * <a name="time-parse"></a>
-  Don't use `Time.parse`.
+  `Time.parse`를 사용하지 말 것.
 <sup>[[link](#time-parse)]</sup>
 
   ```Ruby
-  # bad
-  Time.parse('2015-03-02 19:05:37') # => Will assume time string given is in the system's time zone.
+  # 나쁜 예
+  Time.parse('2015-03-02 19:05:37') 
+  # => 이 매서드는 시스템 timezone에서 시간이 주어진 것으로 가정함
 
-  # good
-  Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
+  # 좋은 예
+  Time.zone.parse('2015-03-02 19:05:37') 
+  # => Mon, 02 Mar 2015 19:05:37 EET +02:00
   ```
 
 * <a name="time-now"></a>
-  Don't use `Time.now`.
+  'Time.now'를 사용하지 말 것.
 <sup>[[link](#time-now)]</sup>
 
   ```Ruby
-  # bad
-  Time.now # => Returns system time and ignores your configured time zone.
+  # 나쁜 예
+  Time.now # => timezone설정과 무관하게 system의 시간을 리턴
 
-  # good
+  # 좋은 예
   Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
-  Time.current # Same thing but shorter.
+  Time.current # 위와 같지만 더 짧은 방법.
   ```
 
 ## Bundler
 
 * <a name="dev-test-gems"></a>
-  Put gems used only for development or testing in the appropriate group in the
-  Gemfile.
+  Gemfile의 각각의 그룹에 맞추어 개발 또는 테스트에 맞는 gem을 설정 할 것.
 <sup>[[link](#dev-test-gems)]</sup>
 
 * <a name="only-good-gems"></a>
-  Use only established gems in your projects. If you're contemplating on
-  including some little-known gem you should do a careful review of its source
-  code first.
+  확실하게 알려진 gem을 사용 할 것.
+  잘 알려지지 않은 gem에 대하여 고민중이라면 우선 소스코드와 리뷰에 대하여 잘 살펴볼 것.
 <sup>[[link](#only-good-gems)]</sup>
 
 * <a name="os-specific-gemfile-locks"></a>
-  OS-specific gems will by default result in a constantly changing
-  `Gemfile.lock` for projects with multiple developers using different operating
-  systems.  Add all OS X specific gems to a `darwin` group in the Gemfile, and
-  all Linux specific gems to a `linux` group:
+  다른 OS를 사용하는 개발자들과 함께 프로젝트를 진행하게 되면 지속적으로 'Gemfile.lock'의 변경이 발생된다.
+  따라서 Gemfile의 'darwin'그룹에는 OS X 기반의 gem을 명시하고, 'linux'그룹에는 'linux' 기반의 gem을 두어라.
 <sup>[[link](#os-specific-gemfile-locks)]</sup>
 
   ```Ruby
@@ -1028,8 +996,7 @@ your application.
   end
   ```
 
-  To require the appropriate gems in the right environment, add the
-  following to `config/application.rb`:
+  올바른 환경에서 적절한 gem을 요구하기위해서는 'config/application.rb'에 아래와 같이 추가하라.
 
   ```Ruby
   platform = RUBY_PLATFORM.match(/(linux|darwin)/)[0].to_sym
@@ -1037,47 +1004,36 @@ your application.
   ```
 
 * <a name="gemfile-lock"></a>
-  Do not remove the `Gemfile.lock` from version control. This is not some
-  randomly generated file - it makes sure that all of your team members get the
-  same gem versions when they do a `bundle install`.
+  'Gemfile.lock'파일은 버전관리에서 제거하지 말 것.
+  이 파일은 무작위로 생성된 것이 아니라, 프로젝트를 진행하는 다른 개발자가 'bundle install'명령을 하였을 때 같은 버전의 gem을 사용할 수 있게 한다.
 <sup>[[link](#gemfile-lock)]</sup>
 
 ## Flawed Gems
+아래의 젬들은 문제가 있거나 다른 젬들에 의해 필요가 없어진 것들이다.
+프로젝트에서 사용하는 것을 피할 것!
 
-This is a list of gems that are either problematic or superseded by
-other gems. You should avoid using them in your projects.
+* [rmagick](http://rmagick.rubyforge.org/) - 메모리 소모로 악명이 높으므로 
+  [minimagick](https://github.com/minimagick/minimagick)를 사용할 것.
 
-* [rmagick](http://rmagick.rubyforge.org/) - this gem is notorious for its
-  memory consumption. Use
-  [minimagick](https://github.com/minimagick/minimagick) instead.
+* [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - 자동으로 테스트를 실행하는 오래된 솔루션이다.
+  [guard](https://github.com/guard/guard)와 
+  [watchr](https://github.com/mynyml/watchr)을 사용할 것.
 
-* [autotest](http://www.zenspider.com/ZSS/Products/ZenTest/) - old solution for
-  running tests automatically. Far inferior to
-  [guard](https://github.com/guard/guard) and
-  [watchr](https://github.com/mynyml/watchr).
+* [rcov](https://github.com/relevance/rcov) - 루비 1.9와 호환되지 않음. 대신 [SimpleCov](https://github.com/colszowka/simplecov)를 사용할 것.
 
-* [rcov](https://github.com/relevance/rcov) - code coverage tool, not compatible
-  with Ruby 1.9. Use [SimpleCov](https://github.com/colszowka/simplecov)
-  instead.
+* [therubyracer](https://github.com/cowboyd/therubyracer) - 메모리 소모가 크기 때문에, 대신 `node.js`를 사용할 것을 추천 함.
 
-* [therubyracer](https://github.com/cowboyd/therubyracer) - the use of this gem
-  in production is strongly discouraged as it uses a very large amount of
-  memory. I'd suggest using `node.js` instead.
-
-This list is also a work in progress. Please, let me know if you know other
-popular, but flawed gems.
+위의 젬 목록은 여전히 업데이트 중이다. 유명하지만 흠이 있는 젬을 알고 있다면 알려달라.
 
 ## Managing processes
 
 * <a name="foreman"></a>
-  If your projects depends on various external processes use
-  [foreman](https://github.com/ddollar/foreman) to manage them.
+  프로젝트가 다양한 외부 프로세스에 의존적이라면 [foreman](https://github.com/ddollar/foreman)을 사용하여 관리할 것.
 <sup>[[link](#foreman)]</sup>
 
 # Further Reading
 
-There are a few excellent resources on Rails style, that you should consider if
-you have time to spare:
+시간이 있다면 참고할만한 몇몇 훌륭한 레일즈 스타일과 관련 자료들이 있다.
 
 * [The Rails 4 Way](http://www.amazon.com/The-Rails-Addison-Wesley-Professional-Ruby/dp/0321944275)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
@@ -1092,7 +1048,7 @@ you have time to spare:
 
 개선을 위한 풀 리퀘스(pull requests)를 마음껏 보내주세요. 미리 감사의 말씀을 드립니다.
 
-또한 이 프로젝트(와 RuboCop)에 금전적인 기원는 [gittip](https://www.gittip.com/bbatsov)을 통해 참여할 수 있습니다.
+또한 이 프로젝트(와 RuboCop)에 기부를 원하시는 분은 [gittip](https://www.gittip.com/bbatsov)을 통해 참여할 수 있습니다.
 
 [![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
 
