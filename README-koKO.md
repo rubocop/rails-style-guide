@@ -90,7 +90,7 @@
 ## Routing
 
 * <a name="member-collection-routes"></a>
-  RESTful 리소스에 더 많은 액션(actions)을 추가할 필요가 있다면, (정말로 그게 다 필요한가??;;;) `member` 와 `collection` 라우트를 사용하라.
+  RESTful 리소스에 더 많은 액션(actions)을 추가할 필요가 있다면, (정말로 그게 다 필요한가??;;;) `member` 와 `collection` 라우트를 사용할 .
 <sup>[[link](#member-collection-routes)]</sup>
 
   ```Ruby
@@ -281,12 +281,12 @@
   ```
 
 * <a name="has-many-through"></a>
-  'has_and_belongs_to_many'보다 'has_many :through'를 사용하라.
+  'has_and_belongs_to_many'보다 'has_many :through'를 사용할 것.
   'has_many:through' 사용하면 추가적인 속성과 validation을 조인하는 모델을 통해 사용할 수 있다.
 <sup>[[link](#has-many-through)]</sup>
 
   ```Ruby
-  # 그렇게 좋진 않은 예 - has_and_belongs_to_many 사용..
+  # 그렇게 좋진 않은 예 - has_and_belongs_to_many 사용할 것.
   class User < ActiveRecord::Base
     has_and_belongs_to_many :groups
   end
@@ -295,7 +295,7 @@
     has_and_belongs_to_many :users
   end
 
-  # 선호되는 방식 - has_many :through를 사용..
+  # 선호되는 방식 - has_many :through를 사용할 것..
   class User < ActiveRecord::Base
     has_many :memberships
     has_many :groups, through: :memberships
@@ -313,7 +313,7 @@
   ```
 
 * <a name="read-attribute"></a>
-  `read_attribute(:attribute)`보 `self[:attribute]` 을 사용할 것.
+  `read_attribute(:attribute)`보다 `self[:attribute]` 을 사용할 것.
 <sup>[[link](#read-attribute)]</sup>
 
   ```Ruby
@@ -345,7 +345,7 @@
   ```
 
 * <a name="sexy-validations"></a>
-  항상 새로운["섹시한"
+  항상 새로운 ["섹시한"
   validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/)을 사용할 것.
 <sup>[[link](#sexy-validations)]</sup>
 
@@ -384,7 +384,7 @@
 <sup>[[link](#app-validators)]</sup>
 
 * <a name="custom-validators-gem"></a>
-  여러 어플리케이션에서 같이 사용되는 커스텀 validator와 충분히 일반화 되어진 validators는 분리해서 gem으로 공유하여 사용할 것.
+  여러 어플리케이션에서 같이 사용되는 커스텀 validator와 충분히 일반화 된 validators는 분리해서 gem으로 공유하여 사용할 것.
 <sup>[[link](#custom-validators-gem)]</sup>
 
 * <a name="named-scopes"></a>
@@ -401,10 +401,8 @@
   ```
 
 * <a name="named-scope-class"></a>
-  When a named scope defined with a lambda and parameters becomes too
-  complicated, it is preferable to make a class method instead which serves the
-  same purpose of the named scope and returns an `ActiveRecord::Relation`
-  object. Arguably you can define even simpler scopes like this.
+  람다와 파라미터와 함께 정의 된 이름 있는 scope이 너무 복잡할 때, 'ActiveRecord::Relation'을 리턴하는 같은 기능을 수행하는 클래스 매서드를 만드는 것을 선호할 것. 
+  아마 틀림없이 아래처럼 간단한 scope을 정의할 수 있을 것이다.
 
 <sup>[[link](#named-scope-class)]</sup>
 
@@ -415,8 +413,7 @@
     end
   end
   ```
-
-  Note that this style of scoping cannot be chained in the same way as named scopes. For instance:
+  같은 방식으로 이러한 코드 스타일은 이러한 방식의 매서드와 연결(chain)되어 질 수 없다는 것을 참고. 예를들어..
 
   ```Ruby
   # unchainable
@@ -430,8 +427,7 @@
     end
   end
   ```
-
-  In this style both `old` and `heavy` work individually, but you cannot call `User.old.heavy`, to chain these scopes use:
+  여기서 'old'와 'heavy'는 개별적인 작업으로 분리되어 있지만 'User.old.heavy'라는 방법으로 이어질 수는 없다. 따라서 연결(chain)하기 위해서는 아래처럼 코딩할 것.
 
   ```Ruby
   # chainable
@@ -441,23 +437,17 @@
   end
   ```
 
-
 * <a name="beware-update-attribute"></a>
-  Beware of the behavior of the
-  [`update_attribute`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_attribute)
-  method. It doesn't run the model validations (unlike `update_attributes`) and
-  could easily corrupt the model state.
+  [`update_attribute`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_attribute)매서드의 작동 방법에 대하여 이해할 것.
+  (`update_attributes`와는 다르게)모델 validation를 실행하지 않고 모델의 상태에 오류가 발생할 수 있다.
 <sup>[[link](#beware-update-attribute)]</sup>
 
 * <a name="user-friendly-urls"></a>
-  Use user-friendly URLs. Show some descriptive attribute of the model in the URL
-  rather than its `id`.  There is more than one way to achieve this:
+  사용자 편의의 URL을 사용할 것. 'id'보다는 URL에 모델의 기술적인 속성을 보여줄 것.
+  여러가지 방법이 있을 수 있다.
 <sup>[[link](#user-friendly-urls)]</sup>
 
-  * Override the `to_param` method of the model. This method is used by Rails
-    for constructing a URL to the object.  The default implementation returns
-    the `id` of the record as a String.  It could be overridden to include another
-    human-readable attribute.
+  * 모델의 'to_param' 매서드를 오버라이드(override)한다. 레일즈에서 object에 해당하는 URL을 생성하기 위해 사용된다. 기본적으로 레코드의 'id'를 String으로 리턴한다. 이것은 오버라이드하여 사람이 읽을 수 있는 속성으로 바꾸어 질 수 있다.
 
       ```Ruby
       class Person
@@ -466,14 +456,10 @@
         end
       end
       ```
+  이것을 URL친화적인 값으로 바꾸기 위해서는 'parameterize'가 string으로 불러져야 한다.
+  객체의 id는 앞부분에 있어야만 ActiveRecord의 find 매서드에 의해 찾아 질 수 있다.
 
-  In order to convert this to a URL-friendly value, `parameterize` should be
-  called on the string. The `id` of the object needs to be at the beginning so
-  that it can be found by the `find` method of ActiveRecord.
-
-  * Use the `friendly_id` gem. It allows creation of human-readable URLs by
-    using some descriptive attribute of the model instead of its `id`.
-
+  * 'friendly_id' 젬을 사용할 것. 이것은 모델의 'id'대신 기술적인 숙성을 사용하여 사람이 읽을 수 있는 URL을 생성할 수 있게 해준다.
       ```Ruby
       class Person
         extend FriendlyId
@@ -481,20 +467,17 @@
       end
       ```
 
-  Check the [gem documentation](https://github.com/norman/friendly_id) for more
-  information about its usage.
+  사용법에 대한 더 많은 정보는 [gem documentation](https://github.com/norman/friendly_id)를 참고 할 것.
 
 * <a name="find-each"></a>
-  Use `find_each` to iterate over a collection of AR objects. Looping through a
-  collection of records from the database (using the `all` method, for example)
-  is very inefficient since it will try to instantiate all the objects at once.
-  In that case, batch processing methods allow you to work with the records in
-  batches, thereby greatly reducing memory consumption.
+  ActiveRecord 객체의 컬랙션(collection)의 반복하기 위해서는 'find_each'를 사용할 것.
+  데이터베이스에서 레코드 컬랙션을 돌리기(loop) 것은 (예를 들어 'all'매서드 를 사용하여) 한번에 모든 객체들을 인스턴스화 하기 때문에 매우 비효율 적이다.
+  그러한 경우에는 배치 작업 매서드를 통해 레코드들이 배치에서 돌게 하면서 메모리 소비를 줄일 수 있다.
 <sup>[[link](#find-each)]</sup>
 
 
   ```Ruby
-  # bad
+  # 나쁜 예
   Person.all.each do |person|
     person.do_awesome_stuff
   end
@@ -503,7 +486,7 @@
     person.party_all_night!
   end
 
-  # good
+  # 좋은 예
   Person.find_each do |person|
     person.do_awesome_stuff
   end
@@ -514,13 +497,13 @@
   ```
 
 * <a name="before_destroy"></a>
-  Since [Rails creates callbacks for dependent
-  associations](https://github.com/rails/rails/issues/3458), always call
-  `before_destroy` callbacks that perform validation with `prepend: true`.
+  [Rails creates callbacks for dependent
+  associations](https://github.com/rails/rails/issues/3458)때문에, 항상 
+  'prepend: true'와 validation을 수행하는 'before_destroy' 콜백을 호출할 것.
 <sup>[[link](#before_destroy)]</sup>
 
   ```Ruby
-  # bad (roles will be deleted automatically even if super_admin? is true)
+  # 나쁜 예 (roles will be deleted automatically even if super_admin? is true)
   has_many :roles, dependent: :destroy
 
   before_destroy :ensure_deletable
@@ -529,7 +512,7 @@
     fail "Cannot delete super admin." if super_admin?
   end
 
-  # good
+  # 좋은 예
   has_many :roles, dependent: :destroy
 
   before_destroy :ensure_deletable, prepend: true
@@ -628,15 +611,15 @@
 ## Migrations
 
 * <a name="schema-version"></a>
-  'schema.rb' (또는 'structure.sql') 파일의 버전관리를 하라.
+  'schema.rb' (또는 'structure.sql') 파일의 버전관리를 할 것.
 <sup>[[link](#schema-version)]</sup>
 
 * <a name="db-schema-load"></a>
-  빈 database를 초기화 위해서는 'rake db:migrate'대신에 'rake db:schema:load'를 사용하라.
+  빈 database를 초기화 위해서는 'rake db:migrate'대신에 'rake db:schema:load'를 사용할 것.
 <sup>[[link](#db-schema-load)]</sup>
 
 * <a name="default-migration-values"></a>
-  default 값들은 어플리케이션 층보다 마이그레이션 자체에서 지정되도록 하라.
+  default 값들은 어플리케이션 층보다 마이그레이션 자체에서 지정되도록 할 것.
 <sup>[[link](#default-migration-values)]</sup>
 
   ```Ruby
@@ -646,15 +629,14 @@
   end
   ```
 
-  레일즈에서 테이블 기본 설정을 강요하는 것이 많은 레일즈 개발자들이 추천하지만 데이터가 많은 어플리케이션의 버그에 노출될 수 있는 아주 불안정한 접근방이다.
-  그리고 대부분의 중요한 어플리케이션은 다들 어플리케이션과 하나의 데이터베이스를 공유하고 있기 때문에 레일즈 어플리케이션으로부터 데이터 무결성을 부여하는 것이 불가능한 사실을 고려해야 할 것이다.
+  레일즈에서 테이블 기본 설정을 강요하는 것이 많은 레일즈 개발자들이 추천하지만 데이터가 많은 어플리케이션의 버그에 노출될 수 있는 아주 불안정한 접근방법이다. 그리고 대부분의 중요한 어플리케이션은 다들 어플리케이션과 하나의 데이터베이스를 공유하고 있기 때문에 레일즈 어플리케이션으로부터 데이터 무결성을 부여하는 것이 불가능한 사실을 고려해야 할 것이다.
 
 * <a name="foreign-key-constraints"></a>식
   외래키 제약을 강요할 것. 레일즈 4.2의 ActiveRecord는 외래키 제약을 지원한다.
   <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
-  (테이블 또는 컬럼을 추가하는) 구조적인 마이그레이션을 작성할 때는 'up'과 'down' 매서드 대신에 'change'매서드를 사용하라.
+  (테이블 또는 컬럼을 추가하는) 구조적인 마이그레이션을 작성할 때는 'up'과 'down' 매서드 대신 'change'매서드를 사용할 것.
   <sup>[[link](#change-vs-up-down)]</sup>
 
   ```Ruby
@@ -700,11 +682,11 @@
 ## Internationalization
 
 * <a name="locale-texts"></a>
-  뷰, 모델 그리고 컨트롤러에서는 로케일(locale)관련 설정이나 직접적인 strings 문자를 사용하지 않는다. 이러한 문자들은 'config/locales' 디렉터리 아래의 로케일 파일로 옮긴다.
+  뷰, 모델 그리고 컨트롤러에서는 로케일(locale)관련 설정이나 직접적인 strings 문자를 사용하지 않는다. 이러한 문자들은 'config/locales' 디렉터리 아래의 로케일 파일로 옮길 것.
 <sup>[[link](#locale-texts)]</sup>
 
 * <a name="translated-labels"></a>
-  ActiveRecord 모델의 라벨에 대한 번역이 필요할 때는 'activerecord' scope을 사용한다.
+  ActiveRecord 모델의 라벨에 대한 번역이 필요할 때는 'activerecord' scope을 사용할 것.
 <sup>[[link](#translated-labels)]</sup>
 
   ```
@@ -717,7 +699,7 @@
           name: 'Full name'
   ```
   그러면 'User.model_name.human'은 'Member'를 return하고
-  'User.human_attribute_name("name")'은 "Full name"을 리턴 할 것이다.
+  'User.human_attribute_name("name")'은 "Full name"을 리턴 한다.
   이러한 속성들에 대한 번역은 뷰에서 라벨로 사용되어 진다.
 
 * <a name="organize-locale-files"></a>
@@ -739,7 +721,7 @@
 <sup>[[link](#shared-localization)]</sup>
 
 * <a name="short-i18n"></a>
-  I18n의 짧은 형식의 매서드를 사용하라. 
+  I18n의 짧은 형식의 매서드를 사용할 것. 
   'I18n.translate' =>'I18n.t'
   'I18n.localize' => 'I18n.l'
 <sup>[[link](#short-i18n)]</sup>
@@ -763,7 +745,7 @@
   ```
 
 * <a name="dot-separated-keys"></a>
-  컨트롤러와모델에서 scope 옵션보다 점으로 분리된 key를 사용하라.
+  컨트롤러와모델에서 scope 옵션보다 점으로 분리된 key를 사용할 것.
   읽기도 쉽고, 계층에서 찾아내기가 더 쉽다.
 <sup>[[link](#dot-separated-keys)]</sup>
 
