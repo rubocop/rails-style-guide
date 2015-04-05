@@ -542,32 +542,30 @@
 ### ActiveRecord Queries
 
 * <a name="avoid-interpolation"></a>
-  Avoid string interpolation in
-  queries, as it will make your code susceptible to SQL injection
-  attacks.
+  SQL injection 공격에 취약할 수 있기 때문에, 쿼리 안에 문자를 직접 넣는 것을 피할 것.
 <sup>[[link](#avoid-interpolation)]</sup>
 
   ```Ruby
-  # bad - param will be interpolated unescaped
+  # 나쁜 예 - 어떠한 파라미터든지 들어 갈 수 있음
   Client.where("orders_count = #{params[:orders]}")
 
-  # good - param will be properly escaped
+  # 좋은 예 - 적절히 맞는 파라미터만 들어 갈 수 있음
   Client.where('orders_count = ?', params[:orders])
   ```
 
 * <a name="named-placeholder"></a>
-  Consider using named placeholders instead of positional placeholders
-  when you have more than 1 placeholder in your query.
+  쿼리에 하나 이상의 placeholder를 사용할 때는
+  부분적인 placeholder말고 이름지어진 placeholder의 사용을 고려 할 것.
 <sup>[[link](#named-placeholder)]</sup>
 
   ```Ruby
-  # okish
+  # OK할만한...
   Client.where(
     'created_at >= ? AND created_at <= ?',
     params[:start_date], params[:end_date]
   )
 
-  # good
+  # 좋은 예
   Client.where(
     'created_at >= :start_date AND created_at <= :end_date',
     start_date: params[:start_date], end_date: params[:end_date]
@@ -575,50 +573,48 @@
   ```
 
 * <a name="find"></a>
-  Favor the use of `find` over `where`
-when you need to retrieve a single record by id.
+  id를 통해 하나의 값을 조회할 때는 'where' 보다 'find' 사용할 것.
 <sup>[[link](#find)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   User.where(id: id).take
 
-  # good
+  # 좋은 예
   User.find(id)
   ```
 
 * <a name="find_by"></a>
-  Favor the use of `find_by` over `where`
-when you need to retrieve a single record by some attributes.
+  어떠한 속성을 통해 하나의 값을 조회할 필요가 있따면 'where'보단 'find_by'를 사용할 것.
 <sup>[[link](#find_by)]</sup>
 
   ```Ruby
-  # bad
+  # 나쁜 예
   User.where(first_name: 'Bruce', last_name: 'Wayne').first
 
-  # good
+  # 좋은 예
   User.find_by(first_name: 'Bruce', last_name: 'Wayne')
   ```
 
 * <a name="find_each"></a>
-  Use `find_each` when you need to process a lot of records.
+  많은 레코드의 프로세스가 필요하다면 'find_each'를 사용할 것.
 <sup>[[link](#find_each)]</sup>
 
   ```Ruby
-  # bad - loads all the records at once
-  # This is very inefficient when the users table has thousands of rows.
+  # 나쁜 예 - loads all the records at once
+  # users 테이블이 수천개의 행을 가지고있다면 매우 비효율적이다.
   User.all.each do |user|
     NewsMailer.weekly(user).deliver_now
   end
 
-  # good - records are retrieved in batches
+  # 좋은 예 - 배치(batch) 안에서 레코드를 가져오게 된다.
   User.find_each do |user|
     NewsMailer.weekly(user).deliver_now
   end
   ```
 
 * <a name="where-not"></a>
-  SQL에 있어 'where.not'의 사용을 선호하라.
+  SQL에 'where.not'을 사용할 것.
 <sup>[[link](#where-not)]</sup>
 
   ```Ruby
@@ -650,16 +646,11 @@ when you need to retrieve a single record by some attributes.
   end
   ```
 
-  While enforcing table defaults only in Rails is suggested by many
-  Rails developers, it's an extremely brittle approach that
-  leaves your data vulnerable to many application bugs.  And you'll
-  have to consider the fact that most non-trivial apps share a
-  database with other applications, so imposing data integrity from
-  the Rails app is impossible.
+  레일즈에서 테이블 기본 설정을 강요하는 것이 많은 레일즈 개발자들이 추천하지만 데이터가 많은 어플리케이션의 버그에 노출될 수 있는 아주 불안정한 접근방이다.
+  그리고 대부분의 중요한 어플리케이션은 다들 어플리케이션과 하나의 데이터베이스를 공유하고 있기 때문에 레일즈 어플리케이션으로부터 데이터 무결성을 부여하는 것이 불가능한 사실을 고려해야 할 것이다.
 
-* <a name="foreign-key-constraints"></a>
-  Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord
-  supports foreign key constraints natively.
+* <a name="foreign-key-constraints"></a>식
+  외래키 제약을 강요할 것. 레일즈 4.2의 ActiveRecord는 외래키 제약을 지원한다.
   <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
