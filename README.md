@@ -20,6 +20,7 @@ Translations of the guide are available in the following languages:
 * [Japanese](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 * [Russian](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
 * [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
+* [Korean](https://github.com/pureugong/rails-style-guide/blob/master/README-koKR.md)
 
 # The Rails Style Guide
 
