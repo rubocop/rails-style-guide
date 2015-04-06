@@ -17,7 +17,7 @@
 * [Japanese](https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md)
 * [Russian](https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md)
 * [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
-* [Korean](https://github.com/pureugong/rails-style-guide/blob/master/README-koKO.md)
+* [Korean](https://github.com/pureugong/rails-style-guide/blob/master/README-koKR.md)
 
 # 레일즈 스타일 가이드
 
@@ -25,7 +25,7 @@
 
 이 가이드는 서로 관련있는 규칙들을 섹션들로 나누었고, (자명한 것을 제외하고는) 규칙을 적용해야 하는 근거를 덧붙이려 노력하였습니다.
 
-이 모든 규칙들이 하루 아침에 만들어지지는 않았습니다. 대부분의 규칙은 저의 소프트웨어 엔지니어로서의 수많은 경험과 레일즈 커뮤니티의 피드백과 제안을 비롯해 높은 평가를 받고 있는 레일스 프로그래밍 리소스들을 기반으로 만들어졌습니다.
+이 모든 규칙들이 하루 아침에 만들어지지는 않았습니다. 대부분의 규칙은 저의 소프트웨어 엔지니어로서의 수많은 경험과 레일즈 커뮤니티의 피드백과 제안을 비롯해 높은 평가를 받고 있는 레일즈 프로그래밍 리소스들을 기반으로 만들어졌습니다.
 
 ## 목차
 
@@ -53,7 +53,7 @@
 <sup>[[link](#config-initializers)]</sup>
 
 * <a name="gem-initializers"></a>
-  젬(gem)별로 각각의 초기 설정파일은 젬과 같은 이름을 사용하여 작성한다.
+  젬(gem)별로 각각의 초기 설정 파일은 젬과 같은 이름을 사용하여 작성한다.
   예를 들어 CarrierWave에 대한 설정은 `carrierwave.rb`에 저장하고,
   Active Admin에 대한 설정은 `active_admin.rb`에 저장한다.
 <sup>[[link](#gem-initializers)]</sup>
@@ -235,7 +235,7 @@
 <a name="activerecord"></a>
 
 * <a name="keep-ar-defaults"></a>
-  데이터베이스 소유권을 가지고 있지 않은 경우와 같이 특별한 이유가 있는 게 아니라면 엑티브 레코의 기본설정(테이블 이름, 기본키 등)을 가능하면 변경하지 않는다.
+  데이터베이스 소유권을 가지고 있지 않은 경우와 같이 특별한 이유가 있는 게 아니라면 엑티브 레코드의 기본 설정(테이블 이름, 기본키 등)을 가능하면 변경하지 않는다.
 <sup>[[link](#keep-ar-defaults)]</sup>
 
   ```Ruby
@@ -463,7 +463,7 @@
       end
       ```
   이 값을 URL에서 사용하려면 문자열에 `parameterize`를 호출해야한다.
-  객체의 id가 앞부분에 있어야만 엑티브레코드의 `find` 메소드로 찾을 수 있다.
+  객체의 id가 앞부분에 있어야만 엑티브 레코드의 `find` 메소드로 찾을 수 있다.
 
   * `friendly_id` 젬을 사용한다. 이를 사용하면 `id` 대신에 모델의 특징을 잘 반영한 속성들을 사용해 사람이 읽기 쉬운 URL을 만들 수 있다.
 
@@ -477,7 +477,7 @@
   사용법에 대한 더 많은 정보는 [문서](https://github.com/norman/friendly_id)를 참고하기 바란다.
 
 * <a name="find-each"></a>
-  엑티브 레코드 객체의 컬랙션을 반복할 때는 `find_each`를 사용한다.
+  엑티브 레코드 객체의 컬렉션을 반복할 때는 `find_each`를 사용한다.
   (예를 들면 `all` 메서드를 사용해) 데이터베이스에서 가져온 레코드 컬렉션에 대해서 반복 작업을 수행하는 일은 매우 비효율적이다. 이 때는 배치 작업(batch process) 메소드를 통해 레코드들이 배치에서 처리되도록 하면 메모리 소비를 줄일 수 있다.
 <sup>[[link](#find-each)]</sup>
 
@@ -625,17 +625,17 @@
 <sup>[[link](#db-schema-load)]</sup>
 
 * <a name="default-migration-values"></a>
-  기본설정값들은 애플리케이션에서 지정하기보다, 마이그레이션 자체에 포함시킨다.
+  기본 설정 값들은 애플리케이션에서 지정하기보다, 마이그레이션 자체에 포함시킨다.
 <sup>[[link](#default-migration-values)]</sup>
 
   ```Ruby
-  # 나쁜 예 - 애플리케이션에서 기본설정값을 지정하는 예
+  # 나쁜 예 - 애플리케이션에서 기본설정 값을 지정하는 예
   def amount
     self[:amount] or 0
   end
   ```
 
-  테이블의 기본설정값을 레일즈 애플리케이션에서만 지정하는 것은 많은 레일즈 개발자들이 제안한 방법이지만, 이는 데이터를 많은 어플리케이션 버그에 노출시키는 아주 불안정한 접근방법이다. 그리고 대부분의 중요한 애플리케이션들은 하나의 데이터베이스를 다른 애필리케이션과 공유하기 때문에, 레일즈 애플리케이션을 통해 데이터 무결성을 보장하는 것은 불가능하다는 사실을 고려해야한다.
+  테이블의 기본 설정 값을 레일즈 애플리케이션에서만 지정하는 것은 많은 레일즈 개발자들이 제안한 방법이지만, 이는 데이터를 많은 어플리케이션 버그에 노출시키는 아주 불안정한 접근방법이다. 그리고 대부분의 중요한 애플리케이션들은 하나의 데이터베이스를 다른 애플리케이션과 공유하기 때문에, 레일즈 애플리케이션을 통해 데이터 무결성을 보장하는 것은 불가능하다는 사실을 고려해야한다.
 
 * <a name="foreign-key-constraints"></a>식
   외래키 제약을 사용한다. 레일즈 4.2부터 엑티브 레코드는 외래키 제약을 기본적으로 지원한다.
@@ -787,7 +787,7 @@
 * <a name="vendor-assets"></a>
   [jQuery](http://jquery.com/)나
   [bootstrap](http://twitter.github.com/bootstrap/)와 같은 
-  서드파티 라이브러리는 `vendor/assets`에 둘 것.
+  서드파티 라이브러리는 `vendor/assets`에 둔다.
 <sup>[[link](#vendor-assets)]</sup>
 
 * <a name="gem-assets"></a>
@@ -803,7 +803,7 @@
 
 * <a name="mailer-name"></a>
   메일러의 이름은 'SomethingMailer' 형식을 따른다.
-  이러한 접미사가 없다면 메일러 클래스인지 바로 파악하기가 어렵고, 어떠한 뷰에 연결되어있는지 찾아내기 어렵다.
+  이러한 접미사가 없다면 메일러 클래스인지 바로 파악하기가 어렵고, 어떠한 뷰에 연결되어 있는지 찾아내기 어렵다.
 <sup>[[link](#mailer-name)]</sup>
 
 * <a name="html-plain-email"></a>
@@ -812,7 +812,7 @@
 
 * <a name="enable-delivery-errors"></a>
   개발 환경에서 메일 전송에 실패하면 에러가 발생하도록 설정한다.
-  기본설정값은 에러가 발생하지 않도록 설정되어있다.
+  기본 설정 값은 에러가 발생하지 않도록 설정되어 있다.
 <sup>[[link](#enable-delivery-errors)]</sup>
 
   ```Ruby
@@ -836,7 +836,7 @@
   ```
 
 * <a name="default-hostname"></a>
-  호스트의 이름을 기본설정값을 지정한다.
+  호스트의 이름을 기본 설정 값을 지정한다.
 <sup>[[link](#default-hostname)]</sup>
 
   ```Ruby
@@ -904,8 +904,8 @@
 
 * <a name="background-email"></a>
   컨트롤러에서 요청에 대한 응답을 처리하는 도중에 이메일을 보내서는 안 된다.
-  이는 페이지 로딩을 지연시키고, 여러 메일을 동시에 발송한다면 타임아웃이 될 수도 있다.
-  이메일 전송은 [sidekiq](https://github.com/mperham/sidekiq)과 같은 백그라운드 작업을 지원하는 젬을 사용해 이루어져야한다.
+  이는 페이지 로딩을 지연시키고, 여러 메일을 동시에 발송할 때 타임아웃이 될 수도 있다.
+  이메일 전송은 [sidekiq](https://github.com/mperham/sidekiq)과 같은 백그라운드 작업을 지원하는 젬을 사용해 이루어져야 한다.
 <sup>[[link](#background-email)]</sup>
 
 ## 시간(Time)
@@ -917,7 +917,7 @@
 
   ```Ruby
   config.time_zone = 'Eastern European Time'
-  # 아래 옵션에는 :utc나 :local만을 지정할 수 있다. (기본설정값은 :utc)
+  # 아래 옵션에는 :utc나 :local만을 지정할 수 있다. (기본 설정 값은 :utc)
   config.active_record.default_timezone = :local
   ```
 
@@ -957,7 +957,7 @@
 
 * <a name="only-good-gems"></a>
   신뢰할만한 젬들만을 사용한다.
-  잘 알려지지 않은 젬을 사용하고자 한다면 우선 소스코드와 리뷰들을 살펴보자.
+  잘 알려지지 않은 젬을 사용하고자 한다면 우선 소스 코드와 리뷰들을 살펴보자.
 <sup>[[link](#only-good-gems)]</sup>
 
 * <a name="os-specific-gemfile-locks"></a>
@@ -1017,7 +1017,7 @@
 
 # 리소스
 
-레일즈 스타일과 관련된 반드시 읽어야할 훌륭한 자료들이 더 많이 있습니다. 아래 자료들을 참고해주세요.
+레일즈 스타일과 관련된 반드시 읽어야할 훌륭한 자료들이 더 많이 있다. 아래 자료들을 참고해주세요.
 
 * [The Rails 4 Way](http://www.amazon.com/The-Rails-Addison-Wesley-Professional-Ruby/dp/0321944275)
 * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
