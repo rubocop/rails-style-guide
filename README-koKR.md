@@ -67,7 +67,7 @@
     ```Ruby
     # config/environments/production.rb
     # Precompile additional assets (application.js, application.css,
-    #and all non-JS/CSS are already added)
+    # all non-JS/CSS are already added)
     config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
     ```
 
@@ -200,7 +200,7 @@
 ## Models
 
 * <a name="model-classes"></a>
-  액티브 레코드를 사용하지 않는 모델은 자유롭게 사용한다.
+  엑티브 레코드를 사용하지 않는 모델은 자유롭게 사용한다.
 <sup>[[link](#model-classes)]</sup>
 
 * <a name="meaningful-model-names"></a>
@@ -208,7 +208,7 @@
 <sup>[[link](#meaningful-model-names)]</sup>
 
 * <a name="activeattr-gem"></a>
-  엑티브 레코드의 데이터베이스 기능을 제외한 validation과 같은 기능만 필요한 모델 오브젝트가 필요하다면 [ActiveAttr](https://github.com/cgriego/active_attr) gem을 사용한다.
+  엑티브 레코드의 데이터베이스 기능을 제외한 validation과 같은 기능만 필요한 모델 오브젝트가 필요하다면 [ActiveAttr](https://github.com/cgriego/active_attr) 젬을 사용한다.
 <sup>[[link](#activeattr-gem)]</sup>
 
   ```Ruby
@@ -235,7 +235,7 @@
 <a name="activerecord"></a>
 
 * <a name="keep-ar-defaults"></a>
-  데이터베이스 소유권을 가지고 있지 않은 경우와 같이 특별한 이유가 있는 게 아니라면 ActiveRecord의 기본설정(테이블 이름, 기본키 등)을 가능하면 변경하지 않는다.
+  데이터베이스 소유권을 가지고 있지 않은 경우와 같이 특별한 이유가 있는 게 아니라면 엑티브 레코의 기본설정(테이블 이름, 기본키 등)을 가능하면 변경하지 않는다.
 <sup>[[link](#keep-ar-defaults)]</sup>
 
   ```Ruby
@@ -463,7 +463,7 @@
       end
       ```
   이 값을 URL에서 사용하려면 문자열에 `parameterize`를 호출해야한다.
-  객체의 id가 앞부분에 있어야만 ActiveRecord의 `find` 메소드로 찾을 수 있다.
+  객체의 id가 앞부분에 있어야만 엑티브레코드의 `find` 메소드로 찾을 수 있다.
 
   * `friendly_id` 젬을 사용한다. 이를 사용하면 `id` 대신에 모델의 특징을 잘 반영한 속성들을 사용해 사람이 읽기 쉬운 URL을 만들 수 있다.
 
@@ -477,7 +477,7 @@
   사용법에 대한 더 많은 정보는 [문서](https://github.com/norman/friendly_id)를 참고하기 바란다.
 
 * <a name="find-each"></a>
-  ActiveRecord 객체의 컬랙션을 반복할 때는 `find_each`를 사용한다.
+  엑티브 레코드 객체의 컬랙션을 반복할 때는 `find_each`를 사용한다.
   (예를 들면 `all` 메서드를 사용해) 데이터베이스에서 가져온 레코드 컬렉션에 대해서 반복 작업을 수행하는 일은 매우 비효율적이다. 이 때는 배치 작업(batch process) 메소드를 통해 레코드들이 배치에서 처리되도록 하면 메모리 소비를 줄일 수 있다.
 <sup>[[link](#find-each)]</sup>
 
@@ -638,7 +638,7 @@
   테이블의 기본설정값을 레일즈 애플리케이션에서만 지정하는 것은 많은 레일즈 개발자들이 제안한 방법이지만, 이는 데이터를 많은 어플리케이션 버그에 노출시키는 아주 불안정한 접근방법이다. 그리고 대부분의 중요한 애플리케이션들은 하나의 데이터베이스를 다른 애필리케이션과 공유하기 때문에, 레일즈 애플리케이션을 통해 데이터 무결성을 보장하는 것은 불가능하다는 사실을 고려해야한다.
 
 * <a name="foreign-key-constraints"></a>식
-  외래키 제약을 사용한다. 레일즈 4.2부터 ActiveRecord는 외래키 제약을 기본적으로 지원한다.
+  외래키 제약을 사용한다. 레일즈 4.2부터 엑티브 레코드는 외래키 제약을 기본적으로 지원한다.
   <sup>[[link](#foreign-key-constraints)]</sup>
 
 * <a name="change-vs-up-down"></a>
@@ -692,7 +692,7 @@
 <sup>[[link](#locale-texts)]</sup>
 
 * <a name="translated-labels"></a>
-  ActiveRecord 모델의 레이블에 대한 번역이 필요할 때는 'activerecord' 아래에 작성한다.
+  엑티브 레코드 모델의 레이블에 대한 번역이 필요할 때는 'activerecord' 아래에 작성한다.
 <sup>[[link](#translated-labels)]</sup>
 
   ```
