@@ -1012,6 +1012,10 @@ your application.
   Time.current # Same thing but shorter.
   ```
 
++* <a name="prefer-time-to-datetime"></a>
++  Prefer `Time` to `DateTime`, unless you need to deal with dates and times in a [historical context](https://gist.github.com/pixeltrix/e2298822dd89d854444b).
++<sup>[[link](#prefer-time-to-datetime)]</sup>
+
 ## Bundler
 
 * <a name="dev-test-gems"></a>
