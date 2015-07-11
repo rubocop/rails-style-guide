@@ -1006,7 +1006,7 @@ your application.
 
 * <a name="tz-config"></a>
   Config your timezone accordingly in `application.rb`.
-<sup>[[link](#time-now)]</sup>
+<sup>[[link](#tz-config)]</sup>
 
   ```Ruby
   config.time_zone = 'Eastern European Time'
