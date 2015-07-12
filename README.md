@@ -172,6 +172,17 @@ programming resources.
     resources :comments
   end
   ```
+  
+* <a name="namespaced-routes"></a>
+  If you need to nest routes more than 1 level deep then use the `shallow: true` option. This will save user from long urls `posts/1/comments/5/versions/7/edit` and you from long url helpers `edit_post_comment_version`.
+  
+  ```Ruby
+  resources :posts, shallow: true do
+    resources :comments do
+      resources :versions
+    end
+  end
+  ```
 
 * <a name="namespaced-routes"></a>
   Use namespaced routes to group related actions.
