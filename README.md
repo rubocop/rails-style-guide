@@ -890,7 +890,7 @@ your application.
 <sup>[[link](#vendor-assets)]</sup>
 
 * <a name="gem-assets"></a>
-  When possible, use gemified versions of assets (e.g.
+  When possible, use [rails-assets](https://rails-assets.org/) which automatically converts the packaged components into gems that are easily droppable into your asset pipeline and stay up to date. Or use gemified versions of assets (e.g.
   [jquery-rails](https://github.com/rails/jquery-rails),
   [jquery-ui-rails](https://github.com/joliss/jquery-ui-rails),
   [bootstrap-sass](https://github.com/thomas-mcdonald/bootstrap-sass),
@@ -934,6 +934,14 @@ your application.
     port: 1025,
     # more settings
   }
+  ```
+  
+* <a name="letter-opener"></a>
+  Or preview emails in the browser with [letter_opener](https://github.com/ryanb/letter_opener).
+<sup>[[link](#letter-opener)]</sup>
+
+  ```ruby
+  config.action_mailer.delivery_method = :letter_opener
   ```
 
 * <a name="default-hostname"></a>
