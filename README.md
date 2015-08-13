@@ -807,8 +807,8 @@ when you need to retrieve a single record by some attributes.
 
 * <a name="organize-locale-files"></a>
   Separate the texts used in the views from translations of ActiveRecord
-  attributes. Place the locale files for the models in a folder `models` and the
-  texts used in the views in folder `views`.
+  attributes. Place the locale files for the models in a folder `locales/models` and the
+  texts used in the views in folder `locales/views`.
 <sup>[[link](#organize-locale-files)]</sup>
 
   * When organization of the locale files is done with additional directories,
