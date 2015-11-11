@@ -171,10 +171,10 @@ programming resources.
     resources :comments
   end
   ```
-  
+
 * <a name="namespaced-routes"></a>
   If you need to nest routes more than 1 level deep then use the `shallow: true` option. This will save user from long urls `posts/1/comments/5/versions/7/edit` and you from long url helpers `edit_post_comment_version`.
-  
+
   ```Ruby
   resources :posts, shallow: true do
     resources :comments do
@@ -445,7 +445,6 @@ programming resources.
   complicated, it is preferable to make a class method instead which serves the
   same purpose of the named scope and returns an `ActiveRecord::Relation`
   object. Arguably you can define even simpler scopes like this.
-
 <sup>[[link](#named-scope-class)]</sup>
 
   ```Ruby
