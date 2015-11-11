@@ -553,6 +553,22 @@ programming resources.
   end
   ```
 
+* <a name="has_many-has_one-dependent-option"></a>
+  Define the `dependent` option to the `has_many` and `has_one` associations.
+<sup>[[link](#has_many-has_one-dependent-option)]</sup>
+
+  ```Ruby
+  # bad
+  class Post < ActiveRecord::Base
+    has_many :comments
+  end
+
+  # good
+  class Post < ActiveRecord::Base
+    has_many :comments, dependent: :destroy
+  end
+  ```
+
 ### ActiveRecord Queries
 
 * <a name="avoid-interpolation"></a>
