@@ -1032,6 +1032,35 @@ obj&.fly
 'the day'.include? 'day'
 ```
 
+* <a name="inquiry"></a>
+  Prefer Ruby's comparison operators over ActiveSupport's `Array#inquiry`, `Numeric#inquiry` and `String#inquiry`.
+<sup>[[link](#inquiry)]</sup>
+
+```ruby
+# bad - String#inquiry
+ruby = 'two'.inquiry
+ruby.two?
+
+# good
+ruby = 'two'
+ruby == 'two'
+
+# bad - Array#inquiry
+pets = %w(cat dog).inquiry
+pets.gopher?
+
+# good
+pets = %w(cat dog).inquiry
+pets.include? 'cat'
+
+# bad - Numeric#inquiry
+0.positive?
+0.negative?
+
+# good
+0 > 0
+0 < 0
+```
 
 ## Time
 
