@@ -1002,6 +1002,21 @@ obj.try! :fly
 obj&.fly
 ```
 
+* <a name="active_support_aliases"></a>
+  Prefer Ruby's Standard Library methods over `ActiveSupport` aliases.
+<sup>[[link](#active_support_aliases)]</sup>
+
+```ruby
+# bad
+'the day'.starts_with? 'th'
+'the day'.ends_with? 'ay'
+
+# good
+'the day'.start_with? 'th'
+'the day'.end_with? 'ay'
+```
+
+
 
 ## Time
 
