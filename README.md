@@ -1016,6 +1016,21 @@ obj&.fly
 'the day'.end_with? 'ay'
 ```
 
+* <a name="active_support_extensions"></a>
+  Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.`
+<sup>[[link](#active_support_extensions)]</sup>
+
+```ruby
+# bad
+(1..50).to_a.forty_two
+1.in? [1, 2]
+'day'.in? 'the day'
+
+# good
+(1..50).to_a[41]
+[1, 2].include? 1
+'the day'.include? 'day'
+```
 
 
 ## Time
