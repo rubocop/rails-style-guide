@@ -54,6 +54,7 @@ programming resources.
 * [Internationalization](#internationalization)
 * [Assets](#assets)
 * [Mailers](#mailers)
+* [Active Support Core Extensions](#active-support-core-extensions)
 * [Time](#time)
 * [Bundler](#bundler)
 * [Managing processes](#managing-processes)
@@ -985,6 +986,22 @@ your application.
   sent. To overcome this emails can be sent in background process with the help
   of [sidekiq](https://github.com/mperham/sidekiq) gem.
 <sup>[[link](#background-email)]</sup>
+
+
+## Active Support Core Extensions
+
+* <a name="try-bang"></a>
+  Prefer Ruby 2.3.0's safe navigation operator `&.` over `ActiveSupport#try!`.
+<sup>[[link](#try-bang)]</sup>
+
+```ruby
+# bad
+obj.try! :fly
+
+# good
+obj&.fly
+```
+
 
 ## Time
 
