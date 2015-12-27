@@ -258,6 +258,27 @@ class ProductsController < ApplicationController
 end
 ```
 
+* <a name="plain-text-rendering"></a>
+  Prefer `render plain:` over `render text:`.
+<sup>[[link](#plain-text-rendering)]</sup>
+
+```Ruby
+# bad - sets MIME type to `text/html`
+...
+render text: 'Ruby!'
+...
+
+# bad - requires explicit MIME type declaration
+...
+render text: 'Ruby!', content_type: 'text/plain'
+...
+
+# good - short and precise
+...
+render plain: 'Ruby!'
+...
+```
+
 ## Models
 
 * <a name="model-classes"></a>
