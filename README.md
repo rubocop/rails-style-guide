@@ -1017,7 +1017,7 @@ obj&.fly
 ```
 
 * <a name="active_support_extensions"></a>
-  Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.`
+  Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.
 <sup>[[link](#active_support_extensions)]</sup>
 
 ```ruby
