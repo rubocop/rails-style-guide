@@ -46,6 +46,7 @@ programming resources.
 * [Configuration](#configuration)
 * [Routing](#routing)
 * [Controllers](#controllers)
+  * [Rendering](#rendering)
 * [Models](#models)
   * [ActiveRecord](#activerecord)
   * [ActiveRecord Queries](#activerecord-queries)
@@ -226,6 +227,58 @@ programming resources.
 * <a name="shared-instance-variables"></a>
   Share no more than two instance variables between a controller and a view.
 <sup>[[link](#shared-instance-variables)]</sup>
+
+
+### Rendering
+
+* <a name="inline-rendering"></a>
+  Prefer using a template over inline rendering.
+<sup>[[link](#inline-rendering)]</sup>
+
+```Ruby
+# very bad
+class ProductsController < ApplicationController
+  def index
+    render inline: "<% products.each do |p| %><p><%= p.name %></p><% end %>", type: :erb
+  end
+end
+
+# good
+## app/views/products/index.html.erb
+<%= render partial: 'product', collection: products %>
+
+## app/views/products/_product.html.erb
+<p><%= product.name %></p>
+<p><%= product.price %></p>
+
+## app/controllers/foo_controller.rb
+class ProductsController < ApplicationController
+  def index
+    render :index
+  end
+end
+```
+
+* <a name="plain-text-rendering"></a>
+  Prefer `render plain:` over `render text:`.
+<sup>[[link](#plain-text-rendering)]</sup>
+
+```Ruby
+# bad - sets MIME type to `text/html`
+...
+render text: 'Ruby!'
+...
+
+# bad - requires explicit MIME type declaration
+...
+render text: 'Ruby!', content_type: 'text/plain'
+...
+
+# good - short and precise
+...
+render plain: 'Ruby!'
+...
+```
 
 ## Models
 
