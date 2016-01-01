@@ -1043,7 +1043,7 @@ your application.
 ## Active Support Core Extensions
 
 * <a name="try-bang"></a>
-  Prefer Ruby 2.3.0's safe navigation operator `&.` over `ActiveSupport#try!`.
+  Prefer Ruby 2.3's safe navigation operator `&.` over `ActiveSupport#try!`.
 <sup>[[link](#try-bang)]</sup>
 
 ```ruby
