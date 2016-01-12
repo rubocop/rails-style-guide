@@ -1,0 +1,2268 @@
+# Common configuration.
+AllCops:
+  # Include common Ruby source files.
+  Include:
+    - '**/*.gemspec'
+    - '**/*.podspec'
+    - '**/*.jbuilder'
+    - '**/*.rake'
+    - '**/*.opal'
+    - '**/config.ru'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - '**/Capfile'
+    - '**/Guardfile'
+    - '**/Podfile'
+    - '**/Thorfile'
+    - '**/Vagrantfile'
+    - '**/Berksfile'
+    - '**/Cheffile'
+    - '**/Vagabondfile'
+  Exclude:
+    - 'vendor/**/*'
+  # Default formatter will be used if no -f/--format option is given.
+  DefaultFormatter: progress
+  # Cop names are not displayed in offense messages by default. Change behavior
+  # by overriding DisplayCopNames, or by giving the -D/--display-cop-names
+  # option.
+  DisplayCopNames: false
+  # Style guide URLs are not displayed in offense messages by default. Change
+  # behavior by overriding DisplayStyleGuide, or by giving the
+  # -S/--display-style-guide option.
+  DisplayStyleGuide: false
+  # Extra details are not displayed in offense messages by default. Change
+  # behavior by overriding ExtraDetails, or by giving the
+  # -E/--extra-details option.
+  ExtraDetails: false
+  # Additional cops that do not reference a style guide rule may be enabled by
+  # default. Change behavior by overriding StyleGuideCopsOnly, or by giving
+  # the --only-guide-cops option.
+  StyleGuideCopsOnly: false
+  # All cops except the ones in disabled.yml are enabled by default. Change
+  # this behavior by overriding DisabledByDefault. When DisabledByDefault is
+  # true, all cops in the default configuration are disabled, and and only cops
+  # in user configuration are enabled. This makes cops opt-in instead of
+  # opt-out. Note that when DisabledByDefault is true, cops in user
+  # configuration will be enabled even if they don't set the Enabled parameter.
+  DisabledByDefault: false
+  # Enables the result cache if true. Can be overridden by the --cache command
+  # line option.
+  UseCache: true
+  # Threshold for how many files can be stored in the result cache before some
+  # of the files are automatically removed.
+  MaxFilesInCache: 20000
+  # The cache will be stored in "rubocop_cache" under this directory. The name
+  # "/tmp" is special and will be converted to the system temporary directory,
+  # which is "/tmp" on Unix-like systems, but could be something else on other
+  # systems.
+  CacheRootDirectory: /tmp
+  # What version of the Ruby interpreter is the inspected code intended to
+  # run on? (If there is more than one, set this to the lowest version.)
+  TargetRubyVersion: 2.0
+
+##################### Rails ##################################
+
+Rails:
+  Enabled: true
+
+Rails/ActionFilter:
+  Description: 'Enforces consistent use of action filter methods.'
+  EnforcedStyle: action
+  SupportedStyles:
+    - action
+    - filter
+  Include:
+    - app/controllers/**/*.rb
+  Enabled: true
+
+Rails/Date:
+  Description: >-
+                  Checks the correct usage of date aware methods,
+                  such as Date.today, Date.current etc.
+  # The value `strict` disallows usage of `Date.today`, `Date.current`,
+  # `Date#to_time` etc.
+  # The value `flexible` allows usage of `Date.current`, `Date.yesterday`, etc
+  # (but not `Date.today`) which are overriden by ActiveSupport to handle current
+  # time zone.
+  EnforcedStyle: flexible
+  SupportedStyles:
+    - strict
+    - flexible
+  Enabled: true
+
+Rails/Delegate:
+  Description: 'Prefer delegate method for delegations.'
+  Enabled: true
+
+Rails/FindBy:
+  Description: 'Prefer find_by over where.first.'
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+Rails/FindEach:
+  Description: 'Prefer all.find_each over all.find.'
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Description: 'Prefer has_many :through to has_and_belongs_to_many.'
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+Rails/Output:
+  Description: 'Checks for calls to puts, print, etc.'
+  Include:
+    - app/**/*.rb
+    - config/**/*.rb
+    - db/**/*.rb
+    - lib/**/*.rb
+  Enabled: true
+
+Rails/PluralizationGrammar:
+  Description: 'Checks for incorrect grammar when using methods like `3.day.ago`.'
+  Enabled: true
+
+Rails/ReadWriteAttribute:
+  Description: >-
+                 Checks for read_attribute(:attr) and
+                 write_attribute(:attr, val).
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+Rails/ScopeArgs:
+  Description: 'Checks the arguments of ActiveRecord scopes.'
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+Rails/TimeZone:
+  Description: 'Checks the correct usage of time zone aware methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/rails-coding-style-guide/52#time'
+  Reference: 'http://danilenko.org/2012/7/6/rails_timezones'
+  # The value `strict` means that `Time` should be used with `zone`.
+  # The value `flexible` allows usage of `in_time_zone` instead of `zone`.
+  EnforcedStyle: flexible
+  SupportedStyles:
+    - strict
+    - flexible
+  Enabled: true
+
+Rails/Validation:
+  Description: 'Use validates :attribute, hash of validations.'
+  Include:
+    - app/models/**/*.rb
+  Enabled: true
+
+# Indent private/protected/public as deep as method definitions
+Style/AccessModifierIndentation:
+  Description: Check indentation of private/protected visibility modifiers.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#indent-public-private-protected'
+  EnforcedStyle: indent
+  SupportedStyles:
+    - outdent
+    - indent
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/AccessorMethodName:
+  Description: Check the naming of accessor methods for get_/set_.
+  Enabled: true
+
+Style/Alias:
+  Description: 'Use alias_method instead of alias.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#alias-method'
+  EnforcedStyle: prefer_alias
+  SupportedStyles:
+    - prefer_alias
+    - prefer_alias_method
+  Enabled: true
+
+Style/AlignArray:
+  Description: >-
+                 Align the elements of an array literal if they span more than
+                 one line.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#align-multiline-arrays'
+  Enabled: true
+
+Style/AlignHash:
+  Description: >-
+                 Align the elements of a hash literal if they span more than
+                 one line.
+  # Alignment of entries using hash rocket as separator. Valid values are:
+  #
+  # key - left alignment of keys
+  #   'a' => 2
+  #   'bb' => 3
+  # separator - alignment of hash rockets, keys are right aligned
+  #    'a' => 2
+  #   'bb' => 3
+  # table - left alignment of keys, hash rockets, and values
+  #   'a'  => 2
+  #   'bb' => 3
+  EnforcedHashRocketStyle: key
+  # Alignment of entries using colon as separator. Valid values are:
+  #
+  # key - left alignment of keys
+  #   a: 0
+  #   bb: 1
+  # separator - alignment of colons, keys are right aligned
+  #    a: 0
+  #   bb: 1
+  # table - left alignment of keys and values
+  #   a:  0
+  #   bb: 1
+  EnforcedColonStyle: key
+  # Select whether hashes that are the last argument in a method call should be
+  # inspected? Valid values are:
+  #
+  # always_inspect - Inspect both implicit and explicit hashes.
+  #   Registers an offense for:
+  #     function(a: 1,
+  #       b: 2)
+  #   Registers an offense for:
+  #     function({a: 1,
+  #       b: 2})
+  # always_ignore - Ignore both implicit and explicit hashes.
+  #   Accepts:
+  #     function(a: 1,
+  #       b: 2)
+  #   Accepts:
+  #     function({a: 1,
+  #       b: 2})
+  # ignore_implicit - Ignore only implicit hashes.
+  #   Accepts:
+  #     function(a: 1,
+  #       b: 2)
+  #   Registers an offense for:
+  #     function({a: 1,
+  #       b: 2})
+  # ignore_explicit - Ignore only explicit hashes.
+  #   Accepts:
+  #     function({a: 1,
+  #       b: 2})
+  #   Registers an offense for:
+  #     function(a: 1,
+  #       b: 2)
+  EnforcedLastArgumentHashStyle: always_inspect
+  SupportedLastArgumentHashStyles:
+    - always_inspect
+    - always_ignore
+    - ignore_implicit
+    - ignore_explicit
+  Enabled: true
+
+Style/AlignParameters:
+  Description: >-
+                 Align the parameters of a method call if they span more
+                 than one line.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-double-indent'
+  # Alignment of parameters in multi-line method calls.
+  #
+  # The `with_first_parameter` style aligns the following lines along the same
+  # column as the first parameter.
+  #
+  #     method_call(a,
+  #                 b)
+  #
+  # The `with_fixed_indentation` style aligns the following lines with one
+  # level of indentation relative to the start of the line with the method call.
+  #
+  #     method_call(a,
+  #       b)
+  EnforcedStyle: with_first_parameter
+  SupportedStyles:
+    - with_first_parameter
+    - with_fixed_indentation
+  Enabled: true
+
+Style/AndOr:
+  Description: 'Use &&/|| instead of and/or.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-and-or-or'
+  # Whether `and` and `or` are banned only in conditionals (conditionals)
+  # or completely (always).
+  EnforcedStyle: always
+  SupportedStyles:
+    - always
+    - conditionals
+  Enabled: true
+
+Style/ArrayJoin:
+  Description: 'Use Array#join instead of Array#*.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#array-join'
+  Enabled: true
+
+Style/AsciiComments:
+  Description: 'Use only ascii symbols in comments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#english-comments'
+  Enabled: true
+
+Style/AsciiIdentifiers:
+  Description: 'Use only ascii symbols in identifiers.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#english-identifiers'
+  Enabled: true
+
+Style/Attr:
+  Description: 'Checks for uses of Module#attr.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#attr'
+  Enabled: true
+
+Style/BeginBlock:
+  Description: 'Avoid the use of BEGIN blocks.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-BEGIN-blocks'
+  Enabled: true
+
+Style/BarePercentLiterals:
+  Description: 'Checks if usage of %() or %Q() matches configuration.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-q-shorthand'
+  EnforcedStyle: bare_percent
+  SupportedStyles:
+    - percent_q
+    - bare_percent
+  Enabled: true
+
+Style/BlockComments:
+  Description: 'Do not use block comments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-block-comments'
+  Enabled: true
+
+Style/BlockEndNewline:
+  Description: 'Put end statement of multiline block on its own line.'
+  Enabled: true
+
+Style/BlockDelimiters:
+  Description: >-
+                Avoid using {...} for multi-line blocks (multiline chaining is
+                always ugly).
+                Prefer {...} over do...end for single-line blocks.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#single-line-blocks'
+  EnforcedStyle: line_count_based
+  SupportedStyles:
+    # The `line_count_based` style enforces braces around single line blocks and
+    # do..end around multi-line blocks.
+    - line_count_based
+    # The `semantic` style enforces braces around functional blocks, where the
+    # primary purpose of the block is to return a value and do..end for
+    # procedural blocks, where the primary purpose of the block is its
+    # side-effects.
+    #
+    # This looks at the usage of a block's method to determine its type (e.g. is
+    # the result of a `map` assigned to a variable or passed to another
+    # method) but exceptions are permitted in the `ProceduralMethods`,
+    # `FunctionalMethods` and `IgnoredMethods` sections below.
+    - semantic
+    # The `braces_for_chaining` style enforces braces around single line blocks
+    # and do..end around multi-line blocks, except for multi-line blocks whose
+    # return value is being chained with another method (in which case braces
+    # are enforced).
+    - braces_for_chaining
+  ProceduralMethods:
+    # Methods that are known to be procedural in nature but look functional from
+    # their usage, e.g.
+    #
+    #   time = Benchmark.realtime do
+    #     foo.bar
+    #   end
+    #
+    # Here, the return value of the block is discarded but the return value of
+    # `Benchmark.realtime` is used.
+    - benchmark
+    - bm
+    - bmbm
+    - create
+    - each_with_object
+    - measure
+    - new
+    - realtime
+    - tap
+    - with_object
+  FunctionalMethods:
+    # Methods that are known to be functional in nature but look procedural from
+    # their usage, e.g.
+    #
+    #   let(:foo) { Foo.new }
+    #
+    # Here, the return value of `Foo.new` is used to define a `foo` helper but
+    # doesn't appear to be used from the return value of `let`.
+    - let
+    - let!
+    - subject
+    - watch
+  IgnoredMethods:
+    # Methods that can be either procedural or functional and cannot be
+    # categorised from their usage alone, e.g.
+    #
+    #   foo = lambda do |x|
+    #     puts "Hello, #{x}"
+    #   end
+    #
+    #   foo = lambda do |x|
+    #     x * 100
+    #   end
+    #
+    # Here, it is impossible to tell from the return value of `lambda` whether
+    # the inner block's return value is significant.
+    - lambda
+    - proc
+    - it
+  Enabled: true
+
+Style/BracesAroundHashParameters:
+  Description: 'Enforce braces style around hash parameters.'
+  EnforcedStyle: no_braces
+  SupportedStyles:
+    # The `braces` style enforces braces around all method parameters that are
+    # hashes.
+    - braces
+    # The `no_braces` style checks that the last parameter doesn't have braces
+    # around it.
+    - no_braces
+    # The `context_dependent` style checks that the last parameter doesn't have
+    # braces around it, but requires braces if the second to last parameter is
+    # also a hash literal.
+    - context_dependent
+  Enabled: true
+
+Style/CaseEquality:
+  Description: 'Avoid explicit use of the case equality operator(===).'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-case-equality'
+  Enabled: true
+
+Style/CaseIndentation:
+  Description: 'Indentation of when in a case/when/[else/]end.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#indent-when-to-case'
+  IndentWhenRelativeTo: case
+  SupportedStyles:
+    - case
+    - end
+  IndentOneStep: false
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  # This only matters if IndentOneStep is true
+  IndentationWidth: ~
+  Enabled: true
+
+Style/CharacterLiteral:
+  Description: 'Checks for uses of character literals.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-character-literals'
+  Enabled: true
+
+Style/ClassAndModuleCamelCase:
+  Description: 'Use CamelCase for classes and modules.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#camelcase-classes'
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Description: 'Checks style of children classes and modules.'
+  # Checks the style of children definitions at classes and modules.
+  #
+  # Basically there are two different styles:
+  #
+  # `nested` - have each child on a separate line
+  #   class Foo
+  #     class Bar
+  #     end
+  #   end
+  #
+  # `compact` - combine definitions as much as possible
+  #   class Foo::Bar
+  #   end
+  #
+  # The compact style is only forced, for classes / modules with one child.
+  EnforcedStyle: nested
+  SupportedStyles:
+    - nested
+    - compact
+  Enabled: true
+
+Style/ClassCheck:
+  Description: 'Enforces consistent use of `Object#is_a?` or `Object#kind_of?`.'
+  EnforcedStyle: is_a?
+  SupportedStyles:
+    - is_a?
+    - kind_of?
+  Enabled: true
+
+Style/ClassMethods:
+  Description: 'Use self when defining module/class methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#def-self-class-methods'
+  Enabled: true
+
+Style/ClassVars:
+  Description: 'Avoid the use of class variables.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-class-vars'
+  Enabled: true
+
+Style/ClosingParenthesisIndentation:
+  Description: 'Checks the indentation of hanging closing parentheses.'
+  Enabled: true
+
+# Align with the style guide.
+Style/CollectionMethods:
+  # Mapping from undesired method to desired_method
+  # e.g. to use `detect` over `find`:
+  #
+  # CollectionMethods:
+  #   PreferredMethods:
+  #     find: detect
+  Description: 'Preferred collection methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#map-find-select-reduce-size'
+  PreferredMethods:
+    collect: 'map'
+    collect!: 'map!'
+    inject: 'reduce'
+    detect: 'find'
+    find_all: 'select'
+  Enabled: false
+
+Style/ColonMethodCall:
+  Description: 'Do not use :: for method call.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#double-colons'
+  Enabled: true
+
+Style/CommandLiteral:
+  Description: 'Use `` or %x around command literals.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-x'
+  EnforcedStyle: backticks
+  # backticks: Always use backticks.
+  # percent_x: Always use %x.
+  # mixed: Use backticks on single-line commands, and %x on multi-line commands.
+  SupportedStyles:
+    - backticks
+    - percent_x
+    - mixed
+  # If false, the cop will always recommend using %x if one or more backticks
+  # are found in the command string.
+  AllowInnerBackticks: false
+  Enabled: true
+
+Style/CommentAnnotation:
+  Description: >-
+                 Checks formatting of special comments
+                 (TODO, FIXME, OPTIMIZE, HACK, REVIEW).
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#annotate-keywords'
+  Keywords:
+    - TODO
+    - FIXME
+    - OPTIMIZE
+    - HACK
+    - REVIEW
+  Enabled: true
+
+Style/CommentIndentation:
+  Description: 'Indentation of comments.'
+  Enabled: true
+
+Style/ConditionalAssignment:
+  Description: >-
+                 Use the return value of `if` and `case` statements for
+                 assignment to a variable and variable comparison instead
+                 of assigning that variable inside of each branch.
+  Enabled: true
+  SingleLineConditionsOnly: true
+  # Whether the cop should register offenses for conditionals whose branches
+  # contain more than one statement a piece
+
+Style/ConstantName:
+  Description: 'Constants should use SCREAMING_SNAKE_CASE.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#screaming-snake-case'
+  Enabled: true
+
+# Checks that you have put a copyright in a comment before any code.
+#
+# You can override the default Notice in your .rubocop.yml file.
+#
+# In order to use autocorrect, you must supply a value for the
+# AutocorrectNotice key that matches the regexp Notice.  A blank
+# AutocorrectNotice will cause an error during autocorrect.
+#
+# Autocorrect will add a copyright notice in a comment at the top
+# of the file immediately after any shebang or encoding comments.
+#
+# Example rubocop.yml:
+#
+# Style/Copyright:
+#   Enabled: true
+#   Notice: 'Copyright (\(c\) )?2015 Yahoo! Inc'
+#   AutocorrectNotice: '# Copyright (c) 2015 Yahoo! Inc.'
+#
+Style/Copyright:
+  Description: 'Include a copyright notice in each file before any code.'
+  Notice: '^Copyright (\(c\) )?2[0-9]{3} .+'
+  AutocorrectNotice: ''
+  Enabled: false
+
+Style/DefWithParentheses:
+  Description: 'Use def with parentheses when there are arguments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#method-parens'
+  Enabled: true
+
+Style/DeprecatedHashMethods:
+  Description: 'Checks for use of deprecated Hash methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#hash-key'
+  Enabled: true
+
+Style/Documentation:
+  Description: 'Document classes and non-namespace modules.'
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+  Enabled: false
+
+# Multi-line method chaining should be done with leading dots.
+Style/DotPosition:
+  Description: 'Checks the position of the dot in multi-line method calls.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#consistent-multi-line-chains'
+  EnforcedStyle: leading
+  SupportedStyles:
+    - leading
+    - trailing
+  Enabled: true
+
+Style/DoubleNegation:
+  Description: 'Checks for uses of double negation (!!).'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-bang-bang'
+  Enabled: true
+
+Style/EachWithObject:
+  Description: 'Prefer `each_with_object` over `inject` or `reduce`.'
+  Enabled: true
+
+Style/ElseAlignment:
+  Description: 'Align elses and elsifs correctly.'
+  Enabled: true
+
+# Warn on empty else statements
+# empty - warn only on empty else
+# nil - warn on else with nil in it
+# both - warn on empty else and else with nil in it
+Style/EmptyElse:
+  Description: 'Avoid empty else-clauses.'
+  EnforcedStyle: both
+  SupportedStyles:
+    - empty
+    - nil
+    - both
+  Enabled: true
+
+Style/EmptyLineBetweenDefs:
+  Description: 'Use empty lines between defs.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#empty-lines-between-methods'
+  # If true, this parameter means that single line method definitions don't
+  # need an empty line between them.
+  AllowAdjacentOneLineDefs: false
+  Enabled: true
+
+Style/EmptyLines:
+  Description: "Don't use several empty lines in a row."
+  Enabled: true
+
+Style/EmptyLinesAroundAccessModifier:
+  Description: "Keep blank lines around access modifiers."
+  Enabled: true
+
+Style/EmptyLinesAroundBlockBody:
+  Description: "Keeps track of empty lines around block bodies."
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+  Enabled: true
+
+Style/EmptyLinesAroundClassBody:
+  Description: "Keeps track of empty lines around class bodies."
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+  Enabled: true
+
+Style/EmptyLinesAroundModuleBody:
+  Description: "Keeps track of empty lines around module bodies."
+  EnforcedStyle: no_empty_lines
+  SupportedStyles:
+    - empty_lines
+    - no_empty_lines
+  Enabled: true
+
+Style/EmptyLinesAroundMethodBody:
+  Description: "Keeps track of empty lines around method bodies."
+  Enabled: true
+
+Style/EmptyLiteral:
+  Description: 'Prefer literals to Array.new/Hash.new/String.new.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#literal-array-hash'
+  Enabled: true
+
+# Checks whether the source file has a utf-8 encoding comment or not
+# AutoCorrectEncodingComment must match the regex
+# /#.*coding\s?[:=]\s?(?:UTF|utf)-8/
+Style/Encoding:
+  Description: 'Use UTF-8 as the source file encoding.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#utf-8'
+  EnforcedStyle: always
+  SupportedStyles:
+    - when_needed
+    - always
+  AutoCorrectEncodingComment: '# encoding: utf-8'
+  Enabled: false
+
+Style/EndBlock:
+  Description: 'Avoid the use of END blocks.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-END-blocks'
+  Enabled: true
+
+Style/EndOfLine:
+  Description: 'Use Unix-style line endings.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#crlf'
+  Enabled: true
+
+Style/EvenOdd:
+  Description: 'Favor the use of Fixnum#even? && Fixnum#odd?'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#predicate-methods'
+  Enabled: true
+
+Style/ExtraSpacing:
+  Description: 'Do not use unnecessary spacing.'
+  # When true, allows most uses of extra spacing if the intent is to align
+  # things with the previous or next line, not counting empty lines or comment
+  # lines.
+  AllowForAlignment: true
+  # When true, forces the alignment of = in assignments on consecutive lines.
+  ForceEqualSignAlignment: false
+  Enabled: true
+
+Style/FileName:
+  Description: 'Use snake_case for source file names.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#snake-case-files'
+  # File names listed in AllCops:Include are excluded by default. Add extra
+  # excludes here.
+  Exclude: []
+  # When true, requires that each source file should define a class or module
+  # with a name which matches the file name (converted to ... case).
+  # It further expects it to be nested inside modules which match the names
+  # of subdirectories in its path.
+  ExpectMatchingDefinition: false
+  # If non-nil, expect all source file names to match the following regex.
+  # Only the file name itself is matched, not the entire file path.
+  # Use anchors as necessary if you want to match the entire name rather than
+  # just a part of it.
+  Regex: ~
+  # With `IgnoreExecutableScripts` set to `true`, this cop does not
+  # report offending filenames for executable scripts (i.e. source
+  # files with a shebang in the first line).
+  IgnoreExecutableScripts: true
+  Enabled: true
+
+Style/InitialIndentation:
+  Description: >-
+    Checks the indentation of the first non-blank non-comment line in a file.
+  Enabled: true
+
+Style/FirstParameterIndentation:
+  Description: 'Checks the indentation of the first parameter in a method call.'
+  EnforcedStyle: special_for_inner_method_call_in_parentheses
+  SupportedStyles:
+    # The first parameter should always be indented one step more than the
+    # preceding line.
+    - consistent
+    # The first parameter should normally be indented one step more than the
+    # preceding line, but if it's a parameter for a method call that is itself
+    # a parameter in a method call, then the inner parameter should be indented
+    # relative to the inner method.
+    - special_for_inner_method_call
+    # Same as special_for_inner_method_call except that the special rule only
+    # applies if the outer method call encloses its arguments in parentheses.
+    - special_for_inner_method_call_in_parentheses
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/FlipFlop:
+  Description: 'Checks for flip flops'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-flip-flops'
+  Enabled: true
+
+Style/For:
+  Description: 'Checks use of for or each in multiline loops.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-for-loops'
+  EnforcedStyle: each
+  SupportedStyles:
+    - for
+    - each
+  Enabled: true
+
+Style/FormatString:
+  Description: 'Enforce the use of Kernel#sprintf, Kernel#format or String#%.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#sprintf'
+  EnforcedStyle: format
+  SupportedStyles:
+    - format
+    - sprintf
+    - percent
+  Enabled: true
+
+Style/GlobalVars:
+  Description: 'Do not introduce global variables.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#instance-vars'
+  Reference: 'http://www.zenspider.com/Languages/Ruby/QuickRef.html'
+# Built-in global variables are allowed by default.
+  AllowedVariables: []
+  Enabled: true
+
+# `MinBodyLength` defines the number of lines of the a body of an if / unless
+# needs to have to trigger this cop
+Style/GuardClause:
+  Description: 'Check for conditionals that can be replaced with guard clauses'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-nested-conditionals'
+  MinBodyLength: 1
+  Enabled: true
+
+Style/HashSyntax:
+  Description: >-
+                 Prefer Ruby 1.9 hash syntax { a: 1, b: 2 } over 1.8 syntax
+                 { :a => 1, :b => 2 }.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#hash-literals'
+  EnforcedStyle: ruby19
+  SupportedStyles:
+    - ruby19
+    - ruby19_no_mixed_keys
+    - hash_rockets
+# Force hashes that have a symbol value to use hash rockets
+  UseHashRocketsWithSymbolValues: false
+  Enabled: true
+
+Style/IfInsideElse:
+  Description: 'Finds if nodes inside else, which can be converted to elsif.'
+  Enabled: true
+
+Style/IfUnlessModifier:
+  Description: >-
+                 Favor modifier if/unless usage when you have a
+                 single-line body.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#if-as-a-modifier'
+  MaxLineLength: 120
+  Enabled: true
+
+Style/IfWithSemicolon:
+  Description: 'Do not use if x; .... Use the ternary operator instead.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-semicolon-ifs'
+  Enabled: true
+
+Style/IndentationConsistency:
+  Description: 'Keep indentation straight.'
+  # The difference between `rails` and `normal` is that the `rails` style
+  # prescribes that in classes and modules the `protected` and `private`
+  # modifier keywords shall be indented the same as public methods and that
+  # protected and private members shall be indented one step more than the
+  # modifiers. Other than that, both styles mean that entities on the same
+  # logical depth shall have the same indentation.
+  EnforcedStyle: rails
+  SupportedStyles:
+    - normal
+    - rails
+  Enabled: true
+
+Style/IndentationWidth:
+  Description: 'Use 2 spaces for indentation.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-indentation'
+  # Number of spaces for each indentation level.
+  Width: 2
+  Enabled: true
+
+Style/IdenticalConditionalBranches:
+  Description: >-
+                 Checks that conditional statements do not have an identical
+                 line at the end of each branch, which can validly be moved
+                 out of the conditional.
+  Enabled: true
+
+Style/IndentArray:
+  Description: >-
+                 Checks the indentation of the first element in an array
+                 literal.
+  # The value `special_inside_parentheses` means that array literals with
+  # brackets that have their opening bracket on the same line as a surrounding
+  # opening round parenthesis, shall have their first element indented relative
+  # to the first position inside the parenthesis.
+  #
+  # The value `consistent` means that the indentation of the first element shall
+  # always be relative to the first position of the line where the opening
+  # bracket is.
+  #
+  # The value `align_brackets` means that the indentation of the first element
+  # shall always be relative to the position of the opening bracket.
+  EnforcedStyle: special_inside_parentheses
+  SupportedStyles:
+    - special_inside_parentheses
+    - consistent
+    - align_brackets
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/IndentAssignment:
+  Description: >-
+                 Checks the indentation of the first line of the
+                 right-hand-side of a multi-line assignment.
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/IndentHash:
+  Description: 'Checks the indentation of the first key in a hash literal.'
+
+  # The value `special_inside_parentheses` means that hash literals with braces
+  # that have their opening brace on the same line as a surrounding opening
+  # round parenthesis, shall have their first key indented relative to the
+  # first position inside the parenthesis.
+  #
+  # The value `consistent` means that the indentation of the first key shall
+  # always be relative to the first position of the line where the opening
+  # brace is.
+  #
+  # The value `align_braces` means that the indentation of the first key shall
+  # always be relative to the position of the opening brace.
+  EnforcedStyle: special_inside_parentheses
+  SupportedStyles:
+    - special_inside_parentheses
+    - consistent
+    - align_braces
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/InfiniteLoop:
+  Description: 'Use Kernel#loop for infinite loops.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#infinite-loop'
+  Enabled: true
+
+Style/Lambda:
+  Description: 'Use the new lambda literal syntax for single-line blocks.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#lambda-multi-line'
+  Enabled: true
+
+Style/LambdaCall:
+  Description: 'Use lambda.call(...) instead of lambda.(...).'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#proc-call'
+  EnforcedStyle: call
+  SupportedStyles:
+    - call
+    - braces
+  Enabled: true
+
+Style/LeadingCommentSpace:
+  Description: 'Comments should start with a space.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#hash-space'
+  Enabled: true
+
+Style/LineEndConcatenation:
+  Description: >-
+                 Use \ instead of + or << to concatenate two string literals at
+                 line end.
+  Enabled: true
+
+Style/MethodCallParentheses:
+  Description: 'Do not use parentheses for method calls with no arguments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-args-no-parens'
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Description: >-
+                 Checks if the method definitions have or don't have
+                 parentheses.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#method-parens'
+  EnforcedStyle: require_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+    - require_no_parentheses_except_multiline
+  Enabled: true
+
+Style/MethodName:
+  Description: 'Use the configured style when naming methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#snake-case-symbols-methods-vars'
+  EnforcedStyle: snake_case
+  SupportedStyles:
+    - snake_case
+    - camelCase
+  Enabled: true
+
+Style/ModuleFunction:
+  Description: 'Checks for usage of `extend self` in modules.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#module-function'
+  Enabled: true
+
+Style/MultilineAssignmentLayout:
+  Description: 'Check for a newline after the assignment operator in multi-line assignments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#indent-conditional-assignment'
+  # The types of assignments which are subject to this rule.
+  SupportedTypes:
+    - block
+    - case
+    - class
+    - if
+    - kwbegin
+    - module
+  EnforcedStyle: new_line
+  SupportedStyles:
+    # Ensures that the assignment operator and the rhs are on the same line for
+    # the set of supported types.
+    - same_line
+    # Ensures that the assignment operator and the rhs are on separate lines
+    # for the set of supported types.
+    - new_line
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Description: 'Avoid multi-line chains of blocks.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#single-line-blocks'
+  Enabled: true
+
+Style/MultilineBlockLayout:
+  Description: 'Ensures newlines after multiline block do statements.'
+  Enabled: true
+
+Style/MultilineIfThen:
+  Description: 'Do not use then for multi-line if/unless.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-then'
+  Enabled: true
+
+Style/MultilineMethodCallIndentation:
+  Description: >-
+                 Checks indentation of method calls with the dot operator
+                 that span more than one line.
+  EnforcedStyle: aligned
+  SupportedStyles:
+    - aligned
+    - indented
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/MultilineOperationIndentation:
+  Description: >-
+                 Checks indentation of binary operations that span more than
+                 one line.
+  EnforcedStyle: aligned
+  SupportedStyles:
+    - aligned
+    - indented
+  # By default, the indentation width from Style/IndentationWidth is used
+  # But it can be overridden by setting this parameter
+  IndentationWidth: ~
+  Enabled: true
+
+Style/MultilineTernaryOperator:
+  Description: >-
+                 Avoid multi-line ?: (the ternary operator);
+                 use if/unless instead.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-multiline-ternary'
+  Enabled: true
+
+Style/MutableConstant:
+  Description: 'Do not assign mutable objects to constants.'
+  Enabled: true
+
+Style/NegatedIf:
+  Description: >-
+                 Favor unless over if for negative conditions
+                 (or control flow or).
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#unless-for-negatives'
+  Enabled: true
+
+Style/NegatedWhile:
+  Description: 'Favor until over while for negative conditions.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#until-for-negatives'
+  Enabled: true
+
+Style/NestedModifier:
+  Description: 'Avoid using nested modifiers.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-nested-modifiers'
+  Enabled: true
+
+Style/NestedParenthesizedCalls:
+  Description: >-
+                 Parenthesize method calls which are nested inside the
+                 argument list of another parenthesized method call.
+  Enabled: true
+
+Style/NestedTernaryOperator:
+  Description: 'Use one expression per branch in a ternary operator.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-nested-ternary'
+  Enabled: true
+
+Style/Next:
+  Description: 'Use `next` to skip iteration instead of a condition at the end.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-nested-conditionals'
+  # With `always` all conditions at the end of an iteration needs to be
+  # replaced by next - with `skip_modifier_ifs` the modifier if like this one
+  # are ignored: [1, 2].each { |a| return 'yes' if a == 1 }
+  EnforcedStyle: skip_modifier_ifs
+  # `MinBodyLength` defines the number of lines of the a body of an if / unless
+  # needs to have to trigger this cop
+  MinBodyLength: 3
+  SupportedStyles:
+    - skip_modifier_ifs
+    - always
+  Enabled: true
+
+Style/NilComparison:
+  Description: 'Prefer x.nil? to x == nil.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#predicate-methods'
+  Enabled: true
+
+Style/NonNilCheck:
+  Description: 'Checks for redundant nil checks.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-non-nil-checks'
+  # With `IncludeSemanticChanges` set to `true`, this cop reports offenses for
+  # `!x.nil?` and autocorrects that and `x != nil` to solely `x`, which is
+  # **usually** OK, but might change behavior.
+  #
+  # With `IncludeSemanticChanges` set to `false`, this cop does not report
+  # offenses for `!x.nil?` and does no changes that might change behavior.
+  IncludeSemanticChanges: false
+  Enabled: true
+
+Style/Not:
+  Description: 'Use ! instead of not.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#bang-not-not'
+  Enabled: true
+
+Style/NumericLiterals:
+  Description: >-
+                 Add underscores to large numeric literals to improve their
+                 readability.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#underscores-in-numerics'
+  MinDigits: 5
+  Enabled: true
+
+Style/OneLineConditional:
+  Description: >-
+                 Favor the ternary operator(?:) over
+                 if/then/else/end constructs.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#ternary-operator'
+  Enabled: true
+
+Style/OpMethod:
+  Description: 'When defining binary operators, name the argument other.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#other-arg'
+  Enabled: true
+
+Style/OptionalArguments:
+  Description: >-
+                 Checks for optional arguments that do not appear at the end
+                 of the argument list
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#optional-arguments'
+  Enabled: true
+
+Style/ParallelAssignment:
+  Description: >-
+                  Check for simple usages of parallel assignment.
+                  It will only warn when the number of variables
+                  matches on both sides of the assignment.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#parallel-assignment'
+  Enabled: true
+
+Style/OptionHash:
+  Description: "Don't use option hashes when you can use keyword arguments."
+  # A list of parameter names that will be flagged by this cop.
+  SuspiciousParamNames:
+    - options
+    - opts
+    - args
+    - params
+    - parameters
+  Enabled: false
+
+# Allow safe assignment in conditions.
+Style/ParenthesesAroundCondition:
+  Description: >-
+                 Don't use parentheses around the condition of an
+                 if/unless/while.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-parens-if'
+  AllowSafeAssignment: true
+  Enabled: true
+
+Style/PercentLiteralDelimiters:
+  Description: 'Use `%`-literal delimiters consistently'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-literal-braces'
+  PreferredDelimiters:
+    '%':  ()
+    '%i': ()
+    '%q': ()
+    '%Q': ()
+    '%r': '{}'
+    '%s': ()
+    '%w': ()
+    '%W': ()
+    '%x': ()
+  Enabled: true
+
+Style/PercentQLiterals:
+  Description: 'Checks if uses of %Q/%q match the configured preference.'
+  EnforcedStyle: lower_case_q
+  SupportedStyles:
+    - lower_case_q # Use %q when possible, %Q when necessary
+    - upper_case_q # Always use %Q
+  Enabled: true
+
+Style/PerlBackrefs:
+  Description: 'Avoid Perl-style regex back references.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-perl-regexp-last-matchers'
+  Enabled: true
+
+Style/PredicateName:
+  Description: 'Check the names of predicate methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#bool-methods-qmark'
+  # Predicate name prefixes.
+  NamePrefix:
+    - is_
+    - has_
+    - have_
+  # Predicate name prefixes that should be removed.
+  NamePrefixBlacklist:
+    - is_
+    - has_
+    - have_
+  # Predicate names which, despite having a blacklisted prefix, or no ?,
+  # should still be accepted
+  NameWhitelist:
+    - is_a?
+  Enabled: true
+
+Style/Proc:
+  Description: 'Use proc instead of Proc.new.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#proc'
+  Enabled: true
+
+Style/RaiseArgs:
+  Description: 'Checks the arguments passed to raise/fail.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#exception-class-messages'
+  EnforcedStyle: exploded
+  SupportedStyles:
+    - compact # raise Exception.new(msg)
+    - exploded # raise Exception, msg
+  Enabled: true
+
+Style/RedundantBegin:
+  Description: "Don't use begin blocks when they are not needed."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#begin-implicit'
+  Enabled: true
+
+Style/RedundantException:
+  Description: "Checks for an obsolete RuntimeException argument in raise/fail."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-explicit-runtimeerror'
+  Enabled: true
+
+Style/RedundantFreeze:
+  Description: "Checks usages of Object#freeze on immutable objects."
+  Enabled: true
+
+Style/RedundantParentheses:
+  Description: "Checks for parentheses that seem not to serve any purpose."
+  Enabled: true
+
+Style/RedundantReturn:
+  Description: "Don't use return where it's not required."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-explicit-return'
+  # When true allows code like `return x, y`.
+  AllowMultipleReturnValues: false
+  Enabled: true
+
+Style/RedundantSelf:
+  Description: "Don't use self where it's not needed."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-self-unless-required'
+  Enabled: true
+
+# Use / or %r around regular expressions.
+Style/RegexpLiteral:
+  Description: 'Use / or %r around regular expressions.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-r'
+  EnforcedStyle: slashes
+  # slashes: Always use slashes.
+  # percent_r: Always use %r.
+  # mixed: Use slashes on single-line regexes, and %r on multi-line regexes.
+  SupportedStyles:
+    - slashes
+    - percent_r
+    - mixed
+  # If false, the cop will always recommend using %r if one or more slashes
+  # are found in the regexp string.
+  AllowInnerSlashes: false
+  Enabled: true
+
+Style/RescueEnsureAlignment:
+  Description: 'Align rescues and ensures correctly.'
+  Enabled: true
+
+Style/RescueModifier:
+  Description: 'Avoid using rescue in its modifier form.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-rescue-modifiers'
+  Enabled: true
+
+Style/SelfAssignment:
+  Description: >-
+                 Checks for places where self-assignment shorthand should have
+                 been used.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#self-assignment'
+  Enabled: true
+
+Style/Semicolon:
+  Description: "Don't use semicolons to terminate expressions."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-semicolon'
+  # Allow ; to separate several expressions on the same line.
+  AllowAsExpressionSeparator: false
+  Enabled: true
+
+Style/SignalException:
+  Description: 'Checks for proper usage of fail and raise.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#fail-method'
+  EnforcedStyle: semantic
+  SupportedStyles:
+    - only_raise
+    - only_fail
+    - semantic
+  Enabled: true
+
+Style/SingleLineBlockParams:
+  Description: 'Enforces the names of some block params.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#reduce-blocks'
+  Methods:
+    - reduce:
+        - a
+        - e
+    - inject:
+        - a
+        - e
+  Enabled: true
+
+Style/SingleLineMethods:
+  Description: 'Avoid single-line methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-single-line-methods'
+  AllowIfMethodIsEmpty: true
+  Enabled: true
+
+Style/SpaceBeforeFirstArg:
+  Description: >-
+                 Checks that exactly one space is used between a method name
+                 and the first argument for method calls without parentheses.
+  # When true, allows most uses of extra spacing if the intent is to align
+  # things with the previous or next line, not counting empty lines or comment
+  # lines.
+  AllowForAlignment: true
+  Enabled: true
+
+Style/SpaceAfterColon:
+  Description: 'Use spaces after colons.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-operators'
+  Enabled: true
+
+Style/SpaceAfterComma:
+  Description: 'Use spaces after commas.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-operators'
+  Enabled: true
+
+Style/SpaceAfterControlKeyword:
+  Description: 'Use spaces after if/elsif/unless/while/until/case/when.'
+  Enabled: true
+
+Style/SpaceAfterMethodName:
+  Description: >-
+                 Do not put a space between a method name and the opening
+                 parenthesis in a method definition.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#parens-no-spaces'
+  Enabled: true
+
+Style/SpaceAfterNot:
+  Description: Tracks redundant space after the ! operator.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-space-bang'
+  Enabled: true
+
+Style/SpaceAfterSemicolon:
+  Description: 'Use spaces after semicolons.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-operators'
+  Enabled: true
+
+Style/SpaceBeforeBlockBraces:
+  Description: >-
+                 Checks that the left block brace has or doesn't have space
+                 before it.
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
+
+Style/SpaceBeforeComma:
+  Description: 'No spaces before commas.'
+  Enabled: true
+
+Style/SpaceBeforeComment:
+  Description: >-
+                 Checks for missing space between code and a comment on the
+                 same line.
+  Enabled: true
+
+Style/SpaceBeforeSemicolon:
+  Description: 'No spaces before semicolons.'
+  Enabled: true
+
+Style/SpaceInsideBlockBraces:
+  Description: >-
+                 Checks that block braces have or don't have surrounding space.
+                 For blocks taking parameters, checks that the left brace has
+                 or doesn't have trailing space.
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+  # Valid values are: space, no_space
+  EnforcedStyleForEmptyBraces: no_space
+  # Space between { and |. Overrides EnforcedStyle if there is a conflict.
+  SpaceBeforeBlockParameters: true
+  Enabled: true
+
+Style/SpaceAroundBlockParameters:
+  Description: 'Checks the spacing inside and after block parameters pipes.'
+  EnforcedStyleInsidePipes: no_space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
+
+Style/SpaceAroundEqualsInParameterDefault:
+  Description: >-
+                 Checks that the equals signs in parameter default assignments
+                 have or don't have surrounding space depending on
+                 configuration.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-around-equals'
+  EnforcedStyle: space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
+
+Style/SpaceAroundOperators:
+  Description: 'Use a single space around operators.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-operators'
+  # When true, allows most uses of extra spacing if the intent is to align
+  # with an operator on the previous or next line, not counting empty lines
+  # or comment lines.
+  AllowForAlignment: true
+  Enabled: true
+
+Style/SpaceBeforeModifierKeyword:
+  Description: 'Put a space before the modifier keyword.'
+  Enabled: true
+
+Style/SpaceInsideBrackets:
+  Description: 'No spaces after [ or before ].'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-spaces-braces'
+  Enabled: true
+
+Style/SpaceInsideHashLiteralBraces:
+  Description: "Use spaces inside hash literal braces - or don't."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-operators'
+  EnforcedStyle: space
+  EnforcedStyleForEmptyBraces: no_space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
+
+Style/SpaceInsideParens:
+  Description: 'No spaces after ( or before ).'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-spaces-braces'
+  Enabled: true
+
+Style/SpaceInsideRangeLiteral:
+  Description: 'No spaces inside range literals.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-space-inside-range-literals'
+  Enabled: true
+
+Style/SpaceInsideStringInterpolation:
+  Description: 'Checks for padding/surrounding spaces inside string interpolation.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#string-interpolation'
+  EnforcedStyle: no_space
+  SupportedStyles:
+    - space
+    - no_space
+  Enabled: true
+
+Style/SpecialGlobalVars:
+  Description: 'Avoid Perl-style global variables.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-cryptic-perlisms'
+  EnforcedStyle: use_english_names
+  SupportedStyles:
+    - use_perl_names
+    - use_english_names
+  Enabled: true
+
+Style/StabbyLambdaParentheses:
+  Description: 'Check for the usage of parentheses around stabby lambda arguments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#stabby-lambda-with-args'
+  EnforcedStyle: require_parentheses
+  SupportedStyles:
+    - require_parentheses
+    - require_no_parentheses
+  Enabled: true
+
+Style/StringLiterals:
+  Description: 'Checks if uses of quotes match the configured preference.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#consistent-string-literals'
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  # If true, strings which span multiple lines using \ for continuation must
+  # use the same type of quotes on each line.
+  ConsistentQuotesInMultiline: false
+  Enabled: true
+
+Style/StringLiteralsInInterpolation:
+  Description: >-
+                 Checks if uses of quotes inside expressions in interpolated
+                 strings match the configured preference.
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+    - single_quotes
+    - double_quotes
+  Enabled: true
+
+Style/StringMethods:
+  Description: 'Checks if configured preferred methods are used over non-preferred.'
+  # Mapping from undesired method to desired_method
+  # e.g. to use `to_sym` over `intern`:
+  #
+  # StringMethods:
+  #   PreferredMethods:
+  #     intern: to_sym
+  PreferredMethods:
+    intern: to_sym
+  Enabled: false
+
+Style/StructInheritance:
+  Description: 'Checks for inheritance from Struct.new.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-extend-struct-new'
+  Enabled: true
+
+Style/SymbolArray:
+  Description: 'Use %i or %I for arrays of symbols.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-i'
+  EnforcedStyle: percent
+  SupportedStyles:
+    - percent
+    - brackets
+  Enabled: false
+
+Style/SymbolLiteral:
+  Description: 'Use plain symbols instead of string symbols when possible.'
+  Enabled: true
+
+Style/SymbolProc:
+  Description: 'Use symbols as procs instead of blocks when possible.'
+  # A list of method names to be ignored by the check.
+  # The names should be fairly unique, otherwise you'll end up ignoring lots of code.
+  IgnoredMethods:
+    - respond_to
+  Enabled: true
+
+Style/Tab:
+  Description: 'No hard tabs.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#spaces-indentation'
+  Enabled: true
+
+Style/TrailingBlankLines:
+  Description: 'Checks trailing blank lines and final newline.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#newline-eof'
+  EnforcedStyle: final_newline
+  SupportedStyles:
+    - final_newline
+    - final_blank_line
+  Enabled: true
+
+Style/TrailingCommaInArguments:
+  Description: 'Checks for trailing comma in argument lists.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-trailing-array-commas'
+  # If `comma`, the cop requires a comma after the last argument, but only for
+  # parenthesized method calls where each argument is on its own line.
+  # If `consistent_comma`, the cop requires a comma after the last argument,
+  # for all parenthesized method calls with arguments.
+  EnforcedStyleForMultiline: no_comma
+  SupportedStyles:
+    - comma
+    - consistent_comma
+    - no_comma
+  Enabled: true
+
+Style/TrailingCommaInLiteral:
+  Description: 'Checks for trailing comma in array and hash literals.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-trailing-array-commas'
+  # If `comma`, the cop requires a comma after the last item in an array or
+  # hash, but only when each item is on its own line.
+  # If `consistent_comma`, the cop requires a comma after the last item of all
+  # non-empty array and hash literals.
+  EnforcedStyleForMultiline: no_comma
+  SupportedStyles:
+    - comma
+    - consistent_comma
+    - no_comma
+  Enabled: true
+
+Style/TrailingWhitespace:
+  Description: 'Avoid trailing whitespace.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-trailing-whitespace'
+  Enabled: true
+
+# TrivialAccessors requires exact name matches and doesn't allow
+# predicated methods by default.
+Style/TrivialAccessors:
+  Description: 'Prefer attr_* methods to trivial readers/writers.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#attr_family'
+  # When set to false the cop will suggest the use of accessor methods
+  # in situations like:
+  #
+  # def name
+  #   @other_name
+  # end
+  #
+  # This way you can uncover "hidden" attributes in your code.
+  ExactNameMatch: true
+  AllowPredicates: false
+  # Allows trivial writers that don't end in an equal sign. e.g.
+  #
+  # def on_exception(action)
+  #   @on_exception=action
+  # end
+  # on_exception :restart
+  #
+  # Commonly used in DSLs
+  AllowDSLWriters: false
+  IgnoreClassMethods: false
+  Whitelist:
+    - to_ary
+    - to_a
+    - to_c
+    - to_enum
+    - to_h
+    - to_hash
+    - to_i
+    - to_int
+    - to_io
+    - to_open
+    - to_path
+    - to_proc
+    - to_r
+    - to_regexp
+    - to_str
+    - to_s
+    - to_sym
+  Enabled: true
+
+Style/UnlessElse:
+  Description: >-
+                 Do not use unless with else. Rewrite these with the positive
+                 case first.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-else-with-unless'
+  Enabled: true
+
+Style/UnneededCapitalW:
+  Description: 'Checks for %W when interpolation is not needed.'
+  Enabled: true
+
+Style/UnneededInterpolation:
+  Description: 'Checks for strings that are just an interpolated expression.'
+  Enabled: true
+
+Style/UnneededPercentQ:
+  Description: 'Checks for %q/%Q when single quotes or double quotes would do.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-q'
+  Enabled: true
+
+Style/TrailingUnderscoreVariable:
+  Description: >-
+                 Checks for the usage of unneeded trailing underscores at the
+                 end of parallel variable assignment.
+  AllowNamedUnderscoreVariables: true
+  Enabled: true
+
+Style/VariableInterpolation:
+  Description: >-
+                 Don't interpolate global, instance and class variables
+                 directly in strings.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#curlies-interpolate'
+  Enabled: true
+
+Style/VariableName:
+  Description: 'Use the configured style when naming variables.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#snake-case-symbols-methods-vars'
+  EnforcedStyle: snake_case
+  SupportedStyles:
+    - snake_case
+    - camelCase
+  Enabled: true
+
+Style/WhenThen:
+  Description: 'Use when x then ... for one-line cases.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#one-line-cases'
+  Enabled: true
+
+Style/WhileUntilDo:
+  Description: 'Checks for redundant do after while or until.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-multiline-while-do'
+  Enabled: true
+
+Style/WhileUntilModifier:
+  Description: >-
+                 Favor modifier while/until usage when you have a
+                 single-line body.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#while-as-a-modifier'
+  MaxLineLength: 120
+  Enabled: true
+
+Style/WordArray:
+  Description: 'Use %w or %W for arrays of words.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#percent-w'
+  EnforcedStyle: percent
+  SupportedStyles:
+    - percent
+    - brackets
+  MinSize: 0
+  # The regular expression WordRegex decides what is considered a word.
+  WordRegex: !ruby/regexp '/\A[\p{Word}\n\t]+\z/'
+  Enabled: true
+
+#################### Metrics ################################
+
+Metrics/AbcSize:
+  Description: >-
+                 A calculated magnitude based on number of assignments,
+                 branches, and conditions.
+  Reference: 'http://c2.com/cgi/wiki?AbcMetric'
+  Max: 32
+  Enabled: true
+
+Metrics/BlockNesting:
+  Description: 'Avoid excessive block nesting'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#three-is-the-number-thou-shalt-count'
+  Max: 3
+  Enabled: true
+
+Metrics/ClassLength:
+  Description: 'Avoid classes longer than 100 lines of code.'
+  CountComments: false  # count full line comments?
+  Max: 169
+  Enabled: true
+
+Metrics/LineLength:
+  Description: 'Limit lines to 80 characters.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#80-character-limits'
+  Max: 120
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # contaning a URI to be longer than Max.
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+  Enabled: true
+
+Metrics/ModuleLength:
+  Description: 'Avoid modules longer than 100 lines of code.'
+  CountComments: false  # count full line comments?
+  Max: 154
+  Enabled: true
+
+Metrics/CyclomaticComplexity:
+  Description: >-
+                 A complexity metric that is strongly correlated to the number
+                 of test cases needed to validate a method.
+  Max: 10
+  Enabled: true
+
+Metrics/MethodLength:
+  Description: 'Avoid methods longer than 10 lines of code.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#short-methods'
+  CountComments: false  # count full line comments?
+  Max: 20
+  Enabled: true
+
+Metrics/ParameterLists:
+  Description: 'Avoid parameter lists longer than three or four parameters.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#too-many-params'
+  Max: 5
+  CountKeywordArgs: true
+  Enabled: true
+
+Metrics/PerceivedComplexity:
+  Description: >-
+                 A complexity metric geared towards measuring complexity for a
+                 human reader.
+  Max: 11
+  Enabled: true
+
+#################### Lint ################################
+
+# Allow safe assignment in conditions.
+Lint/AssignmentInCondition:
+  Description: "Don't use assignment in conditions."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#safe-assignment-in-condition'
+  AllowSafeAssignment: true
+  Enabled: true
+
+# Align ends correctly.
+Lint/EndAlignment:
+  Description: 'Align ends correctly.'
+  # The value `keyword` means that `end` should be aligned with the matching
+  # keyword (if, while, etc.).
+  # The value `variable` means that in assignments, `end` should be aligned
+  # with the start of the variable on the left hand side of `=`. In all other
+  # situations, `end` should still be aligned with the keyword.
+  # The value `start_of_line` means that `end` should be aligned with the start
+  # of the line which the matching keyword appears on.
+  AlignWith: keyword
+  SupportedStyles:
+    - keyword
+    - variable
+    - start_of_line
+  AutoCorrect: false
+  Enabled: true
+
+Lint/DefEndAlignment:
+  Description: 'Align ends corresponding to defs correctly.'
+  # The value `def` means that `end` should be aligned with the def keyword.
+  # The value `start_of_line` means that `end` should be aligned with method
+  # calls like `private`, `public`, etc, if present in front of the `def`
+  # keyword on the same line.
+  AlignWith: start_of_line
+  SupportedStyles:
+    - start_of_line
+    - def
+  AutoCorrect: false
+  Enabled: true
+
+# Checks for unused block arguments
+Lint/UnusedBlockArgument:
+  Description: 'Checks for unused block arguments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#underscore-unused-vars'
+  IgnoreEmptyBlocks: true
+  Enabled: true
+
+# Checks for unused method arguments.
+Lint/UnusedMethodArgument:
+  Description: 'Checks for unused method arguments.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#underscore-unused-vars'
+  AllowUnusedKeywordArguments: false
+  IgnoreEmptyMethods: true
+  Enabled: true
+
+Lint/AmbiguousOperator:
+  Description: >-
+                 Checks for ambiguous operators in the first argument of a
+                 method invocation without parentheses.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#parens-as-args'
+  Enabled: true
+
+Lint/AmbiguousRegexpLiteral:
+  Description: >-
+                 Checks for ambiguous regexp literals in the first argument of
+                 a method invocation without parentheses.
+  Enabled: true
+
+Lint/BlockAlignment:
+  Description: 'Align block ends correctly.'
+  Enabled: true
+
+Lint/CircularArgumentReference:
+  Description: "Default values in optional keyword arguments and optional ordinal arguments should not refer back to the name of the argument."
+  Enabled: true
+
+Lint/ConditionPosition:
+  Description: >-
+                 Checks for condition placed in a confusing position relative to
+                 the keyword.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#same-line-condition'
+  Enabled: true
+
+Lint/Debugger:
+  Description: 'Check for debugger calls.'
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Description: 'Check for deprecated class method calls.'
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Description: 'Check for duplicate method definitions.'
+  Enabled: true
+
+Lint/DuplicatedKey:
+  Description: 'Check for duplicate keys in hash literals.'
+  Enabled: true
+
+Lint/EachWithObjectArgument:
+  Description: 'Check for immutable argument given to each_with_object.'
+  Enabled: true
+
+Lint/ElseLayout:
+  Description: 'Check for odd code arrangement in an else block.'
+  Enabled: true
+
+Lint/EmptyEnsure:
+  Description: 'Checks for empty ensure block.'
+  Enabled: true
+
+Lint/EmptyInterpolation:
+  Description: 'Checks for empty string interpolation.'
+  Enabled: true
+
+Lint/EndInMethod:
+  Description: 'END blocks should not be placed inside method definitions.'
+  Enabled: true
+
+Lint/EnsureReturn:
+  Description: 'Do not use return in an ensure block.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-return-ensure'
+  Enabled: true
+
+Lint/Eval:
+  Description: 'The use of eval represents a serious security risk.'
+  Enabled: true
+
+Lint/FloatOutOfRange:
+  Description: >-
+                 Catches floating-point literals too large or small for Ruby to
+                 represent.
+  Enabled: true
+
+Lint/FormatParameterMismatch:
+  Description: 'The number of parameters to format/sprint must match the fields.'
+  Enabled: true
+
+Lint/HandleExceptions:
+  Description: "Don't suppress exception."
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#dont-hide-exceptions'
+  Enabled: true
+
+Lint/ImplicitStringConcatenation:
+  Description: >-
+                 Checks for adjacent string literals on the same line, which
+                 could better be represented as a single string literal.
+  Enabled: true
+
+Lint/IneffectiveAccessModifier:
+  Description: >-
+                 Checks for attempts to use `private` or `protected` to set
+                 the visibility of a class method, which does not work.
+  Enabled: true
+
+Lint/InvalidCharacterLiteral:
+  Description: >-
+                 Checks for invalid character literals with a non-escaped
+                 whitespace character.
+  Enabled: true
+
+Lint/LiteralInCondition:
+  Description: 'Checks of literals used in conditions.'
+  Enabled: true
+
+Lint/LiteralInInterpolation:
+  Description: 'Avoid interpolating literals in strings'
+  AutoCorrect: false
+  Enabled: true
+
+Lint/Loop:
+  Description: >-
+                 Use Kernel#loop with break rather than begin/end/until or
+                 begin/end/while for post-loop tests.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#loop-with-break'
+  Enabled: true
+
+Lint/NestedMethodDefinition:
+  Description: 'Do not use nested method definitions.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-nested-methods'
+  Enabled: true
+
+Lint/NonLocalExitFromIterator:
+  Description: 'Do not use return in iterator to cause non-local exit.'
+  Enabled: true
+
+Lint/ParenthesesAsGroupedExpression:
+  Description: >-
+                 Checks for method calls with a space before the opening
+                 parenthesis.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#parens-no-spaces'
+  Enabled: true
+
+Lint/RandOne:
+  Description: >-
+                 Checks for `rand(1)` calls. Such calls always return `0`
+                 and most likely a mistake.
+  Enabled: true
+
+Lint/RequireParentheses:
+  Description: >-
+                 Use parentheses in the method call to avoid confusion
+                 about precedence.
+  Enabled: true
+
+Lint/RescueException:
+  Description: 'Avoid rescuing the Exception class.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-blind-rescues'
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Description: >-
+                 Do not use the same name as outer local variable
+                 for block arguments or block local variables.
+  Enabled: true
+
+Lint/StringConversionInInterpolation:
+  Description: 'Checks for Object#to_s usage in string interpolation.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#no-to-s'
+  Enabled: true
+
+Lint/UnderscorePrefixedVariableName:
+  Description: 'Do not use prefix `_` for a variable that is used.'
+  Enabled: true
+
+Lint/UnneededDisable:
+  Description: >-
+                 Checks for rubocop:disable comments that can be removed.
+                 Note: this cop is not disabled when disabling all cops.
+                 It must be explicitly disabled.
+  Enabled: true
+
+Lint/UnreachableCode:
+  Description: 'Unreachable code.'
+  Enabled: true
+
+Lint/UselessAccessModifier:
+  Description: 'Checks for useless access modifiers.'
+  Enabled: true
+
+Lint/UselessAssignment:
+  Description: 'Checks for useless assignment to a local variable.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#underscore-unused-vars'
+  Enabled: true
+
+Lint/UselessComparison:
+  Description: 'Checks for comparison of something with itself.'
+  Enabled: true
+
+Lint/UselessElseWithoutRescue:
+  Description: 'Checks for useless `else` in `begin..end` without `rescue`.'
+  Enabled: true
+
+Lint/UselessSetterCall:
+  Description: 'Checks for useless setter call to a local variable.'
+  Enabled: true
+
+Lint/Void:
+  Description: 'Possible use of operator/literal/variable in void context.'
+  Enabled: true
+
+##################### Performance #############################
+
+Performance/Casecmp:
+  Description: 'Use `casecmp` rather than `downcase ==`.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringcasecmp-vs-stringdowncase---code'
+  Enabled: true
+
+Performance/CaseWhenSplat:
+  Description: >-
+                  Place `when` conditions that use splat at the end
+                  of the list of `when` branches.
+  Enabled: true
+
+Performance/Count:
+  Description: >-
+                  Use `count` instead of `select...size`, `reject...size`,
+                  `select...count`, `reject...count`, `select...length`,
+                  and `reject...length`.
+  Enabled: true
+
+Performance/Detect:
+  Description: >-
+                  Use `detect` instead of `select.first`, `find_all.first`,
+                  `select.last`, and `find_all.last`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerabledetect-vs-enumerableselectfirst-code'
+  Enabled: true
+
+Performance/DoubleStartEndWith:
+  Description: >-
+                  Use `str.{start,end}_with?(x, ..., y, ...)`
+                  instead of `str.{start,end}_with?(x, ...) || str.{start,end}_with?(y, ...)`.
+  Enabled: true
+
+Performance/EndWith:
+  Description: 'Use `end_with?` instead of a regex match anchored to the end of a string.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringmatch-vs-stringstart_withstringend_with-code-start-code-end'
+  Enabled: true
+
+Performance/FixedSize:
+  Description: 'Do not compute the size of statically sized objects except in constants'
+  Enabled: true
+
+Performance/FlatMap:
+  Description: >-
+                  Use `Enumerable#flat_map`
+                  instead of `Enumerable#map...Array#flatten(1)`
+                  or `Enumberable#collect..Array#flatten(1)`
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablemaparrayflatten-vs-enumerableflat_map-code'
+  Enabled: true
+  EnabledForFlattenWithoutParams: false
+  # If enabled, this cop will warn about usages of
+  # `flatten` being called without any parameters.
+  # This can be dangerous since `flat_map` will only flatten 1 level, and
+  # `flatten` without any parameters can flatten multiple levels.
+
+Performance/HashEachMethods:
+  Description: >-
+                 Use `Hash#each_key` and `Hash#each_value` instead of
+                 `Hash#keys.each` and `Hash#values.each`.
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#hash-each'
+  Enabled: true
+  AutoCorrect: false
+
+Performance/LstripRstrip:
+  Description: 'Use `strip` instead of `lstrip.rstrip`.'
+  Enabled: true
+
+Performance/RangeInclude:
+  Description: 'Use `Range#cover?` instead of `Range#include?`.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#cover-vs-include-code'
+  Enabled: true
+
+Performance/RedundantBlockCall:
+  Description: 'Use `yield` instead of `block.call`.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#proccall-vs-yield-code'
+  Enabled: true
+
+Performance/RedundantMatch:
+  Description: >-
+                  Use `=~` instead of `String#match` or `Regexp#match` in a context where the
+                  returned `MatchData` is not needed.
+  Enabled: true
+
+Performance/RedundantMerge:
+  Description: 'Use Hash#[]=, rather than Hash#merge! with a single key-value pair.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#hashmerge-vs-hash-code'
+  Enabled: true
+
+Performance/RedundantSortBy:
+  Description: 'Use `sort` instead of `sort_by { |x| x }`.'
+  Enabled: true
+
+Performance/ReverseEach:
+  Description: 'Use `reverse_each` instead of `reverse.each`.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#enumerablereverseeach-vs-enumerablereverse_each-code'
+  Enabled: true
+
+Performance/Sample:
+  Description: >-
+                  Use `sample` instead of `shuffle.first`,
+                  `shuffle.last`, and `shuffle[Fixnum]`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#arrayshufflefirst-vs-arraysample-code'
+  Enabled: true
+
+Performance/Size:
+  Description: >-
+                  Use `size` instead of `count` for counting
+                  the number of elements in `Array` and `Hash`.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#arraycount-vs-arraysize-code'
+  Enabled: true
+
+Performance/StartWith:
+  Description: 'Use `start_with?` instead of a regex match anchored to the beginning of a string.'
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringmatch-vs-stringstart_withstringend_with-code-start-code-end'
+  Enabled: true
+
+Performance/StringReplacement:
+  Description: >-
+                  Use `tr` instead of `gsub` when you are replacing the same
+                  number of characters. Use `delete` instead of `gsub` when
+                  you are deleting characters.
+  Reference: 'https://github.com/JuanitoFatas/fast-ruby#stringgsub-vs-stringtr-code'
+  Enabled: true
+
+Performance/TimesMap:
+  Description: 'Checks for .times.map calls.'
+  Enabled: true
+
+Style/AutoResourceCleanup:
+  Description: 'Suggests the usage of an auto resource cleanup version of a method (if available).'
+  Enabled: false
+
+Style/FirstArrayElementLineBreak:
+  Description: >-
+                 Checks for a line break before the first element in a
+                 multi-line array.
+  Enabled: false
+
+Style/FirstHashElementLineBreak:
+  Description: >-
+                 Checks for a line break before the first element in a
+                 multi-line hash.
+  Enabled: false
+
+Style/FirstMethodArgumentLineBreak:
+  Description: >-
+                 Checks for a line break before the first argument in a
+                 multi-line method call.
+  Enabled: false
+
+Style/FirstMethodParameterLineBreak:
+  Description: >-
+                 Checks for a line break before the first parameter in a
+                 multi-line method parameter definition.
+  Enabled: false
+
+Style/InlineComment:
+  Description: 'Avoid inline comments.'
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Description: 'Avoid chaining a method call on a do...end block.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#single-line-blocks'
+  Enabled: false
+
+Style/MissingElse:
+  Description: >-
+                Require if/case expressions to have an else branches.
+                If enabled, it is recommended that
+                Style/UnlessElse and Style/EmptyElse be enabled.
+                This will conflict with Style/EmptyElse if
+                Style/EmptyElse is configured to style "both"
+  EnforcedStyle: both
+  SupportedStyles:
+    # if - warn when an if expression is missing an else branch
+    # case - warn when a case expression is missing an else branch
+    # both - warn when an if or case expression is missing an else branch
+    - if
+    - case
+    - both
+  Enabled: false
+
+Style/MultilineArrayBraceLayout:
+  Description: >-
+                 Checks that the closing brace in an array literal is
+                 symmetrical with respect to the opening brace and the
+                 array elements.
+  Enabled: false
+
+Style/Send:
+  Description: 'Prefer `Object#__send__` or `Object#public_send` to `send`, as `send` may overlap with existing methods.'
+  StyleGuide: 'http://pm.greenglobal.vn/articles/ruby-coding-style-guide/1795#prefer-public-send'
+  Enabled: false
