@@ -386,7 +386,7 @@ render plain: 'Ruby!'
     has_and_belongs_to_many :users
   end
 
-  # prefered way - using has_many :through
+  # preferred way - using has_many :through
   class User < ActiveRecord::Base
     has_many :memberships
     has_many :groups, through: :memberships
@@ -775,7 +775,7 @@ when you need to retrieve a single record by some attributes.
     end
   end
 
-  # the new prefered way
+  # the new preferred way
   class AddNameToPeople < ActiveRecord::Migration
     def change
       add_column :people, :name, :string
