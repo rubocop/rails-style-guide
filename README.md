@@ -987,7 +987,9 @@ your application.
   # bad
   You can always find more info about this course
   <%= link_to 'here', course_path(@course) %>
-
+  ```
+  
+  ```Ruby
   # good
   You can always find more info about this course
   <%= link_to 'here', course_url(@course) %>
