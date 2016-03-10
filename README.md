@@ -671,13 +671,16 @@ when you need to retrieve a single record by id.
   ```
 
 * <a name="find_by"></a>
-  Favor the use of `find_by` over `where`
+  Favor the use of `find_by` over `where` and `find_by_attribute`
 when you need to retrieve a single record by some attributes.
 <sup>[[link](#find_by)]</sup>
 
   ```Ruby
   # bad
   User.where(first_name: 'Bruce', last_name: 'Wayne').first
+
+  # bad
+  User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
   # good
   User.find_by(first_name: 'Bruce', last_name: 'Wayne')
