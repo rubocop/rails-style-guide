@@ -356,10 +356,10 @@ render plain: 'Ruby!'
     attr_accessor :formatted_date_of_birth
 
     attr_accessible :login, :first_name, :last_name, :email, :password
-    
+
     # Rails4+ enums after attr macros, prefer the hash syntax
     enum gender: { female: 0, male: 1 }
-    
+
     # followed by association macros
     belongs_to :country
 
@@ -1115,7 +1115,7 @@ pets = %w(cat dog).inquiry
 pets.gopher?
 
 # good
-pets = %w(cat dog).inquiry
+pets = %w(cat dog)
 pets.include? 'cat'
 
 # bad - Numeric#inquiry
