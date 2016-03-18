@@ -356,10 +356,10 @@ render plain: 'Ruby!'
     attr_accessor :formatted_date_of_birth
 
     attr_accessible :login, :first_name, :last_name, :email, :password
-    
+
     # Rails4+ enums after attr macros, prefer the hash syntax
     enum gender: { female: 0, male: 1 }
-    
+
     # followed by association macros
     belongs_to :country
 
@@ -816,6 +816,26 @@ when you need to retrieve a single record by some attributes.
 * <a name="partials"></a>
   Mitigate code duplication by using partial templates and layouts.
 <sup>[[link](#partials)]</sup>
+
+* <a name="erb-indentation"></a>
+  Use the same indentation style in ERB as you would in [plain Ruby](https://github.com/bbatsov/ruby-style-guide#no-double-indent). <sup>[[link](#erb-indentation)]</sup>
+
+  ```erb
+  <%# starting point (line is too long) %>
+  <%= form_for @post, as: :post, url: posts_path, html: { class: "new_post", id: "new_post" } do |f| %>
+
+  <%# bad (continued lines are outdented) %>
+  <%= form_for @post,
+    as: :post,
+    url: posts_path,
+    html: { class: "new_post", id: "new_post" } do |f| %>
+
+  <%# good (normal indent) %>
+  <%= form_for @post,
+        as: :post,
+        url: posts_path,
+        html: { class: "new_post", id: "new_post" } do |f| %>
+  ```
 
 ## Internationalization
 
