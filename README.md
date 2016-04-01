@@ -11,7 +11,7 @@ complementary guide to the already existing community-driven
 Some of the advice here is applicable only to Rails 4.0+.
 
 You can generate a PDF or an HTML copy of this guide using
-[Transmuter](https://github.com/TechnoGate/transmuter).
+[Pandoc](http://pandoc.org/).
 
 Translations of the guide are available in the following languages:
 
@@ -356,10 +356,10 @@ render plain: 'Ruby!'
     attr_accessor :formatted_date_of_birth
 
     attr_accessible :login, :first_name, :last_name, :email, :password
-    
+
     # Rails4+ enums after attr macros, prefer the hash syntax
     enum gender: { female: 0, male: 1 }
-    
+
     # followed by association macros
     belongs_to :country
 
