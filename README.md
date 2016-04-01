@@ -280,6 +280,22 @@ render plain: 'Ruby!'
 ...
 ```
 
+* <a name="http-status-code-symbols"></a>
+  Prefer [corresponding symbols](https://gist.github.com/mlanett/a31c340b132ddefa9cca) to numeric HTTP status codes. They are meaningful and do not look like "magic" numbers for less known HTTP status codes.
+<sup>[[link](#http-status-code-symbols)]</sup>
+
+```Ruby
+# bad
+...
+render status: 500
+...
+
+# good
+...
+render status: :forbidden
+...
+```
+
 ## Models
 
 * <a name="model-classes"></a>
