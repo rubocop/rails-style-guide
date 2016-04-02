@@ -1131,7 +1131,7 @@ pets = %w(cat dog).inquiry
 pets.gopher?
 
 # good
-pets = %w(cat dog).inquiry
+pets = %w(cat dog)
 pets.include? 'cat'
 
 # bad - Numeric#inquiry
