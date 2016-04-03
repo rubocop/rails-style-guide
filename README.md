@@ -830,11 +830,17 @@ when you need to retrieve a single record by some attributes.
     url: posts_path,
     html: { class: "new_post", id: "new_post" } do |f| %>
 
+  <%# good (params aligned) %>
+  <%= form_for @post,
+               as: :post,
+               url: posts_path,
+               html: { class: "new_post", id: "new_post" } do |f| %>
+
   <%# good (normal indent) %>
   <%= form_for @post,
         as: :post,
         url: posts_path,
-        html: { class: "new_post", id: "new_post" } do |f| %>
+        html: { class: "new_post", id: "new_post" } do |f| %>        
   ```
 
 ## Internationalization
