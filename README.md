@@ -648,6 +648,18 @@ render status: :forbidden
     has_many :comments, dependent: :destroy
   end
   ```
+* <a name="avoid-suppress"></a>
+  Avoid `ActiveRecord::Base.suppress` (Rails 5).
+<sup>[[link](#avoid-suppress)]</sup>
+
+  ```Ruby
+  # bad
+  def foo
+    Notification.suppress do
+      # Behaviour that should not trigger notifications
+    end
+  end
+  ```
 
 ### ActiveRecord Queries
 
