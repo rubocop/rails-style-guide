@@ -833,6 +833,27 @@ when you need to retrieve a single record by some attributes.
   Mitigate code duplication by using partial templates and layouts.
 <sup>[[link](#partials)]</sup>
 
+* <a name="no-instance-variables-in-partials"></a>
+  Avoid using instance variables in partials, pass a local variable to `render` instead. 
+  The partial may be used in a different controller or action, where the variable can have 
+  a different name or even be absent. In these cases, an undefined instance variable 
+  will not raise an exception whereas a local variable will.
+<sup>[[link](#no-instance-variables-in-partials)]</sup>
+
+```erb
+<!-- bad -->
+<!-- app/views/courses/show.html.erb -->
+<%= render 'course_description' %>
+<!-- app/views/courses/_course_description.html.erb -->
+<%= @course.description %>
+
+<!-- good -->
+<!-- app/views/courses/show.html.erb -->
+<%= render 'course_description', course: @course %>
+<!-- app/views/courses/_course_description.html.erb -->
+<%= course.description %>
+```
+
 ## Internationalization
 
 * <a name="locale-texts"></a>
