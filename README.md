@@ -685,7 +685,7 @@ render status: :forbidden
   ```
 
 * <a name="find"></a>
-  Favor the use of `find` over `where`
+  Favor the use of `find_by` over `where`
 when you need to retrieve a single record by id.
 <sup>[[link](#find)]</sup>
 
@@ -694,7 +694,7 @@ when you need to retrieve a single record by id.
   User.where(id: id).take
 
   # good
-  User.find(id)
+  User.find_by(id: id)
   ```
 
 * <a name="find_by"></a>
