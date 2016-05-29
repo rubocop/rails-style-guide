@@ -336,7 +336,7 @@ render status: :forbidden
   Unless they have some meaning in the business domain, don't put methods in
   your model that just format your data (like code generating HTML). These
   methods are most likely going to be called from the view layer only, so their
-  place is in helpers. Keep your models for business logic and data-persistance
+  place is in helpers. Keep your models for business logic and data-persistence
   only.
 <sup>[[link](#model-business-logic)]</sup>
 
