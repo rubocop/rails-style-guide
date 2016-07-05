@@ -818,6 +818,28 @@ when you need to retrieve a single record by some attributes.
   stop, because of changes in the models used.
 <sup>[[link](#no-model-class-migrations)]</sup>
 
+* <a name="meaningful-foreign-key-naming"></a>
+  Name your foreign keys explicitly instead of relying on Rails auto-generated
+  FK names. (http://edgeguides.rubyonrails.org/active_record_migrations.html#foreign-keys)
+
+  ```Ruby
+  # bad
+  class AddFkArticlesToAuthors < ActiveRecord::Migration
+    def change
+      add_foreign_key :articles, :authors
+    end
+  end
+
+  # good
+  class AddFkArticlesToAuthors < ActiveRecord::Migration
+    def change
+      add_foreign_key :articles, :authors, name: :articles_author_id_fk
+    end
+  end
+  ```
+
+<sup>[[link](#meaningful-foreign-key-naming)]</sup>
+
 ## Views
 
 * <a name="no-direct-model-view"></a>
