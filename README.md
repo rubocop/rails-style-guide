@@ -649,6 +649,38 @@ render status: :forbidden
   end
   ```
 
+* <a name="save-bang"></a>
+  When persisting AR objects always use the exception raising bang! method or handle the method return value. 
+  This applies to `create`, `save`, `update`, `destroy`, `first_or_create` and `find_or_create_by`.
+<sup>[[link](#save-bang)]</sup>
+
+  ```Ruby
+  # bad
+  user.create(name: 'Bruce')
+
+  # bad
+  user.save
+
+  # good
+  user.create!(name: 'Bruce')
+  # or
+  bruce = user.create(name: 'Bruce')
+  if bruce.persisted?
+    ...
+  else
+    ...
+  end
+
+  # good
+  user.save!
+  # or
+  if user.save
+    ...
+  else
+    ...
+  end
+  ```
+
 ### ActiveRecord Queries
 
 * <a name="avoid-interpolation"></a>
