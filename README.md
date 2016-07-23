@@ -651,7 +651,7 @@ render status: :forbidden
   ```
 
 * <a name="save-bang"></a>
-  When persisting AR objects always use the exception raising bang! method or handle the method return value. 
+  When persisting AR objects always use the exception raising bang! method or handle the method return value.
   This applies to `create`, `save`, `update`, `destroy`, `first_or_create` and `find_or_create_by`.
 <sup>[[link](#save-bang)]</sup>
 
@@ -765,7 +765,7 @@ when you need to retrieve a single record by some attributes.
 <sup>[[link](#squished-heredocs)]</sup>
 
   ```Ruby
-  User.find_by_sql(<<SQL.squish)
+  User.find_by_sql(<<-SQL.squish)
     SELECT
       users.id, accounts.plan
     FROM
