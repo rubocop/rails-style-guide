@@ -288,7 +288,7 @@ render plain: 'Ruby!'
 ```Ruby
 # bad
 ...
-render status: 500
+render status: 403
 ...
 
 # good
