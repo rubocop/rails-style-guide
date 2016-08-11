@@ -874,6 +874,18 @@ render status: :forbidden
   scope :chronological, -> { order(created_at: :asc) }
   ```
 
+* <a name="ids"></a>
+  Favor the use of `ids` over `pluck(:id)`.
+<sup>[[link](#ids)]</sup>
+
+  ```Ruby
+  # bad
+  User.pluck(:id)
+
+  # good
+  User.ids
+  ```
+
 * <a name="squished-heredocs"></a>
   When specifying an explicit query in a method such as `find_by_sql`, use
   heredocs with `squish`. This allows you to legibly format the SQL with
