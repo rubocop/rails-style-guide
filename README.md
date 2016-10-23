@@ -107,6 +107,53 @@ programming resources.
   Rails::Application.config_for(:yaml_file)
   ```
 
+* <a name="secrets-yaml"></a>
+  Use `secrets.yml` to avoid environment dependent conditional variables in code.
+  Applies for URLs and especially tokens.
+<sup>[[link](#secrets-yaml)]</sup>
+
+  If your Rails app uses third-party services that have different URLs
+  for development/staging (usually called sandbox) and production environments,
+  move them to `config/secrets.yml` file and reference them from there.
+  This way you avoid any checks if your code is running in specific environment.
+
+  ```Ruby
+  # Some Ruby module
+  # BAD
+  def make_paypal_request
+    # Also note that for any
+    # environment you add this conditional
+    # will increase in complexity.
+    url = if Rails.env.production?
+            'https://api.paypal.com/v1/'
+          else
+            'https://api.sandbox.paypal.com/v1/'
+          end
+
+    response = Net::HTTP.get(url)
+    ...
+  end
+
+  # GOOD
+  def make_paypal_request
+    # Automagically matches to your environment
+    response = Net::HTTP.get(Rails.application.secrets.paypal_url)
+    ...
+  end
+  ```
+
+  ```YAML
+  # secrets.yml
+  development:
+    paypal_url: https://api.sandbox.paypal.com/v1/
+
+  test:
+    paypal_url: https://api.sandbox.paypal.com/v1/
+
+  production:
+    paypal_url: https://api.paypal.com/v1/
+  ```
+
 ## Routing
 
 * <a name="member-collection-routes"></a>
