@@ -845,11 +845,64 @@ when you need to retrieve a single record by some attributes.
   end
   ```
 
-* <a name="no-model-class-migrations"></a>
-  Don't use model classes in migrations. The model classes are constantly
-  evolving and at some point in the future migrations that used to work might
-  stop, because of changes in the models used.
-<sup>[[link](#no-model-class-migrations)]</sup>
+* <a name="define-model-class-migrations"></a>
+  If you have to use models in migrations, make sure you define them
+  so that you don't end up with broken migrations in the future
+<sup>[[link](#define-model-class-migrations)]</sup>
+
+  ```Ruby
+  # db/migrate/<migration_file_name>.rb
+  # frozen_string_literal: true
+
+  # bad
+  class ModifyDefaultStatusForProducts < ActiveRecord::Migration
+    def change
+      old_status = 'pending_manual_approval'
+      new_status = 'pending_approval'
+
+      reversible do |dir|
+        dir.up do
+          Product.where(status: old_status).update_all(status: new_status)
+          change_column :products, :status, :string, default: new_status
+        end
+
+        dir.down do
+          Product.where(status: new_status).update_all(status: old_status)
+          change_column :products, :status, :string, default: old_status
+        end
+      end
+    end
+  end
+
+  # good
+  # Define `table_name` in a custom named class to make sure that
+  # you run on the same table you had during the creation of the migration.
+  # In future if you override the `Product` class
+  # and change the `table_name`, it won't break
+  # the migration or cause serious data corruption.
+  class MigrationProduct < ActiveRecord::Base
+    self.table_name = :products
+  end
+
+  class ModifyDefaultStatusForProducts < ActiveRecord::Migration
+    def change
+      old_status = 'pending_manual_approval'
+      new_status = 'pending_approval'
+
+      reversible do |dir|
+        dir.up do
+          MigrationProduct.where(status: old_status).update_all(status: new_status)
+          change_column :products, :status, :string, default: new_status
+        end
+
+        dir.down do
+          MigrationProduct.where(status: new_status).update_all(status: old_status)
+          change_column :products, :status, :string, default: old_status
+        end
+      end
+    end
+  end
+  ```
 
 * <a name="meaningful-foreign-key-naming"></a>
   Name your foreign keys explicitly instead of relying on Rails auto-generated
