@@ -862,7 +862,7 @@ when you need to retrieve a single record by some attributes.
 
 * <a name="meaningful-foreign-key-naming"></a>
   Name your foreign keys explicitly instead of relying on Rails auto-generated
-  FK names. (http://edgeguides.rubyonrails.org/active_record_migrations.html#foreign-keys)
+  FK names. (http://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
 <sup>[[link](#meaningful-foreign-key-naming)]</sup>
 
   ```Ruby
