@@ -812,7 +812,7 @@ when you need to retrieve a single record by some attributes.
   # good - database enforced
   class AddDefaultAmountToProducts < ActiveRecord::Migration
     def change
-      change_column :products, :amount, :integer, default: 0
+      change_column_default :products, :amount, 0
     end
   end
   ```
