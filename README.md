@@ -107,6 +107,20 @@ programming resources.
   Rails::Application.config_for(:yaml_file)
   ```
 
+* <a name="rails-root-join"></a>
+  The application file path joining process always uses `Rails.root.join` clause.
+  <sup>[[link](#rails-root-join)]</sup>
+
+  ```Ruby
+  # bad
+  Rails.root.join('app/models/goober')
+  File.join(Rails.root, 'app/models/goober')
+  "#{Rails.root}/app/models/goober"
+
+  # good
+  Rails.root.join('app', 'models', 'goober')
+  ```
+
 ## Routing
 
 * <a name="member-collection-routes"></a>
