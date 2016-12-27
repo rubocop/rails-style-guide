@@ -537,12 +537,29 @@ render status: :forbidden
   end
   ```
 
-* <a name="beware-update-attribute"></a>
+* <a name="beware-skip-model-validations"></a>
   Beware of the behavior of the
-  [`update_attribute`](http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_attribute)
-  method. It doesn't run the model validations (unlike `update_attributes`) and
+  [following](http://guides.rubyonrails.org/active_record_validations.html#skipping-validations)
+  methods. They do not run the model validations and
   could easily corrupt the model state.
-<sup>[[link](#beware-update-attribute)]</sup>
+<sup>[[link](#beware-skip-model-validations)]</sup>
+
+  ```Ruby
+  # bad
+  Article.first.decrement!(:view_count)
+  DiscussionBoard.decrement_counter(:post_count, 5)
+  Article.first.increment!(:view_count)
+  DiscussionBoard.increment_counter(:post_count, 5)
+  person.toggle :active
+  product.touch
+  Billing.update_all("category = 'authorized', author = 'David'")
+  user.update_attribute(website: 'example.com')
+  user.update_columns(last_request_at: Time.current)
+  Post.update_counters 5, comment_count: -1, action_count: 1
+
+  # good
+  user.update_attributes(website: 'example.com')
+  ```
 
 * <a name="user-friendly-urls"></a>
   Use user-friendly URLs. Show some descriptive attribute of the model in the URL
