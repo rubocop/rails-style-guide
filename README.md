@@ -1145,13 +1145,13 @@ your application.
   methods don't.
 <sup>[[link](#url-not-path-in-email)]</sup>
 
-  ```Ruby
-  # bad
-  You can always find more info about this course
+  ```ERB
+  <% # bad %>
+  <% # You can always find more info about this course %>
   <%= link_to 'here', course_path(@course) %>
 
-  # good
-  You can always find more info about this course
+  <% # good %>
+  <% # You can always find more info about this course %>
   <%= link_to 'here', course_url(@course) %>
   ```
 
