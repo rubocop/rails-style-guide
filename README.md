@@ -951,6 +951,45 @@ when you need to retrieve a single record by some attributes.
   end
   ```
 
+* <a name="reversible-migration"></a>
+  Don't use non-reversible migration commands in the `change` method.
+  Reversible migration commands are listed below.
+  [ActiveRecord::Migration::CommandRecorder](http://api.rubyonrails.org/classes/ActiveRecord/Migration/CommandRecorder.html)
+<sup>[[link](#reversible-migration)]</sup>
+
+  ```ruby
+  # bad
+  class DropUsers < ActiveRecord::Migration
+    def change
+      drop_table :users
+    end
+  end
+
+  # good
+  class DropUsers < ActiveRecord::Migration
+    def up
+      drop_table :users
+    end
+
+    def down
+      create_table :users do |t|
+        t.string :name
+      end
+    end
+  end
+
+  # good
+  # In this case, block will be used by create_table in rollback
+  # http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table
+  class DropUsers < ActiveRecord::Migration
+    def change
+      drop_table :users do |t|
+        t.string :name
+      end
+    end
+  end
+  ```
+
 ## Views
 
 * <a name="no-direct-model-view"></a>
