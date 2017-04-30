@@ -80,7 +80,7 @@ programming resources.
 
   * Mark additional assets for precompilation (if any):
 
-    ```Ruby
+    ```ruby
     # config/environments/production.rb
     # Precompile additional assets (application.js, application.css,
     #and all non-JS/CSS are already added)
@@ -103,7 +103,7 @@ programming resources.
 
   Since Rails 4.2 YAML configuration files can be easily loaded with the new `config_for` method:
 
-  ```Ruby
+  ```ruby
   Rails::Application.config_for(:yaml_file)
   ```
 
@@ -114,7 +114,7 @@ programming resources.
   them at all?) use `member` and `collection` routes.
 <sup>[[link](#member-collection-routes)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   get 'subscriptions/:id/unsubscribe'
   resources :subscriptions
@@ -139,7 +139,7 @@ programming resources.
   alternative block syntax.
 <sup>[[link](#many-member-collection-routes)]</sup>
 
-  ```Ruby
+  ```ruby
   resources :subscriptions do
     member do
       get 'unsubscribe'
@@ -160,7 +160,7 @@ programming resources.
   models.
 <sup>[[link](#nested-routes)]</sup>
 
-  ```Ruby
+  ```ruby
   class Post < ActiveRecord::Base
     has_many :comments
   end
@@ -178,7 +178,7 @@ programming resources.
 * <a name="namespaced-routes"></a>
   If you need to nest routes more than 1 level deep then use the `shallow: true` option. This will save user from long urls `posts/1/comments/5/versions/7/edit` and you from long url helpers `edit_post_comment_version`.
 
-  ```Ruby
+  ```ruby
   resources :posts, shallow: true do
     resources :comments do
       resources :versions
@@ -190,7 +190,7 @@ programming resources.
   Use namespaced routes to group related actions.
 <sup>[[link](#namespaced-routes)]</sup>
 
-  ```Ruby
+  ```ruby
   namespace :admin do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
@@ -203,7 +203,7 @@ programming resources.
   in every controller accessible via GET requests.
 <sup>[[link](#no-wild-routes)]</sup>
 
-  ```Ruby
+  ```ruby
   # very bad
   match ':controller(/:action(/:id(.:format)))'
   ```
@@ -236,7 +236,7 @@ programming resources.
   Prefer using a template over inline rendering.
 <sup>[[link](#inline-rendering)]</sup>
 
-```Ruby
+```ruby
 # very bad
 class ProductsController < ApplicationController
   def index
@@ -264,7 +264,7 @@ end
   Prefer `render plain:` over `render text:`.
 <sup>[[link](#plain-text-rendering)]</sup>
 
-```Ruby
+```ruby
 # bad - sets MIME type to `text/html`
 ...
 render text: 'Ruby!'
@@ -285,7 +285,7 @@ render plain: 'Ruby!'
   Prefer [corresponding symbols](https://gist.github.com/mlanett/a31c340b132ddefa9cca) to numeric HTTP status codes. They are meaningful and do not look like "magic" numbers for less known HTTP status codes.
 <sup>[[link](#http-status-code-symbols)]</sup>
 
-```Ruby
+```ruby
 # bad
 ...
 render status: 500
@@ -313,7 +313,7 @@ render status: :forbidden
   [ActiveAttr](https://github.com/cgriego/active_attr) gem.
 <sup>[[link](#activeattr-gem)]</sup>
 
-  ```Ruby
+  ```ruby
   class Message
     include ActiveAttr::Model
 
@@ -348,7 +348,7 @@ render status: :forbidden
   you have a very good reason (like a database that's not under your control).
 <sup>[[link](#keep-ar-defaults)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad - don't do this if you can modify the schema
   class Transaction < ActiveRecord::Base
     self.table_name = 'order'
@@ -361,7 +361,7 @@ render status: :forbidden
   the class definition.
 <sup>[[link](#macro-style-methods)]</sup>
 
-  ```Ruby
+  ```ruby
   class User < ActiveRecord::Base
     # keep the default scope first (if any)
     default_scope { where(active: true) }
@@ -404,7 +404,7 @@ render status: :forbidden
   :through` allows additional attributes and validations on the join model.
 <sup>[[link](#has-many-through)]</sup>
 
-  ```Ruby
+  ```ruby
   # not so good - using has_and_belongs_to_many
   class User < ActiveRecord::Base
     has_and_belongs_to_many :groups
@@ -435,7 +435,7 @@ render status: :forbidden
   Prefer `self[:attribute]` over `read_attribute(:attribute)`.
 <sup>[[link](#read-attribute)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   def amount
     read_attribute(:amount) * 100
@@ -451,7 +451,7 @@ render status: :forbidden
   Prefer `self[:attribute] = value` over `write_attribute(:attribute, value)`.
 <sup>[[link](#write-attribute)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   def amount
     write_attribute(:amount, 100)
@@ -468,7 +468,7 @@ render status: :forbidden
   validations](http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/).
 <sup>[[link](#sexy-validations)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   validates_presence_of :email
   validates_length_of :email, maximum: 100
@@ -482,7 +482,7 @@ render status: :forbidden
   regular expression mapping, create a custom validator file.
 <sup>[[link](#custom-validator-file)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   class Person
     validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
@@ -513,7 +513,7 @@ render status: :forbidden
   Use named scopes freely.
 <sup>[[link](#named-scopes)]</sup>
 
-  ```Ruby
+  ```ruby
   class User < ActiveRecord::Base
     scope :active, -> { where(active: true) }
     scope :inactive, -> { where(active: false) }
@@ -529,7 +529,7 @@ render status: :forbidden
   object. Arguably you can define even simpler scopes like this.
 <sup>[[link](#named-scope-class)]</sup>
 
-  ```Ruby
+  ```ruby
   class User < ActiveRecord::Base
     def self.with_orders
       joins(:orders).select('distinct(users.id)')
@@ -544,7 +544,7 @@ render status: :forbidden
   could easily corrupt the model state.
 <sup>[[link](#beware-skip-model-validations)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   Article.first.decrement!(:view_count)
   DiscussionBoard.decrement_counter(:post_count, 5)
@@ -571,7 +571,7 @@ render status: :forbidden
     the `id` of the record as a String.  It could be overridden to include another
     human-readable attribute.
 
-      ```Ruby
+      ```ruby
       class Person
         def to_param
           "#{id} #{name}".parameterize
@@ -586,7 +586,7 @@ render status: :forbidden
   * Use the `friendly_id` gem. It allows creation of human-readable URLs by
     using some descriptive attribute of the model instead of its `id`.
 
-      ```Ruby
+      ```ruby
       class Person
         extend FriendlyId
         friendly_id :name, use: :slugged
@@ -605,7 +605,7 @@ render status: :forbidden
 <sup>[[link](#find-each)]</sup>
 
 
-  ```Ruby
+  ```ruby
   # bad
   Person.all.each do |person|
     person.do_awesome_stuff
@@ -631,7 +631,7 @@ render status: :forbidden
   `before_destroy` callbacks that perform validation with `prepend: true`.
 <sup>[[link](#before_destroy)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad (roles will be deleted automatically even if super_admin? is true)
   has_many :roles, dependent: :destroy
 
@@ -655,7 +655,7 @@ render status: :forbidden
   Define the `dependent` option to the `has_many` and `has_one` associations.
 <sup>[[link](#has_many-has_one-dependent-option)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   class Post < ActiveRecord::Base
     has_many :comments
@@ -672,7 +672,7 @@ render status: :forbidden
   This applies to `create`, `save`, `update`, `destroy`, `first_or_create` and `find_or_create_by`.
 <sup>[[link](#save-bang)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   user.create(name: 'Bruce')
 
@@ -707,7 +707,7 @@ render status: :forbidden
   attacks.
 <sup>[[link](#avoid-interpolation)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad - param will be interpolated unescaped
   Client.where("orders_count = #{params[:orders]}")
 
@@ -720,7 +720,7 @@ render status: :forbidden
   when you have more than 1 placeholder in your query.
 <sup>[[link](#named-placeholder)]</sup>
 
-  ```Ruby
+  ```ruby
   # okish
   Client.where(
     'created_at >= ? AND created_at <= ?',
@@ -739,7 +739,7 @@ render status: :forbidden
 when you need to retrieve a single record by id.
 <sup>[[link](#find)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   User.where(id: id).take
 
@@ -752,7 +752,7 @@ when you need to retrieve a single record by id.
 when you need to retrieve a single record by some attributes.
 <sup>[[link](#find_by)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   User.where(first_name: 'Bruce', last_name: 'Wayne').first
 
@@ -767,7 +767,7 @@ when you need to retrieve a single record by some attributes.
   Favor the use of `where.not` over SQL.
 <sup>[[link](#where-not)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   User.where("id != ?", id)
 
@@ -781,7 +781,7 @@ when you need to retrieve a single record by some attributes.
   tools (including GitHub, Atom, and RubyMine).
 <sup>[[link](#squished-heredocs)]</sup>
 
-  ```Ruby
+  ```ruby
   User.find_by_sql(<<-SQL.squish)
     SELECT
       users.id, accounts.plan
@@ -818,7 +818,7 @@ when you need to retrieve a single record by some attributes.
   application layer.
 <sup>[[link](#default-migration-values)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad - application enforced default value
   class Product < ActiveRecord::Base
     def amount
@@ -851,7 +851,7 @@ when you need to retrieve a single record by some attributes.
   use the `change` method instead of `up` and `down` methods.
   <sup>[[link](#change-vs-up-down)]</sup>
 
-  ```Ruby
+  ```ruby
   # the old way
   class AddNameToPeople < ActiveRecord::Migration
     def up
@@ -876,7 +876,7 @@ when you need to retrieve a single record by some attributes.
   so that you don't end up with broken migrations in the future
 <sup>[[link](#define-model-class-migrations)]</sup>
 
-  ```Ruby
+  ```ruby
   # db/migrate/<migration_file_name>.rb
   # frozen_string_literal: true
 
@@ -935,7 +935,7 @@ when you need to retrieve a single record by some attributes.
   FK names. (http://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
 <sup>[[link](#meaningful-foreign-key-naming)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   class AddFkArticlesToAuthors < ActiveRecord::Migration
     def change
@@ -1043,7 +1043,7 @@ when you need to retrieve a single record by some attributes.
     these directories must be described in the `application.rb` file in order
     to be loaded.
 
-      ```Ruby
+      ```ruby
       # config/application.rb
       config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
       ```
@@ -1073,7 +1073,7 @@ when you need to retrieve a single record by some attributes.
   The value for `users.show.title` can be looked up in the template
   `app/views/users/show.html.haml` like this:
 
-  ```Ruby
+  ```ruby
   = t '.title'
   ```
 
@@ -1083,7 +1083,7 @@ when you need to retrieve a single record by some attributes.
   hierarchy.
 <sup>[[link](#dot-separated-keys)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   I18n.t :record_invalid, scope: [:activerecord, :errors, :messages]
 
@@ -1141,7 +1141,7 @@ your application.
   The errors are disabled by default.
 <sup>[[link](#enable-delivery-errors)]</sup>
 
-  ```Ruby
+  ```ruby
   # config/environments/development.rb
 
   config.action_mailer.raise_delivery_errors = true
@@ -1153,7 +1153,7 @@ your application.
   environment.
 <sup>[[link](#local-smtp)]</sup>
 
-  ```Ruby
+  ```ruby
   # config/environments/development.rb
 
   config.action_mailer.smtp_settings = {
@@ -1167,7 +1167,7 @@ your application.
   Provide default settings for the host name.
 <sup>[[link](#default-hostname)]</sup>
 
-  ```Ruby
+  ```ruby
   # config/environments/development.rb
   config.action_mailer.default_url_options = { host: "#{local_ip}:3000" }
 
@@ -1184,7 +1184,7 @@ your application.
   methods don't.
 <sup>[[link](#url-not-path-in-email)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   You can always find more info about this course
   <%= link_to 'here', course_path(@course) %>
@@ -1198,7 +1198,7 @@ your application.
   Format the from and to addresses properly. Use the following format:
 <sup>[[link](#email-addresses)]</sup>
 
-  ```Ruby
+  ```ruby
   # in your mailer class
   default from: 'Your Name <info@your_site.com>'
   ```
@@ -1208,7 +1208,7 @@ your application.
   `test`:
 <sup>[[link](#delivery-method-test)]</sup>
 
-  ```Ruby
+  ```ruby
   # config/environments/test.rb
 
   config.action_mailer.delivery_method = :test
@@ -1218,7 +1218,7 @@ your application.
   The delivery method for development and production should be `smtp`:
 <sup>[[link](#delivery-method-smtp)]</sup>
 
-  ```Ruby
+  ```ruby
   # config/environments/development.rb, config/environments/production.rb
 
   config.action_mailer.delivery_method = :smtp
@@ -1321,7 +1321,7 @@ pets.include? 'cat'
   Config your timezone accordingly in `application.rb`.
 <sup>[[link](#tz-config)]</sup>
 
-  ```Ruby
+  ```ruby
   config.time_zone = 'Eastern European Time'
   # optional - note it can be only :utc or :local (default is :utc)
   config.active_record.default_timezone = :local
@@ -1331,7 +1331,7 @@ pets.include? 'cat'
   Don't use `Time.parse`.
 <sup>[[link](#time-parse)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   Time.parse('2015-03-02 19:05:37') # => Will assume time string given is in the system's time zone.
 
@@ -1343,7 +1343,7 @@ pets.include? 'cat'
   Don't use `Time.now`.
 <sup>[[link](#time-now)]</sup>
 
-  ```Ruby
+  ```ruby
   # bad
   Time.now # => Returns system time and ignores your configured time zone.
 
@@ -1372,7 +1372,7 @@ pets.include? 'cat'
   all Linux specific gems to a `linux` group:
 <sup>[[link](#os-specific-gemfile-locks)]</sup>
 
-  ```Ruby
+  ```ruby
   # Gemfile
   group :darwin do
     gem 'rb-fsevent'
@@ -1387,7 +1387,7 @@ pets.include? 'cat'
   To require the appropriate gems in the right environment, add the
   following to `config/application.rb`:
 
-  ```Ruby
+  ```ruby
   platform = RUBY_PLATFORM.match(/(linux|darwin)/)[0].to_sym
   Bundler.require(platform)
   ```
