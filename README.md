@@ -469,11 +469,11 @@ render status: :forbidden
 
   ```ruby
   # bad
-  validates_presence_of :email
-  validates_length_of :email, maximum: 100
+  validates :email, presence: true, length: { maximum: 100 }
 
   # good
-  validates :email, presence: true, length: { maximum: 100 }
+  validates_presence_of :email
+  validates_length_of :email, maximum: 100
   ```
 
 * <a name="custom-validator-file"></a>
