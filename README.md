@@ -292,7 +292,7 @@ render status: 500
 
 # good
 ...
-render status: :forbidden
+render status: :internal_server_error
 ...
 ```
 
