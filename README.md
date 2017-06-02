@@ -22,6 +22,7 @@ Translations of the guide are available in the following languages:
 * [Turkish](https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md)
 * [Korean](https://github.com/pureugong/rails-style-guide/blob/master/README-koKR.md)
 * [Vietnamese](https://github.com/CQBinh/rails-style-guide/blob/master/README-viVN.md)
+* [Portuguese](https://github.com/alexandrepeluchi/rails-style-guide/blob/master/README-ptBR.md)
 
 # The Rails Style Guide
 
