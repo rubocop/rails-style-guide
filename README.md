@@ -773,6 +773,22 @@ when you need to retrieve a single record by some attributes.
   # good
   User.where.not(id: id)
   ```
+
+* <a name ="order-by-id"></a>
+  Don't use the `id` column for ordering. The sequence of ids is not
+  guaranteed to be in any particular order, despite often (incidentally)
+  being chronological. Use a timestamp column to order chronologically.
+  As a bonus the intent is clearer.
+<sup>[[link](#order-by-id)]</sup>
+
+  ```ruby
+  # bad
+  scope :chronological, -> { order(id: :asc) }
+
+  # good
+  scope :chronological, -> { order(created_at: :asc) }
+  ```
+
 * <a name="squished-heredocs"></a>
   When specifying an explicit query in a method such as `find_by_sql`, use
   heredocs with `squish`. This allows you to legibly format the SQL with
