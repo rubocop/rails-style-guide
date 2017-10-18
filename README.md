@@ -734,31 +734,43 @@ render status: :forbidden
   ```
 
 * <a name="find"></a>
-  Favor the use of `find` over `where`
-when you need to retrieve a single record by id.
+  Favor the use of `find` over `where.take!`, `find_by!`, and `find_by_id!`
+  when you need to retrieve a single record by primary key id and raise
+  `ActiveRecord::RecordNotFound` when the record is not found.
 <sup>[[link](#find)]</sup>
 
   ```ruby
   # bad
-  User.where(id: id).take
+  User.where(id: id).take!
 
+  # bad
+  User.find_by_id!(id)
+
+  # bad
+  User.find_by!(id: id)
+  
   # good
   User.find(id)
   ```
 
 * <a name="find_by"></a>
-  Favor the use of `find_by` over `where` and `find_by_attribute`
-when you need to retrieve a single record by some attributes.
+  Favor the use of `find_by` over `where.take` and `find_by_attribute`
+  when you need to retrieve a single record by one or more attributes and return
+  `nil` when the record is not found.
 <sup>[[link](#find_by)]</sup>
 
   ```ruby
   # bad
-  User.where(first_name: 'Bruce', last_name: 'Wayne').first
+  User.where(id: id).take
+  User.where(first_name: 'Bruce', last_name: 'Wayne').take
 
   # bad
+  User.find_by_id(id)
+  # bad, deprecated in ActiveRecord 4.0, removed in 4.1+
   User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
   # good
+  User.find_by(id: id)
   User.find_by(first_name: 'Bruce', last_name: 'Wayne')
   ```
 
