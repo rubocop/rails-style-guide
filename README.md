@@ -228,6 +228,24 @@ programming resources.
   Share no more than two instance variables between a controller and a view.
 <sup>[[link](#shared-instance-variables)]</sup>
 
+* <a name="lexically-scoped-action-filter"></a>
+  Controller actions specified in the option of Action Filter should be in lexical scope. The ActionFilter specified for an inherited action makes it difficult to understand the scope of its impact on that action.
+<sup>[[link](#lexically-scoped-action-filter)]</sup>
+
+```ruby
+# bad
+class UsersController < ApplicationController
+  before_action :require_login, only: :export
+end
+
+# good
+class UsersController < ApplicationController
+  before_action :require_login, only: :export
+
+  def export
+  end
+end
+```
 
 ### Rendering
 
