@@ -819,6 +819,21 @@ when you need to retrieve a single record by some attributes.
   SELECT\n    users.id, accounts.plan\n  FROM\n    users\n  INNER JOIN\n    acounts\n  ON\n    accounts.user_id = users.id
   ```
 
+* <a name="size-over-count-or-length"></a>
+  When querying ActiveRecord collections, prefer `size` (selects between count/length behavior based on whether collection is already loaded) or `length` (always loads the whole collection and counts the array elements) over `count` (always does a database query for the count).
+<sup>[[link](#size-over-count-or-length)]</sup>
+
+  ```ruby
+  # bad
+  User.count
+
+  # good
+  User.all.size
+
+  # good - if you really need to load all users into memory
+  User.all.length
+  ```
+
 ## Migrations
 
 * <a name="schema-version"></a>
