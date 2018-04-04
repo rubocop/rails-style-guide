@@ -1303,7 +1303,7 @@ obj&.fly
 ```
 
 * <a name="inquiry"></a>
-  Prefer Ruby's comparison operators over ActiveSupport's `Array#inquiry`, `Numeric#inquiry` and `String#inquiry`.
+  Prefer Ruby's comparison operators over ActiveSupport's `Array#inquiry`, and `String#inquiry`.
 <sup>[[link](#inquiry)]</sup>
 
 ```ruby
@@ -1322,14 +1322,6 @@ pets.gopher?
 # good
 pets = %w(cat dog)
 pets.include? 'cat'
-
-# bad - Numeric#inquiry
-0.positive?
-0.negative?
-
-# good
-0 > 0
-0 < 0
 ```
 
 ## Time
