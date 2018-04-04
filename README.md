@@ -655,7 +655,7 @@ render status: :forbidden
   before_destroy :ensure_deletable
 
   def ensure_deletable
-    fail "Cannot delete super admin." if super_admin?
+    raise "Cannot delete super admin." if super_admin?
   end
 
   # good
@@ -664,7 +664,7 @@ render status: :forbidden
   before_destroy :ensure_deletable, prepend: true
 
   def ensure_deletable
-    fail "Cannot delete super admin." if super_admin?
+    raise "Cannot delete super admin." if super_admin?
   end
   ```
 
