@@ -494,6 +494,21 @@ render status: :forbidden
   validates :email, presence: true, length: { maximum: 100 }
   ```
 
+* <a name="single-attribute-validations"></a>
+  To make validations easy to read, don't list multiple attributes per
+  validation
+<sup>[[link](#single-attribute-validations)]</sup>
+
+  ```ruby
+  # bad
+  validates :email, :password, presence: true
+  validates :email, length: { maximum: 100 }
+
+  # good
+  validates :email, presence: true, length: { maximum: 100 }
+  validates :password, presence: true
+  ```
+
 * <a name="custom-validator-file"></a>
   When a custom validation is used more than once or the validation is some
   regular expression mapping, create a custom validator file.
