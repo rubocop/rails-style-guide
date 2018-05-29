@@ -555,6 +555,45 @@ render status: :forbidden
   end
   ```
 
+* <a name="callbacks-order"></a>
+  Order callback declarations in the order, in which they will be executed. For
+  referenece, see [Available Callbacks](http://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks)
+<sup>[[link](#callbacks-order)]</sup>
+
+  ```Ruby
+  #bad
+  class Person
+    after_commit/after_rollback :after_commit_callback
+    after_save :after_save_callback
+    around_save :around_save_callback
+    after_update :after_update_callback
+    before_update :before_update_callback
+    after_validation :after_validation_callback
+    before_validation :before_validation_callback
+    before_save :before_save_callback
+    before_create :before_create_callback
+    after_create :after_create_callback
+    around_create :around_create_callback
+    around_update :around_update_callback
+  end
+
+  #good
+  class Person
+    before_validation :before_validation_callback
+    after_validation :after_validation_callback
+    before_save :before_save_callback
+    around_save :around_save_callback
+    before_create :before_create_callback
+    around_create :around_create_callback
+    after_create :after_create_callback
+    before_update :before_update_callback
+    around_update :around_update_callback
+    after_update :after_update_callback
+    after_save :after_save_callback
+    after_commit/after_rollback :after_commit_callback
+  end
+  ```
+
 * <a name="beware-skip-model-validations"></a>
   Beware of the behavior of the
   [following](http://guides.rubyonrails.org/active_record_validations.html#skipping-validations)
