@@ -6,7 +6,7 @@
 The goal of this guide is to present a set of best practices and style
 prescriptions for Ruby on Rails 4 development. It's a
 complementary guide to the already existing community-driven
-[Ruby coding style guide](https://github.com/bbatsov/ruby-style-guide).
+[Ruby coding style guide](https://github.com/rubocop-hq/ruby-style-guide).
 
 Some of the advice here is applicable only to Rails 4.0+.
 
@@ -1468,13 +1468,11 @@ Feel free to open tickets or send pull requests with improvements. Thanks in
 advance for your help!
 
 You can also support the project (and RuboCop) with financial contributions via
-[gittip](https://www.gittip.com/bbatsov).
-
-[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/bbatsov)
+[Patreon](https://www.patreon.com/bbatsov).
 
 ## How to Contribute?
 
-It's easy, just follow the [contribution guidelines](https://github.com/bbatsov/rails-style-guide/blob/master/CONTRIBUTING.md).
+It's easy, just follow the [contribution guidelines](https://github.com/rubocop-hq/rails-style-guide/blob/master/CONTRIBUTING.md).
 
 # License
 
