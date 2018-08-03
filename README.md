@@ -165,7 +165,7 @@ programming resources.
     has_many :comments
   end
 
-  class Comments < ActiveRecord::Base
+  class Comment < ActiveRecord::Base
     belongs_to :post
   end
 
