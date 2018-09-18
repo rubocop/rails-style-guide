@@ -1458,6 +1458,18 @@ pets.include? 'cat'
   Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
   ```
 
+* <a name="to-time"></a>
+  Don't use [`String#to_time`](https://apidock.com/rails/String/to_time)
+<sup>[[link](#to-time)]</sup>
+
+  ```ruby
+  # bad
+  '2015-03-02 19:05:37'.to_time # => Will also assume time string given is in the system's time zone.
+
+  # good
+  Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
+  ```
+
 * <a name="time-now"></a>
   Don't use `Time.now`.
 <sup>[[link](#time-now)]</sup>
