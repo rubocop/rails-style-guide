@@ -1463,8 +1463,8 @@ pets.include? 'cat'
 <sup>[[link](#to-time)]</sup>
 
   ```ruby
-  # bad
-  '2015-03-02 19:05:37'.to_time # => Will also assume time string given is in the system's time zone.
+  # bad - assumes time string given is in the system's time zone.
+  '2015-03-02 19:05:37'.to_time
 
   # good
   Time.zone.parse('2015-03-02 19:05:37') # => Mon, 02 Mar 2015 19:05:37 EET +02:00
