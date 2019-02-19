@@ -843,7 +843,7 @@ render status: :forbidden
     User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
     # good
-    User.find(id)
+    User.find_by(email: email)
     User.find_by(first_name: 'Bruce', last_name: 'Wayne')
     ```
 
