@@ -834,11 +834,11 @@ render status: :forbidden
 
     ```ruby
     # bad
-    User.where(id: id).take
+    User.where(email: email).take
     User.where(first_name: 'Bruce', last_name: 'Wayne').take
 
     # bad
-    User.find_by_id(id)
+    User.find_by_email(email)
     # bad, deprecated in ActiveRecord 4.0, removed in 4.1+
     User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
