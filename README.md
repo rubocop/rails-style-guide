@@ -226,7 +226,7 @@ programming resources.
     <sup>[[link](#one-method)]</sup>
 
   * <a name="shared-instance-variables"></a>
-    Share no more than two instance variables between a controller and a view.
+    Minimize the number of instance variables passed between a controller and a view.
     <sup>[[link](#shared-instance-variables)]</sup>
 
   * <a name="lexically-scoped-action-filter"></a>
