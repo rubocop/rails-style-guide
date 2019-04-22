@@ -1124,8 +1124,9 @@ render status: :forbidden
     <sup>[[link](#no-direct-model-view)]</sup>
 
   * <a name="no-complex-view-formatting"></a>
-    Never make complex formatting in the views, export the formatting to a method
-    in the view helper or the model.
+    Avoid complex formatting in the views. A view helper is useful for simple
+    cases, but if it's more complex then consider using a decorator or
+    presenter.
     <sup>[[link](#no-complex-view-formatting)]</sup>
 
   * <a name="partials"></a>
