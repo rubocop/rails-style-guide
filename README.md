@@ -1562,12 +1562,12 @@ pets.include? 'cat'
 There are a few excellent resources on Rails style, that you should consider if
 you have time to spare:
 
-  * [The Rails 4 Way](http://www.amazon.com/The-Rails-Addison-Wesley-Professional-Ruby/dp/0321944275)
-  * [Ruby on Rails Guides](http://guides.rubyonrails.org/)
-  * [The RSpec Book](http://pragprog.com/book/achbd/the-rspec-book)
-  * [The Cucumber Book](http://pragprog.com/book/hwcuc/the-cucumber-book)
+  * [The Rails 5 Way](https://www.informit.com/store/rails-5-way-9780134657677)
+  * [Ruby on Rails Guides](https://guides.rubyonrails.org/)
+  * [Effective Testing with RSpec 3](https://pragprog.com/book/rspec3/effective-testing-with-rspec-3)
+  * [The Cucumber Book](https://pragprog.com/book/hwcuc/the-cucumber-book)
   * [Everyday Rails Testing with RSpec](https://leanpub.com/everydayrailsrspec)
-  * [Rails 4 Test Prescriptions](https://pragprog.com/book/nrtest2/rails-4-test-prescriptions)
+  * [Rails 5 Test Prescriptions](https://pragprog.com/book/nrtest3/rails-5-test-prescriptions)
   * [Better Specs for RSpec](http://betterspecs.org)
 
 # Contributing
