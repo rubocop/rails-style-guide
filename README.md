@@ -1327,22 +1327,6 @@ your application.
     default_url_options[:host] = 'your_site.com'
     ```
 
-  * <a name="url-not-path-in-email"></a>
-    If you need to use a link to your site in an email, always use the `_url`, not
-    `_path` methods. The `_url` methods include the host name and the `_path`
-    methods don't.
-    <sup>[[link](#url-not-path-in-email)]</sup>
-
-    ```ruby
-    # bad
-    You can always find more info about this course
-    <%= link_to 'here', course_path(@course) %>
-
-    # good
-    You can always find more info about this course
-    <%= link_to 'here', course_url(@course) %>
-    ```
-
   * <a name="email-addresses"></a>
     Format the from and to addresses properly. Use the following format:
     <sup>[[link](#email-addresses)]</sup>
