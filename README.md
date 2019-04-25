@@ -361,7 +361,7 @@ render status: :forbidden
     <sup>[[link](#model-business-logic)]</sup>
     
     ```erb
-    <!-- bad -->
+    <!-- bad (if complex) -->
     <% if widget.price == 0 %>
        Free
     <% else %>
@@ -389,7 +389,7 @@ render status: :forbidden
     ```
     
     ```ruby
-    # good (if behaviour if sufficiently complex)
+    # good (if behaviour is sufficiently complex)
     class CatalogWidget
       def initialize(widget, customer)
         @widget = widget
