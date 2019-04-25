@@ -365,14 +365,13 @@ render status: :forbidden
     <% if widget.price == 0 %>
        Free
     <% else %>
-       widget.price * customer.discount %>
+       <%= widget.price * customer.discount %>
     <% end %>
     ```
     
     ```erb
     <!-- better -->
     <%= catalog_price(widget, customer) %>
-    <% end %>
     ```
     
     ```ruby
