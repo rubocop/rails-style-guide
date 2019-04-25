@@ -359,6 +359,30 @@ render status: :forbidden
     Keep your models for business logic and data-persistence
     only.
     <sup>[[link](#model-business-logic)]</sup>
+    
+    ```ruby
+    # bad
+    module WidgetsHelper
+      def catalog_price(widget)
+        # (lots of complex code)
+      end
+    end
+    ```
+    
+    ```ruby
+    # good (decorator pattern example)
+    class WidgetsController < ApplicationController
+      def show
+        @widget = CatalogWidget.new(Widget.find(params[:id]))
+      end
+    end
+    
+    class CatalogWidget < SimpleDelegator
+      def price
+        # ...
+      end
+    end
+    ```
 
 ### ActiveRecord
 
