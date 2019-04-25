@@ -360,26 +360,48 @@ render status: :forbidden
     only.
     <sup>[[link](#model-business-logic)]</sup>
     
+    ```erb
+    <!-- bad -->
+    <% if widget.price == 0 %>
+       Free
+    <% else %>
+       widget.price * customer.discount %>
+    <% end %>
+    ```
+    
+    ```erb
+    <!-- better -->
+    <%= catalog_price(widget, customer) %>
+    <% end %>
+    ```
+    
     ```ruby
-    # bad
+    # better
     module WidgetsHelper
-      def catalog_price(widget)
-        # (lots of complex code)
+      def catalog_price(widget, customer)
+        if widget.price == 0 
+          "Free"
+        else
+          widget.price * customer.discount
+        end
       end
     end
     ```
     
     ```ruby
-    # good (decorator pattern example)
-    class WidgetsController < ApplicationController
-      def show
-        @widget = CatalogWidget.new(Widget.find(params[:id]))
+    # good (if behaviour if sufficiently complex)
+    class CatalogWidget
+      def initialize(widget, customer)
+        @widget = widget
+        @customer = customer
       end
-    end
-    
-    class CatalogWidget < SimpleDelegator
+      
       def price
-        # ...
+        if @widget.price == 0 
+          "Free"
+        else
+          @widget.price * @customer.discount
+        end
       end
     end
     ```
