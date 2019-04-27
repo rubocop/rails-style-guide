@@ -11,7 +11,7 @@ complementary guide to the already existing community-driven
 Some of the advice here is applicable only to Rails 4.0+.
 
 You can generate a PDF or an HTML copy of this guide using
-[Pandoc](http://pandoc.org/).
+[Pandoc](https://pandoc.org/).
 
 Translations of the guide are available in the following languages:
 
@@ -572,7 +572,7 @@ render status: :forbidden
 
   * <a name="callbacks-order"></a>
     Order callback declarations in the order, in which they will be executed. For
-    referenece, see [Available Callbacks](http://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks)
+    referenece, see [Available Callbacks](https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks)
     <sup>[[link](#callbacks-order)]</sup>
 
     ```Ruby
@@ -611,7 +611,7 @@ render status: :forbidden
 
   * <a name="beware-skip-model-validations"></a>
     Beware of the behavior of the
-    [following](http://guides.rubyonrails.org/active_record_validations.html#skipping-validations)
+    [following](https://guides.rubyonrails.org/active_record_validations.html#skipping-validations)
     methods. They do not run the model validations and
     could easily corrupt the model state.
     <sup>[[link](#beware-skip-model-validations)]</sup>
@@ -1059,7 +1059,7 @@ render status: :forbidden
 
   * <a name="meaningful-foreign-key-naming"></a>
     Name your foreign keys explicitly instead of relying on Rails auto-generated
-    FK names. (http://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
+    FK names. (https://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
     <sup>[[link](#meaningful-foreign-key-naming)]</sup>
 
     ```ruby
@@ -1081,7 +1081,7 @@ render status: :forbidden
   * <a name="reversible-migration"></a>
     Don't use non-reversible migration commands in the `change` method.
     Reversible migration commands are listed below.
-    [ActiveRecord::Migration::CommandRecorder](http://api.rubyonrails.org/classes/ActiveRecord/Migration/CommandRecorder.html)
+    [ActiveRecord::Migration::CommandRecorder](https://api.rubyonrails.org/classes/ActiveRecord/Migration/CommandRecorder.html)
     <sup>[[link](#reversible-migration)]</sup>
 
     ```ruby
@@ -1107,7 +1107,7 @@ render status: :forbidden
 
     # good
     # In this case, block will be used by create_table in rollback
-    # http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table
+    # https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table
     class DropUsers < ActiveRecord::Migration
       def change
         drop_table :users do |t|
@@ -1242,12 +1242,12 @@ render status: :forbidden
 
   * <a name="i18n-guides"></a>
     More detailed information about the Rails I18n can be found in the [Rails
-    Guides](http://guides.rubyonrails.org/i18n.html)
+    Guides](https://guides.rubyonrails.org/i18n.html)
     <sup>[[link](#i18n-guides)]</sup>
 
 ## Assets
 
-Use the [assets pipeline](http://guides.rubyonrails.org/asset_pipeline.html) to leverage organization within
+Use the [assets pipeline](https://guides.rubyonrails.org/asset_pipeline.html) to leverage organization within
 your application.
 
   * <a name="reserve-app-assets"></a>
@@ -1260,8 +1260,8 @@ your application.
     <sup>[[link](#lib-assets)]</sup>
 
   * <a name="vendor-assets"></a>
-    Third party code such as [jQuery](http://jquery.com/) or
-    [bootstrap](http://twitter.github.com/bootstrap/) should be placed in
+    Third party code such as [jQuery](https://jquery.com/) or
+    [bootstrap](https://twitter.github.com/bootstrap/) should be placed in
     `vendor/assets`.
     <sup>[[link](#vendor-assets)]</sup>
 
@@ -1573,9 +1573,9 @@ It's easy, just follow the [contribution guidelines](https://github.com/rubocop-
 
 # License
 
-![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
+![Creative Commons License](https://i.creativecommons.org/l/by/3.0/88x31.png)
 This work is licensed under a [Creative Commons Attribution 3.0 Unported
-License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
+License](https://creativecommons.org/licenses/by/3.0/deed.en_US)
 
 # Spread the Word
 
