@@ -907,7 +907,7 @@ render status: :forbidden
     SQL
     ```
 
-    [`String#squish`](http://apidock.com/rails/String/squish) removes the indentation and newline characters so that your server
+    [`String#squish`](https://api.rubyonrails.org/classes/String.html#method-i-squish) removes the indentation and newline characters so that your server
     log shows a fluid string of SQL rather than something like this:
 
     ```
@@ -1465,7 +1465,7 @@ pets.include? 'cat'
     ```
 
   * <a name="to-time"></a>
-    Don't use [`String#to_time`](https://apidock.com/rails/String/to_time)
+    Don't use [`String#to_time`](https://api.rubyonrails.org/classes/String.html#method-i-to_time)
     <sup>[[link](#to-time)]</sup>
 
     ```ruby
