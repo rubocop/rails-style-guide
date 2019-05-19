@@ -572,7 +572,7 @@ render status: :forbidden
 
   * <a name="callbacks-order"></a>
     Order callback declarations in the order, in which they will be executed. For
-    referenece, see [Available Callbacks](https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks)
+    reference, see [Available Callbacks](https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks)
     <sup>[[link](#callbacks-order)]</sup>
 
     ```Ruby
