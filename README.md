@@ -355,9 +355,9 @@ render status: :forbidden
     Unless they have some meaning in the business domain, don't put methods in
     your model that just format your data (like code generating HTML). These
     methods are most likely going to be called from the view layer only, so their
-    place is in helpers, if simple, or a separate class if more complex.
-    Keep your models for business logic and data-persistence
-    only.
+    place is in helpers, if simple, or a separate Decorator or Presenter class
+    if more complex.
+    Keep your models for business logic and data-persistence only.
     <sup>[[link](#model-business-logic)]</sup>
     
     ```erb
