@@ -51,6 +51,8 @@ I've tried to add the rationale behind the rules (if it's omitted I've assumed i
 
 I didn't come up with all the rules out of nowhere - they are mostly based on my extensive career as a professional software engineer, feedback and suggestions from members of the Rails community and various highly regarded Rails programming resources.
 
+https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rails[`rubocop-rails`] extension, based on this style guide.
+
 == Configuration
 
 === Config initializers [[config-initializers]]
