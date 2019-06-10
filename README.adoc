@@ -33,6 +33,16 @@ asciidoctor-pdf -a allow-uri-read README.adoc
 asciidoctor
 ----
 
+[TIP]
+====
+Install the `rouge` gem to get nice syntax highlighting in the generated document.
+
+[source,shell]
+----
+gem install rouge
+----
+====
+
 Translations of the guide are available in the following languages:
 
 * https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md[Chinese Simplified]
