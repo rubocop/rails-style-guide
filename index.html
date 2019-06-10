@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>The Rails Style Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>The Rails Style Guide</h1>
+<div id="toc" class="toc2">
+<div id="toctitle"><h2>Table of Contents</h2></div>
+<ul class="sectlevel1">
+<li><a href="#configuration">Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#config-initializers">Config initializers</a></li>
+<li><a href="#gem-initializers">Gem initializers</a></li>
+<li><a href="#dev-test-prod-configs">Dev/test/prod configs</a></li>
+<li><a href="#app-config">App config</a></li>
+<li><a href="#staging-like-prod">Staging like prod</a></li>
+<li><a href="#yaml-config">Yaml config</a></li>
+</ul>
+</li>
+<li><a href="#routing">Routing</a>
+<ul class="sectlevel2">
+<li><a href="#member-collection-routes">Member collection routes</a></li>
+<li><a href="#many-member-collection-routes">Many member collection routes</a></li>
+<li><a href="#nested-routes">Nested routes</a></li>
+<li><a href="#shallow-routes">Shallow routes</a></li>
+<li><a href="#namespaced-routes">Namespaced routes</a></li>
+<li><a href="#no-wild-routes">No wild routes</a></li>
+<li><a href="#no-match-routes">No match routes</a></li>
+</ul>
+</li>
+<li><a href="#controllers">Controllers</a>
+<ul class="sectlevel2">
+<li><a href="#skinny-controllers">Skinny controllers</a></li>
+<li><a href="#one-method">One method</a></li>
+<li><a href="#shared-instance-variables">Shared instance variables</a></li>
+<li><a href="#lexically-scoped-action-filter">Lexically scoped action filter</a></li>
+</ul>
+</li>
+<li><a href="#rendering">Controllers: rendering</a>
+<ul class="sectlevel2">
+<li><a href="#inline-rendering">Inline rendering</a></li>
+<li><a href="#plain-text-rendering">Plain text rendering</a></li>
+<li><a href="#http-status-code-symbols">HTTP status code symbols</a></li>
+</ul>
+</li>
+<li><a href="#models">Models</a>
+<ul class="sectlevel2">
+<li><a href="#model-classes">Model classes</a></li>
+<li><a href="#meaningful-model-names">Meaningful model names</a></li>
+<li><a href="#activeattr-gem">ActiveAttr gem</a></li>
+<li><a href="#model-business-logic">Model business logic</a></li>
+</ul>
+</li>
+<li><a href="#activerecord">Models: ActiveRecord</a>
+<ul class="sectlevel2">
+<li><a href="#keep-ar-defaults">Keep ActiveRecord defaults</a></li>
+<li><a href="#macro-style-methods">Macro style methods</a></li>
+<li><a href="#has-many-through">Has many through</a></li>
+<li><a href="#read-attribute">Read attribute</a></li>
+<li><a href="#write-attribute">Write attribute</a></li>
+<li><a href="#new-style-validations">New style validations</a></li>
+<li><a href="#single-attribute-validations">Single attribute validations</a></li>
+<li><a href="#custom-validator-file">Custom validator file</a></li>
+<li><a href="#app-validators">App validators</a></li>
+<li><a href="#custom-validators-gem">Custom validators gem</a></li>
+<li><a href="#named-scopes">Named scopes</a></li>
+<li><a href="#named-scope-class">Named scope class</a></li>
+<li><a href="#callbacks-order">Callbacks order</a></li>
+<li><a href="#beware-skip-model-validations">Beware skip model validations</a></li>
+<li><a href="#user-friendly-urls">User friendly URLs</a></li>
+<li><a href="#find-each"><code>find_each</code></a></li>
+<li><a href="#before_destroy"><code>before_destroy</code></a></li>
+<li><a href="#has_many-has_one-dependent-option"><code>has_many</code>/<code>has_one</code> dependent option</a></li>
+<li><a href="#save-bang"><code>save!</code></a></li>
+</ul>
+</li>
+<li><a href="#activerecord-queries">Models: ActiveRecord Queries</a>
+<ul class="sectlevel2">
+<li><a href="#avoid-interpolation">Avoid interpolation</a></li>
+<li><a href="#named-placeholder">Named placeholder</a></li>
+<li><a href="#find"><code>find</code></a></li>
+<li><a href="#find_by"><code>find_by</code></a></li>
+<li><a href="#where-not">Where not</a></li>
+<li><a href="#order-by-id">Order by <code>id</code></a></li>
+<li><a href="#ids"><code>ids</code></a></li>
+<li><a href="#squished-heredocs">Squished heredocs</a></li>
+<li><a href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></li>
+</ul>
+</li>
+<li><a href="#migrations">Migrations</a>
+<ul class="sectlevel2">
+<li><a href="#schema-version">Schema version</a></li>
+<li><a href="#db-schema-load">Db schema load</a></li>
+<li><a href="#default-migration-values">Default migration values</a></li>
+<li><a href="#foreign-key-constraints">Foreign key constraints</a></li>
+<li><a href="#change-vs-up-down">Change vs up down</a></li>
+<li><a href="#define-model-class-migrations">Define model class migrations</a></li>
+<li><a href="#meaningful-foreign-key-naming">Meaningful foreign key naming</a></li>
+<li><a href="#reversible-migration">Reversible migration</a></li>
+</ul>
+</li>
+<li><a href="#views">Views</a>
+<ul class="sectlevel2">
+<li><a href="#no-direct-model-view">No direct model view</a></li>
+<li><a href="#no-complex-view-formatting">No complex view formatting</a></li>
+<li><a href="#partials">Partials</a></li>
+<li><a href="#no-instance-variables-in-partials">No instance variables in partials</a></li>
+</ul>
+</li>
+<li><a href="#internationalization">Internationalization</a>
+<ul class="sectlevel2">
+<li><a href="#locale-texts">Locale texts</a></li>
+<li><a href="#translated-labels">Translated labels</a></li>
+<li><a href="#organize-locale-files">Organize locale files</a></li>
+<li><a href="#shared-localization">Shared localization</a></li>
+<li><a href="#short-i18n">Short i18n</a></li>
+<li><a href="#lazy-lookup">Lazy lookup</a></li>
+<li><a href="#dot-separated-keys">Dot-separated keys</a></li>
+<li><a href="#i18n-guides">I18n guides</a></li>
+</ul>
+</li>
+<li><a href="#assets">Assets</a>
+<ul class="sectlevel2">
+<li><a href="#reserve-app-assets">Reserve <code>app/assets</code></a></li>
+<li><a href="#lib-assets"><code>lib/assets</code></a></li>
+<li><a href="#vendor-assets"><code>vendor/assets</code></a></li>
+<li><a href="#gem-assets"><code>gem/assets</code></a></li>
+</ul>
+</li>
+<li><a href="#mailers">Mailers</a>
+<ul class="sectlevel2">
+<li><a href="#mailer-name">Mailer name</a></li>
+<li><a href="#html-plain-email">HTML plain email</a></li>
+<li><a href="#enable-delivery-errors">Enable delivery errors</a></li>
+<li><a href="#local-smtp">Local SMTP</a></li>
+<li><a href="#default-hostname">Default hostname</a></li>
+<li><a href="#email-addresses">Email addresses</a></li>
+<li><a href="#delivery-method-test">Delivery method test</a></li>
+<li><a href="#delivery-method-smtp">Delivery method SMTP</a></li>
+<li><a href="#inline-email-styles">Inline email styles</a></li>
+<li><a href="#background-email">Background email</a></li>
+</ul>
+</li>
+<li><a href="#active-support-core-extensions">Active Support Core Extensions</a>
+<ul class="sectlevel2">
+<li><a href="#try-bang"><code>try!</code></a></li>
+<li><a href="#active_support_aliases">ActiveSupport aliases</a></li>
+<li><a href="#active_support_extensions">ActiveSupport extensions</a></li>
+<li><a href="#inquiry"><code>inquiry</code></a></li>
+</ul>
+</li>
+<li><a href="#time">Time</a>
+<ul class="sectlevel2">
+<li><a href="#tz-config">Time zone config</a></li>
+<li><a href="#time-parse">Time parse</a></li>
+<li><a href="#to-time"><code>to_time</code></a></li>
+<li><a href="#time-now"><code>Time.now</code></a></li>
+</ul>
+</li>
+<li><a href="#bundler">Bundler</a>
+<ul class="sectlevel2">
+<li><a href="#dev-test-gems">Dev/test gems</a></li>
+<li><a href="#only-good-gems">Only good gems</a></li>
+<li><a href="#os-specific-gemfile-locks">OS-specific <code>Gemfile.lock</code></a></li>
+<li><a href="#gemfile-lock"><code>Gemfile.lock</code></a></li>
+</ul>
+</li>
+<li><a href="#managing-processes">Managing processes</a>
+<ul class="sectlevel2">
+<li><a href="#foreman">Foreman</a></li>
+</ul>
+</li>
+<li><a href="#further-reading">Further Reading</a></li>
+<li><a href="#contributing">Contributing</a>
+<ul class="sectlevel2">
+<li><a href="#how-to-contribute">How to Contribute?</a></li>
+</ul>
+</li>
+<li><a href="#license">License</a></li>
+<li><a href="#spread-the-word">Spread the Word</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Role models are important.</p>
+</div>
+<div class="paragraph">
+<p>&#8201;&#8212;&#8201;Officer Alex J. Murphy / RoboCop</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>The goal of this guide is to present a set of best practices and style prescriptions for Ruby on Rails 4 development.
+It&#8217;s a complementary guide to the already existing community-driven <a href="https://github.com/rubocop-hq/ruby-style-guide">Ruby coding style guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>Some of the advice here is applicable only to Rails 4.0+.</p>
+</div>
+<div class="paragraph">
+<p>You can generate a PDF copy of this guide using <a href="https://asciidoctor.org/docs/asciidoctor-pdf/">AsciiDoctor PDF</a>, and an HTML copy <a href="https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html">with</a> <a href="https://asciidoctor.org/#installation">AsciiDoctor</a> using the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-shell" data-lang="shell"># Generates README.pdf
+asciidoctor-pdf -a allow-uri-read README.adoc
+
+# Generates README.html
+asciidoctor</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Translations of the guide are available in the following languages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md">Chinese Simplified</a></p>
+</li>
+<li>
+<p><a href="https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md">Chinese Traditional</a></p>
+</li>
+<li>
+<p><a href="https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md">Japanese</a></p>
+</li>
+<li>
+<p><a href="https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md">Russian</a></p>
+</li>
+<li>
+<p><a href="https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md">Turkish</a></p>
+</li>
+<li>
+<p><a href="https://github.com/pureugong/rails-style-guide/blob/master/README-koKR.md">Korean</a></p>
+</li>
+<li>
+<p><a href="https://github.com/CQBinh/rails-style-guide/blob/master/README-viVN.md">Vietnamese</a></p>
+</li>
+<li>
+<p><a href="https://github.com/abraaomiranda/rails-style-guide/blob/master/README-ptBR.md">Portuguese (pt-BR)</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This Rails style guide recommends best practices so that real-world Rails programmers can write code that can be maintained by other real-world Rails programmers.
+A style guide that reflects real-world usage gets used, and a style guide that holds to an ideal that has been rejected by the people it is supposed to help risks not getting used at all - no matter how good it is.</p>
+</div>
+<div class="paragraph">
+<p>The guide is separated into several sections of related rules.
+I&#8217;ve tried to add the rationale behind the rules (if it&#8217;s omitted I&#8217;ve assumed it&#8217;s pretty obvious).</p>
+</div>
+<div class="paragraph">
+<p>I didn&#8217;t come up with all the rules out of nowhere - they are mostly based on my extensive career as a professional software engineer, feedback and suggestions from members of the Rails community and various highly regarded Rails programming resources.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/rubocop-hq/rubocop">RuboCop</a>, a static code analyzer (linter) and formatter, has a <a href="https://github.com/rubocop-hq/rubocop-rails"><code>rubocop-rails</code></a> extension, based on this style guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration"><a class="anchor" href="#configuration"></a><a class="link" href="#configuration">Configuration</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="config-initializers"><a class="anchor" href="#config-initializers"></a><a class="link" href="#config-initializers">Config initializers</a></h3>
+<div class="paragraph">
+<p>Put custom initialization code in <code>config/initializers</code>.
+The code in initializers executes on application startup.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gem-initializers"><a class="anchor" href="#gem-initializers"></a><a class="link" href="#gem-initializers">Gem initializers</a></h3>
+<div class="paragraph">
+<p>Keep initialization code for each gem in a separate file with the same name as the gem, for example <code>carrierwave.rb</code>, <code>active_admin.rb</code>, etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dev-test-prod-configs"><a class="anchor" href="#dev-test-prod-configs"></a><a class="link" href="#dev-test-prod-configs">Dev/test/prod configs</a></h3>
+<div class="paragraph">
+<p>Adjust accordingly the settings for development, test and production environment (in the corresponding files under <code>config/environments/</code>)</p>
+</div>
+<div class="paragraph">
+<p>Mark additional assets for precompilation (if any):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/production.rb
+# Precompile additional assets (application.js, application.css,
+#and all non-JS/CSS are already added)
+config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="app-config"><a class="anchor" href="#app-config"></a><a class="link" href="#app-config">App config</a></h3>
+<div class="paragraph">
+<p>Keep configuration that&#8217;s applicable to all environments in the <code>config/application.rb</code> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="staging-like-prod"><a class="anchor" href="#staging-like-prod"></a><a class="link" href="#staging-like-prod">Staging like prod</a></h3>
+<div class="paragraph">
+<p>Create an additional <code>staging</code> environment that closely resembles the <code>production</code> one.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="yaml-config"><a class="anchor" href="#yaml-config"></a><a class="link" href="#yaml-config">Yaml config</a></h3>
+<div class="paragraph">
+<p>Keep any additional configuration in YAML files under the <code>config/</code> directory.</p>
+</div>
+<div class="paragraph">
+<p>Since Rails 4.2 YAML configuration files can be easily loaded with the new <code>config_for</code> method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">Rails::Application.config_for(:yaml_file)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="routing"><a class="anchor" href="#routing"></a><a class="link" href="#routing">Routing</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="member-collection-routes"><a class="anchor" href="#member-collection-routes"></a><a class="link" href="#member-collection-routes">Member collection routes</a></h3>
+<div class="paragraph">
+<p>When you need to add more actions to a RESTful resource (do you really need them at all?) use <code>member</code> and <code>collection</code> routes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+get 'subscriptions/:id/unsubscribe'
+resources :subscriptions
+
+# good
+resources :subscriptions do
+  get 'unsubscribe', on: :member
+end
+
+# bad
+get 'photos/search'
+resources :photos
+
+# good
+resources :photos do
+  get 'search', on: :collection
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="many-member-collection-routes"><a class="anchor" href="#many-member-collection-routes"></a><a class="link" href="#many-member-collection-routes">Many member collection routes</a></h3>
+<div class="paragraph">
+<p>If you need to define multiple <code>member/collection</code> routes use the alternative block syntax.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">resources :subscriptions do
+  member do
+    get 'unsubscribe'
+    # more routes
+  end
+end
+
+resources :photos do
+  collection do
+    get 'search'
+    # more routes
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nested-routes"><a class="anchor" href="#nested-routes"></a><a class="link" href="#nested-routes">Nested routes</a></h3>
+<div class="paragraph">
+<p>Use nested routes to express better the relationship between ActiveRecord models.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Post &lt; ActiveRecord::Base
+  has_many :comments
+end
+
+class Comment &lt; ActiveRecord::Base
+  belongs_to :post
+end
+
+# routes.rb
+resources :posts do
+  resources :comments
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shallow-routes"><a class="anchor" href="#shallow-routes"></a><a class="link" href="#shallow-routes">Shallow routes</a></h3>
+<div class="paragraph">
+<p>If you need to nest routes more than 1 level deep then use the <code>shallow: true</code> option.
+This will save user from long URLs <code>posts/1/comments/5/versions/7/edit</code> and you from long URL helpers <code>edit_post_comment_version</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">resources :posts, shallow: true do
+  resources :comments do
+    resources :versions
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="namespaced-routes"><a class="anchor" href="#namespaced-routes"></a><a class="link" href="#namespaced-routes">Namespaced routes</a></h3>
+<div class="paragraph">
+<p>Use namespaced routes to group related actions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">namespace :admin do
+  # Directs /admin/products/* to Admin::ProductsController
+  # (app/controllers/admin/products_controller.rb)
+  resources :products
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="no-wild-routes"><a class="anchor" href="#no-wild-routes"></a><a class="link" href="#no-wild-routes">No wild routes</a></h3>
+<div class="paragraph">
+<p>Never use the legacy wild controller route.
+This route will make all actions in every controller accessible via GET requests.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># very bad
+match ':controller(/:action(/:id(.:format)))'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="no-match-routes"><a class="anchor" href="#no-match-routes"></a><a class="link" href="#no-match-routes">No match routes</a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use <code>match</code> to define any routes unless there is need to map multiple request types among <code>[:get, :post, :patch, :put, :delete]</code> to a single action using <code>:via</code> option.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="controllers"><a class="anchor" href="#controllers"></a><a class="link" href="#controllers">Controllers</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="skinny-controllers"><a class="anchor" href="#skinny-controllers"></a><a class="link" href="#skinny-controllers">Skinny controllers</a></h3>
+<div class="paragraph">
+<p>Keep the controllers skinny - they should only retrieve data for the view layer and shouldn&#8217;t contain any business logic (all the business logic should naturally reside in the model).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="one-method"><a class="anchor" href="#one-method"></a><a class="link" href="#one-method">One method</a></h3>
+<div class="paragraph">
+<p>Each controller action should (ideally) invoke only one method other than an initial find or new.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shared-instance-variables"><a class="anchor" href="#shared-instance-variables"></a><a class="link" href="#shared-instance-variables">Shared instance variables</a></h3>
+<div class="paragraph">
+<p>Minimize the number of instance variables passed between a controller and a view.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lexically-scoped-action-filter"><a class="anchor" href="#lexically-scoped-action-filter"></a><a class="link" href="#lexically-scoped-action-filter">Lexically scoped action filter</a></h3>
+<div class="paragraph">
+<p>Controller actions specified in the option of Action Filter should be in lexical scope.
+The ActionFilter specified for an inherited action makes it difficult to understand the scope of its impact on that action.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+class UsersController &lt; ApplicationController
+  before_action :require_login, only: :export
+end
+
+# good
+class UsersController &lt; ApplicationController
+  before_action :require_login, only: :export
+
+  def export
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rendering"><a class="anchor" href="#rendering"></a><a class="link" href="#rendering">Controllers: rendering</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="inline-rendering"><a class="anchor" href="#inline-rendering"></a><a class="link" href="#inline-rendering">Inline rendering</a></h3>
+<div class="paragraph">
+<p>Prefer using a template over inline rendering.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># very bad
+class ProductsController &lt; ApplicationController
+  def index
+    render inline: "&lt;% products.each do |p| %&gt;&lt;p&gt;&lt;%= p.name %&gt;&lt;/p&gt;&lt;% end %&gt;", type: :erb
+  end
+end
+
+# good
+## app/views/products/index.html.erb
+&lt;%= render partial: 'product', collection: products %&gt;
+
+## app/views/products/_product.html.erb
+&lt;p&gt;&lt;%= product.name %&gt;&lt;/p&gt;
+&lt;p&gt;&lt;%= product.price %&gt;&lt;/p&gt;
+
+## app/controllers/foo_controller.rb
+class ProductsController &lt; ApplicationController
+  def index
+    render :index
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="plain-text-rendering"><a class="anchor" href="#plain-text-rendering"></a><a class="link" href="#plain-text-rendering">Plain text rendering</a></h3>
+<div class="paragraph">
+<p>Prefer <code>render plain:</code> over <code>render text:</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - sets MIME type to `text/html`
+...
+render text: 'Ruby!'
+...
+
+# bad - requires explicit MIME type declaration
+...
+render text: 'Ruby!', content_type: 'text/plain'
+...
+
+# good - short and precise
+...
+render plain: 'Ruby!'
+...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="http-status-code-symbols"><a class="anchor" href="#http-status-code-symbols"></a><a class="link" href="#http-status-code-symbols">HTTP status code symbols</a></h3>
+<div class="paragraph">
+<p>Prefer <a href="https://gist.github.com/mlanett/a31c340b132ddefa9cca">corresponding symbols</a> to numeric HTTP status codes.
+They are meaningful and do not look like "magic" numbers for less known HTTP status codes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+...
+render status: 403
+...
+
+# good
+...
+render status: :forbidden
+...</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="models"><a class="anchor" href="#models"></a><a class="link" href="#models">Models</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="model-classes"><a class="anchor" href="#model-classes"></a><a class="link" href="#model-classes">Model classes</a></h3>
+<div class="paragraph">
+<p>Introduce non-ActiveRecord model classes freely.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="meaningful-model-names"><a class="anchor" href="#meaningful-model-names"></a><a class="link" href="#meaningful-model-names">Meaningful model names</a></h3>
+<div class="paragraph">
+<p>Name the models with meaningful (but short) names without abbreviations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="activeattr-gem"><a class="anchor" href="#activeattr-gem"></a><a class="link" href="#activeattr-gem">ActiveAttr gem</a></h3>
+<div class="paragraph">
+<p>If you need model objects that support ActiveRecord behavior (like validation) without the ActiveRecord database functionality use the <a href="https://github.com/cgriego/active_attr">ActiveAttr</a> gem.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Message
+  include ActiveAttr::Model
+
+  attribute :name
+  attribute :email
+  attribute :content
+  attribute :priority
+
+  attr_accessible :name, :email, :content
+
+  validates :name, presence: true
+  validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
+  validates :content, length: { maximum: 500 }
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a more complete example refer to the <a href="http://railscasts.com/episodes/326-activeattr">RailsCast on the subject</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="model-business-logic"><a class="anchor" href="#model-business-logic"></a><a class="link" href="#model-business-logic">Model business logic</a></h3>
+<div class="paragraph">
+<p>Unless they have some meaning in the business domain, don&#8217;t put methods in your model that just format your data (like code generating HTML).
+These methods are most likely going to be called from the view layer only, so their place is in helpers.
+Keep your models for business logic and data-persistence only.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="activerecord"><a class="anchor" href="#activerecord"></a><a class="link" href="#activerecord">Models: ActiveRecord</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="keep-ar-defaults"><a class="anchor" href="#keep-ar-defaults"></a><a class="link" href="#keep-ar-defaults">Keep ActiveRecord defaults</a></h3>
+<div class="paragraph">
+<p>Avoid altering ActiveRecord defaults (table names, primary key, etc) unless you have a very good reason (like a database that&#8217;s not under your control).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - don't do this if you can modify the schema
+class Transaction &lt; ActiveRecord::Base
+  self.table_name = 'order'
+  ...
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="macro-style-methods"><a class="anchor" href="#macro-style-methods"></a><a class="link" href="#macro-style-methods">Macro style methods</a></h3>
+<div class="paragraph">
+<p>Group macro-style methods (<code>has_many</code>, <code>validates</code>, etc) in the beginning of the class definition.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
+  # keep the default scope first (if any)
+  default_scope { where(active: true) }
+
+  # constants come up next
+  COLORS = %w(red green blue)
+
+  # afterwards we put attr related macros
+  attr_accessor :formatted_date_of_birth
+
+  attr_accessible :login, :first_name, :last_name, :email, :password
+
+  # Rails 4+ enums after attr macros, prefer the hash syntax
+  enum gender: { female: 0, male: 1 }
+
+  # followed by association macros
+  belongs_to :country
+
+  has_many :authentications, dependent: :destroy
+
+  # and validation macros
+  validates :email, presence: true
+  validates :username, presence: true
+  validates :username, uniqueness: { case_sensitive: false }
+  validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }
+  validates :password, format: { with: /\A\S{8,128}\z/, allow_nil: true }
+
+  # next we have callbacks
+  before_save :cook
+  before_save :update_username_lower
+
+  # other macros (like devise's) should be placed after the callbacks
+
+  ...
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="has-many-through"><a class="anchor" href="#has-many-through"></a><a class="link" href="#has-many-through">Has many through</a></h3>
+<div class="paragraph">
+<p>Prefer <code>has_many :through</code> to <code>has_and_belongs_to_many</code>.
+Using <code>has_many :through</code> allows additional attributes and validations on the join model.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># not so good - using has_and_belongs_to_many
+class User &lt; ActiveRecord::Base
+  has_and_belongs_to_many :groups
+end
+
+class Group &lt; ActiveRecord::Base
+  has_and_belongs_to_many :users
+end
+
+# preferred way - using has_many :through
+class User &lt; ActiveRecord::Base
+  has_many :memberships
+  has_many :groups, through: :memberships
+end
+
+class Membership &lt; ActiveRecord::Base
+  belongs_to :user
+  belongs_to :group
+end
+
+class Group &lt; ActiveRecord::Base
+  has_many :memberships
+  has_many :users, through: :memberships
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="read-attribute"><a class="anchor" href="#read-attribute"></a><a class="link" href="#read-attribute">Read attribute</a></h3>
+<div class="paragraph">
+<p>Prefer <code>self[:attribute]</code> over <code>read_attribute(:attribute)</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+def amount
+  read_attribute(:amount) * 100
+end
+
+# good
+def amount
+  self[:amount] * 100
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="write-attribute"><a class="anchor" href="#write-attribute"></a><a class="link" href="#write-attribute">Write attribute</a></h3>
+<div class="paragraph">
+<p>Prefer <code>self[:attribute] = value</code> over <code>write_attribute(:attribute, value)</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+def amount
+  write_attribute(:amount, 100)
+end
+
+# good
+def amount
+  self[:amount] = 100
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="new-style-validations"><a class="anchor" href="#new-style-validations"></a><a class="link" href="#new-style-validations">New style validations</a></h3>
+<div class="paragraph">
+<p>Always use the <a href="http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/">"new-style" validations</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+validates_presence_of :email
+validates_length_of :email, maximum: 100
+
+# good
+validates :email, presence: true, length: { maximum: 100 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="single-attribute-validations"><a class="anchor" href="#single-attribute-validations"></a><a class="link" href="#single-attribute-validations">Single attribute validations</a></h3>
+<div class="paragraph">
+<p>To make validations easy to read, don&#8217;t list multiple attributes per validation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+validates :email, :password, presence: true
+validates :email, length: { maximum: 100 }
+
+# good
+validates :email, presence: true, length: { maximum: 100 }
+validates :password, presence: true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-validator-file"><a class="anchor" href="#custom-validator-file"></a><a class="link" href="#custom-validator-file">Custom validator file</a></h3>
+<div class="paragraph">
+<p>When a custom validation is used more than once or the validation is some regular expression mapping, create a custom validator file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+class Person
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+end
+
+# good
+class EmailValidator &lt; ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    record.errors[attribute] &lt;&lt; (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  end
+end
+
+class Person
+  validates :email, email: true
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="app-validators"><a class="anchor" href="#app-validators"></a><a class="link" href="#app-validators">App validators</a></h3>
+<div class="paragraph">
+<p>Keep custom validators under <code>app/validators</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-validators-gem"><a class="anchor" href="#custom-validators-gem"></a><a class="link" href="#custom-validators-gem">Custom validators gem</a></h3>
+<div class="paragraph">
+<p>Consider extracting custom validators to a shared gem if you&#8217;re maintaining several related apps or the validators are generic enough.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="named-scopes"><a class="anchor" href="#named-scopes"></a><a class="link" href="#named-scopes">Named scopes</a></h3>
+<div class="paragraph">
+<p>Use named scopes freely.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
+  scope :active, -&gt; { where(active: true) }
+  scope :inactive, -&gt; { where(active: false) }
+
+  scope :with_orders, -&gt; { joins(:orders).select('distinct(users.id)') }
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="named-scope-class"><a class="anchor" href="#named-scope-class"></a><a class="link" href="#named-scope-class">Named scope class</a></h3>
+<div class="paragraph">
+<p>When a named scope defined with a lambda and parameters becomes too complicated, it is preferable to make a class method instead which serves the same purpose of the named scope and returns an <code>ActiveRecord::Relation</code> object.
+Arguably you can define even simpler scopes like this.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
+  def self.with_orders
+    joins(:orders).select('distinct(users.id)')
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="callbacks-order"><a class="anchor" href="#callbacks-order"></a><a class="link" href="#callbacks-order">Callbacks order</a></h3>
+<div class="paragraph">
+<p>Order callback declarations in the order, in which they will be executed.
+For reference, see <a href="https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks">Available Callbacks</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Ruby" data-lang="Ruby">#bad
+class Person
+  after_commit :after_commit_callback
+  before_validation :before_validation_callback
+end
+
+#good
+class Person
+  before_validation :before_validation_callback
+  after_commit :after_commit_callback
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="beware-skip-model-validations"><a class="anchor" href="#beware-skip-model-validations"></a><a class="link" href="#beware-skip-model-validations">Beware skip model validations</a></h3>
+<div class="paragraph">
+<p>Beware of the behavior of the <a href="https://guides.rubyonrails.org/active_record_validations.html#skipping-validations">following</a> methods.
+They do not run the model validations and could easily corrupt the model state.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+Article.first.decrement!(:view_count)
+DiscussionBoard.decrement_counter(:post_count, 5)
+Article.first.increment!(:view_count)
+DiscussionBoard.increment_counter(:post_count, 5)
+person.toggle :active
+product.touch
+Billing.update_all("category = 'authorized', author = 'David'")
+user.update_attribute(:website, 'example.com')
+user.update_columns(last_request_at: Time.current)
+Post.update_counters 5, comment_count: -1, action_count: 1
+
+# good
+user.update_attributes(website: 'example.com')</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-friendly-urls"><a class="anchor" href="#user-friendly-urls"></a><a class="link" href="#user-friendly-urls">User friendly URLs</a></h3>
+<div class="paragraph">
+<p>Use user-friendly URLs.
+Show some descriptive attribute of the model in the URL rather than its <code>id</code>.
+There is more than one way to achieve this.</p>
+</div>
+<div class="sect3">
+<h4 id="override-the-to_param-method-of-the-model"><a class="anchor" href="#override-the-to_param-method-of-the-model"></a><a class="link" href="#override-the-to_param-method-of-the-model">Override the <code>to_param</code> method of the model</a></h4>
+<div class="paragraph">
+<p>This method is used by Rails for constructing a URL to the object.
+The default implementation returns the <code>id</code> of the record as a String.
+It could be overridden to include another human-readable attribute.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Person
+  def to_param
+    "#{id} #{name}".parameterize
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to convert this to a URL-friendly value, <code>parameterize</code> should be called on the string.
+The <code>id</code> of the object needs to be at the beginning so that it can be found by the <code>find</code> method of ActiveRecord.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="friendly_id-gem"><a class="anchor" href="#friendly_id-gem"></a><a class="link" href="#friendly_id-gem"><code>friendly_id</code> gem</a></h4>
+<div class="paragraph">
+<p>It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its <code>id</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Person
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Check the <a href="https://github.com/norman/friendly_id">gem documentation</a> for more information about its usage.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-each"><a class="anchor" href="#find-each"></a><a class="link" href="#find-each"><code>find_each</code></a></h3>
+<div class="paragraph">
+<p>Use <code>find_each</code> to iterate over a collection of AR objects.
+Looping through a collection of records from the database (using the <code>all</code> method, for example) is very inefficient since it will try to instantiate all the objects at once.
+In that case, batch processing methods allow you to work with the records in batches, thereby greatly reducing memory consumption.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+Person.all.each do |person|
+  person.do_awesome_stuff
+end
+
+Person.where('age &gt; 21').each do |person|
+  person.party_all_night!
+end
+
+# good
+Person.find_each do |person|
+  person.do_awesome_stuff
+end
+
+Person.where('age &gt; 21').find_each do |person|
+  person.party_all_night!
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="before_destroy"><a class="anchor" href="#before_destroy"></a><a class="link" href="#before_destroy"><code>before_destroy</code></a></h3>
+<div class="paragraph">
+<p>Since <a href="https://github.com/rails/rails/issues/3458">Rails creates callbacks for dependent associations</a>, always call <code>before_destroy</code> callbacks that perform validation with <code>prepend: true</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad (roles will be deleted automatically even if super_admin? is true)
+has_many :roles, dependent: :destroy
+
+before_destroy :ensure_deletable
+
+def ensure_deletable
+  raise "Cannot delete super admin." if super_admin?
+end
+
+# good
+has_many :roles, dependent: :destroy
+
+before_destroy :ensure_deletable, prepend: true
+
+def ensure_deletable
+  raise "Cannot delete super admin." if super_admin?
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="has_many-has_one-dependent-option"><a class="anchor" href="#has_many-has_one-dependent-option"></a><a class="link" href="#has_many-has_one-dependent-option"><code>has_many</code>/<code>has_one</code> dependent option</a></h3>
+<div class="paragraph">
+<p>Define the <code>dependent</code> option to the <code>has_many</code> and <code>has_one</code> associations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+class Post &lt; ActiveRecord::Base
+  has_many :comments
+end
+
+# good
+class Post &lt; ActiveRecord::Base
+  has_many :comments, dependent: :destroy
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="save-bang"><a class="anchor" href="#save-bang"></a><a class="link" href="#save-bang"><code>save!</code></a></h3>
+<div class="paragraph">
+<p>When persisting AR objects always use the exception raising bang! method or handle the method return value.
+This applies to <code>create</code>, <code>save</code>, <code>update</code>, <code>destroy</code>, <code>first_or_create</code> and <code>find_or_create_by</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+user.create(name: 'Bruce')
+
+# bad
+user.save
+
+# good
+user.create!(name: 'Bruce')
+# or
+bruce = user.create(name: 'Bruce')
+if bruce.persisted?
+  ...
+else
+  ...
+end
+
+# good
+user.save!
+# or
+if user.save
+  ...
+else
+  ...
+end</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="activerecord-queries"><a class="anchor" href="#activerecord-queries"></a><a class="link" href="#activerecord-queries">Models: ActiveRecord Queries</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="avoid-interpolation"><a class="anchor" href="#avoid-interpolation"></a><a class="link" href="#avoid-interpolation">Avoid interpolation</a></h3>
+<div class="paragraph">
+<p>Avoid string interpolation in queries, as it will make your code susceptible to SQL injection attacks.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - param will be interpolated unescaped
+Client.where("orders_count = #{params[:orders]}")
+
+# good - param will be properly escaped
+Client.where('orders_count = ?', params[:orders])</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="named-placeholder"><a class="anchor" href="#named-placeholder"></a><a class="link" href="#named-placeholder">Named placeholder</a></h3>
+<div class="paragraph">
+<p>Consider using named placeholders instead of positional placeholders when you have more than 1 placeholder in your query.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># okish
+Client.where(
+  'created_at &gt;= ? AND created_at &lt;= ?',
+  params[:start_date], params[:end_date]
+)
+
+# good
+Client.where(
+  'created_at &gt;= :start_date AND created_at &lt;= :end_date',
+  start_date: params[:start_date], end_date: params[:end_date]
+)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find"><a class="anchor" href="#find"></a><a class="link" href="#find"><code>find</code></a></h3>
+<div class="paragraph">
+<p>Favor the use of <code>find</code> over <code>where.take!</code>, <code>find_by!</code>, and <code>find_by_id!</code> when you need to retrieve a single record by primary key id and raise <code>ActiveRecord::RecordNotFound</code> when the record is not found.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+User.where(id: id).take!
+
+# bad
+User.find_by_id!(id)
+
+# bad
+User.find_by!(id: id)
+
+# good
+User.find(id)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find_by"><a class="anchor" href="#find_by"></a><a class="link" href="#find_by"><code>find_by</code></a></h3>
+<div class="paragraph">
+<p>Favor the use of <code>find_by</code> over <code>where.take</code> and <code>find_by_attribute</code> when you need to retrieve a single record by one or more attributes and return <code>nil</code> when the record is not found.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+User.where(email: email).take
+User.where(first_name: 'Bruce', last_name: 'Wayne').take
+
+# bad
+User.find_by_email(email)
+# bad, deprecated in ActiveRecord 4.0, removed in 4.1+
+User.find_by_first_name_and_last_name('Bruce', 'Wayne')
+
+# good
+User.find_by(email: email)
+User.find_by(first_name: 'Bruce', last_name: 'Wayne')</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="where-not"><a class="anchor" href="#where-not"></a><a class="link" href="#where-not">Where not</a></h3>
+<div class="paragraph">
+<p>Favor the use of <code>where.not</code> over SQL.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+User.where("id != ?", id)
+
+# good
+User.where.not(id: id)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="order-by-id"><a class="anchor" href="#order-by-id"></a><a class="link" href="#order-by-id">Order by <code>id</code></a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use the <code>id</code> column for ordering.
+The sequence of ids is not guaranteed to be in any particular order, despite often (incidentally) being chronological.
+Use a timestamp column to order chronologically.
+As a bonus the intent is clearer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+scope :chronological, -&gt; { order(id: :asc) }
+
+# good
+scope :chronological, -&gt; { order(created_at: :asc) }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ids"><a class="anchor" href="#ids"></a><a class="link" href="#ids"><code>ids</code></a></h3>
+<div class="paragraph">
+<p>Favor the use of <code>ids</code> over <code>pluck(:id)</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-Ruby" data-lang="Ruby"># bad
+User.pluck(:id)
+
+# good
+User.ids</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="squished-heredocs"><a class="anchor" href="#squished-heredocs"></a><a class="link" href="#squished-heredocs">Squished heredocs</a></h3>
+<div class="paragraph">
+<p>When specifying an explicit query in a method such as <code>find_by_sql</code>, use heredocs with <code>squish</code>.
+This allows you to legibly format the SQL with line breaks and indentations, while supporting syntax highlighting in many tools (including GitHub, Atom, and RubyMine).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">User.find_by_sql(&lt;&lt;-SQL.squish)
+  SELECT
+    users.id, accounts.plan
+  FROM
+    users
+  INNER JOIN
+    accounts
+  ON
+    accounts.user_id = users.id
+  # further complexities...
+SQL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://api.rubyonrails.org/classes/String.html#method-i-squish"><code>String#squish</code></a> removes the indentation and newline characters so that your server log shows a fluid string of SQL rather than something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>SELECT\n    users.id, accounts.plan\n  FROM\n    users\n  INNER JOIN\n    acounts\n  ON\n    accounts.user_id = users.id</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="size-over-count-or-length"><a class="anchor" href="#size-over-count-or-length"></a><a class="link" href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></h3>
+<div class="paragraph">
+<p>When querying ActiveRecord collections, prefer <code>size</code> (selects between count/length behavior based on whether collection is already loaded) or <code>length</code> (always loads the whole collection and counts the array elements) over <code>count</code> (always does a database query for the count).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+User.count
+
+# good
+User.all.size
+
+# good - if you really need to load all users into memory
+User.all.length</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="migrations"><a class="anchor" href="#migrations"></a><a class="link" href="#migrations">Migrations</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="schema-version"><a class="anchor" href="#schema-version"></a><a class="link" href="#schema-version">Schema version</a></h3>
+<div class="paragraph">
+<p>Keep the <code>schema.rb</code> (or <code>structure.sql</code>) under version control.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="db-schema-load"><a class="anchor" href="#db-schema-load"></a><a class="link" href="#db-schema-load">Db schema load</a></h3>
+<div class="paragraph">
+<p>Use <code>rake db:schema:load</code> instead of <code>rake db:migrate</code> to initialize an empty database.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="default-migration-values"><a class="anchor" href="#default-migration-values"></a><a class="link" href="#default-migration-values">Default migration values</a></h3>
+<div class="paragraph">
+<p>Enforce default values in the migrations themselves instead of in the application layer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - application enforced default value
+class Product &lt; ActiveRecord::Base
+  def amount
+    self[:amount] || 0
+  end
+end
+
+# good - database enforced
+class AddDefaultAmountToProducts &lt; ActiveRecord::Migration
+  def change
+    change_column_default :products, :amount, 0
+  end
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While enforcing table defaults only in Rails is suggested by many Rails developers, it&#8217;s an extremely brittle approach that leaves your data vulnerable to many application bugs.
+And you&#8217;ll have to consider the fact that most non-trivial apps share a database with other applications, so imposing data integrity from the Rails app is impossible.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="foreign-key-constraints"><a class="anchor" href="#foreign-key-constraints"></a><a class="link" href="#foreign-key-constraints">Foreign key constraints</a></h3>
+<div class="paragraph">
+<p>Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord supports foreign key constraints natively.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change-vs-up-down"><a class="anchor" href="#change-vs-up-down"></a><a class="link" href="#change-vs-up-down">Change vs up down</a></h3>
+<div class="paragraph">
+<p>When writing constructive migrations (adding tables or columns), use the <code>change</code> method instead of <code>up</code> and <code>down</code> methods.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># the old way
+class AddNameToPeople &lt; ActiveRecord::Migration
+  def up
+    add_column :people, :name, :string
+  end
+
+  def down
+    remove_column :people, :name
+  end
+end
+
+# the new preferred way
+class AddNameToPeople &lt; ActiveRecord::Migration
+  def change
+    add_column :people, :name, :string
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="define-model-class-migrations"><a class="anchor" href="#define-model-class-migrations"></a><a class="link" href="#define-model-class-migrations">Define model class migrations</a></h3>
+<div class="paragraph">
+<p>If you have to use models in migrations, make sure you define them so that you don&#8217;t end up with broken migrations in the future.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># db/migrate/&lt;migration_file_name&gt;.rb
+# frozen_string_literal: true
+
+# bad
+class ModifyDefaultStatusForProducts &lt; ActiveRecord::Migration
+  def change
+    old_status = 'pending_manual_approval'
+    new_status = 'pending_approval'
+
+    reversible do |dir|
+      dir.up do
+        Product.where(status: old_status).update_all(status: new_status)
+        change_column :products, :status, :string, default: new_status
+      end
+
+      dir.down do
+        Product.where(status: new_status).update_all(status: old_status)
+        change_column :products, :status, :string, default: old_status
+      end
+    end
+  end
+end
+
+# good
+# Define `table_name` in a custom named class to make sure that you run on the
+# same table you had during the creation of the migration.
+# In future if you override the `Product` class and change the `table_name`,
+# it won't break the migration or cause serious data corruption.
+class MigrationProduct &lt; ActiveRecord::Base
+  self.table_name = :products
+end
+
+class ModifyDefaultStatusForProducts &lt; ActiveRecord::Migration
+  def change
+    old_status = 'pending_manual_approval'
+    new_status = 'pending_approval'
+
+    reversible do |dir|
+      dir.up do
+        MigrationProduct.where(status: old_status).update_all(status: new_status)
+        change_column :products, :status, :string, default: new_status
+      end
+
+      dir.down do
+        MigrationProduct.where(status: new_status).update_all(status: old_status)
+        change_column :products, :status, :string, default: old_status
+      end
+    end
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="meaningful-foreign-key-naming"><a class="anchor" href="#meaningful-foreign-key-naming"></a><a class="link" href="#meaningful-foreign-key-naming">Meaningful foreign key naming</a></h3>
+<div class="paragraph">
+<p>Name your foreign keys explicitly instead of relying on Rails auto-generated FK names. (<a href="https://guides.rubyonrails.org/active_record_migrations.html#foreign-keys" class="bare">https://guides.rubyonrails.org/active_record_migrations.html#foreign-keys</a>)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+class AddFkArticlesToAuthors &lt; ActiveRecord::Migration
+  def change
+    add_foreign_key :articles, :authors
+  end
+end
+
+# good
+class AddFkArticlesToAuthors &lt; ActiveRecord::Migration
+  def change
+    add_foreign_key :articles, :authors, name: :articles_author_id_fk
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="reversible-migration"><a class="anchor" href="#reversible-migration"></a><a class="link" href="#reversible-migration">Reversible migration</a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use non-reversible migration commands in the <code>change</code> method.
+Reversible migration commands are listed below.
+<a href="https://api.rubyonrails.org/classes/ActiveRecord/Migration/CommandRecorder.html">ActiveRecord::Migration::CommandRecorder</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+class DropUsers &lt; ActiveRecord::Migration
+  def change
+    drop_table :users
+  end
+end
+
+# good
+class DropUsers &lt; ActiveRecord::Migration
+  def up
+    drop_table :users
+  end
+
+  def down
+    create_table :users do |t|
+      t.string :name
+    end
+  end
+end
+
+# good
+# In this case, block will be used by create_table in rollback
+# https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table
+class DropUsers &lt; ActiveRecord::Migration
+  def change
+    drop_table :users do |t|
+      t.string :name
+    end
+  end
+end</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="views"><a class="anchor" href="#views"></a><a class="link" href="#views">Views</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="no-direct-model-view"><a class="anchor" href="#no-direct-model-view"></a><a class="link" href="#no-direct-model-view">No direct model view</a></h3>
+<div class="paragraph">
+<p>Never call the model layer directly from a view.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="no-complex-view-formatting"><a class="anchor" href="#no-complex-view-formatting"></a><a class="link" href="#no-complex-view-formatting">No complex view formatting</a></h3>
+<div class="paragraph">
+<p>Avoid complex formatting in the views.
+A view helper is useful for simple cases, but if it&#8217;s more complex then consider using a decorator or presenter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="partials"><a class="anchor" href="#partials"></a><a class="link" href="#partials">Partials</a></h3>
+<div class="paragraph">
+<p>Mitigate code duplication by using partial templates and layouts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="no-instance-variables-in-partials"><a class="anchor" href="#no-instance-variables-in-partials"></a><a class="link" href="#no-instance-variables-in-partials">No instance variables in partials</a></h3>
+<div class="paragraph">
+<p>Avoid using instance variables in partials, pass a local variable to <code>render</code> instead.
+The partial may be used in a different controller or action, where the variable can have a different name or even be absent.
+In these cases, an undefined instance variable will not raise an exception whereas a local variable will.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-erb" data-lang="erb">&lt;!-- bad --&gt;
+&lt;!-- app/views/courses/show.html.erb --&gt;
+&lt;%= render 'course_description' %&gt;
+&lt;!-- app/views/courses/_course_description.html.erb --&gt;
+&lt;%= @course.description %&gt;
+
+&lt;!-- good --&gt;
+&lt;!-- app/views/courses/show.html.erb --&gt;
+&lt;%= render 'course_description', course: @course %&gt;
+&lt;!-- app/views/courses/_course_description.html.erb --&gt;
+&lt;%= course.description %&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="internationalization"><a class="anchor" href="#internationalization"></a><a class="link" href="#internationalization">Internationalization</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="locale-texts"><a class="anchor" href="#locale-texts"></a><a class="link" href="#locale-texts">Locale texts</a></h3>
+<div class="paragraph">
+<p>No strings or other locale specific settings should be used in the views, models and controllers.
+These texts should be moved to the locale files in the <code>config/locales</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="translated-labels"><a class="anchor" href="#translated-labels"></a><a class="link" href="#translated-labels">Translated labels</a></h3>
+<div class="paragraph">
+<p>When the labels of an ActiveRecord model need to be translated, use the <code>activerecord</code> scope:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>en:
+  activerecord:
+    models:
+      user: Member
+    attributes:
+      user:
+        name: 'Full name'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then <code>User.model_name.human</code> will return "Member" and <code>User.human_attribute_name("name")</code> will return "Full name".
+These translations of the attributes will be used as labels in the views.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="organize-locale-files"><a class="anchor" href="#organize-locale-files"></a><a class="link" href="#organize-locale-files">Organize locale files</a></h3>
+<div class="paragraph">
+<p>Separate the texts used in the views from translations of ActiveRecord attributes.
+Place the locale files for the models in a folder <code>locales/models</code> and the texts used in the views in folder <code>locales/views</code>.</p>
+</div>
+<div class="paragraph">
+<p>When organization of the locale files is done with additional directories, these directories must be described in the <code>application.rb</code> file in order to be loaded.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/application.rb
+config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shared-localization"><a class="anchor" href="#shared-localization"></a><a class="link" href="#shared-localization">Shared localization</a></h3>
+<div class="paragraph">
+<p>Place the shared localization options, such as date or currency formats, in files under the root of the <code>locales</code> directory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="short-i18n"><a class="anchor" href="#short-i18n"></a><a class="link" href="#short-i18n">Short i18n</a></h3>
+<div class="paragraph">
+<p>Use the short form of the I18n methods: <code>I18n.t</code> instead of <code>I18n.translate</code> and <code>I18n.l</code> instead of <code>I18n.localize</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lazy-lookup"><a class="anchor" href="#lazy-lookup"></a><a class="link" href="#lazy-lookup">Lazy lookup</a></h3>
+<div class="paragraph">
+<p>Use "lazy" lookup for the texts used in views. Let&#8217;s say we have the following structure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>en:
+  users:
+    show:
+      title: 'User details page'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The value for <code>users.show.title</code> can be looked up in the template <code>app/views/users/show.html.haml</code> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">= t '.title'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dot-separated-keys"><a class="anchor" href="#dot-separated-keys"></a><a class="link" href="#dot-separated-keys">Dot-separated keys</a></h3>
+<div class="paragraph">
+<p>Use the dot-separated keys in the controllers and models instead of specifying the <code>:scope</code> option.
+The dot-separated call is easier to read and trace the hierarchy.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+I18n.t :record_invalid, scope: [:activerecord, :errors, :messages]
+
+# good
+I18n.t 'activerecord.errors.messages.record_invalid'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="i18n-guides"><a class="anchor" href="#i18n-guides"></a><a class="link" href="#i18n-guides">I18n guides</a></h3>
+<div class="paragraph">
+<p>More detailed information about the Rails I18n can be found in the <a href="https://guides.rubyonrails.org/i18n.html">Rails Guides</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assets"><a class="anchor" href="#assets"></a><a class="link" href="#assets">Assets</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use the <a href="https://guides.rubyonrails.org/asset_pipeline.html">asset pipeline</a> to leverage organization within your application.</p>
+</div>
+<div class="sect2">
+<h3 id="reserve-app-assets"><a class="anchor" href="#reserve-app-assets"></a><a class="link" href="#reserve-app-assets">Reserve <code>app/assets</code></a></h3>
+<div class="paragraph">
+<p>Reserve <code>app/assets</code> for custom stylesheets, javascripts, or images.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lib-assets"><a class="anchor" href="#lib-assets"></a><a class="link" href="#lib-assets"><code>lib/assets</code></a></h3>
+<div class="paragraph">
+<p>Use <code>lib/assets</code> for your own libraries that don&#8217;t really fit into the scope of the application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vendor-assets"><a class="anchor" href="#vendor-assets"></a><a class="link" href="#vendor-assets"><code>vendor/assets</code></a></h3>
+<div class="paragraph">
+<p>Third party code such as <a href="https://jquery.com/">jQuery</a> or <a href="https://twitter.github.com/bootstrap/">bootstrap</a> should be placed in <code>vendor/assets</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gem-assets"><a class="anchor" href="#gem-assets"></a><a class="link" href="#gem-assets"><code>gem/assets</code></a></h3>
+<div class="paragraph">
+<p>When possible, use gemified versions of assets (e.g. <a href="https://github.com/rails/jquery-rails">jquery-rails</a>, <a href="https://github.com/joliss/jquery-ui-rails">jquery-ui-rails</a>, <a href="https://github.com/thomas-mcdonald/bootstrap-sass">bootstrap-sass</a>, <a href="https://github.com/zurb/foundation">zurb-foundation</a>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mailers"><a class="anchor" href="#mailers"></a><a class="link" href="#mailers">Mailers</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mailer-name"><a class="anchor" href="#mailer-name"></a><a class="link" href="#mailer-name">Mailer name</a></h3>
+<div class="paragraph">
+<p>Name the mailers <code>SomethingMailer</code>.
+Without the Mailer suffix it isn&#8217;t immediately apparent what&#8217;s a mailer and which views are related to the mailer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="html-plain-email"><a class="anchor" href="#html-plain-email"></a><a class="link" href="#html-plain-email">HTML plain email</a></h3>
+<div class="paragraph">
+<p>Provide both HTML and plain-text view templates.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enable-delivery-errors"><a class="anchor" href="#enable-delivery-errors"></a><a class="link" href="#enable-delivery-errors">Enable delivery errors</a></h3>
+<div class="paragraph">
+<p>Enable errors raised on failed mail delivery in your development environment.
+The errors are disabled by default.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
+
+config.action_mailer.raise_delivery_errors = true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="local-smtp"><a class="anchor" href="#local-smtp"></a><a class="link" href="#local-smtp">Local SMTP</a></h3>
+<div class="paragraph">
+<p>Use a local SMTP server like <a href="https://github.com/sj26/mailcatcher">Mailcatcher</a> in development environment.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
+
+config.action_mailer.smtp_settings = {
+  address: 'localhost',
+  port: 1025,
+  # more settings
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="default-hostname"><a class="anchor" href="#default-hostname"></a><a class="link" href="#default-hostname">Default hostname</a></h3>
+<div class="paragraph">
+<p>Provide default settings for the host name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
+config.action_mailer.default_url_options = { host: "#{local_ip}:3000" }
+
+# config/environments/production.rb
+config.action_mailer.default_url_options = { host: 'your_site.com' }
+
+# in your mailer class
+default_url_options[:host] = 'your_site.com'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="email-addresses"><a class="anchor" href="#email-addresses"></a><a class="link" href="#email-addresses">Email addresses</a></h3>
+<div class="paragraph">
+<p>Format the from and to addresses properly.
+Use the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># in your mailer class
+default from: 'Your Name &lt;info@your_site.com&gt;'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delivery-method-test"><a class="anchor" href="#delivery-method-test"></a><a class="link" href="#delivery-method-test">Delivery method test</a></h3>
+<div class="paragraph">
+<p>Make sure that the e-mail delivery method for your test environment is set to <code>test</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/test.rb
+
+config.action_mailer.delivery_method = :test</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delivery-method-smtp"><a class="anchor" href="#delivery-method-smtp"></a><a class="link" href="#delivery-method-smtp">Delivery method SMTP</a></h3>
+<div class="paragraph">
+<p>The delivery method for development and production should be <code>smtp</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb, config/environments/production.rb
+
+config.action_mailer.delivery_method = :smtp</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inline-email-styles"><a class="anchor" href="#inline-email-styles"></a><a class="link" href="#inline-email-styles">Inline email styles</a></h3>
+<div class="paragraph">
+<p>When sending html emails all styles should be inline, as some mail clients have problems with external styles.
+This however makes them harder to maintain and leads to code duplication.
+There are two similar gems that transform the styles and put them in the corresponding html tags: <a href="https://github.com/fphilipe/premailer-rails">premailer-rails</a> and <a href="https://github.com/Mange/roadie">roadie</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="background-email"><a class="anchor" href="#background-email"></a><a class="link" href="#background-email">Background email</a></h3>
+<div class="paragraph">
+<p>Sending emails while generating page response should be avoided.
+It causes delays in loading of the page and request can timeout if multiple email are sent.
+To overcome this emails can be sent in background process with the help of <a href="https://github.com/mperham/sidekiq">sidekiq</a> gem.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="active-support-core-extensions"><a class="anchor" href="#active-support-core-extensions"></a><a class="link" href="#active-support-core-extensions">Active Support Core Extensions</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="try-bang"><a class="anchor" href="#try-bang"></a><a class="link" href="#try-bang"><code>try!</code></a></h3>
+<div class="paragraph">
+<p>Prefer Ruby 2.3&#8217;s safe navigation operator <code>&amp;.</code> over <code>ActiveSupport#try!</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+obj.try! :fly
+
+# good
+obj&amp;.fly</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="active_support_aliases"><a class="anchor" href="#active_support_aliases"></a><a class="link" href="#active_support_aliases">ActiveSupport aliases</a></h3>
+<div class="paragraph">
+<p>Prefer Ruby&#8217;s Standard Library methods over <code>ActiveSupport</code> aliases.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+'the day'.starts_with? 'th'
+'the day'.ends_with? 'ay'
+
+# good
+'the day'.start_with? 'th'
+'the day'.end_with? 'ay'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="active_support_extensions"><a class="anchor" href="#active_support_extensions"></a><a class="link" href="#active_support_extensions">ActiveSupport extensions</a></h3>
+<div class="paragraph">
+<p>Prefer Ruby&#8217;s Standard Library over uncommon ActiveSupport extensions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+(1..50).to_a.forty_two
+1.in? [1, 2]
+'day'.in? 'the day'
+
+# good
+(1..50).to_a[41]
+[1, 2].include? 1
+'the day'.include? 'day'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inquiry"><a class="anchor" href="#inquiry"></a><a class="link" href="#inquiry"><code>inquiry</code></a></h3>
+<div class="paragraph">
+<p>Prefer Ruby&#8217;s comparison operators over ActiveSupport&#8217;s <code>Array#inquiry</code>, and <code>String#inquiry</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - String#inquiry
+ruby = 'two'.inquiry
+ruby.two?
+
+# good
+ruby = 'two'
+ruby == 'two'
+
+# bad - Array#inquiry
+pets = %w(cat dog).inquiry
+pets.gopher?
+
+# good
+pets = %w(cat dog)
+pets.include? 'cat'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="time"><a class="anchor" href="#time"></a><a class="link" href="#time">Time</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="tz-config"><a class="anchor" href="#tz-config"></a><a class="link" href="#tz-config">Time zone config</a></h3>
+<div class="paragraph">
+<p>Configure your timezone accordingly in <code>application.rb</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">config.time_zone = 'Eastern European Time'
+# optional - note it can be only :utc or :local (default is :utc)
+config.active_record.default_timezone = :local</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="time-parse"><a class="anchor" href="#time-parse"></a><a class="link" href="#time-parse">Time parse</a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use <code>Time.parse</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+Time.parse('2015-03-02 19:05:37') # =&gt; Will assume time string given is in the system's time zone.
+
+# good
+Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="to-time"><a class="anchor" href="#to-time"></a><a class="link" href="#to-time"><code>to_time</code></a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use <a href="https://api.rubyonrails.org/classes/String.html#method-i-to_time"><code>String#to_time</code></a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - assumes time string given is in the system's time zone.
+'2015-03-02 19:05:37'.to_time
+
+# good
+Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="time-now"><a class="anchor" href="#time-now"></a><a class="link" href="#time-now"><code>Time.now</code></a></h3>
+<div class="paragraph">
+<p>Don&#8217;t use <code>Time.now</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
+Time.now # =&gt; Returns system time and ignores your configured time zone.
+
+# good
+Time.zone.now # =&gt; Fri, 12 Mar 2014 22:04:47 EET +02:00
+Time.current # Same thing but shorter.</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bundler"><a class="anchor" href="#bundler"></a><a class="link" href="#bundler">Bundler</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="dev-test-gems"><a class="anchor" href="#dev-test-gems"></a><a class="link" href="#dev-test-gems">Dev/test gems</a></h3>
+<div class="paragraph">
+<p>Put gems used only for development or testing in the appropriate group in the Gemfile.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="only-good-gems"><a class="anchor" href="#only-good-gems"></a><a class="link" href="#only-good-gems">Only good gems</a></h3>
+<div class="paragraph">
+<p>Use only established gems in your projects.
+If you&#8217;re contemplating on including some little-known gem you should do a careful review of its source code first.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="os-specific-gemfile-locks"><a class="anchor" href="#os-specific-gemfile-locks"></a><a class="link" href="#os-specific-gemfile-locks">OS-specific <code>Gemfile.lock</code></a></h3>
+<div class="paragraph">
+<p>OS-specific gems will by default result in a constantly changing <code>Gemfile.lock</code> for projects with multiple developers using different operating systems.
+Add all OS X specific gems to a <code>darwin</code> group in the Gemfile, and all Linux specific gems to a <code>linux</code> group:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby"># Gemfile
+group :darwin do
+  gem 'rb-fsevent'
+  gem 'growl'
+end
+
+group :linux do
+  gem 'rb-inotify'
+end</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To require the appropriate gems in the right environment, add the following to <code>config/application.rb</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-ruby" data-lang="ruby">platform = RUBY_PLATFORM.match(/(linux|darwin)/)[0].to_sym
+Bundler.require(platform)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gemfile-lock"><a class="anchor" href="#gemfile-lock"></a><a class="link" href="#gemfile-lock"><code>Gemfile.lock</code></a></h3>
+<div class="paragraph">
+<p>Do not remove the <code>Gemfile.lock</code> from version control.
+This is not some randomly generated file - it makes sure that all of your team members get the same gem versions when they do a <code>bundle install</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="managing-processes"><a class="anchor" href="#managing-processes"></a><a class="link" href="#managing-processes">Managing processes</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="foreman"><a class="anchor" href="#foreman"></a><a class="link" href="#foreman">Foreman</a></h3>
+<div class="paragraph">
+<p>If your projects depends on various external processes use <a href="https://github.com/ddollar/foreman">foreman</a> to manage them.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="further-reading"><a class="anchor" href="#further-reading"></a><a class="link" href="#further-reading">Further Reading</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are a few excellent resources on Rails style, that you should consider if you have time to spare:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.informit.com/store/rails-5-way-9780134657677">The Rails 5 Way</a></p>
+</li>
+<li>
+<p><a href="https://guides.rubyonrails.org/">Ruby on Rails Guides</a></p>
+</li>
+<li>
+<p><a href="https://pragprog.com/book/rspec3/effective-testing-with-rspec-3">Effective Testing with RSpec 3</a></p>
+</li>
+<li>
+<p><a href="https://pragprog.com/book/hwcuc/the-cucumber-book">The Cucumber Book</a></p>
+</li>
+<li>
+<p><a href="https://leanpub.com/everydayrailsrspec">Everyday Rails Testing with RSpec</a></p>
+</li>
+<li>
+<p><a href="https://pragprog.com/book/nrtest3/rails-5-test-prescriptions">Rails 5 Test Prescriptions</a></p>
+</li>
+<li>
+<p><a href="http://betterspecs.org">Better Specs for RSpec</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributing"><a class="anchor" href="#contributing"></a><a class="link" href="#contributing">Contributing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Nothing written in this guide is set in stone.
+It&#8217;s my desire to work together with everyone interested in Rails coding style, so that we could ultimately create a resource that will be beneficial to the entire Ruby community.</p>
+</div>
+<div class="paragraph">
+<p>Feel free to open tickets or send pull requests with improvements.
+Thanks in advance for your help!</p>
+</div>
+<div class="paragraph">
+<p>You can also support the project (and RuboCop) with financial contributions via <a href="https://www.patreon.com/bbatsov">Patreon</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="how-to-contribute"><a class="anchor" href="#how-to-contribute"></a><a class="link" href="#how-to-contribute">How to Contribute?</a></h3>
+<div class="paragraph">
+<p>It&#8217;s easy, just follow the contribution guidelines below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://help.github.com/articles/fork-a-repo">Fork</a> the project on GitHub</p>
+</li>
+<li>
+<p>Make your feature addition or bug fix in a feature branch.</p>
+</li>
+<li>
+<p>Include a <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">good description</a> of your changes</p>
+</li>
+<li>
+<p>Push your feature branch to GitHub</p>
+</li>
+<li>
+<p>Send a <a href="https://help.github.com/articles/using-pull-requests">Pull Request</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="license"><a class="anchor" href="#license"></a><a class="link" href="#license">License</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image"><img src="https://i.creativecommons.org/l/by/3.0/88x31.png" alt="Creative Commons License"></span>
+This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0 Unported License</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="spread-the-word"><a class="anchor" href="#spread-the-word"></a><a class="link" href="#spread-the-word">Spread the Word</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A community-driven style guide is of little use to a community that doesn&#8217;t know about its existence.
+Tweet about the guide, share it with your friends and colleagues.
+Every comment, suggestion or opinion we get makes the guide just a little bit better.
+And we want to have the best possible guide, don&#8217;t we?</p>
+</div>
+<div class="paragraph">
+<p>Cheers,<br>
+<a href="https://twitter.com/bbatsov">Bozhidar</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-06-10 15:25:32 UTC
+</div>
+</div>
+</body>
+</html>
