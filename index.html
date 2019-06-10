@@ -641,10 +641,10 @@ It&#8217;s a complementary guide to the already existing community-driven <a hre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell"># Generates README.pdf
-asciidoctor-pdf -a allow-uri-read README.adoc
+<pre class="rouge highlight"><code data-lang="shell"><span class="c"># Generates README.pdf</span>
+asciidoctor-pdf <span class="nt">-a</span> allow-uri-read README.adoc
 
-# Generates README.html
+<span class="c"># Generates README.html</span>
 asciidoctor</code></pre>
 </div>
 </div>
@@ -721,10 +721,10 @@ The code in initializers executes on application startup.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/production.rb
-# Precompile additional assets (application.js, application.css,
-#and all non-JS/CSS are already added)
-config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/production.rb</span>
+<span class="c1"># Precompile additional assets (application.js, application.css,</span>
+<span class="c1">#and all non-JS/CSS are already added)</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">assets</span><span class="p">.</span><span class="nf">precompile</span> <span class="o">+=</span> <span class="sx">%w( rails_admin/rails_admin.css rails_admin/rails_admin.js )</span></code></pre>
 </div>
 </div>
 </div>
@@ -750,7 +750,7 @@ config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_ad
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">Rails::Application.config_for(:yaml_file)</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="no">Rails</span><span class="o">::</span><span class="no">Application</span><span class="p">.</span><span class="nf">config_for</span><span class="p">(</span><span class="ss">:yaml_file</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -766,23 +766,23 @@ config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_ad
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-get 'subscriptions/:id/unsubscribe'
-resources :subscriptions
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">get</span> <span class="s1">'subscriptions/:id/unsubscribe'</span>
+<span class="n">resources</span> <span class="ss">:subscriptions</span>
 
-# good
-resources :subscriptions do
-  get 'unsubscribe', on: :member
-end
+<span class="c1"># good</span>
+<span class="n">resources</span> <span class="ss">:subscriptions</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="s1">'unsubscribe'</span><span class="p">,</span> <span class="ss">on: :member</span>
+<span class="k">end</span>
 
-# bad
-get 'photos/search'
-resources :photos
+<span class="c1"># bad</span>
+<span class="n">get</span> <span class="s1">'photos/search'</span>
+<span class="n">resources</span> <span class="ss">:photos</span>
 
-# good
-resources :photos do
-  get 'search', on: :collection
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">resources</span> <span class="ss">:photos</span> <span class="k">do</span>
+  <span class="n">get</span> <span class="s1">'search'</span><span class="p">,</span> <span class="ss">on: :collection</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -793,19 +793,19 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">resources :subscriptions do
-  member do
-    get 'unsubscribe'
-    # more routes
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">resources</span> <span class="ss">:subscriptions</span> <span class="k">do</span>
+  <span class="n">member</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="s1">'unsubscribe'</span>
+    <span class="c1"># more routes</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-resources :photos do
-  collection do
-    get 'search'
-    # more routes
-  end
-end</code></pre>
+<span class="n">resources</span> <span class="ss">:photos</span> <span class="k">do</span>
+  <span class="n">collection</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="s1">'search'</span>
+    <span class="c1"># more routes</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -816,18 +816,18 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Post &lt; ActiveRecord::Base
-  has_many :comments
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span>
+<span class="k">end</span>
 
-class Comment &lt; ActiveRecord::Base
-  belongs_to :post
-end
+<span class="k">class</span> <span class="nc">Comment</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">belongs_to</span> <span class="ss">:post</span>
+<span class="k">end</span>
 
-# routes.rb
-resources :posts do
-  resources :comments
-end</code></pre>
+<span class="c1"># routes.rb</span>
+<span class="n">resources</span> <span class="ss">:posts</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:comments</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -839,11 +839,11 @@ This will save user from long URLs <code>posts/1/comments/5/versions/7/edit</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">resources :posts, shallow: true do
-  resources :comments do
-    resources :versions
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">resources</span> <span class="ss">:posts</span><span class="p">,</span> <span class="ss">shallow: </span><span class="kp">true</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:comments</span> <span class="k">do</span>
+    <span class="n">resources</span> <span class="ss">:versions</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -854,11 +854,11 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">namespace :admin do
-  # Directs /admin/products/* to Admin::ProductsController
-  # (app/controllers/admin/products_controller.rb)
-  resources :products
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">namespace</span> <span class="ss">:admin</span> <span class="k">do</span>
+  <span class="c1"># Directs /admin/products/* to Admin::ProductsController</span>
+  <span class="c1"># (app/controllers/admin/products_controller.rb)</span>
+  <span class="n">resources</span> <span class="ss">:products</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -870,8 +870,8 @@ This route will make all actions in every controller accessible via GET requests
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># very bad
-match ':controller(/:action(/:id(.:format)))'</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># very bad</span>
+<span class="n">match</span> <span class="s1">':controller(/:action(/:id(.:format)))'</span></code></pre>
 </div>
 </div>
 </div>
@@ -912,18 +912,18 @@ The ActionFilter specified for an inherited action makes it difficult to underst
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-class UsersController &lt; ApplicationController
-  before_action :require_login, only: :export
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">before_action</span> <span class="ss">:require_login</span><span class="p">,</span> <span class="ss">only: :export</span>
+<span class="k">end</span>
 
-# good
-class UsersController &lt; ApplicationController
-  before_action :require_login, only: :export
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="n">before_action</span> <span class="ss">:require_login</span><span class="p">,</span> <span class="ss">only: :export</span>
 
-  def export
-  end
-end</code></pre>
+  <span class="k">def</span> <span class="nf">export</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -939,27 +939,27 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># very bad
-class ProductsController &lt; ApplicationController
-  def index
-    render inline: "&lt;% products.each do |p| %&gt;&lt;p&gt;&lt;%= p.name %&gt;&lt;/p&gt;&lt;% end %&gt;", type: :erb
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># very bad</span>
+<span class="k">class</span> <span class="nc">ProductsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="n">render</span> <span class="ss">inline: </span><span class="s2">"&lt;% products.each do |p| %&gt;&lt;p&gt;&lt;%= p.name %&gt;&lt;/p&gt;&lt;% end %&gt;"</span><span class="p">,</span> <span class="ss">type: :erb</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-## app/views/products/index.html.erb
-&lt;%= render partial: 'product', collection: products %&gt;
+<span class="c1"># good</span>
+<span class="c1">## app/views/products/index.html.erb</span>
+<span class="o">&lt;</span><span class="sx">%= render partial: 'product', collection: products %&gt;
 
 ## app/views/products/_product.html.erb
-&lt;p&gt;&lt;%= product.name %&gt;&lt;/p&gt;
-&lt;p&gt;&lt;%= product.price %&gt;&lt;/p&gt;
+&lt;p&gt;&lt;%=</span> <span class="n">product</span><span class="p">.</span><span class="nf">name</span> <span class="sx">%&gt;&lt;/p&gt;</span>
+<span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="sx">%= product.price %&gt;&lt;/p&gt;
 
 ## app/controllers/foo_controller.rb
 class ProductsController &lt; ApplicationController
   def index
     render :index
   end
-end</code></pre>
+end</span></code></pre>
 </div>
 </div>
 </div>
@@ -970,20 +970,20 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - sets MIME type to `text/html`
-...
-render text: 'Ruby!'
-...
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - sets MIME type to `text/html`</span>
+<span class="o">...</span>
+<span class="n">render</span> <span class="ss">text: </span><span class="s1">'Ruby!'</span>
+<span class="o">...</span>
 
-# bad - requires explicit MIME type declaration
-...
-render text: 'Ruby!', content_type: 'text/plain'
-...
+<span class="c1"># bad - requires explicit MIME type declaration</span>
+<span class="o">...</span>
+<span class="n">render</span> <span class="ss">text: </span><span class="s1">'Ruby!'</span><span class="p">,</span> <span class="ss">content_type: </span><span class="s1">'text/plain'</span>
+<span class="o">...</span>
 
-# good - short and precise
-...
-render plain: 'Ruby!'
-...</code></pre>
+<span class="c1"># good - short and precise</span>
+<span class="o">...</span>
+<span class="n">render</span> <span class="ss">plain: </span><span class="s1">'Ruby!'</span>
+<span class="o">...</span></code></pre>
 </div>
 </div>
 </div>
@@ -995,15 +995,15 @@ They are meaningful and do not look like "magic" numbers for less known HTTP sta
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-...
-render status: 403
-...
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="o">...</span>
+<span class="n">render</span> <span class="ss">status: </span><span class="mi">403</span>
+<span class="o">...</span>
 
-# good
-...
-render status: :forbidden
-...</code></pre>
+<span class="c1"># good</span>
+<span class="o">...</span>
+<span class="n">render</span> <span class="ss">status: :forbidden</span>
+<span class="o">...</span></code></pre>
 </div>
 </div>
 </div>
@@ -1031,20 +1031,20 @@ render status: :forbidden
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Message
-  include ActiveAttr::Model
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Message</span>
+  <span class="kp">include</span> <span class="no">ActiveAttr</span><span class="o">::</span><span class="no">Model</span>
 
-  attribute :name
-  attribute :email
-  attribute :content
-  attribute :priority
+  <span class="n">attribute</span> <span class="ss">:name</span>
+  <span class="n">attribute</span> <span class="ss">:email</span>
+  <span class="n">attribute</span> <span class="ss">:content</span>
+  <span class="n">attribute</span> <span class="ss">:priority</span>
 
-  attr_accessible :name, :email, :content
+  <span class="n">attr_accessible</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:content</span>
 
-  validates :name, presence: true
-  validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
-  validates :content, length: { maximum: 500 }
-end</code></pre>
+  <span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">with: </span><span class="sr">/\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="mi">500</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1071,11 +1071,11 @@ Keep your models for business logic and data-persistence only.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - don't do this if you can modify the schema
-class Transaction &lt; ActiveRecord::Base
-  self.table_name = 'order'
-  ...
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - don't do this if you can modify the schema</span>
+<span class="k">class</span> <span class="nc">Transaction</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'order'</span>
+  <span class="o">...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1086,41 +1086,41 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
-  # keep the default scope first (if any)
-  default_scope { where(active: true) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="c1"># keep the default scope first (if any)</span>
+  <span class="n">default_scope</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
 
-  # constants come up next
-  COLORS = %w(red green blue)
+  <span class="c1"># constants come up next</span>
+  <span class="no">COLORS</span> <span class="o">=</span> <span class="sx">%w(red green blue)</span>
 
-  # afterwards we put attr related macros
-  attr_accessor :formatted_date_of_birth
+  <span class="c1"># afterwards we put attr related macros</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:formatted_date_of_birth</span>
 
-  attr_accessible :login, :first_name, :last_name, :email, :password
+  <span class="n">attr_accessible</span> <span class="ss">:login</span><span class="p">,</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span>
 
-  # Rails 4+ enums after attr macros, prefer the hash syntax
-  enum gender: { female: 0, male: 1 }
+  <span class="c1"># Rails 4+ enums after attr macros, prefer the hash syntax</span>
+  <span class="n">enum</span> <span class="ss">gender: </span><span class="p">{</span> <span class="ss">female: </span><span class="mi">0</span><span class="p">,</span> <span class="ss">male: </span><span class="mi">1</span> <span class="p">}</span>
 
-  # followed by association macros
-  belongs_to :country
+  <span class="c1"># followed by association macros</span>
+  <span class="n">belongs_to</span> <span class="ss">:country</span>
 
-  has_many :authentications, dependent: :destroy
+  <span class="n">has_many</span> <span class="ss">:authentications</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>
 
-  # and validation macros
-  validates :email, presence: true
-  validates :username, presence: true
-  validates :username, uniqueness: { case_sensitive: false }
-  validates :username, format: { with: /\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/ }
-  validates :password, format: { with: /\A\S{8,128}\z/, allow_nil: true }
+  <span class="c1"># and validation macros</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+  <span class="n">validates</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+  <span class="n">validates</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">uniqueness: </span><span class="p">{</span> <span class="ss">case_sensitive: </span><span class="kp">false</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">with: </span><span class="sr">/\A[A-Za-z][A-Za-z0-9._-]{2,19}\z/</span> <span class="p">}</span>
+  <span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">with: </span><span class="sr">/\A\S{8,128}\z/</span><span class="p">,</span> <span class="ss">allow_nil: </span><span class="kp">true</span> <span class="p">}</span>
 
-  # next we have callbacks
-  before_save :cook
-  before_save :update_username_lower
+  <span class="c1"># next we have callbacks</span>
+  <span class="n">before_save</span> <span class="ss">:cook</span>
+  <span class="n">before_save</span> <span class="ss">:update_username_lower</span>
 
-  # other macros (like devise's) should be placed after the callbacks
+  <span class="c1"># other macros (like devise's) should be placed after the callbacks</span>
 
-  ...
-end</code></pre>
+  <span class="o">...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1132,30 +1132,30 @@ Using <code>has_many :through</code> allows additional attributes and validation
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># not so good - using has_and_belongs_to_many
-class User &lt; ActiveRecord::Base
-  has_and_belongs_to_many :groups
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># not so good - using has_and_belongs_to_many</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_and_belongs_to_many</span> <span class="ss">:groups</span>
+<span class="k">end</span>
 
-class Group &lt; ActiveRecord::Base
-  has_and_belongs_to_many :users
-end
+<span class="k">class</span> <span class="nc">Group</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_and_belongs_to_many</span> <span class="ss">:users</span>
+<span class="k">end</span>
 
-# preferred way - using has_many :through
-class User &lt; ActiveRecord::Base
-  has_many :memberships
-  has_many :groups, through: :memberships
-end
+<span class="c1"># preferred way - using has_many :through</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:memberships</span>
+  <span class="n">has_many</span> <span class="ss">:groups</span><span class="p">,</span> <span class="ss">through: :memberships</span>
+<span class="k">end</span>
 
-class Membership &lt; ActiveRecord::Base
-  belongs_to :user
-  belongs_to :group
-end
+<span class="k">class</span> <span class="nc">Membership</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">belongs_to</span> <span class="ss">:user</span>
+  <span class="n">belongs_to</span> <span class="ss">:group</span>
+<span class="k">end</span>
 
-class Group &lt; ActiveRecord::Base
-  has_many :memberships
-  has_many :users, through: :memberships
-end</code></pre>
+<span class="k">class</span> <span class="nc">Group</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:memberships</span>
+  <span class="n">has_many</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">through: :memberships</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1166,15 +1166,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-def amount
-  read_attribute(:amount) * 100
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">def</span> <span class="nf">amount</span>
+  <span class="n">read_attribute</span><span class="p">(</span><span class="ss">:amount</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="k">end</span>
 
-# good
-def amount
-  self[:amount] * 100
-end</code></pre>
+<span class="c1"># good</span>
+<span class="k">def</span> <span class="nf">amount</span>
+  <span class="nb">self</span><span class="p">[</span><span class="ss">:amount</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1185,15 +1185,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-def amount
-  write_attribute(:amount, 100)
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">def</span> <span class="nf">amount</span>
+  <span class="n">write_attribute</span><span class="p">(</span><span class="ss">:amount</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">end</span>
 
-# good
-def amount
-  self[:amount] = 100
-end</code></pre>
+<span class="c1"># good</span>
+<span class="k">def</span> <span class="nf">amount</span>
+  <span class="nb">self</span><span class="p">[</span><span class="ss">:amount</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1204,12 +1204,12 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-validates_presence_of :email
-validates_length_of :email, maximum: 100
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">validates_presence_of</span> <span class="ss">:email</span>
+<span class="n">validates_length_of</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">maximum: </span><span class="mi">100</span>
 
-# good
-validates :email, presence: true, length: { maximum: 100 }</code></pre>
+<span class="c1"># good</span>
+<span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="mi">100</span> <span class="p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1220,13 +1220,13 @@ validates :email, presence: true, length: { maximum: 100 }</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-validates :email, :password, presence: true
-validates :email, length: { maximum: 100 }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
+<span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="mi">100</span> <span class="p">}</span>
 
-# good
-validates :email, presence: true, length: { maximum: 100 }
-validates :password, presence: true</code></pre>
+<span class="c1"># good</span>
+<span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="mi">100</span> <span class="p">}</span>
+<span class="n">validates</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span></code></pre>
 </div>
 </div>
 </div>
@@ -1237,21 +1237,21 @@ validates :password, presence: true</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-class Person
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">Person</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">format: </span><span class="p">{</span> <span class="ss">with: </span><span class="sr">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i</span> <span class="p">}</span>
+<span class="k">end</span>
 
-# good
-class EmailValidator &lt; ActiveModel::EachValidator
-  def validate_each(record, attribute, value)
-    record.errors[attribute] &lt;&lt; (options[:message] || 'is not a valid email') unless value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-  end
-end
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">EmailValidator</span> <span class="o">&lt;</span> <span class="no">ActiveModel</span><span class="o">::</span><span class="no">EachValidator</span>
+  <span class="k">def</span> <span class="nf">validate_each</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="n">record</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">options</span><span class="p">[</span><span class="ss">:message</span><span class="p">]</span> <span class="o">||</span> <span class="s1">'is not a valid email'</span><span class="p">)</span> <span class="k">unless</span> <span class="n">value</span> <span class="o">=~</span> <span class="sr">/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-class Person
-  validates :email, email: true
-end</code></pre>
+<span class="k">class</span> <span class="nc">Person</span>
+  <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">email: </span><span class="kp">true</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1274,12 +1274,12 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
-  scope :active, -&gt; { where(active: true) }
-  scope :inactive, -&gt; { where(active: false) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">scope</span> <span class="ss">:active</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">true</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">scope</span> <span class="ss">:inactive</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">where</span><span class="p">(</span><span class="ss">active: </span><span class="kp">false</span><span class="p">)</span> <span class="p">}</span>
 
-  scope :with_orders, -&gt; { joins(:orders).select('distinct(users.id)') }
-end</code></pre>
+  <span class="n">scope</span> <span class="ss">:with_orders</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">joins</span><span class="p">(</span><span class="ss">:orders</span><span class="p">).</span><span class="nf">select</span><span class="p">(</span><span class="s1">'distinct(users.id)'</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1291,11 +1291,11 @@ Arguably you can define even simpler scopes like this.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class User &lt; ActiveRecord::Base
-  def self.with_orders
-    joins(:orders).select('distinct(users.id)')
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">with_orders</span>
+    <span class="n">joins</span><span class="p">(</span><span class="ss">:orders</span><span class="p">).</span><span class="nf">select</span><span class="p">(</span><span class="s1">'distinct(users.id)'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1307,7 +1307,7 @@ For reference, see <a href="https://guides.rubyonrails.org/active_record_callbac
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Ruby" data-lang="Ruby">#bad
+<pre class="rouge highlight"><code data-lang="Ruby">#bad
 class Person
   after_commit :after_commit_callback
   before_validation :before_validation_callback
@@ -1329,20 +1329,20 @@ They do not run the model validations and could easily corrupt the model state.<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-Article.first.decrement!(:view_count)
-DiscussionBoard.decrement_counter(:post_count, 5)
-Article.first.increment!(:view_count)
-DiscussionBoard.increment_counter(:post_count, 5)
-person.toggle :active
-product.touch
-Billing.update_all("category = 'authorized', author = 'David'")
-user.update_attribute(:website, 'example.com')
-user.update_columns(last_request_at: Time.current)
-Post.update_counters 5, comment_count: -1, action_count: 1
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">Article</span><span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">decrement!</span><span class="p">(</span><span class="ss">:view_count</span><span class="p">)</span>
+<span class="no">DiscussionBoard</span><span class="p">.</span><span class="nf">decrement_counter</span><span class="p">(</span><span class="ss">:post_count</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="no">Article</span><span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">increment!</span><span class="p">(</span><span class="ss">:view_count</span><span class="p">)</span>
+<span class="no">DiscussionBoard</span><span class="p">.</span><span class="nf">increment_counter</span><span class="p">(</span><span class="ss">:post_count</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">person</span><span class="p">.</span><span class="nf">toggle</span> <span class="ss">:active</span>
+<span class="n">product</span><span class="p">.</span><span class="nf">touch</span>
+<span class="no">Billing</span><span class="p">.</span><span class="nf">update_all</span><span class="p">(</span><span class="s2">"category = 'authorized', author = 'David'"</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">update_attribute</span><span class="p">(</span><span class="ss">:website</span><span class="p">,</span> <span class="s1">'example.com'</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">update_columns</span><span class="p">(</span><span class="ss">last_request_at: </span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
+<span class="no">Post</span><span class="p">.</span><span class="nf">update_counters</span> <span class="mi">5</span><span class="p">,</span> <span class="ss">comment_count: </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="ss">action_count: </span><span class="mi">1</span>
 
-# good
-user.update_attributes(website: 'example.com')</code></pre>
+<span class="c1"># good</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">update_attributes</span><span class="p">(</span><span class="ss">website: </span><span class="s1">'example.com'</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1362,11 +1362,11 @@ It could be overridden to include another human-readable attribute.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Person
-  def to_param
-    "#{id} #{name}".parameterize
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Person</span>
+  <span class="k">def</span> <span class="nf">to_param</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="nb">id</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span><span class="p">.</span><span class="nf">parameterize</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1381,10 +1381,10 @@ The <code>id</code> of the object needs to be at the beginning so that it can be
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Person
-  extend FriendlyId
-  friendly_id :name, use: :slugged
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Person</span>
+  <span class="kp">extend</span> <span class="no">FriendlyId</span>
+  <span class="n">friendly_id</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">use: :slugged</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1401,23 +1401,23 @@ In that case, batch processing methods allow you to work with the records in bat
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-Person.all.each do |person|
-  person.do_awesome_stuff
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">Person</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">person</span><span class="o">|</span>
+  <span class="n">person</span><span class="p">.</span><span class="nf">do_awesome_stuff</span>
+<span class="k">end</span>
 
-Person.where('age &gt; 21').each do |person|
-  person.party_all_night!
-end
+<span class="no">Person</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s1">'age &gt; 21'</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">person</span><span class="o">|</span>
+  <span class="n">person</span><span class="p">.</span><span class="nf">party_all_night!</span>
+<span class="k">end</span>
 
-# good
-Person.find_each do |person|
-  person.do_awesome_stuff
-end
+<span class="c1"># good</span>
+<span class="no">Person</span><span class="p">.</span><span class="nf">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">person</span><span class="o">|</span>
+  <span class="n">person</span><span class="p">.</span><span class="nf">do_awesome_stuff</span>
+<span class="k">end</span>
 
-Person.where('age &gt; 21').find_each do |person|
-  person.party_all_night!
-end</code></pre>
+<span class="no">Person</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s1">'age &gt; 21'</span><span class="p">).</span><span class="nf">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">person</span><span class="o">|</span>
+  <span class="n">person</span><span class="p">.</span><span class="nf">party_all_night!</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1428,23 +1428,23 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad (roles will be deleted automatically even if super_admin? is true)
-has_many :roles, dependent: :destroy
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad (roles will be deleted automatically even if super_admin? is true)</span>
+<span class="n">has_many</span> <span class="ss">:roles</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>
 
-before_destroy :ensure_deletable
+<span class="n">before_destroy</span> <span class="ss">:ensure_deletable</span>
 
-def ensure_deletable
-  raise "Cannot delete super admin." if super_admin?
-end
+<span class="k">def</span> <span class="nf">ensure_deletable</span>
+  <span class="k">raise</span> <span class="s2">"Cannot delete super admin."</span> <span class="k">if</span> <span class="n">super_admin?</span>
+<span class="k">end</span>
 
-# good
-has_many :roles, dependent: :destroy
+<span class="c1"># good</span>
+<span class="n">has_many</span> <span class="ss">:roles</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>
 
-before_destroy :ensure_deletable, prepend: true
+<span class="n">before_destroy</span> <span class="ss">:ensure_deletable</span><span class="p">,</span> <span class="ss">prepend: </span><span class="kp">true</span>
 
-def ensure_deletable
-  raise "Cannot delete super admin." if super_admin?
-end</code></pre>
+<span class="k">def</span> <span class="nf">ensure_deletable</span>
+  <span class="k">raise</span> <span class="s2">"Cannot delete super admin."</span> <span class="k">if</span> <span class="n">super_admin?</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1455,15 +1455,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-class Post &lt; ActiveRecord::Base
-  has_many :comments
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span>
+<span class="k">end</span>
 
-# good
-class Post &lt; ActiveRecord::Base
-  has_many :comments, dependent: :destroy
-end</code></pre>
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">dependent: :destroy</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1475,30 +1475,30 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-user.create(name: 'Bruce')
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bruce'</span><span class="p">)</span>
 
-# bad
-user.save
+<span class="c1"># bad</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">save</span>
 
-# good
-user.create!(name: 'Bruce')
-# or
-bruce = user.create(name: 'Bruce')
-if bruce.persisted?
-  ...
-else
-  ...
-end
+<span class="c1"># good</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bruce'</span><span class="p">)</span>
+<span class="c1"># or</span>
+<span class="n">bruce</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Bruce'</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">bruce</span><span class="p">.</span><span class="nf">persisted?</span>
+  <span class="o">...</span>
+<span class="k">else</span>
+  <span class="o">...</span>
+<span class="k">end</span>
 
-# good
-user.save!
-# or
-if user.save
-  ...
-else
-  ...
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">user</span><span class="p">.</span><span class="nf">save!</span>
+<span class="c1"># or</span>
+<span class="k">if</span> <span class="n">user</span><span class="p">.</span><span class="nf">save</span>
+  <span class="o">...</span>
+<span class="k">else</span>
+  <span class="o">...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1514,11 +1514,11 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - param will be interpolated unescaped
-Client.where("orders_count = #{params[:orders]}")
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - param will be interpolated unescaped</span>
+<span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"orders_count = </span><span class="si">#{</span><span class="n">params</span><span class="p">[</span><span class="ss">:orders</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-# good - param will be properly escaped
-Client.where('orders_count = ?', params[:orders])</code></pre>
+<span class="c1"># good - param will be properly escaped</span>
+<span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s1">'orders_count = ?'</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="ss">:orders</span><span class="p">])</span></code></pre>
 </div>
 </div>
 </div>
@@ -1529,17 +1529,17 @@ Client.where('orders_count = ?', params[:orders])</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># okish
-Client.where(
-  'created_at &gt;= ? AND created_at &lt;= ?',
-  params[:start_date], params[:end_date]
-)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># okish</span>
+<span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span>
+  <span class="s1">'created_at &gt;= ? AND created_at &lt;= ?'</span><span class="p">,</span>
+  <span class="n">params</span><span class="p">[</span><span class="ss">:start_date</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="ss">:end_date</span><span class="p">]</span>
+<span class="p">)</span>
 
-# good
-Client.where(
-  'created_at &gt;= :start_date AND created_at &lt;= :end_date',
-  start_date: params[:start_date], end_date: params[:end_date]
-)</code></pre>
+<span class="c1"># good</span>
+<span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span>
+  <span class="s1">'created_at &gt;= :start_date AND created_at &lt;= :end_date'</span><span class="p">,</span>
+  <span class="ss">start_date: </span><span class="n">params</span><span class="p">[</span><span class="ss">:start_date</span><span class="p">],</span> <span class="ss">end_date: </span><span class="n">params</span><span class="p">[</span><span class="ss">:end_date</span><span class="p">]</span>
+<span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1550,17 +1550,17 @@ Client.where(
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-User.where(id: id).take!
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">id: </span><span class="nb">id</span><span class="p">).</span><span class="nf">take!</span>
 
-# bad
-User.find_by_id!(id)
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by_id!</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
 
-# bad
-User.find_by!(id: id)
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by!</span><span class="p">(</span><span class="ss">id: </span><span class="nb">id</span><span class="p">)</span>
 
-# good
-User.find(id)</code></pre>
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1571,18 +1571,18 @@ User.find(id)</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-User.where(email: email).take
-User.where(first_name: 'Bruce', last_name: 'Wayne').take
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">email: </span><span class="n">email</span><span class="p">).</span><span class="nf">take</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">first_name: </span><span class="s1">'Bruce'</span><span class="p">,</span> <span class="ss">last_name: </span><span class="s1">'Wayne'</span><span class="p">).</span><span class="nf">take</span>
 
-# bad
-User.find_by_email(email)
-# bad, deprecated in ActiveRecord 4.0, removed in 4.1+
-User.find_by_first_name_and_last_name('Bruce', 'Wayne')
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by_email</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+<span class="c1"># bad, deprecated in ActiveRecord 4.0, removed in 4.1+</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by_first_name_and_last_name</span><span class="p">(</span><span class="s1">'Bruce'</span><span class="p">,</span> <span class="s1">'Wayne'</span><span class="p">)</span>
 
-# good
-User.find_by(email: email)
-User.find_by(first_name: 'Bruce', last_name: 'Wayne')</code></pre>
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">email: </span><span class="n">email</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">first_name: </span><span class="s1">'Bruce'</span><span class="p">,</span> <span class="ss">last_name: </span><span class="s1">'Wayne'</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1593,11 +1593,11 @@ User.find_by(first_name: 'Bruce', last_name: 'Wayne')</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-User.where("id != ?", id)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"id != ?"</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
 
-# good
-User.where.not(id: id)</code></pre>
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">id: </span><span class="nb">id</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1611,11 +1611,11 @@ As a bonus the intent is clearer.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-scope :chronological, -&gt; { order(id: :asc) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">scope</span> <span class="ss">:chronological</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">order</span><span class="p">(</span><span class="ss">id: :asc</span><span class="p">)</span> <span class="p">}</span>
 
-# good
-scope :chronological, -&gt; { order(created_at: :asc) }</code></pre>
+<span class="c1"># good</span>
+<span class="n">scope</span> <span class="ss">:chronological</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">order</span><span class="p">(</span><span class="ss">created_at: :asc</span><span class="p">)</span> <span class="p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1626,7 +1626,7 @@ scope :chronological, -&gt; { order(created_at: :asc) }</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Ruby" data-lang="Ruby"># bad
+<pre class="rouge highlight"><code data-lang="Ruby"># bad
 User.pluck(:id)
 
 # good
@@ -1642,7 +1642,7 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">User.find_by_sql(&lt;&lt;-SQL.squish)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="no">User</span><span class="p">.</span><span class="nf">find_by_sql</span><span class="p">(</span><span class="o">&lt;&lt;-</span><span class="no">SQL</span><span class="p">.</span><span class="nf">squish</span><span class="p">)</span><span class="sh">
   SELECT
     users.id, accounts.plan
   FROM
@@ -1652,7 +1652,7 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
   ON
     accounts.user_id = users.id
   # further complexities...
-SQL</code></pre>
+</span><span class="no">SQL</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1671,14 +1671,14 @@ SQL</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-User.count
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">count</span>
 
-# good
-User.all.size
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">size</span>
 
-# good - if you really need to load all users into memory
-User.all.length</code></pre>
+<span class="c1"># good - if you really need to load all users into memory</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">length</span></code></pre>
 </div>
 </div>
 </div>
@@ -1706,19 +1706,19 @@ User.all.length</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - application enforced default value
-class Product &lt; ActiveRecord::Base
-  def amount
-    self[:amount] || 0
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - application enforced default value</span>
+<span class="k">class</span> <span class="nc">Product</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">amount</span>
+    <span class="nb">self</span><span class="p">[</span><span class="ss">:amount</span><span class="p">]</span> <span class="o">||</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good - database enforced
-class AddDefaultAmountToProducts &lt; ActiveRecord::Migration
-  def change
-    change_column_default :products, :amount, 0
-  end
-end</code></pre>
+<span class="c1"># good - database enforced</span>
+<span class="k">class</span> <span class="nc">AddDefaultAmountToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">change_column_default</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:amount</span><span class="p">,</span> <span class="mi">0</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1739,23 +1739,23 @@ And you&#8217;ll have to consider the fact that most non-trivial apps share a da
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># the old way
-class AddNameToPeople &lt; ActiveRecord::Migration
-  def up
-    add_column :people, :name, :string
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># the old way</span>
+<span class="k">class</span> <span class="nc">AddNameToPeople</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">up</span>
+    <span class="n">add_column</span> <span class="ss">:people</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+  <span class="k">end</span>
 
-  def down
-    remove_column :people, :name
-  end
-end
+  <span class="k">def</span> <span class="nf">down</span>
+    <span class="n">remove_column</span> <span class="ss">:people</span><span class="p">,</span> <span class="ss">:name</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# the new preferred way
-class AddNameToPeople &lt; ActiveRecord::Migration
-  def change
-    add_column :people, :name, :string
-  end
-end</code></pre>
+<span class="c1"># the new preferred way</span>
+<span class="k">class</span> <span class="nc">AddNameToPeople</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">add_column</span> <span class="ss">:people</span><span class="p">,</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:string</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1766,56 +1766,56 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># db/migrate/&lt;migration_file_name&gt;.rb
-# frozen_string_literal: true
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># db/migrate/&lt;migration_file_name&gt;.rb</span>
+<span class="c1"># frozen_string_literal: true</span>
 
-# bad
-class ModifyDefaultStatusForProducts &lt; ActiveRecord::Migration
-  def change
-    old_status = 'pending_manual_approval'
-    new_status = 'pending_approval'
+<span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">ModifyDefaultStatusForProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">old_status</span> <span class="o">=</span> <span class="s1">'pending_manual_approval'</span>
+    <span class="n">new_status</span> <span class="o">=</span> <span class="s1">'pending_approval'</span>
 
-    reversible do |dir|
-      dir.up do
-        Product.where(status: old_status).update_all(status: new_status)
-        change_column :products, :status, :string, default: new_status
-      end
+    <span class="n">reversible</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+      <span class="n">dir</span><span class="p">.</span><span class="nf">up</span> <span class="k">do</span>
+        <span class="no">Product</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">status: </span><span class="n">old_status</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="n">new_status</span><span class="p">)</span>
+        <span class="n">change_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:status</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">default: </span><span class="n">new_status</span>
+      <span class="k">end</span>
 
-      dir.down do
-        Product.where(status: new_status).update_all(status: old_status)
-        change_column :products, :status, :string, default: old_status
-      end
-    end
-  end
-end
+      <span class="n">dir</span><span class="p">.</span><span class="nf">down</span> <span class="k">do</span>
+        <span class="no">Product</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">status: </span><span class="n">new_status</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="n">old_status</span><span class="p">)</span>
+        <span class="n">change_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:status</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">default: </span><span class="n">old_status</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-# Define `table_name` in a custom named class to make sure that you run on the
-# same table you had during the creation of the migration.
-# In future if you override the `Product` class and change the `table_name`,
-# it won't break the migration or cause serious data corruption.
-class MigrationProduct &lt; ActiveRecord::Base
-  self.table_name = :products
-end
+<span class="c1"># good</span>
+<span class="c1"># Define `table_name` in a custom named class to make sure that you run on the</span>
+<span class="c1"># same table you had during the creation of the migration.</span>
+<span class="c1"># In future if you override the `Product` class and change the `table_name`,</span>
+<span class="c1"># it won't break the migration or cause serious data corruption.</span>
+<span class="k">class</span> <span class="nc">MigrationProduct</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="ss">:products</span>
+<span class="k">end</span>
 
-class ModifyDefaultStatusForProducts &lt; ActiveRecord::Migration
-  def change
-    old_status = 'pending_manual_approval'
-    new_status = 'pending_approval'
+<span class="k">class</span> <span class="nc">ModifyDefaultStatusForProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">old_status</span> <span class="o">=</span> <span class="s1">'pending_manual_approval'</span>
+    <span class="n">new_status</span> <span class="o">=</span> <span class="s1">'pending_approval'</span>
 
-    reversible do |dir|
-      dir.up do
-        MigrationProduct.where(status: old_status).update_all(status: new_status)
-        change_column :products, :status, :string, default: new_status
-      end
+    <span class="n">reversible</span> <span class="k">do</span> <span class="o">|</span><span class="n">dir</span><span class="o">|</span>
+      <span class="n">dir</span><span class="p">.</span><span class="nf">up</span> <span class="k">do</span>
+        <span class="no">MigrationProduct</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">status: </span><span class="n">old_status</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="n">new_status</span><span class="p">)</span>
+        <span class="n">change_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:status</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">default: </span><span class="n">new_status</span>
+      <span class="k">end</span>
 
-      dir.down do
-        MigrationProduct.where(status: new_status).update_all(status: old_status)
-        change_column :products, :status, :string, default: old_status
-      end
-    end
-  end
-end</code></pre>
+      <span class="n">dir</span><span class="p">.</span><span class="nf">down</span> <span class="k">do</span>
+        <span class="no">MigrationProduct</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">status: </span><span class="n">new_status</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="n">old_status</span><span class="p">)</span>
+        <span class="n">change_column</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">:status</span><span class="p">,</span> <span class="ss">:string</span><span class="p">,</span> <span class="ss">default: </span><span class="n">old_status</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1826,19 +1826,19 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-class AddFkArticlesToAuthors &lt; ActiveRecord::Migration
-  def change
-    add_foreign_key :articles, :authors
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">AddFkArticlesToAuthors</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">add_foreign_key</span> <span class="ss">:articles</span><span class="p">,</span> <span class="ss">:authors</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-class AddFkArticlesToAuthors &lt; ActiveRecord::Migration
-  def change
-    add_foreign_key :articles, :authors, name: :articles_author_id_fk
-  end
-end</code></pre>
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">AddFkArticlesToAuthors</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">add_foreign_key</span> <span class="ss">:articles</span><span class="p">,</span> <span class="ss">:authors</span><span class="p">,</span> <span class="ss">name: :articles_author_id_fk</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1851,36 +1851,36 @@ Reversible migration commands are listed below.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-class DropUsers &lt; ActiveRecord::Migration
-  def change
-    drop_table :users
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">DropUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">drop_table</span> <span class="ss">:users</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-class DropUsers &lt; ActiveRecord::Migration
-  def up
-    drop_table :users
-  end
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">DropUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">up</span>
+    <span class="n">drop_table</span> <span class="ss">:users</span>
+  <span class="k">end</span>
 
-  def down
-    create_table :users do |t|
-      t.string :name
-    end
-  end
-end
+  <span class="k">def</span> <span class="nf">down</span>
+    <span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:name</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-# In this case, block will be used by create_table in rollback
-# https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table
-class DropUsers &lt; ActiveRecord::Migration
-  def change
-    drop_table :users do |t|
-      t.string :name
-    end
-  end
-end</code></pre>
+<span class="c1"># good</span>
+<span class="c1"># In this case, block will be used by create_table in rollback</span>
+<span class="c1"># https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters.html#method-i-drop_table</span>
+<span class="k">class</span> <span class="nc">DropUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">drop_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:name</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1917,17 +1917,17 @@ In these cases, an undefined instance variable will not raise an exception where
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-erb" data-lang="erb">&lt;!-- bad --&gt;
-&lt;!-- app/views/courses/show.html.erb --&gt;
-&lt;%= render 'course_description' %&gt;
-&lt;!-- app/views/courses/_course_description.html.erb --&gt;
-&lt;%= @course.description %&gt;
+<pre class="rouge highlight"><code data-lang="erb"><span class="c">&lt;!-- bad --&gt;</span>
+<span class="c">&lt;!-- app/views/courses/show.html.erb --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'course_description'</span> <span class="cp">%&gt;</span>
+<span class="c">&lt;!-- app/views/courses/_course_description.html.erb --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="vi">@course</span><span class="p">.</span><span class="nf">description</span> <span class="cp">%&gt;</span>
 
-&lt;!-- good --&gt;
-&lt;!-- app/views/courses/show.html.erb --&gt;
-&lt;%= render 'course_description', course: @course %&gt;
-&lt;!-- app/views/courses/_course_description.html.erb --&gt;
-&lt;%= course.description %&gt;</code></pre>
+<span class="c">&lt;!-- good --&gt;</span>
+<span class="c">&lt;!-- app/views/courses/show.html.erb --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">render</span> <span class="s1">'course_description'</span><span class="p">,</span> <span class="ss">course: </span><span class="vi">@course</span> <span class="cp">%&gt;</span>
+<span class="c">&lt;!-- app/views/courses/_course_description.html.erb --&gt;</span>
+<span class="cp">&lt;%=</span> <span class="n">course</span><span class="p">.</span><span class="nf">description</span> <span class="cp">%&gt;</span></code></pre>
 </div>
 </div>
 </div>
@@ -1975,8 +1975,8 @@ Place the locale files for the models in a folder <code>locales/models</code> an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/application.rb
-config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/application.rb</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">i18n</span><span class="p">.</span><span class="nf">load_path</span> <span class="o">+=</span> <span class="no">Dir</span><span class="p">[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'config'</span><span class="p">,</span> <span class="s1">'locales'</span><span class="p">,</span> <span class="s1">'**'</span><span class="p">,</span> <span class="s1">'*.{rb,yml}'</span><span class="p">)]</span></code></pre>
 </div>
 </div>
 </div>
@@ -2010,7 +2010,7 @@ config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,y
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">= t '.title'</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="o">=</span> <span class="n">t</span> <span class="s1">'.title'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2022,11 +2022,11 @@ The dot-separated call is easier to read and trace the hierarchy.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-I18n.t :record_invalid, scope: [:activerecord, :errors, :messages]
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="ss">:record_invalid</span><span class="p">,</span> <span class="ss">scope: </span><span class="p">[</span><span class="ss">:activerecord</span><span class="p">,</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:messages</span><span class="p">]</span>
 
-# good
-I18n.t 'activerecord.errors.messages.record_invalid'</code></pre>
+<span class="c1"># good</span>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="s1">'activerecord.errors.messages.record_invalid'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2094,9 +2094,9 @@ The errors are disabled by default.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/development.rb</span>
 
-config.action_mailer.raise_delivery_errors = true</code></pre>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">raise_delivery_errors</span> <span class="o">=</span> <span class="kp">true</span></code></pre>
 </div>
 </div>
 </div>
@@ -2107,13 +2107,13 @@ config.action_mailer.raise_delivery_errors = true</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/development.rb</span>
 
-config.action_mailer.smtp_settings = {
-  address: 'localhost',
-  port: 1025,
-  # more settings
-}</code></pre>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">smtp_settings</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">address: </span><span class="s1">'localhost'</span><span class="p">,</span>
+  <span class="ss">port: </span><span class="mi">1025</span><span class="p">,</span>
+  <span class="c1"># more settings</span>
+<span class="p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -2124,14 +2124,14 @@ config.action_mailer.smtp_settings = {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb
-config.action_mailer.default_url_options = { host: "#{local_ip}:3000" }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/development.rb</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">default_url_options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">host: </span><span class="s2">"</span><span class="si">#{</span><span class="n">local_ip</span><span class="si">}</span><span class="s2">:3000"</span> <span class="p">}</span>
 
-# config/environments/production.rb
-config.action_mailer.default_url_options = { host: 'your_site.com' }
+<span class="c1"># config/environments/production.rb</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">default_url_options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">host: </span><span class="s1">'your_site.com'</span> <span class="p">}</span>
 
-# in your mailer class
-default_url_options[:host] = 'your_site.com'</code></pre>
+<span class="c1"># in your mailer class</span>
+<span class="n">default_url_options</span><span class="p">[</span><span class="ss">:host</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'your_site.com'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2143,8 +2143,8 @@ Use the following format:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># in your mailer class
-default from: 'Your Name &lt;info@your_site.com&gt;'</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># in your mailer class</span>
+<span class="n">default</span> <span class="ss">from: </span><span class="s1">'Your Name &lt;info@your_site.com&gt;'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2155,9 +2155,9 @@ default from: 'Your Name &lt;info@your_site.com&gt;'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/test.rb
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/test.rb</span>
 
-config.action_mailer.delivery_method = :test</code></pre>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">delivery_method</span> <span class="o">=</span> <span class="ss">:test</span></code></pre>
 </div>
 </div>
 </div>
@@ -2168,9 +2168,9 @@ config.action_mailer.delivery_method = :test</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># config/environments/development.rb, config/environments/production.rb
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># config/environments/development.rb, config/environments/production.rb</span>
 
-config.action_mailer.delivery_method = :smtp</code></pre>
+<span class="n">config</span><span class="p">.</span><span class="nf">action_mailer</span><span class="p">.</span><span class="nf">delivery_method</span> <span class="o">=</span> <span class="ss">:smtp</span></code></pre>
 </div>
 </div>
 </div>
@@ -2202,11 +2202,11 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-obj.try! :fly
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">obj</span><span class="p">.</span><span class="nf">try!</span> <span class="ss">:fly</span>
 
-# good
-obj&amp;.fly</code></pre>
+<span class="c1"># good</span>
+<span class="n">obj</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">fly</span></code></pre>
 </div>
 </div>
 </div>
@@ -2217,13 +2217,13 @@ obj&amp;.fly</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-'the day'.starts_with? 'th'
-'the day'.ends_with? 'ay'
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="s1">'the day'</span><span class="p">.</span><span class="nf">starts_with?</span> <span class="s1">'th'</span>
+<span class="s1">'the day'</span><span class="p">.</span><span class="nf">ends_with?</span> <span class="s1">'ay'</span>
 
-# good
-'the day'.start_with? 'th'
-'the day'.end_with? 'ay'</code></pre>
+<span class="c1"># good</span>
+<span class="s1">'the day'</span><span class="p">.</span><span class="nf">start_with?</span> <span class="s1">'th'</span>
+<span class="s1">'the day'</span><span class="p">.</span><span class="nf">end_with?</span> <span class="s1">'ay'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2234,15 +2234,15 @@ obj&amp;.fly</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-(1..50).to_a.forty_two
-1.in? [1, 2]
-'day'.in? 'the day'
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">50</span><span class="p">).</span><span class="nf">to_a</span><span class="p">.</span><span class="nf">forty_two</span>
+<span class="mi">1</span><span class="p">.</span><span class="nf">in?</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="s1">'day'</span><span class="p">.</span><span class="nf">in?</span> <span class="s1">'the day'</span>
 
-# good
-(1..50).to_a[41]
-[1, 2].include? 1
-'the day'.include? 'day'</code></pre>
+<span class="c1"># good</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">50</span><span class="p">).</span><span class="nf">to_a</span><span class="p">[</span><span class="mi">41</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">include?</span> <span class="mi">1</span>
+<span class="s1">'the day'</span><span class="p">.</span><span class="nf">include?</span> <span class="s1">'day'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2253,21 +2253,21 @@ obj&amp;.fly</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - String#inquiry
-ruby = 'two'.inquiry
-ruby.two?
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - String#inquiry</span>
+<span class="n">ruby</span> <span class="o">=</span> <span class="s1">'two'</span><span class="p">.</span><span class="nf">inquiry</span>
+<span class="n">ruby</span><span class="p">.</span><span class="nf">two?</span>
 
-# good
-ruby = 'two'
-ruby == 'two'
+<span class="c1"># good</span>
+<span class="n">ruby</span> <span class="o">=</span> <span class="s1">'two'</span>
+<span class="n">ruby</span> <span class="o">==</span> <span class="s1">'two'</span>
 
-# bad - Array#inquiry
-pets = %w(cat dog).inquiry
-pets.gopher?
+<span class="c1"># bad - Array#inquiry</span>
+<span class="n">pets</span> <span class="o">=</span> <span class="sx">%w(cat dog)</span><span class="p">.</span><span class="nf">inquiry</span>
+<span class="n">pets</span><span class="p">.</span><span class="nf">gopher?</span>
 
-# good
-pets = %w(cat dog)
-pets.include? 'cat'</code></pre>
+<span class="c1"># good</span>
+<span class="n">pets</span> <span class="o">=</span> <span class="sx">%w(cat dog)</span>
+<span class="n">pets</span><span class="p">.</span><span class="nf">include?</span> <span class="s1">'cat'</span></code></pre>
 </div>
 </div>
 </div>
@@ -2283,9 +2283,9 @@ pets.include? 'cat'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">config.time_zone = 'Eastern European Time'
-# optional - note it can be only :utc or :local (default is :utc)
-config.active_record.default_timezone = :local</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">config</span><span class="p">.</span><span class="nf">time_zone</span> <span class="o">=</span> <span class="s1">'Eastern European Time'</span>
+<span class="c1"># optional - note it can be only :utc or :local (default is :utc)</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">active_record</span><span class="p">.</span><span class="nf">default_timezone</span> <span class="o">=</span> <span class="ss">:local</span></code></pre>
 </div>
 </div>
 </div>
@@ -2296,11 +2296,11 @@ config.active_record.default_timezone = :local</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-Time.parse('2015-03-02 19:05:37') # =&gt; Will assume time string given is in the system's time zone.
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s1">'2015-03-02 19:05:37'</span><span class="p">)</span> <span class="c1"># =&gt; Will assume time string given is in the system's time zone.</span>
 
-# good
-Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</code></pre>
+<span class="c1"># good</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s1">'2015-03-02 19:05:37'</span><span class="p">)</span> <span class="c1"># =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</span></code></pre>
 </div>
 </div>
 </div>
@@ -2311,11 +2311,11 @@ Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - assumes time string given is in the system's time zone.
-'2015-03-02 19:05:37'.to_time
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - assumes time string given is in the system's time zone.</span>
+<span class="s1">'2015-03-02 19:05:37'</span><span class="p">.</span><span class="nf">to_time</span>
 
-# good
-Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</code></pre>
+<span class="c1"># good</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="s1">'2015-03-02 19:05:37'</span><span class="p">)</span> <span class="c1"># =&gt; Mon, 02 Mar 2015 19:05:37 EET +02:00</span></code></pre>
 </div>
 </div>
 </div>
@@ -2326,12 +2326,12 @@ Time.zone.parse('2015-03-02 19:05:37') # =&gt; Mon, 02 Mar 2015 19:05:37 EET +02
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-Time.now # =&gt; Returns system time and ignores your configured time zone.
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">now</span> <span class="c1"># =&gt; Returns system time and ignores your configured time zone.</span>
 
-# good
-Time.zone.now # =&gt; Fri, 12 Mar 2014 22:04:47 EET +02:00
-Time.current # Same thing but shorter.</code></pre>
+<span class="c1"># good</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span> <span class="c1"># =&gt; Fri, 12 Mar 2014 22:04:47 EET +02:00</span>
+<span class="no">Time</span><span class="p">.</span><span class="nf">current</span> <span class="c1"># Same thing but shorter.</span></code></pre>
 </div>
 </div>
 </div>
@@ -2361,15 +2361,15 @@ Add all OS X specific gems to a <code>darwin</code> group in the Gemfile, and al
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># Gemfile
-group :darwin do
-  gem 'rb-fsevent'
-  gem 'growl'
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># Gemfile</span>
+<span class="n">group</span> <span class="ss">:darwin</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rb-fsevent'</span>
+  <span class="n">gem</span> <span class="s1">'growl'</span>
+<span class="k">end</span>
 
-group :linux do
-  gem 'rb-inotify'
-end</code></pre>
+<span class="n">group</span> <span class="ss">:linux</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rb-inotify'</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2377,8 +2377,8 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">platform = RUBY_PLATFORM.match(/(linux|darwin)/)[0].to_sym
-Bundler.require(platform)</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">platform</span> <span class="o">=</span> <span class="no">RUBY_PLATFORM</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="sr">/(linux|darwin)/</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nf">to_sym</span>
+<span class="no">Bundler</span><span class="p">.</span><span class="nf">require</span><span class="p">(</span><span class="n">platform</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2503,8 +2503,219 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-10 15:25:32 UTC
+Last updated 2019-06-10 19:02:56 UTC
 </div>
 </div>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .cd {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
 </body>
 </html>
