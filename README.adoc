@@ -17,6 +17,10 @@ Role models are important.
 -- Officer Alex J. Murphy / RoboCop
 ____
 
+ifdef::env-github[]
+TIP: You can find a beautiful version of this guide with much improved navigation at https://rails.rubystyle.guide.
+endif::[]
+
 The goal of this guide is to present a set of best practices and style prescriptions for Ruby on Rails 4 development.
 It's a complementary guide to the already existing community-driven https://github.com/rubocop-hq/ruby-style-guide[Ruby coding style guide].
 
