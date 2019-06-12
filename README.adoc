@@ -1521,7 +1521,7 @@ There are a few excellent resources on Rails style, that you should consider if 
 * https://pragprog.com/book/hwcuc/the-cucumber-book[The Cucumber Book]
 * https://leanpub.com/everydayrailsrspec[Everyday Rails Testing with RSpec]
 * https://pragprog.com/book/nrtest3/rails-5-test-prescriptions[Rails 5 Test Prescriptions]
-* http://betterspecs.org[Better Specs for RSpec]
+* https://rspec.rubystyle.guide[RSpec Style Guide]
 
 == Contributing
 
