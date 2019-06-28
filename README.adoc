@@ -72,16 +72,16 @@ TIP: https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (lin
 
 == Configuration
 
-=== Config initializers [[config-initializers]]
+=== Config Initializers [[config-initializers]]
 
 Put custom initialization code in `config/initializers`.
 The code in initializers executes on application startup.
 
-=== Gem initializers [[gem-initializers]]
+=== Gem Initializers [[gem-initializers]]
 
 Keep initialization code for each gem in a separate file with the same name as the gem, for example `carrierwave.rb`, `active_admin.rb`, etc.
 
-=== Dev/test/prod configs [[dev-test-prod-configs]]
+=== Dev/Test/Prod Configs [[dev-test-prod-configs]]
 
 Adjust accordingly the settings for development, test and production environment (in the corresponding files under `config/environments/`)
 
@@ -95,15 +95,15 @@ Mark additional assets for precompilation (if any):
 config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_admin.js )
 ----
 
-=== App config [[app-config]]
+=== App Config [[app-config]]
 
 Keep configuration that's applicable to all environments in the `config/application.rb` file.
 
-=== Staging like prod [[staging-like-prod]]
+=== Staging Like Prod [[staging-like-prod]]
 
 Create an additional `staging` environment that closely resembles the `production` one.
 
-=== Yaml config [[yaml-config]]
+=== YAML Config [[yaml-config]]
 
 Keep any additional configuration in YAML files under the `config/` directory.
 
@@ -116,7 +116,7 @@ Rails::Application.config_for(:yaml_file)
 
 == Routing
 
-=== Member collection routes [[member-collection-routes]]
+=== Member Collection Routes [[member-collection-routes]]
 
 When you need to add more actions to a RESTful resource (do you really need them at all?) use `member` and `collection` routes.
 
@@ -141,7 +141,7 @@ resources :photos do
 end
 ----
 
-=== Many member collection routes [[many-member-collection-routes]]
+=== Many Member Collection Routes [[many-member-collection-routes]]
 
 If you need to define multiple `member/collection` routes use the alternative block syntax.
 
@@ -162,7 +162,7 @@ resources :photos do
 end
 ----
 
-=== Nested routes [[nested-routes]]
+=== Nested Routes [[nested-routes]]
 
 Use nested routes to express better the relationship between ActiveRecord models.
 
@@ -182,7 +182,7 @@ resources :posts do
 end
 ----
 
-=== Shallow routes [[shallow-routes]]
+=== Shallow Routes [[shallow-routes]]
 
 If you need to nest routes more than 1 level deep then use the `shallow: true` option.
 This will save user from long URLs `posts/1/comments/5/versions/7/edit` and you from long URL helpers `edit_post_comment_version`.
@@ -196,7 +196,7 @@ resources :posts, shallow: true do
 end
 ----
 
-=== Namespaced routes [[namespaced-routes]]
+=== Namespaced Routes [[namespaced-routes]]
 
 Use namespaced routes to group related actions.
 
@@ -209,7 +209,7 @@ namespace :admin do
 end
 ----
 
-=== No wild routes [[no-wild-routes]]
+=== No Wild Routes [[no-wild-routes]]
 
 Never use the legacy wild controller route.
 This route will make all actions in every controller accessible via GET requests.
@@ -220,25 +220,25 @@ This route will make all actions in every controller accessible via GET requests
 match ':controller(/:action(/:id(.:format)))'
 ----
 
-=== No match routes [[no-match-routes]]
+=== No Match Routes [[no-match-routes]]
 
 Don't use `match` to define any routes unless there is need to map multiple request types among `[:get, :post, :patch, :put, :delete]` to a single action using `:via` option.
 
 == Controllers
 
-=== Skinny controllers [[skinny-controllers]]
+=== Skinny Controllers [[skinny-controllers]]
 
 Keep the controllers skinny - they should only retrieve data for the view layer and shouldn't contain any business logic (all the business logic should naturally reside in the model).
 
-=== One method [[one-method]]
+=== One Method [[one-method]]
 
 Each controller action should (ideally) invoke only one method other than an initial find or new.
 
-=== Shared instance variables [[shared-instance-variables]]
+=== Shared Instance Variables [[shared-instance-variables]]
 
 Minimize the number of instance variables passed between a controller and a view.
 
-=== Lexically scoped action filter [[lexically-scoped-action-filter]]
+=== Lexically Scoped Action Filter [[lexically-scoped-action-filter]]
 
 Controller actions specified in the option of Action Filter should be in lexical scope.
 The ActionFilter specified for an inherited action makes it difficult to understand the scope of its impact on that action.
@@ -259,9 +259,9 @@ class UsersController < ApplicationController
 end
 ----
 
-== Controllers: rendering [[rendering]]
+== Controllers: Rendering [[rendering]]
 
-=== Inline rendering [[inline-rendering]]
+=== Inline Rendering [[inline-rendering]]
 
 Prefer using a template over inline rendering.
 
@@ -290,7 +290,7 @@ class ProductsController < ApplicationController
 end
 ----
 
-=== Plain text rendering [[plain-text-rendering]]
+=== Plain Text Rendering [[plain-text-rendering]]
 
 Prefer `render plain:` over `render text:`.
 
@@ -312,7 +312,7 @@ render plain: 'Ruby!'
 ...
 ----
 
-=== HTTP status code symbols [[http-status-code-symbols]]
+=== HTTP Status Code Symbols [[http-status-code-symbols]]
 
 Prefer https://gist.github.com/mlanett/a31c340b132ddefa9cca[corresponding symbols] to numeric HTTP status codes.
 They are meaningful and do not look like "magic" numbers for less known HTTP status codes.
@@ -332,15 +332,15 @@ render status: :forbidden
 
 == Models
 
-=== Model classes [[model-classes]]
+=== Model Classes [[model-classes]]
 
 Introduce non-ActiveRecord model classes freely.
 
-=== Meaningful model names [[meaningful-model-names]]
+=== Meaningful Model Names [[meaningful-model-names]]
 
 Name the models with meaningful (but short) names without abbreviations.
 
-=== ActiveAttr gem [[activeattr-gem]]
+=== ActiveAttr Gem [[activeattr-gem]]
 
 If you need model objects that support ActiveRecord behavior (like validation) without the ActiveRecord database functionality use the https://github.com/cgriego/active_attr[ActiveAttr] gem.
 
@@ -364,7 +364,7 @@ end
 
 For a more complete example refer to the http://railscasts.com/episodes/326-activeattr[RailsCast on the subject].
 
-=== Model business logic [[model-business-logic]]
+=== Model Business Logic [[model-business-logic]]
 
 Unless they have some meaning in the business domain, don't put methods in your model that just format your data (like code generating HTML).
 These methods are most likely going to be called from the view layer only, so their place is in helpers.
@@ -372,7 +372,7 @@ Keep your models for business logic and data-persistence only.
 
 == Models: ActiveRecord [[activerecord]]
 
-=== Keep ActiveRecord defaults [[keep-ar-defaults]]
+=== Keep ActiveRecord Defaults [[keep-ar-defaults]]
 
 Avoid altering ActiveRecord defaults (table names, primary key, etc) unless you have a very good reason (like a database that's not under your control).
 
@@ -385,7 +385,7 @@ class Transaction < ActiveRecord::Base
 end
 ----
 
-=== Macro style methods [[macro-style-methods]]
+=== Macro Style Methods [[macro-style-methods]]
 
 Group macro-style methods (`has_many`, `validates`, etc) in the beginning of the class definition.
 
@@ -428,7 +428,7 @@ class User < ActiveRecord::Base
 end
 ----
 
-=== Has many through [[has-many-through]]
+=== `has_many :through` [[has-many-through]]
 
 Prefer `has_many :through` to `has_and_belongs_to_many`.
 Using `has_many :through` allows additional attributes and validations on the join model.
@@ -461,7 +461,7 @@ class Group < ActiveRecord::Base
 end
 ----
 
-=== Read attribute [[read-attribute]]
+=== Read Attribute [[read-attribute]]
 
 Prefer `self[:attribute]` over `read_attribute(:attribute)`.
 
@@ -478,7 +478,7 @@ def amount
 end
 ----
 
-=== Write attribute [[write-attribute]]
+=== Write Attribute [[write-attribute]]
 
 Prefer `self[:attribute] = value` over `write_attribute(:attribute, value)`.
 
@@ -495,7 +495,7 @@ def amount
 end
 ----
 
-=== New style validations [[new-style-validations]]
+=== New-style Validations [[new-style-validations]]
 
 Always use the http://thelucid.com/2010/01/08/sexy-validation-in-edge-rails-rails-3/["new-style" validations].
 
@@ -509,7 +509,7 @@ validates_length_of :email, maximum: 100
 validates :email, presence: true, length: { maximum: 100 }
 ----
 
-=== Single attribute validations [[single-attribute-validations]]
+=== Single-attribute Validations [[single-attribute-validations]]
 
 To make validations easy to read, don't list multiple attributes per validation.
 
@@ -524,7 +524,7 @@ validates :email, presence: true, length: { maximum: 100 }
 validates :password, presence: true
 ----
 
-=== Custom validator file [[custom-validator-file]]
+=== Custom Validator File [[custom-validator-file]]
 
 When a custom validation is used more than once or the validation is some regular expression mapping, create a custom validator file.
 
@@ -547,15 +547,15 @@ class Person
 end
 ----
 
-=== App validators [[app-validators]]
+=== App Validators [[app-validators]]
 
 Keep custom validators under `app/validators`.
 
-=== Custom validators gem [[custom-validators-gem]]
+=== Custom Validators Gem [[custom-validators-gem]]
 
 Consider extracting custom validators to a shared gem if you're maintaining several related apps or the validators are generic enough.
 
-=== Named scopes [[named-scopes]]
+=== Named Scopes [[named-scopes]]
 
 Use named scopes freely.
 
@@ -569,7 +569,7 @@ class User < ActiveRecord::Base
 end
 ----
 
-=== Named scope class [[named-scope-class]]
+=== Named Scope Class [[named-scope-class]]
 
 When a named scope defined with a lambda and parameters becomes too complicated, it is preferable to make a class method instead which serves the same purpose of the named scope and returns an `ActiveRecord::Relation` object.
 Arguably you can define even simpler scopes like this.
@@ -583,7 +583,7 @@ class User < ActiveRecord::Base
 end
 ----
 
-=== Callbacks order [[callbacks-order]]
+=== Callbacks Order [[callbacks-order]]
 
 Order callback declarations in the order, in which they will be executed.
 For reference, see https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks[Available Callbacks].
@@ -603,7 +603,7 @@ class Person
 end
 ----
 
-=== Beware skip model validations [[beware-skip-model-validations]]
+=== Beware Skip Model Validations [[beware-skip-model-validations]]
 
 Beware of the behavior of the https://guides.rubyonrails.org/active_record_validations.html#skipping-validations[following] methods.
 They do not run the model validations and could easily corrupt the model state.
@@ -626,13 +626,13 @@ Post.update_counters 5, comment_count: -1, action_count: 1
 user.update_attributes(website: 'example.com')
 ----
 
-=== User friendly URLs [[user-friendly-urls]]
+=== User-friendly URLs [[user-friendly-urls]]
 
 Use user-friendly URLs.
 Show some descriptive attribute of the model in the URL rather than its `id`.
 There is more than one way to achieve this.
 
-==== Override the `to_param` method of the model
+==== Override the `to_param` Method of the Model
 
 This method is used by Rails for constructing a URL to the object.
 The default implementation returns the `id` of the record as a String.
@@ -650,7 +650,7 @@ end
 In order to convert this to a URL-friendly value, `parameterize` should be called on the string.
 The `id` of the object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
 
-==== `friendly_id` gem
+==== `friendly_id` Gem
 
 It allows creation of human-readable URLs by using some descriptive attribute of the model instead of its `id`.
 
@@ -716,7 +716,7 @@ def ensure_deletable
 end
 ----
 
-=== `has_many`/`has_one` dependent option [[has_many-has_one-dependent-option]]
+=== `has_many`/`has_one` Dependent Option [[has_many-has_one-dependent-option]]
 
 Define the `dependent` option to the `has_many` and `has_one` associations.
 
@@ -768,7 +768,7 @@ end
 
 == Models: ActiveRecord Queries [[activerecord-queries]]
 
-=== Avoid interpolation [[avoid-interpolation]]
+=== Avoid Interpolation [[avoid-interpolation]]
 
 Avoid string interpolation in queries, as it will make your code susceptible to SQL injection attacks.
 
@@ -781,7 +781,7 @@ Client.where("orders_count = #{params[:orders]}")
 Client.where('orders_count = ?', params[:orders])
 ----
 
-=== Named placeholder [[named-placeholder]]
+=== Named Placeholder [[named-placeholder]]
 
 Consider using named placeholders instead of positional placeholders when you have more than 1 placeholder in your query.
 
@@ -839,7 +839,7 @@ User.find_by(email: email)
 User.find_by(first_name: 'Bruce', last_name: 'Wayne')
 ----
 
-=== Where not [[where-not]]
+=== Where Not [[where-not]]
 
 Favor the use of `where.not` over SQL.
 
@@ -881,7 +881,7 @@ User.pluck(:id)
 User.ids
 ----
 
-=== Squished heredocs [[squished-heredocs]]
+=== Squished Heredocs [[squished-heredocs]]
 
 When specifying an explicit query in a method such as `find_by_sql`, use heredocs with `squish`.
 This allows you to legibly format the SQL with line breaks and indentations, while supporting syntax highlighting in many tools (including GitHub, Atom, and RubyMine).
@@ -925,15 +925,15 @@ User.all.length
 
 == Migrations
 
-=== Schema version [[schema-version]]
+=== Schema Version [[schema-version]]
 
 Keep the `schema.rb` (or `structure.sql`) under version control.
 
-=== Db schema load [[db-schema-load]]
+=== DB Schema Load [[db-schema-load]]
 
 Use `rake db:schema:load` instead of `rake db:migrate` to initialize an empty database.
 
-=== Default migration values [[default-migration-values]]
+=== Default Migration Values [[default-migration-values]]
 
 Enforce default values in the migrations themselves instead of in the application layer.
 
@@ -957,11 +957,11 @@ end
 While enforcing table defaults only in Rails is suggested by many Rails developers, it's an extremely brittle approach that leaves your data vulnerable to many application bugs.
 And you'll have to consider the fact that most non-trivial apps share a database with other applications, so imposing data integrity from the Rails app is impossible.
 
-=== Foreign key constraints [[foreign-key-constraints]]
+=== Foreign Key Constraints [[foreign-key-constraints]]
 
 Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord supports foreign key constraints natively.
 
-=== Change vs up down [[change-vs-up-down]]
+=== Change vs Up/Down [[change-vs-up-down]]
 
 When writing constructive migrations (adding tables or columns), use the `change` method instead of `up` and `down` methods.
 
@@ -986,7 +986,7 @@ class AddNameToPeople < ActiveRecord::Migration
 end
 ----
 
-=== Define model class migrations [[define-model-class-migrations]]
+=== Define Model Class Migrations [[define-model-class-migrations]]
 
 If you have to use models in migrations, make sure you define them so that you don't end up with broken migrations in the future.
 
@@ -1044,7 +1044,7 @@ class ModifyDefaultStatusForProducts < ActiveRecord::Migration
 end
 ----
 
-=== Meaningful foreign key naming [[meaningful-foreign-key-naming]]
+=== Meaningful Foreign Key Naming [[meaningful-foreign-key-naming]]
 
 Name your foreign keys explicitly instead of relying on Rails auto-generated FK names. (https://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
 
@@ -1065,7 +1065,7 @@ class AddFkArticlesToAuthors < ActiveRecord::Migration
 end
 ----
 
-=== Reversible migration [[reversible-migration]]
+=== Reversible Migration [[reversible-migration]]
 
 Don't use non-reversible migration commands in the `change` method.
 Reversible migration commands are listed below.
@@ -1107,11 +1107,11 @@ end
 
 == Views
 
-=== No direct model view [[no-direct-model-view]]
+=== No Direct Model View [[no-direct-model-view]]
 
 Never call the model layer directly from a view.
 
-=== No complex view formatting [[no-complex-view-formatting]]
+=== No Complex View Formatting [[no-complex-view-formatting]]
 
 Avoid complex formatting in the views.
 A view helper is useful for simple cases, but if it's more complex then consider using a decorator or presenter.
@@ -1120,7 +1120,7 @@ A view helper is useful for simple cases, but if it's more complex then consider
 
 Mitigate code duplication by using partial templates and layouts.
 
-=== No instance variables in partials [[no-instance-variables-in-partials]]
+=== No Instance Variables in Partials [[no-instance-variables-in-partials]]
 
 Avoid using instance variables in partials, pass a local variable to `render` instead.
 The partial may be used in a different controller or action, where the variable can have a different name or even be absent.
@@ -1143,12 +1143,12 @@ In these cases, an undefined instance variable will not raise an exception where
 
 == Internationalization
 
-=== Locale texts [[locale-texts]]
+=== Locale Texts [[locale-texts]]
 
 No strings or other locale specific settings should be used in the views, models and controllers.
 These texts should be moved to the locale files in the `config/locales` directory.
 
-=== Translated labels [[translated-labels]]
+=== Translated Labels [[translated-labels]]
 
 When the labels of an ActiveRecord model need to be translated, use the `activerecord` scope:
 
@@ -1165,7 +1165,7 @@ en:
 Then `User.model_name.human` will return "Member" and `User.human_attribute_name("name")` will return "Full name".
 These translations of the attributes will be used as labels in the views.
 
-=== Organize locale files [[organize-locale-files]]
+=== Organize Locale Files [[organize-locale-files]]
 
 Separate the texts used in the views from translations of ActiveRecord attributes.
 Place the locale files for the models in a folder `locales/models` and the texts used in the views in folder `locales/views`.
@@ -1178,15 +1178,15 @@ When organization of the locale files is done with additional directories, these
 config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 ----
 
-=== Shared localization [[shared-localization]]
+=== Shared Localization [[shared-localization]]
 
 Place the shared localization options, such as date or currency formats, in files under the root of the `locales` directory.
 
-=== Short i18n [[short-i18n]]
+=== Short I18n [[short-i18n]]
 
 Use the short form of the I18n methods: `I18n.t` instead of `I18n.translate` and `I18n.l` instead of `I18n.localize`.
 
-=== Lazy lookup [[lazy-lookup]]
+=== Lazy Lookup [[lazy-lookup]]
 
 Use "lazy" lookup for the texts used in views. Let's say we have the following structure:
 
@@ -1204,7 +1204,7 @@ The value for `users.show.title` can be looked up in the template `app/views/use
 = t '.title'
 ----
 
-=== Dot-separated keys [[dot-separated-keys]]
+=== Dot-separated Keys [[dot-separated-keys]]
 
 Use the dot-separated keys in the controllers and models instead of specifying the `:scope` option.
 The dot-separated call is easier to read and trace the hierarchy.
@@ -1218,7 +1218,7 @@ I18n.t :record_invalid, scope: [:activerecord, :errors, :messages]
 I18n.t 'activerecord.errors.messages.record_invalid'
 ----
 
-=== I18n guides [[i18n-guides]]
+=== I18n Guides [[i18n-guides]]
 
 More detailed information about the Rails I18n can be found in the https://guides.rubyonrails.org/i18n.html[Rails Guides]
 
@@ -1245,16 +1245,16 @@ When possible, use gemified versions of assets (e.g. https://github.com/rails/jq
 
 == Mailers
 
-=== Mailer name [[mailer-name]]
+=== Mailer Name [[mailer-name]]
 
 Name the mailers `SomethingMailer`.
 Without the Mailer suffix it isn't immediately apparent what's a mailer and which views are related to the mailer.
 
-=== HTML plain email [[html-plain-email]]
+=== HTML Plain Email [[html-plain-email]]
 
 Provide both HTML and plain-text view templates.
 
-=== Enable delivery errors [[enable-delivery-errors]]
+=== Enable Delivery Errors [[enable-delivery-errors]]
 
 Enable errors raised on failed mail delivery in your development environment.
 The errors are disabled by default.
@@ -1281,7 +1281,7 @@ config.action_mailer.smtp_settings = {
 }
 ----
 
-=== Default hostname [[default-hostname]]
+=== Default Hostname [[default-hostname]]
 
 Provide default settings for the host name.
 
@@ -1297,7 +1297,7 @@ config.action_mailer.default_url_options = { host: 'your_site.com' }
 default_url_options[:host] = 'your_site.com'
 ----
 
-=== Email addresses [[email-addresses]]
+=== Email Addresses [[email-addresses]]
 
 Format the from and to addresses properly.
 Use the following format:
@@ -1308,7 +1308,7 @@ Use the following format:
 default from: 'Your Name <info@your_site.com>'
 ----
 
-=== Delivery method test [[delivery-method-test]]
+=== Delivery Method Test [[delivery-method-test]]
 
 Make sure that the e-mail delivery method for your test environment is set to `test`:
 
@@ -1319,7 +1319,7 @@ Make sure that the e-mail delivery method for your test environment is set to `t
 config.action_mailer.delivery_method = :test
 ----
 
-=== Delivery method SMTP [[delivery-method-smtp]]
+=== Delivery Method SMTP [[delivery-method-smtp]]
 
 The delivery method for development and production should be `smtp`:
 
@@ -1330,13 +1330,13 @@ The delivery method for development and production should be `smtp`:
 config.action_mailer.delivery_method = :smtp
 ----
 
-=== Inline email styles [[inline-email-styles]]
+=== Inline Email Styles [[inline-email-styles]]
 
 When sending html emails all styles should be inline, as some mail clients have problems with external styles.
 This however makes them harder to maintain and leads to code duplication.
 There are two similar gems that transform the styles and put them in the corresponding html tags: https://github.com/fphilipe/premailer-rails[premailer-rails] and https://github.com/Mange/roadie[roadie].
 
-=== Background email [[background-email]]
+=== Background Email [[background-email]]
 
 Sending emails while generating page response should be avoided.
 It causes delays in loading of the page and request can timeout if multiple email are sent.
@@ -1357,7 +1357,7 @@ obj.try! :fly
 obj&.fly
 ----
 
-=== ActiveSupport aliases [[active_support_aliases]]
+=== ActiveSupport Aliases [[active_support_aliases]]
 
 Prefer Ruby's Standard Library methods over `ActiveSupport` aliases.
 
@@ -1372,7 +1372,7 @@ Prefer Ruby's Standard Library methods over `ActiveSupport` aliases.
 'the day'.end_with? 'ay'
 ----
 
-=== ActiveSupport extensions [[active_support_extensions]]
+=== ActiveSupport Extensions [[active_support_extensions]]
 
 Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.
 
@@ -1414,7 +1414,7 @@ pets.include? 'cat'
 
 == Time
 
-=== Time zone config [[tz-config]]
+=== Time Zone Config [[tz-config]]
 
 Configure your timezone accordingly in `application.rb`.
 
@@ -1425,7 +1425,7 @@ config.time_zone = 'Eastern European Time'
 config.active_record.default_timezone = :local
 ----
 
-=== Time parse [[time-parse]]
+=== `Time.parse` [[time-parse]]
 
 Don't use `Time.parse`.
 
@@ -1467,11 +1467,11 @@ Time.current # Same thing but shorter.
 
 == Bundler
 
-=== Dev/test gems [[dev-test-gems]]
+=== Dev/Test Gems [[dev-test-gems]]
 
 Put gems used only for development or testing in the appropriate group in the Gemfile.
 
-=== Only good gems [[only-good-gems]]
+=== Only Good Gems [[only-good-gems]]
 
 Use only established gems in your projects.
 If you're contemplating on including some little-known gem you should do a careful review of its source code first.
@@ -1507,7 +1507,7 @@ Bundler.require(platform)
 Do not remove the `Gemfile.lock` from version control.
 This is not some randomly generated file - it makes sure that all of your team members get the same gem versions when they do a `bundle install`.
 
-== Managing processes
+== Managing Processes
 
 === Foreman [[foreman]]
 
