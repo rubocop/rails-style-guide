@@ -164,7 +164,7 @@ end
 
 === Nested Routes [[nested-routes]]
 
-Use nested routes to express better the relationship between ActiveRecord models.
+Use nested routes to express better the relationship between Active Record models.
 
 [source,ruby]
 ----
@@ -334,7 +334,7 @@ render status: :forbidden
 
 === Model Classes [[model-classes]]
 
-Introduce non-ActiveRecord model classes freely.
+Introduce non-Active Record model classes freely.
 
 === Meaningful Model Names [[meaningful-model-names]]
 
@@ -342,7 +342,7 @@ Name the models with meaningful (but short) names without abbreviations.
 
 === ActiveAttr Gem [[activeattr-gem]]
 
-If you need model objects that support ActiveRecord behavior (like validation) without the ActiveRecord database functionality use the https://github.com/cgriego/active_attr[ActiveAttr] gem.
+If you need model objects that support Active Record behavior (like validation) without the Active Record database functionality use the https://github.com/cgriego/active_attr[ActiveAttr] gem.
 
 [source,ruby]
 ----
@@ -370,11 +370,11 @@ Unless they have some meaning in the business domain, don't put methods in your 
 These methods are most likely going to be called from the view layer only, so their place is in helpers.
 Keep your models for business logic and data-persistence only.
 
-== Models: ActiveRecord [[activerecord]]
+== Models: Active Record [[activerecord]]
 
-=== Keep ActiveRecord Defaults [[keep-ar-defaults]]
+=== Keep Active Record Defaults [[keep-ar-defaults]]
 
-Avoid altering ActiveRecord defaults (table names, primary key, etc) unless you have a very good reason (like a database that's not under your control).
+Avoid altering Active Record defaults (table names, primary key, etc) unless you have a very good reason (like a database that's not under your control).
 
 [source,ruby]
 ----
@@ -648,7 +648,7 @@ end
 ----
 
 In order to convert this to a URL-friendly value, `parameterize` should be called on the string.
-The `id` of the object needs to be at the beginning so that it can be found by the `find` method of ActiveRecord.
+The `id` of the object needs to be at the beginning so that it can be found by the `find` method of Active Record.
 
 ==== `friendly_id` Gem
 
@@ -766,7 +766,7 @@ else
 end
 ----
 
-== Models: ActiveRecord Queries [[activerecord-queries]]
+== Models: Active Record Queries [[activerecord-queries]]
 
 === Avoid Interpolation [[avoid-interpolation]]
 
@@ -831,7 +831,7 @@ User.where(first_name: 'Bruce', last_name: 'Wayne').take
 
 # bad
 User.find_by_email(email)
-# bad, deprecated in ActiveRecord 4.0, removed in 4.1+
+# bad, deprecated in Active Record 4.0, removed in 4.1+
 User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
 # good
@@ -909,7 +909,7 @@ SELECT\n    users.id, accounts.plan\n  FROM\n    users\n  INNER JOIN\n    acount
 
 === `size` over `count` or `length` [[size-over-count-or-length]]
 
-When querying ActiveRecord collections, prefer `size` (selects between count/length behavior based on whether collection is already loaded) or `length` (always loads the whole collection and counts the array elements) over `count` (always does a database query for the count).
+When querying Active Record collections, prefer `size` (selects between count/length behavior based on whether collection is already loaded) or `length` (always loads the whole collection and counts the array elements) over `count` (always does a database query for the count).
 
 [source,ruby]
 ----
@@ -959,7 +959,7 @@ And you'll have to consider the fact that most non-trivial apps share a database
 
 === Foreign Key Constraints [[foreign-key-constraints]]
 
-Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord supports foreign key constraints natively.
+Enforce foreign-key constraints. As of Rails 4.2, Active Record supports foreign key constraints natively.
 
 === Change vs Up/Down [[change-vs-up-down]]
 
@@ -1150,7 +1150,7 @@ These texts should be moved to the locale files in the `config/locales` director
 
 === Translated Labels [[translated-labels]]
 
-When the labels of an ActiveRecord model need to be translated, use the `activerecord` scope:
+When the labels of an Active Record model need to be translated, use the `activerecord` scope:
 
 ----
 en:
@@ -1167,7 +1167,7 @@ These translations of the attributes will be used as labels in the views.
 
 === Organize Locale Files [[organize-locale-files]]
 
-Separate the texts used in the views from translations of ActiveRecord attributes.
+Separate the texts used in the views from translations of Active Record attributes.
 Place the locale files for the models in a folder `locales/models` and the texts used in the views in folder `locales/views`.
 
 When organization of the locale files is done with additional directories, these directories must be described in the `application.rb` file in order to be loaded.
@@ -1357,7 +1357,7 @@ obj.try! :fly
 obj&.fly
 ----
 
-=== ActiveSupport Aliases [[active_support_aliases]]
+=== Active Support Aliases [[active_support_aliases]]
 
 Prefer Ruby's Standard Library methods over `ActiveSupport` aliases.
 
@@ -1372,9 +1372,9 @@ Prefer Ruby's Standard Library methods over `ActiveSupport` aliases.
 'the day'.end_with? 'ay'
 ----
 
-=== ActiveSupport Extensions [[active_support_extensions]]
+=== Active Support Extensions [[active_support_extensions]]
 
-Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.
+Prefer Ruby's Standard Library over uncommon Active Support extensions.
 
 [source,ruby]
 ----
@@ -1391,7 +1391,7 @@ Prefer Ruby's Standard Library over uncommon ActiveSupport extensions.
 
 === `inquiry` [[inquiry]]
 
-Prefer Ruby's comparison operators over ActiveSupport's `Array#inquiry`, and `String#inquiry`.
+Prefer Ruby's comparison operators over Active Support's `Array#inquiry`, and `String#inquiry`.
 
 [source,ruby]
 ----
