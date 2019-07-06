@@ -831,7 +831,6 @@ User.where(first_name: 'Bruce', last_name: 'Wayne').take
 
 # bad
 User.find_by_email(email)
-# bad, deprecated in Active Record 4.0, removed in 4.1+
 User.find_by_first_name_and_last_name('Bruce', 'Wayne')
 
 # good
