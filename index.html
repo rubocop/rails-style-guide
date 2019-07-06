@@ -487,9 +487,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#model-business-logic">Model Business Logic</a></li>
 </ul>
 </li>
-<li><a href="#activerecord">Models: ActiveRecord</a>
+<li><a href="#activerecord">Models: Active Record</a>
 <ul class="sectlevel2">
-<li><a href="#keep-ar-defaults">Keep ActiveRecord Defaults</a></li>
+<li><a href="#keep-ar-defaults">Keep Active Record Defaults</a></li>
 <li><a href="#macro-style-methods">Macro Style Methods</a></li>
 <li><a href="#has-many-through"><code>has_many :through</code></a></li>
 <li><a href="#read-attribute">Read Attribute</a></li>
@@ -510,7 +510,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#save-bang"><code>save!</code></a></li>
 </ul>
 </li>
-<li><a href="#activerecord-queries">Models: ActiveRecord Queries</a>
+<li><a href="#activerecord-queries">Models: Active Record Queries</a>
 <ul class="sectlevel2">
 <li><a href="#avoid-interpolation">Avoid Interpolation</a></li>
 <li><a href="#named-placeholder">Named Placeholder</a></li>
@@ -580,8 +580,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#active-support-core-extensions">Active Support Core Extensions</a>
 <ul class="sectlevel2">
 <li><a href="#try-bang"><code>try!</code></a></li>
-<li><a href="#active_support_aliases">ActiveSupport Aliases</a></li>
-<li><a href="#active_support_extensions">ActiveSupport Extensions</a></li>
+<li><a href="#active_support_aliases">Active Support Aliases</a></li>
+<li><a href="#active_support_extensions">Active Support Extensions</a></li>
 <li><a href="#inquiry"><code>inquiry</code></a></li>
 </ul>
 </li>
@@ -851,7 +851,7 @@ The code in initializers executes on application startup.</p>
 <div class="sect2">
 <h3 id="nested-routes"><a class="anchor" href="#nested-routes"></a><a class="link" href="#nested-routes">Nested Routes</a></h3>
 <div class="paragraph">
-<p>Use nested routes to express better the relationship between ActiveRecord models.</p>
+<p>Use nested routes to express better the relationship between Active Record models.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1054,7 +1054,7 @@ They are meaningful and do not look like "magic" numbers for less known HTTP sta
 <div class="sect2">
 <h3 id="model-classes"><a class="anchor" href="#model-classes"></a><a class="link" href="#model-classes">Model Classes</a></h3>
 <div class="paragraph">
-<p>Introduce non-ActiveRecord model classes freely.</p>
+<p>Introduce non-Active Record model classes freely.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1066,7 +1066,7 @@ They are meaningful and do not look like "magic" numbers for less known HTTP sta
 <div class="sect2">
 <h3 id="activeattr-gem"><a class="anchor" href="#activeattr-gem"></a><a class="link" href="#activeattr-gem">ActiveAttr Gem</a></h3>
 <div class="paragraph">
-<p>If you need model objects that support ActiveRecord behavior (like validation) without the ActiveRecord database functionality use the <a href="https://github.com/cgriego/active_attr">ActiveAttr</a> gem.</p>
+<p>If you need model objects that support Active Record behavior (like validation) without the Active Record database functionality use the <a href="https://github.com/cgriego/active_attr">ActiveAttr</a> gem.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1101,12 +1101,12 @@ Keep your models for business logic and data-persistence only.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="activerecord"><a class="anchor" href="#activerecord"></a><a class="link" href="#activerecord">Models: ActiveRecord</a></h2>
+<h2 id="activerecord"><a class="anchor" href="#activerecord"></a><a class="link" href="#activerecord">Models: Active Record</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="keep-ar-defaults"><a class="anchor" href="#keep-ar-defaults"></a><a class="link" href="#keep-ar-defaults">Keep ActiveRecord Defaults</a></h3>
+<h3 id="keep-ar-defaults"><a class="anchor" href="#keep-ar-defaults"></a><a class="link" href="#keep-ar-defaults">Keep Active Record Defaults</a></h3>
 <div class="paragraph">
-<p>Avoid altering ActiveRecord defaults (table names, primary key, etc) unless you have a very good reason (like a database that&#8217;s not under your control).</p>
+<p>Avoid altering Active Record defaults (table names, primary key, etc) unless you have a very good reason (like a database that&#8217;s not under your control).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1410,7 +1410,7 @@ It could be overridden to include another human-readable attribute.</p>
 </div>
 <div class="paragraph">
 <p>In order to convert this to a URL-friendly value, <code>parameterize</code> should be called on the string.
-The <code>id</code> of the object needs to be at the beginning so that it can be found by the <code>find</code> method of ActiveRecord.</p>
+The <code>id</code> of the object needs to be at the beginning so that it can be found by the <code>find</code> method of Active Record.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1544,7 +1544,7 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 </div>
 </div>
 <div class="sect1">
-<h2 id="activerecord-queries"><a class="anchor" href="#activerecord-queries"></a><a class="link" href="#activerecord-queries">Models: ActiveRecord Queries</a></h2>
+<h2 id="activerecord-queries"><a class="anchor" href="#activerecord-queries"></a><a class="link" href="#activerecord-queries">Models: Active Record Queries</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="avoid-interpolation"><a class="anchor" href="#avoid-interpolation"></a><a class="link" href="#avoid-interpolation">Avoid Interpolation</a></h3>
@@ -1616,7 +1616,7 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 
 <span class="c1"># bad</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">find_by_email</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-<span class="c1"># bad, deprecated in ActiveRecord 4.0, removed in 4.1+</span>
+<span class="c1"># bad, deprecated in Active Record 4.0, removed in 4.1+</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">find_by_first_name_and_last_name</span><span class="p">(</span><span class="s1">'Bruce'</span><span class="p">,</span> <span class="s1">'Wayne'</span><span class="p">)</span>
 
 <span class="c1"># good</span>
@@ -1706,7 +1706,7 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
 <div class="sect2">
 <h3 id="size-over-count-or-length"><a class="anchor" href="#size-over-count-or-length"></a><a class="link" href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></h3>
 <div class="paragraph">
-<p>When querying ActiveRecord collections, prefer <code>size</code> (selects between count/length behavior based on whether collection is already loaded) or <code>length</code> (always loads the whole collection and counts the array elements) over <code>count</code> (always does a database query for the count).</p>
+<p>When querying Active Record collections, prefer <code>size</code> (selects between count/length behavior based on whether collection is already loaded) or <code>length</code> (always loads the whole collection and counts the array elements) over <code>count</code> (always does a database query for the count).</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1768,7 +1768,7 @@ And you&#8217;ll have to consider the fact that most non-trivial apps share a da
 <div class="sect2">
 <h3 id="foreign-key-constraints"><a class="anchor" href="#foreign-key-constraints"></a><a class="link" href="#foreign-key-constraints">Foreign Key Constraints</a></h3>
 <div class="paragraph">
-<p>Enforce foreign-key constraints. As of Rails 4.2, ActiveRecord supports foreign key constraints natively.</p>
+<p>Enforce foreign-key constraints. As of Rails 4.2, Active Record supports foreign key constraints natively.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1985,7 +1985,7 @@ These texts should be moved to the locale files in the <code>config/locales</cod
 <div class="sect2">
 <h3 id="translated-labels"><a class="anchor" href="#translated-labels"></a><a class="link" href="#translated-labels">Translated Labels</a></h3>
 <div class="paragraph">
-<p>When the labels of an ActiveRecord model need to be translated, use the <code>activerecord</code> scope:</p>
+<p>When the labels of an Active Record model need to be translated, use the <code>activerecord</code> scope:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2006,7 +2006,7 @@ These translations of the attributes will be used as labels in the views.</p>
 <div class="sect2">
 <h3 id="organize-locale-files"><a class="anchor" href="#organize-locale-files"></a><a class="link" href="#organize-locale-files">Organize Locale Files</a></h3>
 <div class="paragraph">
-<p>Separate the texts used in the views from translations of ActiveRecord attributes.
+<p>Separate the texts used in the views from translations of Active Record attributes.
 Place the locale files for the models in a folder <code>locales/models</code> and the texts used in the views in folder <code>locales/views</code>.</p>
 </div>
 <div class="paragraph">
@@ -2250,7 +2250,7 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 <div class="sect2">
-<h3 id="active_support_aliases"><a class="anchor" href="#active_support_aliases"></a><a class="link" href="#active_support_aliases">ActiveSupport Aliases</a></h3>
+<h3 id="active_support_aliases"><a class="anchor" href="#active_support_aliases"></a><a class="link" href="#active_support_aliases">Active Support Aliases</a></h3>
 <div class="paragraph">
 <p>Prefer Ruby&#8217;s Standard Library methods over <code>ActiveSupport</code> aliases.</p>
 </div>
@@ -2267,9 +2267,9 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 <div class="sect2">
-<h3 id="active_support_extensions"><a class="anchor" href="#active_support_extensions"></a><a class="link" href="#active_support_extensions">ActiveSupport Extensions</a></h3>
+<h3 id="active_support_extensions"><a class="anchor" href="#active_support_extensions"></a><a class="link" href="#active_support_extensions">Active Support Extensions</a></h3>
 <div class="paragraph">
-<p>Prefer Ruby&#8217;s Standard Library over uncommon ActiveSupport extensions.</p>
+<p>Prefer Ruby&#8217;s Standard Library over uncommon Active Support extensions.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2288,7 +2288,7 @@ To overcome this emails can be sent in background process with the help of <a hr
 <div class="sect2">
 <h3 id="inquiry"><a class="anchor" href="#inquiry"></a><a class="link" href="#inquiry"><code>inquiry</code></a></h3>
 <div class="paragraph">
-<p>Prefer Ruby&#8217;s comparison operators over ActiveSupport&#8217;s <code>Array#inquiry</code>, and <code>String#inquiry</code>.</p>
+<p>Prefer Ruby&#8217;s comparison operators over Active Support&#8217;s <code>Array#inquiry</code>, and <code>String#inquiry</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2542,7 +2542,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-28 04:28:16 UTC
+Last updated 2019-07-06 03:11:59 UTC
 </div>
 </div>
 <style>
