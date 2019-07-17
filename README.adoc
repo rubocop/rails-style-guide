@@ -385,6 +385,26 @@ class Transaction < ActiveRecord::Base
 end
 ----
 
+=== Enums [[enums]]
+
+Prefer using the hash syntax for `enum`. Array makes the database values implicit
+& any insertion/removal/rearrangement of values in the middle will most probably
+lead to broken code.
+
+[source,ruby]
+----
+class Transaction < ActiveRecord::Base
+  # bad - implicit values - ordering matters
+  enum type: %i[credit debit]
+
+  # good - explicit values - ordering does not matter
+  enum type: {
+    credit: 0,
+    debit: 1
+  }
+end
+----
+
 === Macro Style Methods [[macro-style-methods]]
 
 Group macro-style methods (`has_many`, `validates`, etc) in the beginning of the class definition.
@@ -403,7 +423,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :login, :first_name, :last_name, :email, :password
 
-  # Rails 4+ enums after attr macros, prefer the hash syntax
+  # Rails 4+ enums after attr macros
   enum gender: { female: 0, male: 1 }
 
   # followed by association macros
