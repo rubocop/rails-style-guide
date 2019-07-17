@@ -490,6 +490,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#activerecord">Models: Active Record</a>
 <ul class="sectlevel2">
 <li><a href="#keep-ar-defaults">Keep Active Record Defaults</a></li>
+<li><a href="#enums">Enums</a></li>
 <li><a href="#macro-style-methods">Macro Style Methods</a></li>
 <li><a href="#has-many-through"><code>has_many :through</code></a></li>
 <li><a href="#read-attribute">Read Attribute</a></li>
@@ -1119,6 +1120,28 @@ Keep your models for business logic and data-persistence only.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="enums"><a class="anchor" href="#enums"></a><a class="link" href="#enums">Enums</a></h3>
+<div class="paragraph">
+<p>Prefer using the hash syntax for <code>enum</code>. Array makes the database values implicit
+&amp; any insertion/removal/rearrangement of values in the middle will most probably
+lead to broken code.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Transaction</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="c1"># bad - implicit values - ordering matters</span>
+  <span class="n">enum</span> <span class="ss">type: </span><span class="sx">%i[credit debit]</span>
+
+  <span class="c1"># good - explicit values - ordering does not matter</span>
+  <span class="n">enum</span> <span class="ss">type: </span><span class="p">{</span>
+    <span class="ss">credit: </span><span class="mi">0</span><span class="p">,</span>
+    <span class="ss">debit: </span><span class="mi">1</span>
+  <span class="p">}</span>
+<span class="k">end</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="macro-style-methods"><a class="anchor" href="#macro-style-methods"></a><a class="link" href="#macro-style-methods">Macro Style Methods</a></h3>
 <div class="paragraph">
 <p>Group macro-style methods (<code>has_many</code>, <code>validates</code>, etc) in the beginning of the class definition.</p>
@@ -1137,7 +1160,7 @@ Keep your models for business logic and data-persistence only.</p>
 
   <span class="n">attr_accessible</span> <span class="ss">:login</span><span class="p">,</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span>
 
-  <span class="c1"># Rails 4+ enums after attr macros, prefer the hash syntax</span>
+  <span class="c1"># Rails 4+ enums after attr macros</span>
   <span class="n">enum</span> <span class="ss">gender: </span><span class="p">{</span> <span class="ss">female: </span><span class="mi">0</span><span class="p">,</span> <span class="ss">male: </span><span class="mi">1</span> <span class="p">}</span>
 
   <span class="c1"># followed by association macros</span>
@@ -2541,7 +2564,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-16 06:20:20 UTC
+Last updated 2019-07-17 06:07:44 UTC
 </div>
 </div>
 <style>
