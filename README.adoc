@@ -424,7 +424,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :first_name, :last_name, :email, :password
 
   # Rails 4+ enums after attr macros
-  enum gender: { female: 0, male: 1 }
+  enum preferred_indentation: { tabs: 0, spaces: 1 }
 
   # followed by association macros
   belongs_to :country
