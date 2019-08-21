@@ -424,7 +424,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :first_name, :last_name, :email, :password
 
   # Rails 4+ enums after attr macros
-  enum preferred_indentation: { tabs: 0, spaces: 1 }
+  enum preferred_indentation: { tabs: 0, two_spaces: 1, four_spaces: 2 }
 
   # followed by association macros
   belongs_to :country
