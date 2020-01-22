@@ -282,7 +282,7 @@ end
 <p><%= product.name %></p>
 <p><%= product.price %></p>
 
-## app/controllers/foo_controller.rb
+## app/controllers/products_controller.rb
 class ProductsController < ApplicationController
   def index
     render :index
