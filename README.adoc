@@ -99,10 +99,6 @@ config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_ad
 
 Keep configuration that's applicable to all environments in the `config/application.rb` file.
 
-=== Staging Like Prod [[staging-like-prod]]
-
-Create an additional `staging` environment that closely resembles the `production` one.
-
 === YAML Config [[yaml-config]]
 
 Keep any additional configuration in YAML files under the `config/` directory.
