@@ -887,6 +887,38 @@ scope :chronological, -> { order(id: :asc) }
 scope :chronological, -> { order(created_at: :asc) }
 ----
 
+=== `pluck`
+
+Use https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck[pluck] to select a single value from multiple records.
+
+[source,ruby]
+----
+# bad
+User.all.map(&:name)
+
+# bad
+User.all.map { |user| user[:name] }
+
+# good
+User.pluck(:name)
+----
+
+=== `pick`
+
+Use https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pick[pick] to select a single value from a single record.
+
+[source,ruby]
+----
+# bad
+User.pluck(:name).first
+
+# bad
+User.first.name
+
+# good
+User.pick(:name)
+----
+
 === `ids` [[ids]]
 
 Favor the use of `ids` over `pluck(:id)`.
