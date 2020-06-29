@@ -519,6 +519,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#find_by"><code>find_by</code></a></li>
 <li><a href="#where-not">Where Not</a></li>
 <li><a href="#order-by-id">Order by <code>id</code></a></li>
+<li><a href="#pluck"><code>pluck</code></a></li>
+<li><a href="#pick"><code>pick</code></a></li>
 <li><a href="#ids"><code>ids</code></a></li>
 <li><a href="#squished-heredocs">Squished Heredocs</a></li>
 <li><a href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></li>
@@ -1681,6 +1683,42 @@ As a bonus the intent is clearer.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="pluck"><a class="anchor" href="#pluck"></a><a class="link" href="#pluck"><code>pluck</code></a></h3>
+<div class="paragraph">
+<p>Use <a href="https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck">pluck</a> to select a single value from multiple records.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:name</span><span class="p">)</span>
+
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span> <span class="p">}</span>
+
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pick"><a class="anchor" href="#pick"></a><a class="link" href="#pick"><code>pick</code></a></h3>
+<div class="paragraph">
+<p>Use <a href="https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pick">pick</a> to select a single value from a single record.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">first</span>
+
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">first</span><span class="p">.</span><span class="nf">name</span>
+
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">pick</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="ids"><a class="anchor" href="#ids"></a><a class="link" href="#ids"><code>ids</code></a></h3>
 <div class="paragraph">
 <p>Favor the use of <code>ids</code> over <code>pluck(:id)</code>.</p>
@@ -2564,7 +2602,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-22 08:39:00 UTC
+Last updated 2020-06-29 03:32:30 UTC
 </div>
 </div>
 <style>
