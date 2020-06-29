@@ -586,6 +586,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#active_support_aliases">Active Support Aliases</a></li>
 <li><a href="#active_support_extensions">Active Support Extensions</a></li>
 <li><a href="#inquiry"><code>inquiry</code></a></li>
+<li><a href="#exclude"><code>exclude?</code></a></li>
 </ul>
 </li>
 <li><a href="#time">Time</a>
@@ -2370,6 +2371,25 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="exclude"><a class="anchor" href="#exclude"></a><a class="link" href="#exclude"><code>exclude?</code></a></h3>
+<div class="paragraph">
+<p>Prefer Active Support&#8217;s <code>exclude?</code> over Ruby&#8217;s negated <code>include?</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="o">!</span><span class="n">array</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">!</span><span class="nb">hash</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="ss">:key</span><span class="p">)</span>
+<span class="o">!</span><span class="n">string</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s1">'substring'</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="n">array</span><span class="p">.</span><span class="nf">exclude?</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">hash</span><span class="p">.</span><span class="nf">exclude?</span><span class="p">(</span><span class="ss">:key</span><span class="p">)</span>
+<span class="n">string</span><span class="p">.</span><span class="nf">exclude?</span><span class="p">(</span><span class="s1">'substring'</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2602,7 +2622,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-06-29 03:32:30 UTC
+Last updated 2020-06-29 08:00:32 UTC
 </div>
 </div>
 <style>
