@@ -605,7 +605,7 @@ end
 
 === Callbacks Order [[callbacks-order]]
 
-Order callback declarations in the order, in which they will be executed.
+Order callback declarations in the order in which they will be executed.
 For reference, see https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks[Available Callbacks].
 
 [source,Ruby]
