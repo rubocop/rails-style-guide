@@ -372,6 +372,39 @@ Keep your models for business logic and data-persistence only.
 
 == Models: Active Record [[activerecord]]
 
+=== Avoid default_scope [[avoid-default-scope]]
+
+Avoid using `default_scope` in your models. Due to its implicit nature and its affect on associations, its best to go with different solutions as its error prone.
+
+Prefer using explicit scopes where necessary.
+
+[source,ruby]
+----
+# bad
+class Post < ActiveRecord::Base
+  def self.default_scope
+    where(hidden: false)
+  end
+  ...
+end
+
+# good
+class Post < ActiveRecord::Base
+  def self.published
+    where(hidden: false)
+  end
+  ...
+end
+
+Post.published
+----
+
+For more information on the subject refer to:
+
+- https://andycroll.com/ruby/dont-use-default-scope/[Dont use default scope]
+- https://www.lewuathe.com/why-we-should-avoid-default_scope-in-rails.html[Why we should avoid default scope]
+- https://piechowski.io/post/why-is-default-scope-bad-rails/[Why is default scope bad]
+
 === Keep Active Record Defaults [[keep-ar-defaults]]
 
 Avoid altering Active Record defaults (table names, primary key, etc) unless you have a very good reason (like a database that's not under your control).
