@@ -1535,20 +1535,39 @@ Time.current # Same thing but shorter.
 
 == Duration
 
-=== `.since` [[duration-since]]
-
-Don't use `.since` without a parameter, prefer `.from_now`.
+Don't use `.since`, `.after` without a parameter, prefer `.from_now`.
+Dont't use `.until`, `.before`, without a parameter, prefer `ago`.
+Dont't use `.ago' or `.from_now` with a parameter, prefer their respective aliases `.until` or `.before` for `ago` and `.since` or `.after` for `from_now`
+Don't use hard coded negative numbers for the duration subject
+As a general rule, make sure that reading the code as it was plain english makes total sense.
 
 [source,ruby]
 ----
 # bad
 5.hours.since # => It's not clear at first sight that `since` refers to "since now" 
+5.hours.after # => It's not clear at first sight that `after` refers to "after now"
+5.hours.before # => It's not clear at first sight that `before` refers to "before now" 
+5.hours.until # => It's not clear at first sight that `until` refers to "until now"
 
+tomorrow = 2.days.from_now(yesterday) # yesterday would be 1.day.ago, reading this is confusing 
+today = 1.day.ago(tomorrow)
+
+
+-5.hours.from_now # reading this is confusing
+-5.hours.ago # reading this is confusing
+-5.hours.after(today)
 # good
 5.hours.from_now # when refering a future time from now, use from_now
+5.hours.ago # when refering a past time from now, use ago
 
-yesterday = 1.day.ago
 tomorrow = 2.days.since(yesterday) # use since only when you have a referential Time in the past
+tomorrow = 2.days.after(yesterday) # use after only when you have a referential Time in the past
+today = 1.day.before(tomorrow) # use before only when you have a referential Time in the future
+today = 1.day.until(tomorrow) # use until only when you have a referential Time in the future
+
+5.hours.ago # use the inverse method instead of the inverse number, -5.hours.from_now becomes 5.hours.ago
+5.hours.ago # use the inverse method instead of the inverse number, -5.hours.ago becomes 5.hours.ago
+5.hours.before(today)
 ----
 
 == Bundler
