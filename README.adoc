@@ -1536,9 +1536,13 @@ Time.current # Same thing but shorter.
 == Duration
 
 Don't use `.since`, `.after` without a parameter, prefer `.from_now`.
+
 Dont't use `.until`, `.before`, without a parameter, prefer `ago`.
+
 Dont't use `.ago' or `.from_now` with a parameter, prefer their respective aliases `.until` or `.before` for `ago` and `.since` or `.after` for `from_now`
+
 Don't use hard coded negative numbers for the duration subject
+
 As a general rule, make sure that reading the code as it was plain english makes total sense.
 
 [source,ruby]
