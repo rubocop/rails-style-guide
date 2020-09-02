@@ -1533,6 +1533,24 @@ Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
 Time.current # Same thing but shorter.
 ----
 
+== Duration
+
+=== `.since` [[duration-since]]
+
+Don't use `.since` without a parameter, prefer `.from_now`.
+
+[source,ruby]
+----
+# bad
+5.hours.since # => It's not clear at first sight that `since` refers to "since now" 
+
+# good
+5.hours.from_now # when refering a future time from now, use from_now
+
+yesterday = 1.day.ago
+tomorrow = 2.days.since(yesterday) # use since only when you have a referential Time in the past
+----
+
 == Bundler
 
 === Dev/Test Gems [[dev-test-gems]]
