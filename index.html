@@ -597,6 +597,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#time-now"><code>Time.now</code></a></li>
 </ul>
 </li>
+<li><a href="#duration">Duration</a></li>
 <li><a href="#bundler">Bundler</a>
 <ul class="sectlevel2">
 <li><a href="#dev-test-gems">Dev/Test Gems</a></li>
@@ -2457,6 +2458,57 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 <div class="sect1">
+<h2 id="duration"><a class="anchor" href="#duration"></a><a class="link" href="#duration">Duration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If used without a parameter, prefer <code>from_now</code> and <code>ago</code> instead of <code>since</code>, <code>after</code>, <code>until</code> or <code>before</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - It's not clear that the qualifier refers to the current time (which is the default parameter)</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">since</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">after</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">before</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">until</span>
+
+<span class="c1"># good</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">from_now</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">ago</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If used with a parameter, prefer <code>since</code>, <code>after</code>, <code>until</code> or <code>before</code> instead of <code>from_now</code> and <code>ago</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - It's confusing and misleading to read</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">from_now</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">since</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">after</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">before</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span>
+<span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">until</span><span class="p">(</span><span class="n">yesterday</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Avoid using negative numbers for the duration subject. Always prefer using a qualifier that allows using positive literal numbers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - It's confusing and misleading to read</span>
+<span class="o">-</span><span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">from_now</span>
+<span class="o">-</span><span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">ago</span>
+
+<span class="c1"># good</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">ago</span>
+<span class="mi">5</span><span class="p">.</span><span class="nf">hours</span><span class="p">.</span><span class="nf">from_now</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="bundler"><a class="anchor" href="#bundler"></a><a class="link" href="#bundler">Bundler</a></h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -2622,7 +2674,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-07-01 07:27:21 UTC
+Last updated 2020-09-04 10:05:48 UTC
 </div>
 </div>
 <style>
