@@ -1533,6 +1533,51 @@ Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
 Time.current # Same thing but shorter.
 ----
 
+== Duration
+
+If used without a parameter, prefer `from_now` and `ago` instead of `since`, `after`, `until` or `before`.
+
+[source,ruby]
+----
+# bad - It's not clear that the qualifier refers to the current time (which is the default parameter)
+5.hours.since
+5.hours.after
+5.hours.before
+5.hours.until
+
+# good
+5.hours.from_now
+5.hours.ago
+----
+
+If used with a parameter, prefer `since`, `after`, `until` or `before` instead of `from_now` and `ago`.
+
+[source,ruby]
+----
+# bad - It's confusing and misleading to read
+2.days.from_now(yesterday)
+2.days.ago(yesterday)
+
+# good
+2.days.since(yesterday)
+2.days.after(yesterday)
+2.days.before(yesterday)
+2.days.until(yesterday)
+----
+
+Avoid using negative numbers for the duration subject. Always prefer using a qualifier that allows using positive literal numbers.
+
+[source,ruby]
+----
+# bad - It's confusing and misleading to read
+-5.hours.from_now
+-5.hours.ago
+
+# good
+5.hours.ago
+5.hours.from_now
+----
+
 == Bundler
 
 === Dev/Test Gems [[dev-test-gems]]
