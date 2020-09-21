@@ -858,12 +858,18 @@ User.find_by(email: email)
 User.find_by(first_name: 'Bruce', last_name: 'Wayne')
 ----
 
-=== Where Not [[where-not]]
+=== Hash conditions [[where-not]] [[hash-conditions]]
 
-Favor the use of `where.not` over SQL.
+Favor passing conditions to `where` and `where.not` as a hash over using fragments of SQL.
 
 [source,ruby]
 ----
+# bad
+User.where("name = ?", name)
+
+# good
+User.where(name: name)
+
 # bad
 User.where("id != ?", id)
 
