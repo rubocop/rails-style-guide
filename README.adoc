@@ -340,21 +340,16 @@ Introduce non-Active Record model classes freely.
 
 Name the models with meaningful (but short) names without abbreviations.
 
-=== ActiveAttr Gem [[activeattr-gem]]
+=== Non-ActiveRecord Models [[non-activerecord-models]]
 
-If you need model objects that support Active Record behavior (like validation) without the Active Record database functionality use the https://github.com/cgriego/active_attr[ActiveAttr] gem.
+If you need objects that support ActiveRecord-like behavior (like validations) without the database functionality, use `ActiveModel::Model`.
 
 [source,ruby]
 ----
 class Message
-  include ActiveAttr::Model
+  include ActiveModel::Model
 
-  attribute :name
-  attribute :email
-  attribute :content
-  attribute :priority
-
-  attr_accessible :name, :email, :content
+  attr_accessor :name, :email, :content, :priority
 
   validates :name, presence: true
   validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
@@ -362,7 +357,24 @@ class Message
 end
 ----
 
-For a more complete example refer to the http://railscasts.com/episodes/326-activeattr[RailsCast on the subject].
+Starting with Rails 6.1, you can also extend the attributes API from ActiveRecord using `ActiveModel::Attributes`.
+
+[source,ruby]
+----
+class Message
+  include ActiveModel::Model
+  include ActiveModel::Attributes
+
+  attribute :name, :string
+  attribute :email, :string
+  attribute :content, :string
+  attribute :priority, :integer
+
+  validates :name, presence: true
+  validates :email, format: { with: /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i }
+  validates :content, length: { maximum: 500 }
+end
+----
 
 === Model Business Logic [[model-business-logic]]
 
