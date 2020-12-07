@@ -1026,6 +1026,25 @@ end
 While enforcing table defaults only in Rails is suggested by many Rails developers, it's an extremely brittle approach that leaves your data vulnerable to many application bugs.
 And you'll have to consider the fact that most non-trivial apps share a database with other applications, so imposing data integrity from the Rails app is impossible.
 
+=== 3-state Boolean [[three-state-boolean]]
+
+With SQL databases, if a boolean column is not given a default value, it will have three possible values: `true`, `false` and `NULL`.
+Boolean operators [work in unexpected ways](https://en.wikipedia.org/wiki/Three-valued_logic) with `NULL`.
+
+For example in SQL queries, `true AND NULL` is `NULL` (not false), `true AND NULL OR false` is `NULL` (not false). This can make SQL queries return unexpected results.
+
+To avoid such situations, boolean columns should always have a default value and a `NOT NULL` constraint.
+
+[source,ruby]
+----
+# bad - boolean without a default value
+add_column :users, :active, :boolean
+
+# good - boolean with a default value (`false` or `true`) and with restricted `NULL`
+add_column :users, :active, :boolean, default: true, null: false
+add_column :users, :admin, :boolean, default: false, null: false
+----
+
 === Foreign Key Constraints [[foreign-key-constraints]]
 
 Enforce foreign-key constraints. As of Rails 4.2, Active Record supports foreign key constraints natively.
