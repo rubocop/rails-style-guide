@@ -111,7 +111,8 @@ config.load_defaults 6.1
 
 === Staging Like Prod [[staging-like-prod]]
 
-Create an additional `staging` environment that closely resembles the `production` one.
+Avoid creating additional environment configurations than the defaults of `development`, `test` and `production`.
+If you need a production-like environment such as staging, use environment variables for configuration options.
 
 === YAML Config [[yaml-config]]
 
