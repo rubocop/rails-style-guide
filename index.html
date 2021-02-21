@@ -662,6 +662,7 @@ pre.rouge {
 <li><a href="#gem-initializers">Gem Initializers</a></li>
 <li><a href="#dev-test-prod-configs">Dev/Test/Prod Configs</a></li>
 <li><a href="#app-config">App Config</a></li>
+<li><a href="#config-defaults">Load Rails Config Defaults</a></li>
 <li><a href="#staging-like-prod">Staging Like Prod</a></li>
 <li><a href="#yaml-config">YAML Config</a></li>
 </ul>
@@ -990,6 +991,18 @@ The code in initializers executes on application startup.</p>
 <h3 id="app-config"><a class="anchor" href="#app-config"></a><a class="link" href="#app-config">App Config</a></h3>
 <div class="paragraph">
 <p>Keep configuration that&#8217;s applicable to all environments in the <code>config/application.rb</code> file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="config-defaults"><a class="anchor" href="#config-defaults"></a><a class="link" href="#config-defaults">Load Rails Config Defaults</a></h3>
+<div class="paragraph">
+<p>When upgrading to a newer Rails version, your application&#8217;s configuration setting will remain on the previous version. To take advantage of the latest recommended Rails practices, the <code>config.load_defaults</code> setting should match your Rails version.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good</span>
+<span class="n">config</span><span class="p">.</span><span class="nf">load_defaults</span> <span class="mf">6.1</span></code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -2929,7 +2942,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-07 04:05:13 UTC
+Last updated 2021-02-21 00:39:46 UTC
 </div>
 </div>
 </body>
