@@ -99,6 +99,16 @@ config.assets.precompile += %w( rails_admin/rails_admin.css rails_admin/rails_ad
 
 Keep configuration that's applicable to all environments in the `config/application.rb` file.
 
+=== Load Rails Config Defaults [[config-defaults]]
+
+When upgrading to a newer Rails version, your application's configuration setting will remain on the previous version. To take advantage of the latest recommended Rails practices, the `config.load_defaults` setting should match your Rails version.
+
+[source,ruby]
+----
+# good
+config.load_defaults 6.1
+----
+
 === Staging Like Prod [[staging-like-prod]]
 
 Create an additional `staging` environment that closely resembles the `production` one.
