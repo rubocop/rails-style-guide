@@ -552,6 +552,32 @@ validates_length_of :email, maximum: 100
 validates :email, presence: true, length: { maximum: 100 }
 ----
 
+=== Custom Validation Methods
+
+When naming custom validation methods, adhere to the simple rules:
+
+ - `validate :method_name` reads like a natural statement
+ - the method name explains what it checks
+ - the method is recognizable as a validation method by its name, not a predicate method
+
+[source,ruby]
+----
+# good
+validate :expiration_date_cannot_be_in_the_past
+validate :discount_cannot_be_greater_than_total_value
+validate :ensure_same_topic
+
+# also good - explicit prefix
+validate :validate_birthday_in_past
+validate :validate_sufficient_quantity
+validate :must_have_owner_with_no_other_items
+validate :must_have_shipping_units
+
+# bad
+validate :birthday_in_past
+validate :owner_has_no_other_items
+----
+
 === Single-attribute Validations [[single-attribute-validations]]
 
 To make validations easy to read, don't list multiple attributes per validation.
