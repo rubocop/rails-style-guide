@@ -565,7 +565,7 @@ When naming custom validation methods, adhere to the simple rules:
 # good
 validate :expiration_date_cannot_be_in_the_past
 validate :discount_cannot_be_greater_than_total_value
-validate :ensure_same_topic
+validate :ensure_same_topic_is_chosen
 
 # also good - explicit prefix
 validate :validate_birthday_in_past
