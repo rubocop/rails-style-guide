@@ -710,6 +710,7 @@ pre.rouge {
 <li><a href="#read-attribute">Read Attribute</a></li>
 <li><a href="#write-attribute">Write Attribute</a></li>
 <li><a href="#new-style-validations">New-style Validations</a></li>
+<li><a href="#custom-validation-methods">Custom Validation Methods</a></li>
 <li><a href="#single-attribute-validations">Single-attribute Validations</a></li>
 <li><a href="#custom-validator-file">Custom Validator File</a></li>
 <li><a href="#app-validators">App Validators</a></li>
@@ -1516,6 +1517,43 @@ Using <code>has_many :through</code> allows additional attributes and validation
 
 <span class="c1"># good</span>
 <span class="n">validates</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">maximum: </span><span class="mi">100</span> <span class="p">}</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-validation-methods"><a class="anchor" href="#custom-validation-methods"></a><a class="link" href="#custom-validation-methods">Custom Validation Methods</a></h3>
+<div class="paragraph">
+<p>When naming custom validation methods, adhere to the simple rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>validate :method_name</code> reads like a natural statement</p>
+</li>
+<li>
+<p>the method name explains what it checks</p>
+</li>
+<li>
+<p>the method is recognizable as a validation method by its name, not a predicate method</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good</span>
+<span class="n">validate</span> <span class="ss">:expiration_date_cannot_be_in_the_past</span>
+<span class="n">validate</span> <span class="ss">:discount_cannot_be_greater_than_total_value</span>
+<span class="n">validate</span> <span class="ss">:ensure_same_topic_is_chosen</span>
+
+<span class="c1"># also good - explicit prefix</span>
+<span class="n">validate</span> <span class="ss">:validate_birthday_in_past</span>
+<span class="n">validate</span> <span class="ss">:validate_sufficient_quantity</span>
+<span class="n">validate</span> <span class="ss">:must_have_owner_with_no_other_items</span>
+<span class="n">validate</span> <span class="ss">:must_have_shipping_units</span>
+
+<span class="c1"># bad</span>
+<span class="n">validate</span> <span class="ss">:birthday_in_past</span>
+<span class="n">validate</span> <span class="ss">:owner_has_no_other_items</span></code></pre>
 </div>
 </div>
 </div>
@@ -2943,7 +2981,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-21 02:58:17 UTC
+Last updated 2021-03-14 10:42:05 UTC
 </div>
 </div>
 </body>
