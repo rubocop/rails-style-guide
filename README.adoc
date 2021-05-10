@@ -1433,6 +1433,14 @@ Use the following format:
 default from: 'Your Name <info@your_site.com>'
 ----
 
+If you're using Rails 6.1 or higher, you can use the `email_address_with_name` method:
+
+[source,ruby]
+----
+# in your mailer class
+default from: email_address_with_name('Your Name', 'info@your_site.com')
+----
+
 === Delivery Method Test [[delivery-method-test]]
 
 Make sure that the e-mail delivery method for your test environment is set to `test`:
