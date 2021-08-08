@@ -1438,7 +1438,7 @@ If you're using Rails 6.1 or higher, you can use the `email_address_with_name` m
 [source,ruby]
 ----
 # in your mailer class
-default from: email_address_with_name('Your Name', 'info@your_site.com')
+default from: email_address_with_name('info@your_site.com', 'Your Name')
 ----
 
 === Delivery Method Test [[delivery-method-test]]
