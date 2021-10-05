@@ -1617,6 +1617,8 @@ Time.current # Same thing but shorter.
 
 == Duration
 
+=== Duration Application
+
 If used without a parameter, prefer `from_now` and `ago` instead of `since`, `after`, `until` or `before`.
 
 [source,ruby]
