@@ -1086,6 +1086,23 @@ add_column :users, :admin, :boolean, default: false, null: false
 
 Enforce foreign-key constraints. As of Rails 4.2, Active Record supports foreign key constraints natively.
 
+[source,ruby]
+----
+# bad - does not add foreign keys
+create_table :comment do |t|
+  t.references :article
+  t.belongs_to :user
+  t.integer :category_id
+end
+
+# good
+create_table :comment do |t|
+  t.references :article, foreign_key: true
+  t.belongs_to :user, foreign_key: true
+  t.references :category, foreign_key: { to_table: :comment_categories }
+end
+----
+
 === Change vs Up/Down [[change-vs-up-down]]
 
 When writing constructive migrations (adding tables or columns), use the `change` method instead of `up` and `down` methods.
