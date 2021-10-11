@@ -2143,6 +2143,23 @@ Boolean operators [work in unexpected ways](<a href="https://en.wikipedia.org/wi
 <div class="paragraph">
 <p>Enforce foreign-key constraints. As of Rails 4.2, Active Record supports foreign key constraints natively.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - does not add foreign keys</span>
+<span class="n">create_table</span> <span class="ss">:comment</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">references</span> <span class="ss">:article</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">belongs_to</span> <span class="ss">:user</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:category_id</span>
+<span class="k">end</span>
+
+<span class="c1"># good</span>
+<span class="n">create_table</span> <span class="ss">:comment</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">references</span> <span class="ss">:article</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="kp">true</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">belongs_to</span> <span class="ss">:user</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="kp">true</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">references</span> <span class="ss">:category</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="p">{</span> <span class="ss">to_table: :comment_categories</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="change-vs-up-down"><a class="anchor" href="#change-vs-up-down"></a><a class="link" href="#change-vs-up-down">Change vs Up/Down</a></h3>
@@ -3014,7 +3031,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-10-06 20:58:18 UTC
+Last updated 2021-10-11 13:58:09 UTC
 </div>
 </div>
 </body>
