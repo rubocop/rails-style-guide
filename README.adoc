@@ -1010,7 +1010,7 @@ SQL
 https://api.rubyonrails.org/classes/String.html#method-i-squish[`String#squish`] removes the indentation and newline characters so that your server log shows a fluid string of SQL rather than something like this:
 
 ----
-SELECT\n    users.id, accounts.plan\n  FROM\n    users\n  INNER JOIN\n    acounts\n  ON\n    accounts.user_id = users.id
+SELECT\n    users.id, accounts.plan\n  FROM\n    users\n  INNER JOIN\n    accounts\n  ON\n    accounts.user_id = users.id
 ----
 
 === `size` over `count` or `length` [[size-over-count-or-length]]
