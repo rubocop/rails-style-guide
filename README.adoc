@@ -994,7 +994,7 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
 
 [source,ruby]
 ----
-User.find_by_sql(<<-SQL.squish)
+User.find_by_sql(<<-SQL.squish
   SELECT
     users.id, accounts.plan
   FROM
@@ -1004,7 +1004,7 @@ User.find_by_sql(<<-SQL.squish)
   ON
     accounts.user_id = users.id
   # further complexities...
-SQL
+SQL)
 ----
 
 https://api.rubyonrails.org/classes/String.html#method-i-squish[`String#squish`] removes the indentation and newline characters so that your server log shows a fluid string of SQL rather than something like this:
