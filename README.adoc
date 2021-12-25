@@ -1326,7 +1326,7 @@ Use the short form of the I18n methods: `I18n.t` instead of `I18n.translate` and
 
 === Lazy Lookup [[lazy-lookup]]
 
-Use "lazy" lookup for the texts used in views. Let's say we have the following structure:
+Use "lazy" lookup for locale entries from views and controllers. Let's say we have the following structure:
 
 ----
 en:
@@ -1339,6 +1339,10 @@ The value for `users.show.title` can be looked up in the template `app/views/use
 
 [source,ruby]
 ----
+# bad
+= t 'users.show.title'
+
+# good
 = t '.title'
 ----
 
