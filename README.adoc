@@ -1364,8 +1364,8 @@ The value for `users.show.title` can be looked up in the template `app/views/use
 
 === Dot-separated Keys [[dot-separated-keys]]
 
-Use the dot-separated keys in the controllers and models instead of specifying the `:scope` option.
-The dot-separated call is easier to read and trace the hierarchy.
+Use dot-separated locale keys instead of specifying the `:scope` option with an array or a single symbol.
+Dot-separated notation is easier to read and trace the hierarchy.
 
 [source,ruby]
 ----
@@ -1373,7 +1373,14 @@ The dot-separated call is easier to read and trace the hierarchy.
 I18n.t :record_invalid, scope: [:activerecord, :errors, :messages]
 
 # good
+I18n.t :record_invalid, scope: 'activerecord.errors.messages'
 I18n.t 'activerecord.errors.messages.record_invalid'
+
+# bad
+I18n.t :title, scope: :invitation
+
+# good
+I18n.t 'title.invitation'
 ----
 
 === I18n Guides [[i18n-guides]]
