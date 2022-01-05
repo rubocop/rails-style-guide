@@ -657,15 +657,15 @@ end
 Order callback declarations in the order in which they will be executed.
 For reference, see https://guides.rubyonrails.org/active_record_callbacks.html#available-callbacks[Available Callbacks].
 
-[source,Ruby]
+[source,ruby]
 ----
-#bad
+# bad
 class Person
   after_commit :after_commit_callback
   before_validation :before_validation_callback
 end
 
-#good
+# good
 class Person
   before_validation :before_validation_callback
   after_commit :after_commit_callback
@@ -978,7 +978,7 @@ User.pick(:name)
 
 Favor the use of `ids` over `pluck(:id)`.
 
-[source,Ruby]
+[source,ruby]
 ----
 # bad
 User.pluck(:id)
