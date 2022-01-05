@@ -404,6 +404,22 @@ class Transaction < ApplicationRecord
 end
 ----
 
+=== Always append to `ignored_columns` [[append-ignored-columns]]
+
+Avoid setting `ignored_columns`. It may overwrite previous assignments and that is almost always a mistake. Prefer appending to the list instead.
+
+[source,ruby]
+----
+class Transaction < ApplicationRecord
+  # bad - it may overwrite previous assignments
+  self.ignored_columns = %i[legacy]
+
+  # good - the value is appended to the list
+  self.ignored_columns += %i[legacy]
+  ...
+end
+----
+
 === Enums [[enums]]
 
 Prefer using the hash syntax for `enum`. Array makes the database values implicit
