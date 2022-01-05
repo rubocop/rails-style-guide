@@ -1655,17 +1655,17 @@ For reference, see <a href="https://guides.rubyonrails.org/active_record_callbac
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="Ruby">#bad
-class Person
-  after_commit :after_commit_callback
-  before_validation :before_validation_callback
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="k">class</span> <span class="nc">Person</span>
+  <span class="n">after_commit</span> <span class="ss">:after_commit_callback</span>
+  <span class="n">before_validation</span> <span class="ss">:before_validation_callback</span>
+<span class="k">end</span>
 
-#good
-class Person
-  before_validation :before_validation_callback
-  after_commit :after_commit_callback
-end</code></pre>
+<span class="c1"># good</span>
+<span class="k">class</span> <span class="nc">Person</span>
+  <span class="n">before_validation</span> <span class="ss">:before_validation_callback</span>
+  <span class="n">after_commit</span> <span class="ss">:after_commit_callback</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2015,11 +2015,11 @@ As a bonus the intent is clearer.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="Ruby"># bad
-User.pluck(:id)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
 
-# good
-User.ids</code></pre>
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">ids</span></code></pre>
 </div>
 </div>
 </div>
@@ -3031,7 +3031,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-27 09:46:55 UTC
+Last updated 2022-01-05 13:29:55 UTC
 </div>
 </div>
 </body>
