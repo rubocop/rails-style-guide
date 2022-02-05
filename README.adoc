@@ -871,7 +871,7 @@ Client.where(
 
 === `find` [[find]]
 
-Favor the use of `find` over `where.take!`, `find_by!`, and `find_by_id!` when you need to retrieve a single record by primary key id and raise `ActiveRecord::RecordNotFound` when the record is not found.
+Prefer `find` over `where.take!`, `find_by!`, and `find_by_id!` when you need to retrieve a single record by primary key id and raise `ActiveRecord::RecordNotFound` when the record is not found.
 
 [source,ruby]
 ----
@@ -890,7 +890,7 @@ User.find(id)
 
 === `find_by` [[find_by]]
 
-Favor the use of `find_by` over `where.take` and `find_by_attribute` when you need to retrieve a single record by one or more attributes and return `nil` when the record is not found.
+Prefer `find_by` over `where.take` and `find_by_attribute` when you need to retrieve a single record by one or more attributes and return `nil` when the record is not found.
 
 [source,ruby]
 ----
@@ -909,7 +909,7 @@ User.find_by(first_name: 'Bruce', last_name: 'Wayne')
 
 === Hash conditions [[where-not]] [[hash-conditions]]
 
-Favor passing conditions to `where` and `where.not` as a hash over using fragments of SQL.
+Prefer passing conditions to `where` and `where.not` as a hash over using fragments of SQL.
 
 [source,ruby]
 ----
@@ -976,7 +976,7 @@ User.pick(:name)
 
 === `ids` [[ids]]
 
-Favor the use of `ids` over `pluck(:id)`.
+Prefer `ids` over `pluck(:id)`.
 
 [source,ruby]
 ----
