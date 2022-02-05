@@ -23,7 +23,7 @@ ifdef::env-github[]
 TIP: You can find a beautiful version of this guide with much improved navigation at https://rails.rubystyle.guide.
 endif::[]
 
-The goal of this guide is to present a set of best practices and style prescriptions for Ruby on Rails 4 development.
+The goal of this guide is to present a set of best practices and style prescriptions for Ruby on Rails development.
 It's a complementary guide to the already existing community-driven https://github.com/rubocop-hq/ruby-style-guide[Ruby coding style guide].
 
 This Rails style guide recommends best practices so that real-world Rails programmers can write code that can be maintained by other real-world Rails programmers.
@@ -34,7 +34,7 @@ I've tried to add the rationale behind the rules (if it's omitted I've assumed i
 
 I didn't come up with all the rules out of nowhere - they are mostly based on my extensive career as a professional software engineer, feedback and suggestions from members of the Rails community and various highly regarded Rails programming resources.
 
-NOTE: Some of the advice here is applicable only to Rails 4.0+.
+NOTE: Some of the advice here is applicable only to recent versions of Rails.
 
 You can generate a PDF copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF], and an HTML copy https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html[with] https://asciidoctor.org/#installation[AsciiDoctor] using the following commands:
 
