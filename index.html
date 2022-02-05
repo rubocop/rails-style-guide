@@ -1893,7 +1893,7 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 <div class="sect2">
 <h3 id="find"><a class="anchor" href="#find"></a><a class="link" href="#find"><code>find</code></a></h3>
 <div class="paragraph">
-<p>Favor the use of <code>find</code> over <code>where.take!</code>, <code>find_by!</code>, and <code>find_by_id!</code> when you need to retrieve a single record by primary key id and raise <code>ActiveRecord::RecordNotFound</code> when the record is not found.</p>
+<p>Prefer <code>find</code> over <code>where.take!</code>, <code>find_by!</code>, and <code>find_by_id!</code> when you need to retrieve a single record by primary key id and raise <code>ActiveRecord::RecordNotFound</code> when the record is not found.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1914,7 +1914,7 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 <div class="sect2">
 <h3 id="find_by"><a class="anchor" href="#find_by"></a><a class="link" href="#find_by"><code>find_by</code></a></h3>
 <div class="paragraph">
-<p>Favor the use of <code>find_by</code> over <code>where.take</code> and <code>find_by_attribute</code> when you need to retrieve a single record by one or more attributes and return <code>nil</code> when the record is not found.</p>
+<p>Prefer <code>find_by</code> over <code>where.take</code> and <code>find_by_attribute</code> when you need to retrieve a single record by one or more attributes and return <code>nil</code> when the record is not found.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1935,7 +1935,7 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 <div class="sect2">
 <h3 id="hash-conditions"><a class="anchor" href="#hash-conditions"></a><a class="link" href="#hash-conditions">Hash conditions <a id="where-not"></a></a></h3>
 <div class="paragraph">
-<p>Favor passing conditions to <code>where</code> and <code>where.not</code> as a hash over using fragments of SQL.</p>
+<p>Prefer passing conditions to <code>where</code> and <code>where.not</code> as a hash over using fragments of SQL.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2010,7 +2010,7 @@ As a bonus the intent is clearer.</p>
 <div class="sect2">
 <h3 id="ids"><a class="anchor" href="#ids"></a><a class="link" href="#ids"><code>ids</code></a></h3>
 <div class="paragraph">
-<p>Favor the use of <code>ids</code> over <code>pluck(:id)</code>.</p>
+<p>Prefer <code>ids</code> over <code>pluck(:id)</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3030,7 +3030,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-05 13:14:19 UTC
+Last updated 2022-02-05 13:40:06 UTC
 </div>
 </div>
 </body>
