@@ -12,6 +12,8 @@ endif::[]
 
 == Introduction
 
+By https://github.com/bbatsov[Bozhidar Batsov]
+
 [quote]
 ____
 Role models are important.
