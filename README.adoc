@@ -1738,6 +1738,23 @@ Bundler.require(platform)
 Do not remove the `Gemfile.lock` from version control.
 This is not some randomly generated file - it makes sure that all of your team members get the same gem versions when they do a `bundle install`.
 
+== Testing
+
+=== Integration Testing
+
+Prefer integration style controller tests over functional style controller tests, https://api.rubyonrails.org/v7.0.0/classes/ActionController/TestCase.html[as recommended in the Rails documentation].
+
+[source,ruby]
+----
+# bad
+class MyControllerTest < ActionController::TestCase
+end
+
+# good
+class MyControllerTest < ActionDispatch::IntegrationTest
+end
+----
+
 == Managing Processes
 
 === Foreman [[foreman]]
