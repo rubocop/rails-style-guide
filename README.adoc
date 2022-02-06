@@ -175,11 +175,11 @@ Use nested routes to express better the relationship between Active Record model
 
 [source,ruby]
 ----
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_many :comments
 end
 
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   belongs_to :post
 end
 
@@ -398,7 +398,7 @@ Avoid altering Active Record defaults (table names, primary key, etc) unless you
 [source,ruby]
 ----
 # bad - don't do this if you can modify the schema
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
   self.table_name = 'order'
   ...
 end
@@ -412,7 +412,7 @@ lead to broken code.
 
 [source,ruby]
 ----
-class Transaction < ActiveRecord::Base
+class Transaction < ApplicationRecord
   # bad - implicit values - ordering matters
   enum type: %i[credit debit]
 
@@ -430,7 +430,7 @@ Group macro-style methods (`has_many`, `validates`, etc) in the beginning of the
 
 [source,ruby]
 ----
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # keep the default scope first (if any)
   default_scope { where(active: true) }
 
@@ -475,26 +475,26 @@ Using `has_many :through` allows additional attributes and validations on the jo
 [source,ruby]
 ----
 # not so good - using has_and_belongs_to_many
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_and_belongs_to_many :groups
 end
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   has_and_belongs_to_many :users
 end
 
 # preferred way - using has_many :through
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_many :memberships
   has_many :groups, through: :memberships
 end
 
-class Membership < ActiveRecord::Base
+class Membership < ApplicationRecord
   belongs_to :user
   belongs_to :group
 end
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   has_many :memberships
   has_many :users, through: :memberships
 end
@@ -626,7 +626,7 @@ Use named scopes freely.
 
 [source,ruby]
 ----
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
 
@@ -641,7 +641,7 @@ Arguably you can define even simpler scopes like this.
 
 [source,ruby]
 ----
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   def self.with_orders
     joins(:orders).select('distinct(users.id)')
   end
@@ -788,12 +788,12 @@ Define the `dependent` option to the `has_many` and `has_one` associations.
 [source,ruby]
 ----
 # bad
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_many :comments
 end
 
 # good
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 end
 ----
@@ -1042,7 +1042,7 @@ Enforce default values in the migrations themselves instead of in the applicatio
 [source,ruby]
 ----
 # bad - application enforced default value
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   def amount
     self[:amount] || 0
   end
