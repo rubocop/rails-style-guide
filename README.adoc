@@ -59,14 +59,8 @@ gem install rouge
 
 Translations of the guide are available in the following languages:
 
-* https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhCN.md[Chinese Simplified]
-* https://github.com/JuanitoFatas/rails-style-guide/blob/master/README-zhTW.md[Chinese Traditional]
 * https://github.com/satour/rails-style-guide/blob/master/README-jaJA.md[Japanese]
 * https://github.com/arbox/rails-style-guide/blob/master/README-ruRU.md[Russian]
-* https://github.com/tolgaavci/rails-style-guide/blob/master/README-trTR.md[Turkish]
-* https://github.com/pureugong/rails-style-guide/blob/master/README-koKR.md[Korean]
-* https://github.com/CQBinh/rails-style-guide/blob/master/README-viVN.md[Vietnamese]
-* https://github.com/abraaomiranda/rails-style-guide/blob/master/README-ptBR.md[Portuguese (pt-BR)]
 
 TIP: https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rails[`rubocop-rails`] extension, based on this style guide.
 
