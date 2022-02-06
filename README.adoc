@@ -26,7 +26,7 @@ TIP: You can find a beautiful version of this guide with much improved navigatio
 endif::[]
 
 The goal of this guide is to present a set of best practices and style prescriptions for Ruby on Rails development.
-It's a complementary guide to the already existing community-driven https://github.com/rubocop-hq/ruby-style-guide[Ruby coding style guide].
+It's a complementary guide to the already existing community-driven https://github.com/rubocop/ruby-style-guide[Ruby coding style guide].
 
 This Rails style guide recommends best practices so that real-world Rails programmers can write code that can be maintained by other real-world Rails programmers.
 A style guide that reflects real-world usage gets used, and a style guide that holds to an ideal that has been rejected by the people it is supposed to help risks not getting used at all - no matter how good it is.
@@ -70,7 +70,7 @@ Translations of the guide are available in the following languages:
 * https://github.com/CQBinh/rails-style-guide/blob/master/README-viVN.md[Vietnamese]
 * https://github.com/abraaomiranda/rails-style-guide/blob/master/README-ptBR.md[Portuguese (pt-BR)]
 
-TIP: https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rails[`rubocop-rails`] extension, based on this style guide.
+TIP: https://github.com/rubocop/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop/rubocop-rails[`rubocop-rails`] extension, based on this style guide.
 
 == Configuration
 
@@ -1787,7 +1787,7 @@ You can also support the project (and RuboCop) with financial contributions via 
 
 It's easy, just follow the contribution guidelines below:
 
-* https://help.github.com/articles/fork-a-repo[Fork] the https://github.com/rubocop-hq/rails-style-guide[project] on GitHub
+* https://help.github.com/articles/fork-a-repo[Fork] the https://github.com/rubocop/rails-style-guide[project] on GitHub
 * Make your feature addition or bug fix in a feature branch.
 * Include a http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[good description] of your changes
 * Push your feature branch to GitHub
