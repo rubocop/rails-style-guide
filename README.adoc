@@ -1575,6 +1575,25 @@ hash.exclude?(:key)
 string.exclude?('substring')
 ----
 
+=== Prefer `to_fs` for Formatted Strings [[prefer-to-fs]]
+
+If you're using Rails 7.0 or higher, prefer `to_fs` over `to_formatted_s`. `to_formatted_s` is just too cumbersome for a method used that frequently.
+
+[source,ruby]
+----
+# bad
+time.to_formatted_s(:db)
+date.to_formatted_s(:db)
+datetime.to_formatted_s(:db)
+42.to_formatted_s(:human)
+
+# good
+time.to_fs(:db)
+date.to_fs(:db)
+datetime.to_fs(:db)
+42.to_fs(:human)
+----
+
 == Time
 
 === Time Zone Config [[tz-config]]
