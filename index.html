@@ -801,6 +801,7 @@ pre.rouge {
 <li><a href="#active_support_extensions">Active Support Extensions</a></li>
 <li><a href="#inquiry"><code>inquiry</code></a></li>
 <li><a href="#exclude"><code>exclude?</code></a></li>
+<li><a href="#prefer-to-fs">Prefer <code>to_fs</code> for Formatted Strings</a></li>
 </ul>
 </li>
 <li><a href="#time">Time</a>
@@ -2716,6 +2717,27 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="prefer-to-fs"><a class="anchor" href="#prefer-to-fs"></a><a class="link" href="#prefer-to-fs">Prefer <code>to_fs</code> for Formatted Strings</a></h3>
+<div class="paragraph">
+<p>If you&#8217;re using Rails 7.0 or higher, prefer <code>to_fs</code> over <code>to_formatted_s</code>. <code>to_formatted_s</code> is just too cumbersome for a method used that frequently.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">time</span><span class="p">.</span><span class="nf">to_formatted_s</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">to_formatted_s</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="n">datetime</span><span class="p">.</span><span class="nf">to_formatted_s</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="mi">42</span><span class="p">.</span><span class="nf">to_formatted_s</span><span class="p">(</span><span class="ss">:human</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="n">time</span><span class="p">.</span><span class="nf">to_fs</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">to_fs</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="n">datetime</span><span class="p">.</span><span class="nf">to_fs</span><span class="p">(</span><span class="ss">:db</span><span class="p">)</span>
+<span class="mi">42</span><span class="p">.</span><span class="nf">to_fs</span><span class="p">(</span><span class="ss">:human</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3012,7 +3034,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-14 02:38:50 UTC
+Last updated 2022-04-20 16:19:34 UTC
 </div>
 </div>
 </body>
