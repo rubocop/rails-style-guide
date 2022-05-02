@@ -1041,6 +1041,33 @@ User.all.size
 User.all.length
 ----
 
+=== Where with Ranges [[where-ranges]]
+
+Use ranges instead of defining comparative conditions using a template for scalar values.
+
+[source,ruby]
+----
+# bad
+User.where("created_at > ?", 30.days.ago).where("created_at < ?", 7.days.ago)
+User.where("created_at > ? AND created_at < ?", 30.days.ago, 7.days.ago)
+User.where("created_at > :start AND created_at < end", start: 30.days.ago, end: 7.days.ago)
+
+# good
+User.where(created_at: 30.days.ago..7.days.ago)
+
+# bad
+User.where("created_at > ?", 7.days.ago)
+
+# good
+User.where(created_at: 7.days.ago..)
+
+# okish - there is no range syntax that would denote inclusion on one end and
+# exclusion on another.
+Customer.where("purchases_count > :min AND purchases_count <= :max", min: 0, max: 5)
+----
+
+NOTE: Rails 6.0 or later is required for endless range Ruby 2.6 syntax, and Rails 6.0.3 for beginless range Ruby 2.7 syntax.
+
 == Migrations
 
 === Schema Version [[schema-version]]
