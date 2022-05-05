@@ -702,6 +702,7 @@ pre.rouge {
 <li><a href="#activerecord">Models: Active Record</a>
 <ul class="sectlevel2">
 <li><a href="#keep-ar-defaults">Keep Active Record Defaults</a></li>
+<li><a href="#append-ignored-columns">Always append to <code>ignored_columns</code></a></li>
 <li><a href="#enums">Enums</a></li>
 <li><a href="#macro-style-methods">Macro Style Methods</a></li>
 <li><a href="#has-many-through"><code>has_many :through</code></a></li>
@@ -1352,6 +1353,24 @@ Keep your models for business logic and data-persistence only.</p>
 <pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - don't do this if you can modify the schema</span>
 <span class="k">class</span> <span class="nc">Transaction</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'order'</span>
+  <span class="o">...</span>
+<span class="k">end</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="append-ignored-columns"><a class="anchor" href="#append-ignored-columns"></a><a class="link" href="#append-ignored-columns">Always append to <code>ignored_columns</code></a></h3>
+<div class="paragraph">
+<p>Avoid setting <code>ignored_columns</code>. It may overwrite previous assignments and that is almost always a mistake. Prefer appending to the list instead.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Transaction</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="c1"># bad - it may overwrite previous assignments</span>
+  <span class="nb">self</span><span class="p">.</span><span class="nf">ignored_columns</span> <span class="o">=</span> <span class="sx">%i[legacy]</span>
+
+  <span class="c1"># good - the value is appended to the list</span>
+  <span class="nb">self</span><span class="p">.</span><span class="nf">ignored_columns</span> <span class="o">+=</span> <span class="sx">%i[legacy]</span>
   <span class="o">...</span>
 <span class="k">end</span></code></pre>
 </div>
@@ -3034,7 +3053,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-04-27 14:06:11 UTC
+Last updated 2022-05-05 10:29:28 UTC
 </div>
 </div>
 </body>
