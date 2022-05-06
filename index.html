@@ -2432,7 +2432,7 @@ Place the locale files for the models in a folder <code>locales/models</code> an
 <div class="sect2">
 <h3 id="lazy-lookup"><a class="anchor" href="#lazy-lookup"></a><a class="link" href="#lazy-lookup">Lazy Lookup</a></h3>
 <div class="paragraph">
-<p>Use "lazy" lookup for the texts used in views. Let&#8217;s say we have the following structure:</p>
+<p>Use "lazy" lookup for locale entries from views and controllers. Let&#8217;s say we have the following structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2447,15 +2447,19 @@ Place the locale files for the models in a folder <code>locales/models</code> an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="o">=</span> <span class="n">t</span> <span class="s1">'.title'</span></code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="o">=</span> <span class="n">t</span> <span class="s1">'users.show.title'</span>
+
+<span class="c1"># good</span>
+<span class="o">=</span> <span class="n">t</span> <span class="s1">'.title'</span></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="dot-separated-keys"><a class="anchor" href="#dot-separated-keys"></a><a class="link" href="#dot-separated-keys">Dot-separated Keys</a></h3>
 <div class="paragraph">
-<p>Use the dot-separated keys in the controllers and models instead of specifying the <code>:scope</code> option.
-The dot-separated call is easier to read and trace the hierarchy.</p>
+<p>Use dot-separated locale keys instead of specifying the <code>:scope</code> option with an array or a single symbol.
+Dot-separated notation is easier to read and trace the hierarchy.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2463,7 +2467,14 @@ The dot-separated call is easier to read and trace the hierarchy.</p>
 <span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="ss">:record_invalid</span><span class="p">,</span> <span class="ss">scope: </span><span class="p">[</span><span class="ss">:activerecord</span><span class="p">,</span> <span class="ss">:errors</span><span class="p">,</span> <span class="ss">:messages</span><span class="p">]</span>
 
 <span class="c1"># good</span>
-<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="s1">'activerecord.errors.messages.record_invalid'</span></code></pre>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="ss">:record_invalid</span><span class="p">,</span> <span class="ss">scope: </span><span class="s1">'activerecord.errors.messages'</span>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="s1">'activerecord.errors.messages.record_invalid'</span>
+
+<span class="c1"># bad</span>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">scope: :invitation</span>
+
+<span class="c1"># good</span>
+<span class="no">I18n</span><span class="p">.</span><span class="nf">t</span> <span class="s1">'title.invitation'</span></code></pre>
 </div>
 </div>
 </div>
@@ -3053,7 +3064,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-05 10:29:28 UTC
+Last updated 2022-05-06 07:50:01 UTC
 </div>
 </div>
 </body>
