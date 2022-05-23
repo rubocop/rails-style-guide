@@ -870,14 +870,14 @@ Consider using named placeholders instead of positional placeholders when you ha
 ----
 # okish
 Client.where(
-  'created_at >= ? AND created_at <= ?',
-  params[:start_date], params[:end_date]
+  'orders_count >= ? AND country_code = ?',
+  params[:min_orders_count], params[:country_code]
 )
 
 # good
 Client.where(
-  'created_at >= :start_date AND created_at <= :end_date',
-  start_date: params[:start_date], end_date: params[:end_date]
+  'orders_count >= :min_orders_count AND country_code = :country_code',
+  min_orders_count: params[:min_orders_count], country_code: params[:country_code]
 )
 ----
 
