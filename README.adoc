@@ -1602,6 +1602,28 @@ hash.exclude?(:key)
 string.exclude?('substring')
 ----
 
+=== Prefer using squiggly heredoc over `strip_heredoc` [[prefer-squiggly-heredoc]]
+
+If you're using Ruby 2.3 or higher, prefer squiggly heredoc (`<<~`) over Active Support's `strip_heredoc`.
+
+[source,ruby]
+----
+# bad
+<<EOS.strip_heredoc
+  some text
+EOS
+
+# bad
+<<-EOS.strip_heredoc
+  some text
+EOS
+
+# good
+<<~EOS
+  some text
+EOS
+----
+
 === Prefer `to_fs` for Formatted Strings [[prefer-to-fs]]
 
 If you're using Rails 7.0 or higher, prefer `to_fs` over `to_formatted_s`. `to_formatted_s` is just too cumbersome for a method used that frequently.
