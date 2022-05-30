@@ -802,6 +802,7 @@ pre.rouge {
 <li><a href="#active_support_extensions">Active Support Extensions</a></li>
 <li><a href="#inquiry"><code>inquiry</code></a></li>
 <li><a href="#exclude"><code>exclude?</code></a></li>
+<li><a href="#prefer-squiggly-heredoc">Prefer using squiggly heredoc over <code>strip_heredoc</code></a></li>
 <li><a href="#prefer-to-fs">Prefer <code>to_fs</code> for Formatted Strings</a></li>
 </ul>
 </li>
@@ -2748,6 +2749,30 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 <div class="sect2">
+<h3 id="prefer-squiggly-heredoc"><a class="anchor" href="#prefer-squiggly-heredoc"></a><a class="link" href="#prefer-squiggly-heredoc">Prefer using squiggly heredoc over <code>strip_heredoc</code></a></h3>
+<div class="paragraph">
+<p>If you&#8217;re using Ruby 2.3 or higher, prefer squiggly heredoc (<code>&lt;&lt;~</code>) over Active Support&#8217;s <code>strip_heredoc</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="o">&lt;&lt;</span><span class="no">EOS</span><span class="p">.</span><span class="nf">strip_heredoc</span><span class="sh">
+  some text
+</span><span class="no">EOS</span>
+
+<span class="c1"># bad</span>
+<span class="o">&lt;&lt;-</span><span class="no">EOS</span><span class="p">.</span><span class="nf">strip_heredoc</span><span class="sh">
+  some text
+</span><span class="no">EOS</span>
+
+<span class="c1"># good</span>
+<span class="o">&lt;&lt;~</span><span class="no">EOS</span><span class="sh">
+  some text
+</span><span class="no">EOS</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="prefer-to-fs"><a class="anchor" href="#prefer-to-fs"></a><a class="link" href="#prefer-to-fs">Prefer <code>to_fs</code> for Formatted Strings</a></h3>
 <div class="paragraph">
 <p>If you&#8217;re using Rails 7.0 or higher, prefer <code>to_fs</code> over <code>to_formatted_s</code>. <code>to_formatted_s</code> is just too cumbersome for a method used that frequently.</p>
@@ -3064,7 +3089,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-06 07:50:01 UTC
+Last updated 2022-05-30 01:50:38 UTC
 </div>
 </div>
 </body>
