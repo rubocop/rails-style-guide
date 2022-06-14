@@ -1791,6 +1791,24 @@ class MyControllerTest < ActionDispatch::IntegrationTest
 end
 ----
 
+=== `freeze_time` [[freeze-time]]
+
+Prefer https://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html#method-i-freeze_time[ActiveSupport::Testing::TimeHelpers#freeze_time] over https://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html#method-i-travel_to[ActiveSupport::Testing::TimeHelpers#travel_to] with an argument of the current time.
+
+[source,ruby]
+----
+# bad
+travel_to(Time.now)
+travel_to(DateTime.now)
+travel_to(Time.current)
+travel_to(Time.zone.now)
+travel_to(Time.now.in_time_zone)
+travel_to(Time.current.to_time)
+
+# good
+freeze_time
+----
+
 == Managing Processes
 
 === Foreman [[foreman]]
