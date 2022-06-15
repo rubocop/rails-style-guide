@@ -738,6 +738,7 @@ pre.rouge {
 <li><a href="#ids"><code>ids</code></a></li>
 <li><a href="#squished-heredocs">Squished Heredocs</a></li>
 <li><a href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></li>
+<li><a href="#where-ranges">Where with Ranges</a></li>
 </ul>
 </li>
 <li><a href="#migrations">Migrations</a>
@@ -1889,14 +1890,14 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 <div class="content">
 <pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># okish</span>
 <span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span>
-  <span class="s1">'created_at &gt;= ? AND created_at &lt;= ?'</span><span class="p">,</span>
-  <span class="n">params</span><span class="p">[</span><span class="ss">:start_date</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="ss">:end_date</span><span class="p">]</span>
+  <span class="s1">'orders_count &gt;= ? AND country_code = ?'</span><span class="p">,</span>
+  <span class="n">params</span><span class="p">[</span><span class="ss">:min_orders_count</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="ss">:country_code</span><span class="p">]</span>
 <span class="p">)</span>
 
 <span class="c1"># good</span>
 <span class="no">Client</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span>
-  <span class="s1">'created_at &gt;= :start_date AND created_at &lt;= :end_date'</span><span class="p">,</span>
-  <span class="ss">start_date: </span><span class="n">params</span><span class="p">[</span><span class="ss">:start_date</span><span class="p">],</span> <span class="ss">end_date: </span><span class="n">params</span><span class="p">[</span><span class="ss">:end_date</span><span class="p">]</span>
+  <span class="s1">'orders_count &gt;= :min_orders_count AND country_code = :country_code'</span><span class="p">,</span>
+  <span class="ss">min_orders_count: </span><span class="n">params</span><span class="p">[</span><span class="ss">:min_orders_count</span><span class="p">],</span> <span class="ss">country_code: </span><span class="n">params</span><span class="p">[</span><span class="ss">:country_code</span><span class="p">]</span>
 <span class="p">)</span></code></pre>
 </div>
 </div>
@@ -2079,6 +2080,45 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
 <span class="c1"># good - if you really need to load all users into memory</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">length</span></code></pre>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="where-ranges"><a class="anchor" href="#where-ranges"></a><a class="link" href="#where-ranges">Where with Ranges</a></h3>
+<div class="paragraph">
+<p>Use ranges instead of defining comparative conditions using a template for scalar values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ? AND created_at &lt; ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; :start AND created_at &lt; end"</span><span class="p">,</span> <span class="ss">start: </span><span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="ss">end: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+
+<span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span><span class="p">)</span>
+
+<span class="c1"># okish - there is no range syntax that would denote inclusion on one end and</span>
+<span class="c1"># exclusion on another.</span>
+<span class="no">Customer</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"purchases_count &gt; :min AND purchases_count &lt;= :max"</span><span class="p">,</span> <span class="ss">min: </span><span class="mi">0</span><span class="p">,</span> <span class="ss">max: </span><span class="mi">5</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Rails 6.0 or later is required for endless range Ruby 2.6 syntax, and Rails 6.0.3 for beginless range Ruby 2.7 syntax.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -3110,7 +3150,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-15 08:06:14 UTC
+Last updated 2022-06-15 08:07:26 UTC
 </div>
 </div>
 </body>
