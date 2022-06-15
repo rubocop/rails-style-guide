@@ -830,6 +830,7 @@ pre.rouge {
 <li><a href="#testing">Testing</a>
 <ul class="sectlevel2">
 <li><a href="#integration-testing">Integration Testing</a></li>
+<li><a href="#freeze-time"><code>freeze_time</code></a></li>
 </ul>
 </li>
 <li><a href="#managing-processes">Managing Processes</a>
@@ -2975,6 +2976,26 @@ This is not some randomly generated file - it makes sure that all of your team m
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="freeze-time"><a class="anchor" href="#freeze-time"></a><a class="link" href="#freeze-time"><code>freeze_time</code></a></h3>
+<div class="paragraph">
+<p>Prefer <a href="https://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html#method-i-freeze_time">ActiveSupport::Testing::TimeHelpers#freeze_time</a> over <a href="https://api.rubyonrails.org/classes/ActiveSupport/Testing/TimeHelpers.html#method-i-travel_to">ActiveSupport::Testing::TimeHelpers#travel_to</a> with an argument of the current time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">DateTime</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">in_time_zone</span><span class="p">)</span>
+<span class="n">travel_to</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">.</span><span class="nf">to_time</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="n">freeze_time</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3089,7 +3110,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-05-30 01:50:38 UTC
+Last updated 2022-06-15 08:06:14 UTC
 </div>
 </div>
 </body>
