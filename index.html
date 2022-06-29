@@ -732,6 +732,7 @@ pre.rouge {
 <li><a href="#find"><code>find</code></a></li>
 <li><a href="#find_by"><code>find_by</code></a></li>
 <li><a href="#hash-conditions">Hash conditions </a></li>
+<li><a href="#finding-missing-relationship-records">Finding missing relationship records</a></li>
 <li><a href="#order-by-id">Order by <code>id</code></a></li>
 <li><a href="#pluck"><code>pluck</code></a></li>
 <li><a href="#pick"><code>pick</code></a></li>
@@ -1966,6 +1967,21 @@ This applies to <code>create</code>, <code>save</code>, <code>update</code>, <co
 </div>
 </div>
 <div class="sect2">
+<h3 id="finding-missing-relationship-records"><a class="anchor" href="#finding-missing-relationship-records"></a><a class="link" href="#finding-missing-relationship-records">Finding missing relationship records</a></h3>
+<div class="paragraph">
+<p>If you&#8217;re using Rails 6.1 or higher, use <a href="https://api.rubyonrails.org/classes/ActiveRecord/QueryMethods/WhereChain.html#method-i-missing">where.missing</a> to find missing relationship records.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">Post</span><span class="p">.</span><span class="nf">left_joins</span><span class="p">(</span><span class="ss">:author</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">authors: </span><span class="p">{</span> <span class="ss">id: </span><span class="kp">nil</span> <span class="p">})</span>
+
+<span class="c1"># good</span>
+<span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">missing</span><span class="p">(</span><span class="ss">:author</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="order-by-id"><a class="anchor" href="#order-by-id"></a><a class="link" href="#order-by-id">Order by <code>id</code></a></h3>
 <div class="paragraph">
 <p>Don&#8217;t use the <code>id</code> column for ordering.
@@ -3150,7 +3166,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-15 08:07:26 UTC
+Last updated 2022-06-29 16:46:28 UTC
 </div>
 </div>
 </body>
