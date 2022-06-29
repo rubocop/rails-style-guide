@@ -938,6 +938,19 @@ User.where("id != ?", id)
 User.where.not(id: id)
 ----
 
+=== Finding missing relationship records [[finding-missing-relationship-records]]
+
+If you're using Rails 6.1 or higher, use https://api.rubyonrails.org/classes/ActiveRecord/QueryMethods/WhereChain.html#method-i-missing[where.missing] to find missing relationship records.
+
+[source,ruby]
+----
+# bad
+Post.left_joins(:author).where(authors: { id: nil })
+
+# good
+Post.where.missing(:author)
+----
+
 === Order by `id` [[order-by-id]]
 
 Don't use the `id` column for ordering.
