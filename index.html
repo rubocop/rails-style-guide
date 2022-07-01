@@ -814,6 +814,7 @@ pre.rouge {
 <li><a href="#time-parse"><code>Time.parse</code></a></li>
 <li><a href="#to-time"><code>to_time</code></a></li>
 <li><a href="#time-now"><code>Time.now</code></a></li>
+<li><a href="#date-time-range">Prefer <code>all_(day|week|month|quarter|year)</code> over range of date/time</a></li>
 </ul>
 </li>
 <li><a href="#duration">Duration</a>
@@ -2914,6 +2915,30 @@ To overcome this emails can be sent in background process with the help of <a hr
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="date-time-range"><a class="anchor" href="#date-time-range"></a><a class="link" href="#date-time-range">Prefer <code>all_(day|week|month|quarter|year)</code> over range of date/time</a></h3>
+<div class="paragraph">
+<p>Prefer <code>all_(day|week|month|quarter|year)</code> over <code>beginning_of_(day|week|month|quarter|year)..end_of_(day|week|month|quarter|year)</code>
+to get the range of date/time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">beginning_of_day</span><span class="o">..</span><span class="n">date</span><span class="p">.</span><span class="nf">end_of_day</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">beginning_of_week</span><span class="o">..</span><span class="n">date</span><span class="p">.</span><span class="nf">end_of_week</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">beginning_of_month</span><span class="o">..</span><span class="n">date</span><span class="p">.</span><span class="nf">end_of_month</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">beginning_of_quarter</span><span class="o">..</span><span class="n">date</span><span class="p">.</span><span class="nf">end_of_quarter</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">beginning_of_year</span><span class="o">..</span><span class="n">date</span><span class="p">.</span><span class="nf">end_of_year</span>
+
+<span class="c1"># good</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">all_day</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">all_week</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">all_month</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">all_quarter</span>
+<span class="n">date</span><span class="p">.</span><span class="nf">all_year</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3166,7 +3191,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-06-29 16:46:28 UTC
+Last updated 2022-07-01 23:11:24 UTC
 </div>
 </div>
 </body>
