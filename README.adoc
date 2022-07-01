@@ -1736,6 +1736,28 @@ Time.zone.now # => Fri, 12 Mar 2014 22:04:47 EET +02:00
 Time.current # Same thing but shorter.
 ----
 
+=== Prefer `all_(day|week|month|quarter|year)` over range of date/time [[date-time-range]]
+
+Prefer `all_(day|week|month|quarter|year)` over `beginning_of_(day|week|month|quarter|year)..end_of_(day|week|month|quarter|year)`
+to get the range of date/time.
+
+[source,ruby]
+----
+# bad
+date.beginning_of_day..date.end_of_day
+date.beginning_of_week..date.end_of_week
+date.beginning_of_month..date.end_of_month
+date.beginning_of_quarter..date.end_of_quarter
+date.beginning_of_year..date.end_of_year
+
+# good
+date.all_day
+date.all_week
+date.all_month
+date.all_quarter
+date.all_year
+----
+
 == Duration
 
 === Duration Application
