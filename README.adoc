@@ -1,4 +1,4 @@
-= The Rails Style Guide
+= Rails Style Guide
 :idprefix:
 :idseparator: -
 :sectanchors:
