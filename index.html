@@ -2107,21 +2107,26 @@ This allows you to legibly format the SQL with line breaks and indentations, whi
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ? AND created_at &lt; ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; :start AND created_at &lt; end"</span><span class="p">,</span> <span class="ss">start: </span><span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="ss">end: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt;= ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt;= ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt;= ? AND created_at &lt;= ?"</span><span class="p">,</span> <span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt;= :start AND created_at &lt;= :end"</span><span class="p">,</span> <span class="ss">start: </span><span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">,</span> <span class="ss">end: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
 
 <span class="c1"># good</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">30</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
 
 <span class="c1"># bad</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt;= ?"</span><span class="p">,</span> <span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>
 
 <span class="c1"># good</span>
 <span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span><span class="p">)</span>
 
-<span class="c1"># okish - there is no range syntax that would denote inclusion on one end and</span>
-<span class="c1"># exclusion on another.</span>
+<span class="c1"># note - ranges are inclusive or exclusive of their ending, not beginning</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span><span class="p">)</span>  <span class="c1"># produces &gt;=</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="o">...</span><span class="p">)</span> <span class="c1"># also produces &gt;=</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="o">..</span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span>  <span class="c1"># inclusive: produces &lt;=</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">created_at: </span><span class="o">...</span><span class="mi">7</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">ago</span><span class="p">)</span> <span class="c1"># exclusive: produces &lt;</span>
+
+<span class="c1"># okish - there is no range syntax that would denote exclusion at the beginning of the range</span>
 <span class="no">Customer</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"purchases_count &gt; :min AND purchases_count &lt;= :max"</span><span class="p">,</span> <span class="ss">min: </span><span class="mi">0</span><span class="p">,</span> <span class="ss">max: </span><span class="mi">5</span><span class="p">)</span></code></pre>
 </div>
 </div>
@@ -3191,7 +3196,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-08-03 16:01:20 UTC
+Last updated 2022-09-06 07:19:59 UTC
 </div>
 </div>
 </body>
