@@ -740,6 +740,7 @@ pre.rouge {
 <li><a href="#squished-heredocs">Squished Heredocs</a></li>
 <li><a href="#size-over-count-or-length"><code>size</code> over <code>count</code> or <code>length</code></a></li>
 <li><a href="#where-ranges">Where with Ranges</a></li>
+<li><a href="#where-not-with-multiple-attributes"><code>where.not</code> with multiple attributes</a></li>
 </ul>
 </li>
 <li><a href="#migrations">Migrations</a>
@@ -2143,6 +2144,23 @@ Rails 6.0 or later is required for endless range Ruby 2.6 syntax, and Rails 6.0.
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="where-not-with-multiple-attributes"><a class="anchor" href="#where-not-with-multiple-attributes"></a><a class="link" href="#where-not-with-multiple-attributes"><code>where.not</code> with multiple attributes</a></h3>
+<div class="paragraph">
+<p>Avoid passing multiple attributes to <code>where.not</code>. Rails logic in this case has changed in Rails 6.1 and
+will now yield results matching either of those conditions,
+e.g. <code>where.not(status: 'active', plan: 'basic')</code> would return records with active status when the plan is business.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">,</span> <span class="ss">plan: </span><span class="s1">'basic'</span><span class="p">)</span>
+
+<span class="c1"># good</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">.</span><span class="nf">not</span><span class="p">(</span><span class="s1">'status = ? AND plan = ?'</span><span class="p">,</span> <span class="s1">'active'</span><span class="p">,</span> <span class="s1">'basic'</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3196,7 +3214,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-12-03 17:10:42 UTC
+Last updated 2023-04-14 16:05:10 UTC
 </div>
 </div>
 </body>
