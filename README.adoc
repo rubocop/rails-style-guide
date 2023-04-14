@@ -1086,6 +1086,21 @@ Customer.where("purchases_count > :min AND purchases_count <= :max", min: 0, max
 
 NOTE: Rails 6.0 or later is required for endless range Ruby 2.6 syntax, and Rails 6.0.3 for beginless range Ruby 2.7 syntax.
 
+=== `where.not` with multiple attributes
+
+Avoid passing multiple attributes to `where.not`. Rails logic in this case has changed in Rails 6.1 and
+will now yield results matching either of those conditions,
+e.g. `where.not(status: 'active', plan: 'basic')` would return records with active status when the plan is business.
+
+[source, ruby]
+----
+# bad
+User.where.not(status: 'active', plan: 'basic')
+
+# good
+User.where.not('status = ? AND plan = ?', 'active', 'basic')
+----
+
 == Migrations
 
 === Schema Version [[schema-version]]
