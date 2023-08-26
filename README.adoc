@@ -1101,6 +1101,26 @@ User.where.not(status: 'active', plan: 'basic')
 User.where.not('status = ? AND plan = ?', 'active', 'basic')
 ----
 
+=== Redundant `all` [[redundant-all]]
+
+Using `all` as a receiver for Active Record query methods is redundant. 
+The result won't change without `all`, so it can be removed.
+
+[source, ruby]
+----
+# bad
+User.all.find(id)
+User.all.order(:created_at)
+users.all.where(id: ids)
+user.articles.all.order(:created_at)
+
+# good
+User.find(id)
+User.order(:created_at)
+users.where(id: ids)
+user.articles.order(:created_at)
+----
+
 == Migrations
 
 === Schema Version [[schema-version]]
