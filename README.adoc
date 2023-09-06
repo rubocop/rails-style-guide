@@ -1860,6 +1860,17 @@ Time.zone.now + 2.days
 2.days.from_now
 ----
 
+Use an instance of `ActiveSupport::Duration` as a receiver to calculate relative time.
+
+[source,ruby]
+----
+# bad - It's confusing to read
+created_at.since(1.minute)
+
+# good
+1.minute.since(created_at)
+----
+
 == Bundler
 
 === Dev/Test Gems [[dev-test-gems]]
