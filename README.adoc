@@ -1103,8 +1103,7 @@ User.where.not('status = ? AND plan = ?', 'active', 'basic')
 
 === Redundant `all` [[redundant-all]]
 
-Using `all` as a receiver for Active Record query methods is redundant. 
-The result won't change without `all`, so it can be removed.
+Using `all` as a receiver is redundant. The result won't change without `all`, so it should be removed.
 
 [source, ruby]
 ----
@@ -1120,6 +1119,17 @@ User.order(:created_at)
 users.where(id: ids)
 user.articles.order(:created_at)
 ----
+
+NOTE: When the receiver for `all` is an association, there are methods whose behavior changes by omitting `all`.
+
+The following methods behave differently without `all`:
+
+* `delete` - https://api.rubyonrails.org/classes/ActiveRecord/Persistence/ClassMethods.html#method-i-delete[with all] / https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-delete[without all]
+* `delete_all` - https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-delete_all[with all] / https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-delete_all[without all]
+* `destroy` - https://api.rubyonrails.org/classes/ActiveRecord/Persistence/ClassMethods.html#method-i-destroy[with all] / https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-destroy[without all]
+* `destroy_all` - https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-destroy_all[with all] / https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-destroy_all[without all]
+
+So, when considering removing `all` from the receiver of these methods, it is recommended to refer to the documentation to understand how the behavior changes.
 
 == Migrations
 
