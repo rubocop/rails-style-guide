@@ -1689,7 +1689,7 @@ If you're using Ruby 2.3 or higher, prefer squiggly heredoc (`<<~`) over Active 
 [source,ruby]
 ----
 # bad
-<<EOS.strip_heredoc
+<<~EOS.strip_heredoc
   some text
 EOS
 
