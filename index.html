@@ -2162,8 +2162,7 @@ e.g. <code>where.not(status: 'active', plan: 'basic')</code> would return record
 <div class="sect2">
 <h3 id="redundant-all"><a class="anchor" href="#redundant-all"></a><a class="link" href="#redundant-all">Redundant <code>all</code></a></h3>
 <div class="paragraph">
-<p>Using <code>all</code> as a receiver for Active Record query methods is redundant.
-The result won&#8217;t change without <code>all</code>, so it can be removed.</p>
+<p>Using <code>all</code> as a receiver is redundant. The result won&#8217;t change without <code>all</code>, so it should be removed.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2179,6 +2178,40 @@ The result won&#8217;t change without <code>all</code>, so it can be removed.</p
 <span class="n">users</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">id: </span><span class="n">ids</span><span class="p">)</span>
 <span class="n">user</span><span class="p">.</span><span class="nf">articles</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">)</span></code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+When the receiver for <code>all</code> is an association, there are methods whose behavior changes by omitting <code>all</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following methods behave differently without <code>all</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete</code> - <a href="https://api.rubyonrails.org/classes/ActiveRecord/Persistence/ClassMethods.html#method-i-delete">with all</a> / <a href="https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-delete">without all</a></p>
+</li>
+<li>
+<p><code>delete_all</code> - <a href="https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-delete_all">with all</a> / <a href="https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-delete_all">without all</a></p>
+</li>
+<li>
+<p><code>destroy</code> - <a href="https://api.rubyonrails.org/classes/ActiveRecord/Persistence/ClassMethods.html#method-i-destroy">with all</a> / <a href="https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-destroy">without all</a></p>
+</li>
+<li>
+<p><code>destroy_all</code> - <a href="https://api.rubyonrails.org/classes/ActiveRecord/Relation.html#method-i-destroy_all">with all</a> / <a href="https://api.rubyonrails.org/classes/ActiveRecord/Associations/CollectionProxy.html#method-i-destroy_all">without all</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So, when considering removing <code>all</code> from the receiver of these methods, it is recommended to refer to the documentation to understand how the behavior changes.</p>
 </div>
 </div>
 </div>
@@ -3234,7 +3267,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-19 08:48:30 UTC
+Last updated 2023-11-15 15:32:52 UTC
 </div>
 </div>
 </body>
