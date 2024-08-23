@@ -231,23 +231,6 @@ match ':controller(/:action(/:id(.:format)))'
 
 Don't use `match` to define any routes unless there is need to map multiple request types among `[:get, :post, :patch, :put, :delete]` to a single action using `:via` option.
 
-=== HTTP URL [[http-url]]
-
-Prefer passing a string literal as a URL to HTTP methods to make the actual URL obvious and to facilitate tracking endpoint path changes.
-
-[source,ruby]
-----
-# bad
-get photos_path
-put photo_path(id)
-post edit_photo_path(id)
-
-# good
-get "/photos"
-put "/photos/#{id}"
-post "/photos/#{id}/edit"
-----
-
 == Controllers
 
 === Skinny Controllers [[skinny-controllers]]
@@ -1936,6 +1919,23 @@ travel_to(Time.current.to_time)
 
 # good
 freeze_time
+----
+
+=== HTTP URL [[http-url]]
+
+Prefer passing a string literal as a URL to HTTP methods to make the actual URL obvious and to facilitate tracking endpoint path changes.
+
+[source,ruby]
+----
+# bad
+get photos_path
+put photo_path(id)
+post edit_photo_path(id)
+
+# good
+get "/photos"
+put "/photos/#{id}"
+post "/photos/#{id}/edit"
 ----
 
 == Managing Processes
