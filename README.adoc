@@ -1808,6 +1808,23 @@ date.all_quarter
 date.all_year
 ----
 
+=== Time Comparison
+
+Use `past?` and `future?` methods instead of comparing time to the current time.
+
+[source,ruby]
+----
+# bad
+grand_opening_at < Time.current
+public_release_at > Time.current
+
+# good
+grand_opening_at.past?
+public_release_at.future?
+----
+
+NOTE: Rails 6.0 and later also provide `before?` and `after?` methods to compare two arbitrary time objects.
+
 == Duration
 
 === Duration Application
