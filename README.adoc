@@ -430,10 +430,10 @@ lead to broken code.
 ----
 class Transaction < ApplicationRecord
   # bad - implicit values - ordering matters
-  enum type: %i[credit debit]
+  enum :type, %i[credit debit]
 
   # good - explicit values - ordering does not matter
-  enum type: {
+  enum :type, {
     credit: 0,
     debit: 1
   }
