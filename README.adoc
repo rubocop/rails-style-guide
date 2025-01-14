@@ -1183,14 +1183,16 @@ create_table :users do |t|
   t.boolean :active
 end
 
-# bad - adding a boolean without a `NOT NULL` constraint or without a default value
+# bad - adding a boolean column without a `NOT NULL` constraint or without a default value to an existing table
 add_column :users, :active, :boolean
 add_column :users, :active, :boolean, null: false
 
-# good - boolean with a `NOT NULL` constraint, and a default value (`false` or `true`) for existing tables
+# good - boolean column with a `NOT NULL` constraint for new tables
 create_table :users do |t|
   t.boolean :active, null: false
 end
+
+# good - boolean column with a `NOT NULL` constraint, and a default value (`false` or `true`) for existing tables
 add_column :users, :active, :boolean, default: true, null: false
 add_column :users, :admin, :boolean, default: false, null: false
 ----
