@@ -1167,19 +1167,30 @@ And you'll have to consider the fact that most non-trivial apps share a database
 
 === 3-state Boolean [[three-state-boolean]]
 
-With SQL databases, if a boolean column is not given a default value, it will have three possible values: `true`, `false` and `NULL`.
+With SQL databases, if a boolean column is nullable, it will have three possible values: `true`, `false` and `NULL`.
 Boolean operators https://en.wikipedia.org/wiki/Three-valued_logic[work in unexpected ways] with `NULL`.
 
 For example in SQL queries, `true AND NULL` is `NULL` (not false), `true AND NULL OR false` is `NULL` (not false). This can make SQL queries return unexpected results.
 
-To avoid such situations, boolean columns should always have a default value and a `NOT NULL` constraint.
+To avoid such situations, boolean columns should always have a `NOT NULL` constraint.
+
+Note that when adding a boolean column to an existing table, a default value should be put in place. Otherwise the `NOT NULL` constraint will break for existing rows.
 
 [source,ruby]
 ----
-# bad - boolean without a default value
-add_column :users, :active, :boolean
+# bad - boolean column on a new table without a `NOT NULL` constraint
+create_table :users do |t|
+  t.boolean :active
+end
 
-# good - boolean with a default value (`false` or `true`) and with restricted `NULL`
+# bad - adding a boolean without a `NOT NULL` constraint or without a default value
+add_column :users, :active, :boolean
+add_column :users, :active, :boolean, null: false
+
+# good - boolean with a `NOT NULL` constraint, and a default value (`false` or `true`) for existing tables
+create_table :users do |t|
+  t.boolean :active, null: false
+end
 add_column :users, :active, :boolean, default: true, null: false
 add_column :users, :admin, :boolean, default: false, null: false
 ----
