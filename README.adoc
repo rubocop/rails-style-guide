@@ -967,6 +967,21 @@ scope :chronological, -> { order(id: :asc) }
 scope :chronological, -> { order(created_at: :asc) }
 ----
 
+=== Order arguments [[order-arguments]]
+
+Prefer symbol arguments over strings for ordering.
+
+String columns without a table name can cause an "ambiguous column name" error when ordering by a column that exists in multiple tables joined in the same query.
+
+[source,ruby]
+----
+# bad
+User.order('created_at DESC')
+
+# good
+User.order(created_at: :desc)
+----
+
 === `pluck`
 
 Use https://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-pluck[pluck] to select a single value from multiple records.
