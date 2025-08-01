@@ -1392,10 +1392,10 @@ lead to broken code.</p>
 <div class="content">
 <pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Transaction</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="c1"># bad - implicit values - ordering matters</span>
-  <span class="n">enum</span> <span class="ss">type: </span><span class="sx">%i[credit debit]</span>
+  <span class="n">enum</span> <span class="ss">:type</span><span class="p">,</span> <span class="sx">%i[credit debit]</span>
 
   <span class="c1"># good - explicit values - ordering does not matter</span>
-  <span class="n">enum</span> <span class="ss">type: </span><span class="p">{</span>
+  <span class="n">enum</span> <span class="ss">:type</span><span class="p">,</span> <span class="p">{</span>
     <span class="ss">credit: </span><span class="mi">0</span><span class="p">,</span>
     <span class="ss">debit: </span><span class="mi">1</span>
   <span class="p">}</span>
@@ -3268,7 +3268,7 @@ And we want to have the best possible guide, don&#8217;t we?</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-22 01:06:28 UTC
+Last updated 2025-08-01 15:51:49 UTC
 </div>
 </div>
 </body>
