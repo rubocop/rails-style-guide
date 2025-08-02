@@ -1823,7 +1823,7 @@ grand_opening_at.past?
 public_release_at.future?
 ----
 
-NOTE: Rails 6.0 and later also provide `before?` and `after?` methods to compare two arbitrary time objects.
+NOTE: `before?` and `after?` methods can compare two arbitrary time objects.
 
 == Duration
 
