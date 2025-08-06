@@ -1146,6 +1146,28 @@ The following methods behave differently without `all`:
 
 So, when considering removing `all` from the receiver of these methods, it is recommended to refer to the documentation to understand how the behavior changes.
 
+=== `find_by` memoization [[find-by-memoization]]
+
+Avoid memoizing `find_by` results with `||=`.
+`find_by` may return `nil`, in which case it will not be memoized as intended.
+
+[source,ruby]
+----
+# bad
+def current_user
+  @current_user ||= User.find_by(id: session[:user_id])
+end
+
+# good
+def current_user
+  if instance_variable_defined?(:@current_user)
+    @current_user
+  else
+    @current_user = User.find_by(id: session[:user_id])
+  end
+end
+----
+
 == Migrations
 
 === Schema Version [[schema-version]]
