@@ -266,6 +266,28 @@ class UsersController < ApplicationController
 end
 ----
 
+=== Action Filters Order [[action-filters-order]]
+
+Order controller filter declarations in the order in which they will be executed.
+For reference, see https://dev.to/timkrins/an-experiment-with-controller-action-callbacks-in-rails-c3p[An experiment with controller action callback order in Rails].
+
+[source,ruby]
+----
+# bad
+class UsersController < ApplicationController
+  after_action :after_action_filter
+  prepend_around_action :prepend_around_action_filter
+  before_action :before_action_filter
+end
+
+# good
+class UsersController < ApplicationController
+  before_action :before_action_filter
+  after_action :after_action_filter
+  prepend_around_action :prepend_around_action_filter
+end
+----
+
 == Controllers: Rendering [[rendering]]
 
 === Inline Rendering [[inline-rendering]]
