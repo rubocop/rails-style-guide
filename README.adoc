@@ -696,7 +696,7 @@ Article.first.decrement!(:view_count)
 DiscussionBoard.decrement_counter(:post_count, 5)
 Article.first.increment!(:view_count)
 DiscussionBoard.increment_counter(:post_count, 5)
-person.toggle :active
+person.toggle! :active
 product.touch
 Billing.update_all("category = 'authorized', author = 'David'")
 user.update_attribute(:website, 'example.com')
