@@ -814,6 +814,25 @@ class Post < ApplicationRecord
 end
 ----
 
+=== `accepts_nested_attributes_for` Update Only Option [[accepts_nested_attributes_for-update_only-option]]
+
+Define the `update_only` option to the `accepts_nested_attributes_for` attributes writers.
+
+[source,ruby]
+----
+# bad
+class Member < ApplicationRecord
+  has_one :avatar
+  accepts_nested_attributes_for :avatar
+end
+
+# good
+class Member < ApplicationRecord
+  has_one :avatar
+  accepts_nested_attributes_for :avatar, update_only: true
+end
+----
+
 === `save!` [[save-bang]]
 
 When persisting AR objects always use the exception raising bang! method or handle the method return value.
