@@ -1640,6 +1640,42 @@ Sending emails while generating page response should be avoided.
 It causes delays in loading of the page and request can timeout if multiple email are sent.
 To overcome this emails can be sent in background process with the help of https://github.com/mperham/sidekiq[sidekiq] gem.
 
+=== Enqueuing Many Emails at Once [[enqueuing-many-emails]]
+
+Prefer enqueuing many emails at once instead of one by one in a loop.
+This can greatly reduce the number of round-trips to the queue datastore.
+
+[source,ruby]
+----
+# bad
+users.each { |user| Notifier.welcome(user).deliver_later }
+
+# good
+emails = users.map { |user| Notifier.welcome(user) }
+ActionMailer.deliver_all_later(emails)
+----
+
+NOTE: Rails 8.1 or later is required for using `deliver_all_later`.
+
+== Jobs
+
+=== Enqueuing Many Jobs at Once [[enqueuing-many-jobs]]
+
+Prefer enqueuing many jobs at once instead of one by one in a loop.
+This can greatly reduce the number of round-trips to the queue datastore.
+
+[source,ruby]
+----
+# bad
+ids.each { |id| MyJob.perform_later(id) }
+
+# good
+jobs = ids.map { |id| MyJob.new(id) }
+ActiveJob.perform_all_later(jobs)
+----
+
+NOTE: Rails 7.1 or later is required for using `perform_all_later`.
+
 == Active Support Core Extensions
 
 === `try!` [[try-bang]]
