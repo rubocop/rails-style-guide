@@ -1069,6 +1069,25 @@ User.all.size
 User.all.length
 ----
 
+=== Check if the collection is empty [[check-empty-collection]]
+
+When checking if the unloaded Active Record collection is empty, prefer `any?`/`empty?` over `present?`/`blank?`. The former executes a simple `EXISTS`-like query while the latter loads the whole collection to determine its size.
+
+[source,ruby]
+----
+# bad
+users.where(active: true).present?
+users.where(active: true).blank?
+
+# good
+users.where(active: true).any?
+users.where(active: true).empty?
+
+# good - the collection is used after loading
+users.present?
+users.each(&:notify)
+----
+
 === Where with Ranges [[where-ranges]]
 
 Use ranges instead of defining comparative conditions using a template for scalar values.
