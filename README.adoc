@@ -745,6 +745,25 @@ end
 
 Check the https://github.com/norman/friendly_id[gem documentation] for more information about its usage.
 
+=== Avoid `Class#descendants` and `Class#subclasses` [[avoid-class-descendants]]
+
+Avoid using `Class#descendants` and `Class#subclasses` as they are unreliable for several reasons:
+
+* They don't know about things that have yet to be autoloaded
+* They're non-deterministic with regards to Garbage Collection of classes. If you use `Class#descendants` or `Class#subclasses` in tests, where there is a pattern to dynamically define classes, GC is unpredictable for when those classes are cleaned up and removed by the GC.
+
+[source,ruby]
+----
+# bad
+class Person < ApplicationRecord
+end
+
+class Employee < Person
+end
+
+Person.descendants # => Unreliable, may or may not include Employee
+----
+
 === `find_each` [[find-each]]
 
 Use `find_each` to iterate over a collection of AR objects.
