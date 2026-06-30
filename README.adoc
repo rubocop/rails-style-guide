@@ -1962,6 +1962,25 @@ freeze_time
 
 If your projects depends on various external processes use https://github.com/ddollar/foreman[foreman] to manage them.
 
+== Code loading [[code-loading]]
+
+=== Lazy load hooks
+
+Use https://api.rubyonrails.org/classes/ActiveSupport/LazyLoadHooks.html[lazy load hooks] to patch Rails core classes, so they are not forcibly loaded early.
+
+[source,ruby]
+----
+# bad
+ActiveRecord::Base.include(MyClass)
+
+# good
+ActiveSupport.on_load(:active_record) { include MyClass }
+----
+
+=== Zeitwerk check in CI
+
+Run `bin/rails zeitwerk:check` in your CI to ensure all application code is eager loaded correctly like in production.
+
 == Further Reading
 
 There are a few excellent resources on Rails style, that you should consider if you have time to spare:
