@@ -518,7 +518,7 @@ end
 
 === Read Attribute [[read-attribute]]
 
-Prefer `self[:attribute]` over `read_attribute(:attribute)`.
+Prefer `self[:attribute]` over `read_attribute(:attribute)`. The former raises an `ActiveModel::MissingAttributeError` if the attribute is missing, whereas the latter does not.
 
 [source,ruby]
 ----
