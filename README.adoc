@@ -1384,6 +1384,52 @@ class DropUsers < ActiveRecord::Migration
 end
 ----
 
+=== Avoid `in_batches` without `disable_ddl_transaction!` [[avoid-in-batches-without-disable-ddl-transaction]]
+
+When using `in_batches` in a migration, make sure to disable the DDL transaction by adding `disable_ddl_transaction!` to the migration class.
+If you don't disable the DDL transaction, the default DDL transaction will wrap the entire migration.
+This means `in_batches` will not commit work in smaller units and instead locks all touched records in the database in the same transaction.
+This leads to long locks and downtime on production databases.
+
+[source,ruby]
+----
+# bad - missing disable_ddl_transaction!
+class BackfillUsers < ActiveRecord::Migration
+  def up
+    User.in_batches do |batch|
+      batch.update_all(status: "active")
+    end
+  end
+end
+
+# good - in_batches commits work in smaller units of work
+class BackfillUsers < ActiveRecord::Migration
+  disable_ddl_transaction!
+
+  def up
+    User.in_batches do |batch|
+      batch.update_all(status: "active")
+    end
+  end
+end
+
+# bad - missing disable_ddl_transaction!
+class BackfillUsers < ActiveRecord::Migration
+  def up
+    User.in_batches.update_all(status: "active")
+  end
+end
+
+# good - in_batches commits work in smaller units of work
+class BackfillUsers < ActiveRecord::Migration
+  disable_ddl_transaction!
+
+  def up
+    User.in_batches.update_all(status: "active")
+  end
+end
+----
+
 == Views
 
 === No Direct Model View [[no-direct-model-view]]
