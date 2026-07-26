@@ -814,6 +814,32 @@ class Post < ApplicationRecord
 end
 ----
 
+=== ActiveStorage `dependent` Option [[activestorage-dependent-option]]
+
+For `has_one_attached` and `has_many_attached`, only `dependent: :purge_later` (the default) and `dependent: false` behave as documented.
+Rails stores the `dependent` value on the reflection, but its only consumer, `ActiveStorage::Attachment#purge_dependent_blob_later`, reads it with a strict equality check against `:purge_later`.
+Any other value (`:destroy`, `:purge`, `true`, `nil`, ...) silently skips the purge, leaving orphaned blobs and files behind when the record is destroyed.
+
+[source,ruby]
+----
+# bad - silently leaves orphaned blobs and files behind
+class User < ApplicationRecord
+  has_one_attached :avatar, dependent: :destroy
+  has_many_attached :documents, dependent: :purge
+end
+
+# good - purge the attached blobs when the record is destroyed
+class User < ApplicationRecord
+  has_one_attached :avatar
+  has_many_attached :documents, dependent: :purge_later
+end
+
+# good - intentionally keep the blobs
+class User < ApplicationRecord
+  has_one_attached :avatar, dependent: false
+end
+----
+
 === `save!` [[save-bang]]
 
 When persisting AR objects always use the exception raising bang! method or handle the method return value.
