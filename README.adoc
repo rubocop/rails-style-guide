@@ -1069,6 +1069,21 @@ User.all.size
 User.all.length
 ----
 
+=== Check if the collection is empty [[check-empty-collection]]
+
+When checking whether an `ActiveRecord::Relation` is empty, prefer `any?`/`empty?` (or `none?`) over `present?`/`blank?`. If the relation is loaded, both variants are equally fast, but if not, the former uses an efficient `EXISTS`/`SELECT 1 … LIMIT 1` query while the latter loads all matching records into memory. (Note: `any?` is only efficient without a block.)
+
+[source,ruby]
+----
+# bad
+user.articles.present?
+user.articles.blank?
+
+# good
+user.articles.any?
+user.articles.empty?
+----
+
 === Where with Ranges [[where-ranges]]
 
 Use ranges instead of defining comparative conditions using a template for scalar values.
