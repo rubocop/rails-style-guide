@@ -1344,6 +1344,31 @@ class AddFkArticlesToAuthors < ActiveRecord::Migration
 end
 ----
 
+=== Date and Time Columns Naming [[date-and-time-columns-naming]]
+
+Name `date` columns with `_on` suffixes.
+Name `datetime` columns with `_at` suffixes.
+Name `time` columns (referring to a time of day with no date) with `_time` suffixes.
+
+This enforces consistency and it is easier to tell the type from the name without referring to the database schema.
+
+[source,ruby]
+----
+# bad
+class AddLastActivityToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :last_activity_at, :date
+  end
+end
+
+# good
+class AddLastActivityToUsers < ActiveRecord::Migration
+  def change
+    add_column :users, :last_activity_on, :date
+  end
+end
+----
+
 === Reversible Migration [[reversible-migration]]
 
 Don't use non-reversible migration commands in the `change` method.
