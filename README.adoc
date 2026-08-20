@@ -1680,11 +1680,13 @@ Prefer Ruby's Standard Library over uncommon Active Support extensions.
 (1..50).to_a.forty_two
 1.in? [1, 2]
 'day'.in? 'the day'
+[1, 2, 3].in_groups_of(2) { |array] ... }
 
 # good
 (1..50).to_a[41]
 [1, 2].include? 1
 'the day'.include? 'day'
+[1, 2, 3].each_slice(2) { |array] ... }
 ----
 
 === `inquiry` [[inquiry]]
