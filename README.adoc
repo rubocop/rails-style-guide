@@ -337,6 +337,44 @@ render status: :forbidden
 ...
 ----
 
+=== Error Message [[http-status-code-symbols]]
+
+It is recommended to avoid using the StandardError exception when rendering error messages in the code, as this may capture an unintended and controlled error. 
+Instead, it is suggested to capture specific errors or send a customized standard error message. 
+This ensures more accurate and effective exception handling in the program. 
+
+[source,ruby]
+----
+# bad
+...
+rescue StandardError => e
+  render json: {error_msg: e.message}
+end
+...
+
+# bad - usign in flash message
+...
+rescue StandardError => e
+      flash[:error] = e.message
+end
+...
+
+
+# good
+...
+rescue StandardError => e
+  render json: {error_msg: 'Error in the application'}
+end
+...
+
+# good
+...
+rescue ParticularError => e
+  render json: {error_msg: e.message}
+end
+...
+----
+
 == Models
 
 === Model Classes [[model-classes]]
