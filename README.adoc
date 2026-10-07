@@ -1420,6 +1420,69 @@ In these cases, an undefined instance variable will not raise an exception where
 <%= course.description %>
 ----
 
+=== No View Helpers Outside Views [[no-include-view-helpers]]
+
+Do not `include` view helper modules (`ActionView::Helpers`) outside of the view context.
+Doing so blurs the boundaries between layers of the stack, leading to tangled design—for example, business logic creeping into helpers.
+It also introduces technical risks: view helpers depend on the view context, so including them in controllers, models, or jobs may cause methods to fail silently or raise errors.
+
+Modules in `app/helpers` are automatically included into all views by Rails.
+If shared behavior is needed across multiple classes, extract it into a concern under `app/concerns` or delegate to a plain Ruby object instead.
+In controllers, use the `helpers` proxy to call helper methods.
+
+[source,ruby]
+----
+# bad
+class UsersController < ApplicationController
+  include UserHelper
+end
+
+# bad
+class User < ApplicationRecord
+  include ApplicationHelper
+end
+
+# bad
+class MyJob < ApplicationJob
+  include ActionView::Helpers::NumberHelper
+end
+
+# good - use the helpers proxy in controllers
+class UsersController < ApplicationController
+  def show
+    @formatted = helpers.format_user_name(@user)
+  end
+end
+
+# good - extract shared behavior into a concern
+# app/concerns/currency_formattable.rb
+module CurrencyFormattable
+  extend ActiveSupport::Concern
+
+  def format_currency(amount)
+    # pure Ruby formatting, no view context needed
+  end
+end
+
+class MyJob < ApplicationJob
+  include CurrencyFormattable
+end
+
+# good - delegate to a plain Ruby object
+class CurrencyFormatter
+  def format(amount)
+    # pure Ruby formatting, no view context needed
+  end
+end
+
+class MyJob < ApplicationJob
+  def perform
+    formatter = CurrencyFormatter.new
+    formatter.format(amount)
+  end
+end
+----
+
 == Internationalization
 
 === Locale Texts [[locale-texts]]
