@@ -1323,6 +1323,29 @@ class ModifyDefaultStatusForProducts < ActiveRecord::Migration
 end
 ----
 
+=== `execute` in Migrations [[migration-execute]]
+
+Use `execute` instead of `connection.execute` in migrations.
+
+Using `execute` directly provides useful terminal output while the migration is running.
+
+[source,ruby]
+----
+# bad
+class AddIndexToUsers < ActiveRecord::Migration[7.0]
+  def up
+    connection.execute('CREATE INDEX index_users_on_email ON users(email)')
+  end
+end
+
+# good
+class AddIndexToUsers < ActiveRecord::Migration[7.0]
+  def up
+    execute('CREATE INDEX index_users_on_email ON users(email)')
+  end
+end
+----
+
 === Meaningful Foreign Key Naming [[meaningful-foreign-key-naming]]
 
 Name your foreign keys explicitly instead of relying on Rails auto-generated FK names. (https://guides.rubyonrails.org/active_record_migrations.html#foreign-keys)
