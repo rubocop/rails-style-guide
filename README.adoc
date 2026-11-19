@@ -1727,6 +1727,23 @@ hash.exclude?(:key)
 string.exclude?('substring')
 ----
 
+=== `deep_symbolize_keys` [[deep-symbolize-keys]]
+
+Prefer JSON's `symbolize_names` keyword argument instead of chaining `deep_symbolize_keys`.
+
+Using `symbolize_names: true` is more efficient as it creates symbols during parsing
+rather than requiring a second pass through the data structure.
+
+[source,ruby]
+----
+# bad
+JSON.parse(data).deep_symbolize_keys
+JSON.parse(data).deep_transform_keys(&:to_sym)
+
+# good
+JSON.parse(data, symbolize_names: true)
+----
+
 === Prefer using squiggly heredoc over `strip_heredoc` [[prefer-squiggly-heredoc]]
 
 If you're using Ruby 2.3 or higher, prefer squiggly heredoc (`<<~`) over Active Support's `strip_heredoc`.
