@@ -1768,6 +1768,23 @@ datetime.to_fs(:db)
 42.to_fs(:human)
 ----
 
+=== Do not rescue `Exception` via `Kernel.suppress` [[kernel-suppress-exception]
+
+Using `Kernel.suppress(Exception)` is effectively equivalent to rescuing `Exception`, which is discouraged.
+
+[source,ruby]
+----
+# bad
+suppress(Exception) do
+  do_something
+end
+
+# good
+supress(StandardError) do
+  do_something
+end
+----
+
 == Time
 
 === Time Zone Config [[tz-config]]
