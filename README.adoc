@@ -847,6 +847,28 @@ else
 end
 ----
 
+=== Nested Transactions [[nested-transactions]]
+
+Use `requires_new: true` if you want to avoid nested transactions unintentionally becoming part of the parent transaction.
+`joinable: false` is a private API and should not be used. If used, serious side effects may occur, such as `after_commit` not working properly.
+
+[source,ruby]
+----
+# bad
+ActiveRecord::Base.transaction(requires_new: true, joinable: false) do
+  ActiveRecord::Base.transaction do
+    # ...
+  end
+end
+
+# good
+ActiveRecord::Base.transaction(requires_new: true) do
+  ActiveRecord::Base.transaction(requires_new: true) do
+    # ...
+  end
+end
+----
+
 == Models: Active Record Queries [[activerecord-queries]]
 
 === Avoid Interpolation [[avoid-interpolation]]
